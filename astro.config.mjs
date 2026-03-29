@@ -1,7 +1,6 @@
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  site: 'https://konyaru88.github.io',
-  base: '/obaachan-recipe-astro/',
+  site: 'https://www.obaachan-recipe.com',
   output: 'static',
 });

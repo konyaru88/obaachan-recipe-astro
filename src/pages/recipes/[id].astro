@@ -19,6 +19,7 @@ if (!recipe) {
 }
 
 const allRecipes = getAllRecipes();
+const base = import.meta.env.BASE_URL;
 const siteUrl = 'https://www.obaachan-recipe.com';
 
 // 基本データ
@@ -134,7 +135,7 @@ function difficultyStars(d: number): string {
     <div class="detail__hero">
       {imageUrl && (
         <div class="detail__hero-img-wrap">
-          <img class="detail__hero-img" src={`/${imageUrl}`} alt={recipe.title} />
+          <img class="detail__hero-img" src={`${base}${imageUrl}`} alt={recipe.title} />
           <span class="detail__hero-img-note">※写真はイメージです</span>
         </div>
       )}
@@ -175,7 +176,7 @@ function difficultyStars(d: number): string {
 
         <div class="detail__tags">
           {tags.map((t) => (
-            <a href={`/recipes?tag=${encodeURIComponent(t)}`} class="tag-chip">{t}</a>
+            <a href={`${base}recipes?tag=${encodeURIComponent(t)}`} class="tag-chip">{t}</a>
           ))}
         </div>
       </section>

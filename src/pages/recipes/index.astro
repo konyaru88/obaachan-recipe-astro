@@ -102,6 +102,7 @@ const total = allRecipes.length;
   <Footer />
 
   <script>
+    const BASE = document.body.dataset.base || '/';
     const AREA_LABELS: Record<string, string> = {
       hokkaido: '北海道', tohoku: '東北', kanto: '関東', hokuriku: '北陸',
       koshinetsu: '甲信越', tokai: '東海', kinki: '近畿', chugoku: '中国',
@@ -186,7 +187,7 @@ const total = allRecipes.length;
       if (currentCategory) qp.set('category', currentCategory);
       if (currentSort !== 'newest') qp.set('sort', currentSort);
       const qs = qp.toString();
-      history.replaceState(null, '', qs ? `/recipes?${qs}` : '/recipes');
+      history.replaceState(null, '', qs ? `${BASE}recipes?${qs}` : `${BASE}recipes`);
     }
 
     function resetFilters() {

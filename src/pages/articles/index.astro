@@ -34,7 +34,7 @@ const articles = [...articlesData].sort((a: any, b: any) =>
         {articles.map((article: any) => {
           const date = article.published_at.replace(/-/g, '.').slice(2);
           return (
-            <a href={`/articles/${article.id}`} class="article-card" data-category-slug={article.category_slug}>
+            <a href={`${import.meta.env.BASE_URL}articles/${article.id}`} class="article-card" data-category-slug={article.category_slug}>
               <div class="article-card__thumb" aria-hidden="true">{article.thumbnail_emoji}</div>
               <div class="article-card__body">
                 <div class="article-card__header-row">
@@ -63,6 +63,7 @@ const articles = [...articlesData].sort((a: any, b: any) =>
   <Footer />
 
   <script>
+    const BASE = document.body.dataset.base || '/';
     const tabs = document.querySelectorAll('.article-tab');
     const cards = document.querySelectorAll('.article-card') as NodeListOf<HTMLElement>;
     const emptyEl = document.getElementById('empty-state')!;
@@ -89,7 +90,7 @@ const articles = [...articlesData].sort((a: any, b: any) =>
       const qp = new URLSearchParams();
       if (currentCategory) qp.set('category', currentCategory);
       const qs = qp.toString();
-      history.replaceState(null, '', qs ? `/articles?${qs}` : '/articles');
+      history.replaceState(null, '', qs ? `${BASE}articles?${qs}` : `${BASE}articles`);
     }
 
     tabs.forEach((tab) => {

@@ -1,11 +1,12 @@
 ---
+const base = import.meta.env.BASE_URL;
 ---
 
 <footer class="site-footer">
   <div class="container site-footer__grid">
     <div>
-      <a class="site-footer__logo" href="/">
-        <img src="/assets/images/grandma-icon.png" alt="" class="site-footer__logo-img" />
+      <a class="site-footer__logo" href={base}>
+        <img src={`${base}assets/images/grandma-icon.png`} alt="" class="site-footer__logo-img" />
         おばあちゃんのレシピ
       </a>
       <p class="site-footer__tagline">おばあちゃんの台所を、あなたの食卓へ。</p>
@@ -14,10 +15,10 @@
     <nav aria-label="フッターナビゲーション">
       <p class="site-footer__heading">MENU</p>
       <ul class="site-footer__links">
-        <li><a href="/">ホーム</a></li>
-        <li><a href="/recipes">レシピ一覧</a></li>
-        <li><a href="/regions">地域で探す</a></li>
-        <li><a href="/articles">読み物</a></li>
+        <li><a href={base}>ホーム</a></li>
+        <li><a href={`${base}recipes`}>レシピ一覧</a></li>
+        <li><a href={`${base}regions`}>地域で探す</a></li>
+        <li><a href={`${base}articles`}>読み物</a></li>
       </ul>
     </nav>
 
@@ -41,6 +42,6 @@
 
   <div class="site-footer__bottom container">
     <p>&copy; 2026 おばあちゃんのレシピ</p>
-    <a href="/privacy" class="site-footer__privacy">プライバシーポリシー</a>
+    <a href={`${base}privacy`} class="site-footer__privacy">プライバシーポリシー</a>
   </div>
 </footer>

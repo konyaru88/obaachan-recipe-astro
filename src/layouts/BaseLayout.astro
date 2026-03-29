@@ -15,6 +15,7 @@ const {
   canonicalUrl,
 } = Astro.props;
 
+const base = import.meta.env.BASE_URL;
 const siteUrl = 'https://www.obaachan-recipe.com';
 const currentUrl = canonicalUrl ?? siteUrl + Astro.url.pathname;
 const ogImageAbsolute = ogImage.startsWith('http') ? ogImage : siteUrl + ogImage;
@@ -30,7 +31,7 @@ const ogImageAbsolute = ogImage.startsWith('http') ? ogImage : siteUrl + ogImage
   <!-- SEO -->
   <meta name="description" content={description} />
   <link rel="canonical" href={currentUrl} />
-  <link rel="icon" type="image/png" href="/assets/images/grandma-icon.png" />
+  <link rel="icon" type="image/png" href={`${base}assets/images/grandma-icon.png`} />
 
   <!-- OGP -->
   <meta property="og:title" content={title} />
@@ -69,12 +70,12 @@ const ogImageAbsolute = ogImage.startsWith('http') ? ogImage : siteUrl + ogImage
   />
 
   <!-- Global CSS -->
-  <link rel="stylesheet" href="/styles/global.css" />
+  <link rel="stylesheet" href={`${base}styles/global.css`} />
 
   <!-- Page-specific structured data slot -->
   <slot name="head" />
 </head>
-<body>
+<body data-base={base}>
   <slot />
 </body>
 </html>

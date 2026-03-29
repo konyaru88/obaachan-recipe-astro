@@ -8,6 +8,7 @@ import regionsData from '../../data/regions.json';
 const allRecipes = getAllRecipes();
 const regions = regionsData.areas;
 
+const base = import.meta.env.BASE_URL;
 // 地方ごとのレシピ件数を集計
 const countMap: Record<string, number> = {};
 allRecipes.forEach((r) => {
@@ -32,7 +33,7 @@ allRecipes.forEach((r) => {
         {regions.map((r) => {
           const count = countMap[r.code] ?? 0;
           return (
-            <a href={`/region/${r.code}`} class="region-card" style={`--region-color:${r.color};`}>
+            <a href={`${base}region/${r.code}`} class="region-card" style={`--region-color:${r.color};`}>
               <div class="region-card__header">
                 <span class="region-card__icon" aria-hidden="true">{r.code === 'hokkaido' ? '🐻' : r.code === 'tohoku' ? '⛩' : r.code === 'kanto' ? '🗼' : r.code === 'hokuriku' ? '🦀' : r.code === 'koshinetsu' ? '🗻' : r.code === 'tokai' ? '🏯' : r.code === 'kinki' ? '🏯' : r.code === 'chugoku' ? '⛩' : r.code === 'shikoku' ? '🍋' : '🌺'}</span>
                 <h2 class="region-card__name">{r.name}</h2>

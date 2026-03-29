@@ -5,6 +5,7 @@ import Footer from '../components/Footer.astro';
 import RecipeCard from '../components/RecipeCard.astro';
 import { getAllRecipes } from '../data/recipes';
 
+const base = import.meta.env.BASE_URL;
 const allRecipes = getAllRecipes();
 const latest = [...allRecipes]
   .sort((a, b) => b.meta.created_at.localeCompare(a.meta.created_at))
@@ -30,12 +31,12 @@ const grandmaTags = [
 ];
 
 const categories = [
-  { img: '/assets/images/categories/shirumono.png', label: '汁物' },
-  { img: '/assets/images/categories/shusai.png',   label: '主菜' },
-  { img: '/assets/images/categories/fukusai.png',   label: '副菜' },
-  { img: '/assets/images/categories/tsukemono.png', label: '漬物' },
-  { img: '/assets/images/categories/gohanmono.png', label: 'ごはんもの' },
-  { img: '/assets/images/categories/oyatsu.png',    label: 'おやつ' },
+  { img: `${base}assets/images/categories/shirumono.png`, label: '汁物' },
+  { img: `${base}assets/images/categories/shusai.png`,   label: '主菜' },
+  { img: `${base}assets/images/categories/fukusai.png`,   label: '副菜' },
+  { img: `${base}assets/images/categories/tsukemono.png`, label: '漬物' },
+  { img: `${base}assets/images/categories/gohanmono.png`, label: 'ごはんもの' },
+  { img: `${base}assets/images/categories/oyatsu.png`,    label: 'おやつ' },
 ];
 
 const regionEmoji: Record<string, string> = {
@@ -92,7 +93,7 @@ const regionLabels: Record<string, string> = {
           {latest.map((recipe) => <RecipeCard recipe={recipe} />)}
         </div>
         <div class="section-footer">
-          <a href="/recipes" class="btn btn--outline">すべてのレシピを見る</a>
+          <a href={`${base}recipes`} class="btn btn--outline">すべてのレシピを見る</a>
         </div>
       </div>
     </section>
@@ -120,7 +121,7 @@ const regionLabels: Record<string, string> = {
           <p class="explore-panel__lead">おばあちゃんのタイプで選んでみよう</p>
           <div class="hashtag-cloud">
             {grandmaTags.map(({ label, tag }) => (
-              <a href={`/recipes?tag=${encodeURIComponent(tag)}`} class="hashtag-btn">{label}</a>
+              <a href={`${base}recipes?tag=${encodeURIComponent(tag)}`} class="hashtag-btn">{label}</a>
             ))}
           </div>
         </div>
@@ -129,7 +130,7 @@ const regionLabels: Record<string, string> = {
           <p class="explore-panel__lead">料理のジャンルで選ぶ</p>
           <div class="category-grid">
             {categories.map((c) => (
-              <a href={`/recipes?category=${encodeURIComponent(c.label)}`} class="category-btn animate-on-scroll">
+              <a href={`${base}recipes?category=${encodeURIComponent(c.label)}`} class="category-btn animate-on-scroll">
                 <img class="category-btn__img" src={c.img} alt={c.label} loading="lazy" />
                 <span class="category-btn__label">{c.label}</span>
               </a>
@@ -160,7 +161,7 @@ const regionLabels: Record<string, string> = {
           <div class="japan-map-tooltip" id="map-tooltip" style="display:none"></div>
         </div>
         <div class="section-footer">
-          <a href="/regions" class="btn btn--outline">地域一覧をすべて見る</a>
+          <a href={`${base}regions`} class="btn btn--outline">地域一覧をすべて見る</a>
         </div>
       </div>
     </section>
@@ -206,7 +207,7 @@ const regionLabels: Record<string, string> = {
     <section class="home__about" aria-labelledby="about-heading">
       <div class="container">
         <div class="about-block animate-on-scroll">
-          <div class="about-block__deco" aria-hidden="true"><img src="/assets/images/grandma-icon.png" alt="" class="about-block__deco-img" /></div>
+          <div class="about-block__deco" aria-hidden="true"><img src={`${base}assets/images/grandma-icon.png`} alt="" class="about-block__deco-img" /></div>
           <h2 id="about-heading" class="about-block__title">このサービスについて</h2>
           <p class="about-block__text">
             日本各地にある、おばあちゃんの手料理を残したい。<br />
@@ -229,8 +230,8 @@ const regionLabels: Record<string, string> = {
             何十年先の食卓でも、変わらず食べられ続ける「あの味」があることを目指して。
           </p>
           <div class="about-block__cta">
-            <a href="/recipes" class="btn btn--outline">レシピを探す</a>
-            <a href="/support" class="btn btn--support">活動を応援する</a>
+            <a href={`${base}recipes`} class="btn btn--outline">レシピを探す</a>
+            <a href={`${base}support`} class="btn btn--support">活動を応援する</a>
           </div>
         </div>
       </div>
@@ -241,7 +242,7 @@ const regionLabels: Record<string, string> = {
   <Footer />
 
   <!-- タブ切り替え・地図読み込みJS -->
-  <script define:vars={{ regionRecipeCount }}>
+  <script define:vars={{ regionRecipeCount, base }}>
     // タブ切り替え
     document.querySelectorAll('.explore-tab').forEach((btn) => {
       btn.addEventListener('click', () => {
@@ -284,7 +285,7 @@ const regionLabels: Record<string, string> = {
     const mapWrapper = document.getElementById('japan-map-wrapper');
     const mapTooltip = document.getElementById('map-tooltip');
     if (mapWrapper) {
-      fetch('/assets/japan-map.svg')
+      fetch(base + 'assets/japan-map.svg')
         .then(res => res.text())
         .then(svgText => {
           mapWrapper.innerHTML = svgText;

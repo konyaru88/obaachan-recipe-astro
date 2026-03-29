@@ -13,6 +13,7 @@ export function getStaticPaths() {
 }
 
 const { code } = Astro.params;
+const base = import.meta.env.BASE_URL;
 const regionInfo = regions.find((r) => r.code === code);
 
 if (!regionInfo) {
@@ -61,9 +62,9 @@ const regionIcon: Record<string, string> = {
         <span class="region-hero__icon" aria-hidden="true">{regionIcon[code] ?? '🗾'}</span>
         <div class="region-hero__text">
           <nav class="breadcrumb" aria-label="パンくず">
-            <a href="/" class="breadcrumb__link">ホーム</a>
+            <a href={base} class="breadcrumb__link">ホーム</a>
             <span class="breadcrumb__sep" aria-hidden="true">›</span>
-            <a href="/regions" class="breadcrumb__link">地域で探す</a>
+            <a href={`${base}regions`} class="breadcrumb__link">地域で探す</a>
             <span class="breadcrumb__sep" aria-hidden="true">›</span>
             <span class="breadcrumb__current" aria-current="page">{regionInfo.name}</span>
           </nav>
@@ -85,7 +86,7 @@ const regionIcon: Record<string, string> = {
           <div class="empty-state">
             <p class="empty-state__icon" aria-hidden="true">🍳</p>
             <p class="empty-state__msg">この地域のレシピはまだ登録されていません。</p>
-            <a href="/regions" class="btn btn--outline">地域一覧へ戻る</a>
+            <a href={`${base}regions`} class="btn btn--outline">地域一覧へ戻る</a>
           </div>
         )
       }
@@ -95,7 +96,7 @@ const regionIcon: Record<string, string> = {
         <h2 class="region-nav__title">他の地域のレシピを見る</h2>
         <div class="region-nav__links">
           {otherRegions.map((r) => (
-            <a href={`/region/${r.code}`} class="region-nav-link">
+            <a href={`${base}region/${r.code}`} class="region-nav-link">
               {regionIcon[r.code] ?? '🗾'} {r.name}
             </a>
           ))}

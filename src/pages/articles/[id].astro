@@ -1,0 +1,146 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import articlesData from '../../data/articles.json';
+
+export function getStaticPaths() {
+  return articlesData.map((a: any) => ({ params: { id: a.id } }));
+}
+
+const { id } = Astro.params;
+const article = articlesData.find((a: any) => a.id === id) as any;
+
+if (!article) {
+  return Astro.redirect('/404');
+}
+
+const siteUrl = 'https://www.obaachan-recipe.com';
+const pageUrl = `${siteUrl}/articles/${article.id}`;
+const date = article.published_at.replace(/-/g, '.').slice(2);
+const pageTitle = `${article.title} | おばあちゃんのレシピ`;
+const pageDescription = article.lead.slice(0, 120) + '…';
+
+// 本文をHTMLに変換
+function formatBody(body: string): string {
+  return body
+    .split('\n\n')
+    .flatMap((para: string) => {
+      const trimmed = para.trim();
+      if (trimmed === '---') return '<hr class="article-content__divider">';
+      if (trimmed.startsWith('## ')) {
+        const lines = trimmed.split('\n');
+        const heading = `<h2 class="article-content__heading">${lines[0].slice(3)}</h2>`;
+        if (lines.length > 1) {
+          const rest = lines.slice(1).join('\n').trim().replace(/\n/g, '<br>');
+          const formatted = rest.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+          return [heading, `<p>${formatted}</p>`];
+        }
+        return [heading];
+      }
+      const html = trimmed.replace(/\n/g, '<br>');
+      const formatted = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+      return [`<p>${formatted}</p>`];
+    })
+    .join('');
+}
+
+const bodyHtml = formatBody(article.body);
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'ホーム', item: siteUrl },
+    { '@type': 'ListItem', position: 2, name: '読み物', item: `${siteUrl}/articles` },
+    { '@type': 'ListItem', position: 3, name: article.title, item: pageUrl },
+  ],
+};
+
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: article.title,
+  description: pageDescription,
+  datePublished: article.published_at,
+  author: { '@type': 'Organization', name: 'おばあちゃんのレシピ' },
+  publisher: {
+    '@type': 'Organization',
+    name: 'おばあちゃんのレシピ',
+    logo: { '@type': 'ImageObject', url: `${siteUrl}/assets/images/grandma-icon.png` },
+  },
+  mainEntityOfPage: pageUrl,
+};
+---
+
+<BaseLayout title={pageTitle} description={pageDescription} ogType="article">
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(breadcrumbLd)} />
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(articleLd)} />
+
+  <Header />
+
+  <main id="main" class="article-detail-page">
+    <div class="container container--narrow">
+
+      <!-- パンくず -->
+      <nav class="breadcrumb" aria-label="パンくずリスト">
+        <a href="/">ホーム</a>
+        <span aria-hidden="true"> › </span>
+        <a href="/articles">読み物</a>
+        <span aria-hidden="true"> › </span>
+        <span aria-current="page">{article.title}</span>
+      </nav>
+
+      <article class="article-body">
+        <!-- ヘッダー -->
+        <header class="article-header">
+          <span class="article-card__category">{article.category}</span>
+          <h1 class="article-header__title">{article.title}</h1>
+          {article.subtitle && <p class="article-header__subtitle">{article.subtitle}</p>}
+          <div class="article-header__meta">
+            <time datetime={article.published_at}>{date}</time>
+            <span>約{article.reading_time}分で読める</span>
+          </div>
+          <div class="article-header__thumb" aria-hidden="true">{article.thumbnail_emoji}</div>
+          <p class="article-header__lead">{article.lead}</p>
+        </header>
+
+        <!-- 本文 -->
+        <div class="article-content" set:html={bodyHtml} />
+
+        <!-- 参考文献 -->
+        {article.references && article.references.length > 0 && (
+          <footer class="article-references">
+            <h3 class="article-references__title">参考文献</h3>
+            <ul class="article-references__list">
+              {article.references.map((ref: string) => <li>{ref}</li>)}
+            </ul>
+          </footer>
+        )}
+
+        <!-- 関連レシピ -->
+        {article.related_recipe_id && (
+          <div class="article-related">
+            <p class="article-related__label">📌 関連レシピ</p>
+            <a href={`/recipes/${article.related_recipe_id}`} class="btn btn--primary">このレシピを見る →</a>
+          </div>
+        )}
+
+        <!-- タグ -->
+        <div class="article-tags">
+          {article.tags.map((tag: string) => (
+            <a href="/articles" class="article-tag">{tag}</a>
+          ))}
+        </div>
+      </article>
+
+      <!-- 戻るリンク -->
+      <div style="text-align:center; margin: var(--space-2xl) 0">
+        <a href="/articles" class="btn btn--outline">← 読み物一覧へ戻る</a>
+      </div>
+
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>

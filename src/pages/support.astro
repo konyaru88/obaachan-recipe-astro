@@ -1,0 +1,72 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout
+  title="活動を応援する | おばあちゃんのレシピ"
+  description="「おばあちゃんのレシピ」の活動を応援してください。いただいた支援は取材・記録活動に使わせていただきます。"
+>
+  <Header />
+
+  <main class="support-page">
+
+    <div class="support-page__hero">
+      <div class="support-page__deco" aria-hidden="true">🍙</div>
+      <h1 class="support-page__title">おばあちゃんの「あの味」を、<br />一緒に残しませんか</h1>
+    </div>
+
+    <div class="support-page__body container">
+
+      <section class="support-page__section">
+        <h2 class="support-page__section-title">この活動について</h2>
+        <p>「おばあちゃんのレシピ」は、個人発のメディアプロジェクトです。</p>
+        <p>現在、Threadsでは約3,000人の方に関心を寄せていただき、みなさんの心の中にある「あの味」の記憶やレシピが、少しずつ集まりはじめています。</p>
+        <p>日本全国には、まだ記録されていない「あの味」が静かに眠っています。</p>
+        <p>私たちは全国のおばあちゃんに会いに行き、料理はもちろん、エピソードや知恵、その土地ならではの食文化まで、「おばあちゃんの言葉」そのままで残していきます。</p>
+      </section>
+
+      <section class="support-page__section">
+        <h2 class="support-page__section-title">支援の使い道</h2>
+        <p>いただいたご支援は、「おばあちゃんの味」を残していくために使わせていただきます。</p>
+        <ul class="support-page__list">
+          <li>🚗 全国のおばあちゃんを訪ねるための取材費</li>
+          <li>🌐 サイトの維持・運営費</li>
+          <li>🥬 掲載レシピの食材費</li>
+        </ul>
+      </section>
+
+      <section class="support-page__section">
+        <h2 class="support-page__section-title">今後予定している活動</h2>
+        <ul class="support-page__list">
+          <li>🎙️ <strong>おばあちゃんの台所取材</strong>「おばあちゃんのレシピ」という大きな旗を持って、全国のおばあちゃんを訪ねる取材プロジェクト。実際の台所で、普段使っている道具を見せてもらったり、お話を聞いたりしながら、その様子を動画や記事として発信していきます。</li>
+          <li>🎧 <strong>Podcast</strong>「おばあちゃんのレシピ」運営メンバーによるラジオ番組。料理にまつわる記憶や、その土地ならではの食文化・歴史などをゆるく語り合いながら、背景にある人や時代の話も届けていきます。</li>
+          <li>📖 <strong>ZINE・レシピ本</strong>集まったレシピを地域ごとにまとめ、冊子として出版していく取り組み。おばあちゃんの味を、手元に残せる形にしていきます。</li>
+          <li>🍜 <strong>「あの味」の再現プロジェクト</strong>もう聞けなくなってしまったおばあちゃんの味を、料理人や食文化の研究者とともに再現するプロジェクト。記憶の中にある味を、もう一度食べられる形にします。</li>
+          <li>🛍️ <strong>おばあちゃんの「あの味」の販売</strong>おばあちゃん自身が作った料理を届けることで、新しい雇用や収入につなげていく取り組み。</li>
+          <li>👨‍👩‍👧 <strong>地域・産業の盛り上げ</strong>各地に残るおばあちゃんたちの技や文化を、地域の食産業として育てていく活動。</li>
+        </ul>
+      </section>
+
+      <section class="support-page__cta">
+        <p class="support-page__cta-text">100円から支援できます。<br />クレジットカード・PayPal対応。</p>
+        <a
+          href="https://buymeacoffee.com/obaachanrev"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="support-page__btn"
+        >
+          🍙 この活動を応援する
+        </a>
+        <p class="support-page__cta-note">
+          支援はBuy Me a Coffeeというサービスを通じて行われます。<br />
+          決済情報がこのサイトに渡ることはありません。
+        </p>
+      </section>
+
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>

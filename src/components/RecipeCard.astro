@@ -1,0 +1,41 @@
+---
+import { getTotalTime, getDifficultyLabel } from '../data/recipes';
+import type { Recipe } from '../data/types';
+
+interface Props {
+  recipe: Recipe;
+}
+
+const { recipe } = Astro.props;
+const prefecture = recipe.grandmother.prefecture ?? recipe.region.prefecture ?? '';
+const timeStr = getTotalTime(recipe);
+const stars = getDifficultyLabel(recipe.difficulty);
+const servingsStr = recipe.servings ? `${recipe.servings}人分` : '-';
+const imageUrl = recipe.photos?.main ?? recipe.photos?.thumbnail ?? '';
+---
+
+<article class="recipe-card">
+  <a href={`/recipes/${recipe.id}`} class="recipe-card__link" aria-label={`${recipe.title}のレシピを見る`}>
+    <div class={`recipe-card__thumb${imageUrl ? '' : ' recipe-card__image-placeholder'}`}>
+      {imageUrl
+        ? <img class="recipe-card__image" src={`/${imageUrl}`} alt={recipe.title} loading="lazy" />
+        : <img class="recipe-card__image recipe-card__image--placeholder" src="/assets/images/sample-placeholder.png.jpg" alt="準備中" loading="lazy" />
+      }
+      <div class="recipe-card__badges"></div>
+      {prefecture && <span class="recipe-card__region-badge">{prefecture}</span>}
+    </div>
+    <div class="recipe-card__body">
+      <h3 class="recipe-card__title">{recipe.title}</h3>
+      <div class="recipe-card__tags">
+        {recipe.tags.slice(0, 3).map((t) => (
+          <span class="recipe-card__tag">{t}</span>
+        ))}
+      </div>
+      <ul class="recipe-card__meta">
+        <li class="recipe-card__meta-item">⏱ {timeStr}</li>
+        <li class="recipe-card__meta-item">👥 {servingsStr}</li>
+        <li class="recipe-card__meta-item" aria-label="難易度">{stars}</li>
+      </ul>
+    </div>
+  </a>
+</article>

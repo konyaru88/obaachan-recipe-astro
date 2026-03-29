@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
+import RecipeCard from '../../components/RecipeCard.astro';
 import { getAllRecipes, getRecipeById, getTotalTime, getDifficultyLabel } from '../../data/recipes';
 import type { Recipe } from '../../data/types';
 
@@ -17,195 +18,330 @@ if (!recipe) {
   return Astro.redirect('/404');
 }
 
+const allRecipes = getAllRecipes();
 const siteUrl = 'https://www.obaachan-recipe.com';
-const totalTime = getTotalTime(recipe);
-const difficulty = getDifficultyLabel(recipe.difficulty);
-const description = recipe.story.replace(/<[^>]+>/g, '').slice(0, 120) + '…';
-const pageTitle = `${recipe.title}（${recipe.region.prefecture}）| おばあちゃんのレシピ`;
-const ogImage = recipe.photos.main
-  ? `${siteUrl}/${recipe.photos.main}`
-  : `${siteUrl}/assets/images/grandma-icon.png`;
 
-// Recipe 構造化データ（JSON-LD）
+// 基本データ
+const grandmother = recipe.grandmother ?? {};
+const region = recipe.region ?? {};
+const meta = recipe.meta ?? {};
+const tags = recipe.tags ?? [];
+const servings = recipe.servings ?? 2;
+const cookTime = recipe.cook_time_minutes;
+const prepTime = recipe.prep_time_minutes;
+const difficulty = recipe.difficulty;
+const isEndangered = meta.is_endangered ?? false;
+const imageUrl = recipe.photos?.main ?? recipe.photos?.thumbnail ?? '';
+const areaCode = region.area ?? '';
+const prefecture = grandmother.prefecture ?? region.prefecture ?? '';
+const seasonArr = Array.isArray(recipe.season) ? recipe.season : [];
+const story = recipe.story ?? '';
+const episode = recipe.episode ?? '';
+const culturalBg = recipe.cultural_background ?? '';
+const source = recipe.source ?? { types: [], contributor: '' };
+const grandmaNotes = recipe.grandma_notes ?? [];
+
+const totalTime = getTotalTime(recipe);
+const difficultyLabel = getDifficultyLabel(difficulty);
+
+// 季節絵文字
+const seasonEmojiMap: Record<string, string> = { '春': '🌸', '夏': '🌻', '秋': '🍁', '冬': '⛄', '通年': '🗓' };
+const seasonEmoji = (s: string) => seasonEmojiMap[s] ?? '🗓';
+
+// SEO
+const description = story.replace(/<[^>]+>/g, '').slice(0, 120) + '…';
+const pageTitle = `${recipe.title}（${prefecture}）| おばあちゃんのレシピ`;
+const ogImage = imageUrl
+  ? `${siteUrl}/${imageUrl}`
+  : `${siteUrl}/assets/images/grandma-icon.png`;
+const pageUrl = `${siteUrl}/recipes/${recipe.id}`;
+
+// JSON-LD
 const allIngredients = recipe.ingredients.flatMap((g) =>
-  g.items.map((item) => {
-    const amount = item.amount ?? '';
-    return `${item.name} ${amount}${item.unit}`.trim();
-  })
+  g.items.map((item) => `${item.name} ${item.amount ?? ''}${item.unit}`.trim())
 );
 
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Recipe',
   name: recipe.title,
-  description: description,
+  description,
   image: ogImage,
-  datePublished: recipe.meta.created_at,
-  author: {
-    '@type': 'Organization',
-    name: 'おばあちゃんのレシピ',
-  },
-  recipeYield: `${recipe.servings}人分`,
-  prepTime: `PT${recipe.prep_time_minutes}M`,
-  cookTime: `PT${recipe.cook_time_minutes}M`,
-  totalTime: `PT${recipe.prep_time_minutes + recipe.cook_time_minutes}M`,
+  url: pageUrl,
+  datePublished: meta.created_at,
+  author: { '@type': 'Organization', name: 'おばあちゃんのレシピ', url: siteUrl },
+  publisher: { '@type': 'Organization', name: 'おばあちゃんのレシピ', url: siteUrl, logo: { '@type': 'ImageObject', url: `${siteUrl}/assets/images/grandma-icon.png` } },
+  recipeYield: `${servings}人分`,
+  prepTime: `PT${prepTime}M`,
+  cookTime: `PT${cookTime}M`,
+  totalTime: `PT${prepTime + cookTime}M`,
   recipeCategory: recipe.category,
   recipeCuisine: '日本料理',
-  keywords: recipe.tags.join(','),
+  keywords: tags.join(','),
   recipeIngredient: allIngredients,
   recipeInstructions: recipe.steps.map((s) => ({
-    '@type': 'HowToStep',
-    position: s.step,
-    text: s.text,
-    ...(s.tip ? { name: s.tip } : {}),
+    '@type': 'HowToStep', position: s.step, text: s.text, ...(s.tip ? { name: s.tip } : {}),
   })),
 };
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'ホーム', item: siteUrl },
+    { '@type': 'ListItem', position: 2, name: 'レシピ一覧', item: `${siteUrl}/recipes` },
+    { '@type': 'ListItem', position: 3, name: recipe.title, item: pageUrl },
+  ],
+};
+
+// 関連レシピ
+const related = allRecipes
+  .filter((r) => (r.region?.area ?? '') === areaCode && r.id !== recipe.id)
+  .slice(0, 4);
+
+// 食文化背景（文字列 or オブジェクト対応）
+const bgHistory = typeof culturalBg === 'string' ? culturalBg : (culturalBg.history ?? story ?? '');
+const bgIngredients = typeof culturalBg === 'object' && culturalBg !== null ? (culturalBg.local_ingredients ?? []).join('、') : '';
+const bgSimilar = typeof culturalBg === 'object' && culturalBg !== null ? (culturalBg.similar_dishes ?? []).join('、') : '';
+const hasBackground = bgHistory || bgIngredients;
+
+// formatTime helper
+function formatTime(minutes: number): string {
+  if (!minutes) return '-';
+  if (minutes >= 60) {
+    const h = Math.floor(minutes / 60);
+    const m = minutes % 60;
+    return m > 0 ? `${h}時間${m}分` : `${h}時間`;
+  }
+  return `${minutes}分`;
+}
+
+function difficultyStars(d: number): string {
+  const labels = ['', '★☆☆', '★★☆', '★★★'];
+  return labels[d] ?? '★☆☆';
+}
 ---
 
 <BaseLayout title={pageTitle} description={description} ogImage={ogImage} ogType="article">
   <script type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(breadcrumbLd)} />
 
   <Header />
 
-  <main class="detail-page">
+  <main id="main" class="detail-page">
+
+    <!-- ヒーロー画像 -->
+    <div class="detail__hero">
+      {imageUrl && (
+        <div class="detail__hero-img-wrap">
+          <img class="detail__hero-img" src={`/${imageUrl}`} alt={recipe.title} />
+          <span class="detail__hero-img-note">※写真はイメージです</span>
+        </div>
+      )}
+      <div class="detail__hero-overlay"></div>
+    </div>
+
     <div class="container">
 
-      <!-- パンくず -->
-      <nav class="breadcrumb" aria-label="パンくず">
-        <ol class="breadcrumb__list">
-          <li class="breadcrumb__item"><a href="/">ホーム</a></li>
-          <li class="breadcrumb__item"><a href="/recipes">レシピ一覧</a></li>
-          <li class="breadcrumb__item" aria-current="page">{recipe.title}</li>
-        </ol>
-      </nav>
+      <!-- 情報セクション -->
+      <section class="detail__info">
+        <div class="detail__badges">
+          {isEndangered && <span class="badge badge--endangered">🕯 消えゆくレシピ</span>}
+          {prefecture && <span class="badge badge--region">{prefecture}</span>}
+          {seasonArr.length > 0 && <span class="badge badge--season">{seasonEmoji(seasonArr[0])} {seasonArr.join('・')}</span>}
+        </div>
+        <h1 class="detail__title">{recipe.title}</h1>
 
-      <!-- ヘッダー -->
-      <header class="detail-header">
-        <div class="detail-header__meta">
-          <span class="detail-header__region">{recipe.region.prefecture}</span>
-          {recipe.tags.slice(0, 3).map((tag) => (
-            <a href={`/recipes?tag=${encodeURIComponent(tag)}`} class="tag">{tag}</a>
+        <ul class="detail__meta">
+          {prepTime > 0 && (
+            <li class="detail__meta-item">
+              <span class="detail__meta-label">下準備</span>
+              <span class="detail__meta-value">{formatTime(prepTime)}</span>
+            </li>
+          )}
+          <li class="detail__meta-item">
+            <span class="detail__meta-label">調理時間</span>
+            <span class="detail__meta-value">{formatTime(cookTime)}</span>
+          </li>
+          <li class="detail__meta-item">
+            <span class="detail__meta-label">人数</span>
+            <span class="detail__meta-value" id="current-servings">{servings}人分</span>
+          </li>
+          <li class="detail__meta-item">
+            <span class="detail__meta-label">難易度</span>
+            <span class="detail__meta-value">{difficultyStars(difficulty)}</span>
+          </li>
+        </ul>
+
+        <div class="detail__tags">
+          {tags.map((t) => (
+            <a href={`/recipes?tag=${encodeURIComponent(t)}`} class="tag-chip">{t}</a>
           ))}
         </div>
-        <h1 class="detail-header__title">{recipe.title}</h1>
-        <div class="detail-header__info">
-          <span class="detail-info-item">
-            <span class="detail-info-item__icon">⏱</span>
-            {totalTime}
-          </span>
-          <span class="detail-info-item">
-            <span class="detail-info-item__icon">👥</span>
-            {recipe.servings}人分
-          </span>
-          <span class="detail-info-item">
-            <span class="detail-info-item__icon" aria-label={`難易度 ${recipe.difficulty}`}>{difficulty}</span>
-          </span>
-          {recipe.season.length > 0 && (
-            <span class="detail-info-item">
-              <span class="detail-info-item__icon">🗓</span>
-              {recipe.season.join('・')}
-            </span>
-          )}
-        </div>
-      </header>
+      </section>
 
-      <!-- メイン画像 -->
-      {recipe.photos.main && (
-        <div class="detail-image">
-          <img
-            src={`/${recipe.photos.main}`}
-            alt={recipe.title}
-            class="detail-image__img"
-            loading="eager"
-          />
+      <!-- 材料 -->
+      <section class="detail__ingredients">
+        <div class="detail__ingredients-header">
+          <h2 class="detail__section-title">🧂 材料</h2>
+          <div class="servings-control">
+            <button class="servings-btn" id="servings-minus">−</button>
+            <span class="servings-display"><output id="servings-output">{servings}</output>人分</span>
+            <button class="servings-btn" id="servings-plus">＋</button>
+          </div>
         </div>
-      )}
-
-      <div class="detail-body">
-        <!-- 材料 -->
-        <section class="detail-section detail-ingredients" aria-labelledby="ingredients-heading">
-          <h2 id="ingredients-heading" class="detail-section__title">材料</h2>
-          <p class="detail-ingredients__servings">{recipe.servings}人分</p>
-          {recipe.ingredients.map((group) => (
-            <div class="ingredient-group">
-              {group.group !== '主材料' && (
-                <h3 class="ingredient-group__name">{group.group}</h3>
-              )}
-              <ul class="ingredient-list">
-                {group.items.map((item) => (
-                  <li class="ingredient-item">
-                    <span class="ingredient-item__name">{item.name}</span>
-                    <span class="ingredient-item__amount">
-                      {item.grandma_amount
-                        ? item.grandma_amount
-                        : `${item.amount ?? ''}${item.unit}`}
-                    </span>
-                    {item.note && (
-                      <span class="ingredient-item__note">（{item.note}）</span>
-                    )}
-                  </li>
+        <div class="measure-toggle">
+          <button class="measure-toggle__btn measure-toggle__btn--active" data-mode="grandma">
+            👵 おばあちゃん流
+          </button>
+          <button class="measure-toggle__btn" data-mode="precise">
+            ⚖️ きっちり計量
+          </button>
+        </div>
+        <table class="ingredient-table">
+          <tbody id="ingredient-tbody">
+            {recipe.ingredients.map((group) => (
+              <>
+                {group.group && (
+                  <tr class="ingredient-group-header">
+                    <td colspan="2" class="ingredient__group">{group.group}</td>
+                  </tr>
+                )}
+                {group.items.map((ing) => (
+                  <tr class="ingredient-row" data-base-amount={String(ing.amount ?? '')} data-unit={ing.unit ?? ''}>
+                    <td class="ingredient__name">{ing.name}</td>
+                    <td class="ingredient__amount">
+                      {ing.grandma_amount ? (
+                        <>
+                          <span class="ingredient__grandma">{ing.grandma_amount}</span>
+                          <span class="ingredient__precise" style="display:none">
+                            <span class="ingredient__qty">{String(ing.amount ?? '')}</span>{ing.unit ?? ''}
+                          </span>
+                        </>
+                      ) : (
+                        <span class="ingredient__precise-always">
+                          <span class="ingredient__qty">{String(ing.amount ?? '')}</span>{ing.unit ?? ''}
+                        </span>
+                      )}
+                      {ing.note && <small class="ingredient__note">（{ing.note}）</small>}
+                    </td>
+                  </tr>
                 ))}
-              </ul>
-            </div>
-          ))}
-        </section>
-
-        <!-- 作り方 -->
-        <section class="detail-section detail-steps" aria-labelledby="steps-heading">
-          <h2 id="steps-heading" class="detail-section__title">作り方</h2>
-          <ol class="step-list">
-            {recipe.steps.map((step) => (
-              <li class="step-item">
-                <span class="step-item__num">{step.step}</span>
-                <div class="step-item__content">
-                  <p class="step-item__text">{step.text}</p>
-                  {step.tip && (
-                    <p class="step-item__tip">💡 {step.tip}</p>
-                  )}
-                </div>
-              </li>
+              </>
             ))}
-          </ol>
-        </section>
-      </div>
+          </tbody>
+        </table>
+      </section>
 
-      <!-- ストーリー・文化的背景 -->
-      {(recipe.story || recipe.cultural_background) && (
-        <section class="detail-section detail-story" aria-labelledby="story-heading">
-          <h2 id="story-heading" class="detail-section__title">このレシピについて</h2>
-          {recipe.story && <p class="detail-story__text" set:html={recipe.story} />}
-          {recipe.cultural_background && recipe.cultural_background !== recipe.story && (
-            <p class="detail-story__text" set:html={recipe.cultural_background} />
-          )}
+      <!-- 作り方 -->
+      <section class="detail__steps">
+        <h2 class="detail__section-title">👩‍🍳 作り方</h2>
+        <ol class="step-list">
+          {recipe.steps.map((step, i) => (
+            <li class="step">
+              <div class="step__num">{step.step ?? (i + 1)}</div>
+              <div class="step__content">
+                {step.title && <p class="step__title">{step.title}</p>}
+                <p class="step__text">{step.text}</p>
+                {step.tip && <p class="step__tip">💡 {step.tip}</p>}
+              </div>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <!-- 思い出・エピソード -->
+      {episode && (
+        <section class="detail__episode" aria-labelledby="episode-heading">
+          <h2 id="episode-heading" class="detail__section-title">📖 思い出・エピソード</h2>
+          <div class="episode-block">
+            <p class="episode-block__text" set:html={episode} />
+            {source && (
+              <div class="episode-block__source">
+                <span class="episode-block__source-label">情報源：</span>
+                {source.types.map((t) => <span class="episode-block__source-tag">{t}</span>)}
+                {source.contributor && <span class="episode-block__contributor">（投稿者：{source.contributor}さん）</span>}
+              </div>
+            )}
+          </div>
         </section>
       )}
 
-      <!-- エピソード -->
-      {recipe.episode && (
-        <section class="detail-section detail-episode" aria-labelledby="episode-heading">
-          <h2 id="episode-heading" class="detail-section__title">おばあちゃんの思い出</h2>
-          <blockquote class="detail-episode__quote" set:html={recipe.episode} />
+      <!-- 食文化の背景 -->
+      {hasBackground && (
+        <section class="detail__background" aria-labelledby="background-heading">
+          <h2 id="background-heading" class="detail__section-title">🍽 食文化の背景</h2>
+          <div class="background-block">
+            {bgHistory && <p class="background-block__text">{bgHistory}</p>}
+            {bgIngredients && <p class="background-block__text"><strong>この地域の特産食材：</strong>{bgIngredients}</p>}
+            {bgSimilar && <p class="background-block__text"><strong>似た料理：</strong>{bgSimilar}</p>}
+          </div>
         </section>
       )}
-
-      <!-- 情報源 -->
-      <div class="detail-source">
-        <span class="detail-source__label">情報源：</span>
-        {recipe.source.types.map((t) => (
-          <span class="detail-source__badge">{t}</span>
-        ))}
-        {recipe.source.contributor && (
-          <span class="detail-source__contributor">（投稿者：{recipe.source.contributor}さん）</span>
-        )}
-      </div>
-
-      <!-- 戻るリンク -->
-      <div class="detail-back">
-        <a href="/recipes" class="btn btn--outline">← レシピ一覧に戻る</a>
-      </div>
 
     </div>
+
+    <!-- 関連レシピ -->
+    {related.length > 0 && (
+      <section class="detail__related">
+        <div class="container">
+          <h2 class="detail__section-title">🍽 同じ地域のレシピ</h2>
+          <div class="recipe-grid recipe-grid--4">
+            {related.map((r) => <RecipeCard recipe={r} />)}
+          </div>
+        </div>
+      </section>
+    )}
+
   </main>
 
   <Footer />
+
+  <!-- 人数変更 & おばあちゃん流/きっちり計量トグル -->
+  <script define:vars={{ servings }}>
+    let currentServings = Number(servings) || 2;
+    const baseServings = currentServings;
+    const output = document.getElementById('servings-output');
+    const tbody = document.getElementById('ingredient-tbody');
+    const currentServingsEl = document.getElementById('current-servings');
+
+    function updateServings(n) {
+      currentServings = Math.max(1, Math.min(20, n));
+      if (output) output.textContent = String(currentServings);
+      if (currentServingsEl) currentServingsEl.textContent = `${currentServings}人分`;
+      if (!tbody) return;
+      tbody.querySelectorAll('.ingredient-row').forEach((row) => {
+        const base = parseFloat(row.dataset.baseAmount);
+        const qtyEl = row.querySelector('.ingredient__qty');
+        if (!qtyEl || isNaN(base) || base === 0) return;
+        const scaled = (base / baseServings) * currentServings;
+        qtyEl.textContent = Number.isInteger(scaled) ? String(scaled) : scaled.toFixed(1);
+      });
+    }
+
+    const minusBtn = document.getElementById('servings-minus');
+    const plusBtn = document.getElementById('servings-plus');
+    if (minusBtn) minusBtn.addEventListener('click', () => updateServings(currentServings - 1));
+    if (plusBtn) plusBtn.addEventListener('click', () => updateServings(currentServings + 1));
+
+    // おばあちゃん流 / きっちり計量トグル
+    const toggleBtns = document.querySelectorAll('.measure-toggle__btn');
+    toggleBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        toggleBtns.forEach((b) => b.classList.remove('measure-toggle__btn--active'));
+        btn.classList.add('measure-toggle__btn--active');
+        const mode = btn.dataset.mode;
+        if (!tbody) return;
+        const grandmaEls = tbody.querySelectorAll('.ingredient__grandma');
+        const preciseEls = tbody.querySelectorAll('.ingredient__precise');
+        if (mode === 'grandma') {
+          grandmaEls.forEach((el) => { if (el.textContent.trim()) el.style.display = ''; });
+          preciseEls.forEach((el) => { el.style.display = 'none'; });
+        } else {
+          grandmaEls.forEach((el) => { el.style.display = 'none'; });
+          preciseEls.forEach((el) => { el.style.display = ''; });
+        }
+      });
+    });
+  </script>
 </BaseLayout>

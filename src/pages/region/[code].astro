@@ -1,0 +1,109 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import RecipeCard from '../../components/RecipeCard.astro';
+import { getAllRecipes } from '../../data/recipes';
+import regionsData from '../../data/regions.json';
+
+const regions = regionsData.areas;
+
+export function getStaticPaths() {
+  return regionsData.areas.map((r) => ({ params: { code: r.code } }));
+}
+
+const { code } = Astro.params;
+const regionInfo = regions.find((r) => r.code === code);
+
+if (!regionInfo) {
+  return Astro.redirect('/404');
+}
+
+const allRecipes = getAllRecipes();
+const recipes = allRecipes
+  .filter((r) => r.region?.area === code)
+  .sort((a, b) => b.meta.created_at.localeCompare(a.meta.created_at));
+
+const siteUrl = 'https://www.obaachan-recipe.com';
+const pageUrl = `${siteUrl}/region/${code}`;
+const pageTitle = `${regionInfo.name}のレシピ | おばあちゃんのレシピ`;
+const pageDescription = regionInfo.description.slice(0, 120) + '…';
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'ホーム', item: siteUrl },
+    { '@type': 'ListItem', position: 2, name: '地域で探す', item: `${siteUrl}/regions` },
+    { '@type': 'ListItem', position: 3, name: regionInfo.name, item: pageUrl },
+  ],
+};
+
+const otherRegions = regions.filter((r) => r.code !== code);
+
+const regionIcon: Record<string, string> = {
+  hokkaido: '🐻', tohoku: '⛩', kanto: '🗼', hokuriku: '🦀',
+  koshinetsu: '🗻', tokai: '🏯', kinki: '🏯', chugoku: '⛩',
+  shikoku: '🍋', kyushu: '🌺',
+};
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(breadcrumbLd)} />
+
+  <Header />
+
+  <main id="main" class="region-page region-page--detail">
+
+    <!-- 地方ヘッダー -->
+    <div class="region-hero" style={`--region-color:${regionInfo.color};`}>
+      <div class="region-hero__inner">
+        <span class="region-hero__icon" aria-hidden="true">{regionIcon[code] ?? '🗾'}</span>
+        <div class="region-hero__text">
+          <nav class="breadcrumb" aria-label="パンくず">
+            <a href="/" class="breadcrumb__link">ホーム</a>
+            <span class="breadcrumb__sep" aria-hidden="true">›</span>
+            <a href="/regions" class="breadcrumb__link">地域で探す</a>
+            <span class="breadcrumb__sep" aria-hidden="true">›</span>
+            <span class="breadcrumb__current" aria-current="page">{regionInfo.name}</span>
+          </nav>
+          <h1 class="region-hero__title">{regionInfo.name}</h1>
+          {regionInfo.description && <p class="region-hero__description">{regionInfo.description}</p>}
+          <p class="region-hero__count">{recipes.length}件のレシピ</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <!-- レシピグリッド -->
+      {recipes.length > 0
+        ? (
+          <div class="recipe-grid recipe-grid--3">
+            {recipes.map((r) => <RecipeCard recipe={r} />)}
+          </div>
+        ) : (
+          <div class="empty-state">
+            <p class="empty-state__icon" aria-hidden="true">🍳</p>
+            <p class="empty-state__msg">この地域のレシピはまだ登録されていません。</p>
+            <a href="/regions" class="btn btn--outline">地域一覧へ戻る</a>
+          </div>
+        )
+      }
+
+      <!-- 他の地方へのリンク -->
+      <nav class="region-nav" aria-label="他の地方を見る">
+        <h2 class="region-nav__title">他の地域のレシピを見る</h2>
+        <div class="region-nav__links">
+          {otherRegions.map((r) => (
+            <a href={`/region/${r.code}`} class="region-nav-link">
+              {regionIcon[r.code] ?? '🗾'} {r.name}
+            </a>
+          ))}
+        </div>
+      </nav>
+    </div>
+
+  </main>
+
+  <Footer />
+</BaseLayout>

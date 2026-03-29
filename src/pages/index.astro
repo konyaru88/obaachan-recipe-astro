@@ -2,11 +2,52 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import RecipeCard from '../components/RecipeCard.astro';
 import { getAllRecipes } from '../data/recipes';
 
-const recipes = getAllRecipes()
+const allRecipes = getAllRecipes();
+const latest = [...allRecipes]
   .sort((a, b) => b.meta.created_at.localeCompare(a.meta.created_at))
   .slice(0, 6);
+
+// 地域ごとのレシピ数を集計（ヒートマップ用）
+const regionRecipeCount: Record<string, number> = {};
+for (const r of allRecipes) {
+  const area = r.region?.area ?? '';
+  if (area) regionRecipeCount[area] = (regionRecipeCount[area] ?? 0) + 1;
+}
+
+const grandmaTags = [
+  { label: 'コトコト煮物おばあちゃん', tag: '煮物' },
+  { label: '毎日ごはんおばあちゃん', tag: '日常のごはん' },
+  { label: '山菜採りおばあちゃん', tag: '山菜' },
+  { label: 'お正月おばあちゃん', tag: 'お正月' },
+  { label: '郷土料理おばあちゃん', tag: '郷土料理' },
+  { label: 'お惣菜名人', tag: '家庭料理' },
+  { label: '常備菜の達人', tag: '常備菜' },
+  { label: '保存食おばあちゃん', tag: '保存食' },
+  { label: '春の味覚おばあちゃん', tag: '春の味覚' },
+];
+
+const categories = [
+  { img: '/assets/images/categories/shirumono.png', label: '汁物' },
+  { img: '/assets/images/categories/shusai.png',   label: '主菜' },
+  { img: '/assets/images/categories/fukusai.png',   label: '副菜' },
+  { img: '/assets/images/categories/tsukemono.png', label: '漬物' },
+  { img: '/assets/images/categories/gohanmono.png', label: 'ごはんもの' },
+  { img: '/assets/images/categories/oyatsu.png',    label: 'おやつ' },
+];
+
+const regionEmoji: Record<string, string> = {
+  hokkaido: '🦀', tohoku: '🍎', kanto: '🍜', hokuriku: '🦀',
+  koshinetsu: '⛰️', tokai: '🏯', kinki: '🦌', chugoku: '🐙',
+  shikoku: '🍊', kyushu: '🌋',
+};
+const regionLabels: Record<string, string> = {
+  hokkaido: '北海道', tohoku: '東北', kanto: '関東', hokuriku: '北陸',
+  koshinetsu: '甲信越', tokai: '東海', kinki: '近畿', chugoku: '中国',
+  shikoku: '四国', kyushu: '九州・沖縄',
+};
 ---
 
 <BaseLayout
@@ -15,38 +56,299 @@ const recipes = getAllRecipes()
 >
   <Header />
 
-  <main>
-    <div class="container" style="padding: 3rem 1rem;">
-      <h1 style="font-family: var(--font-serif); margin-bottom: 2rem;">おばあちゃんのレシピ</h1>
-      <p style="margin-bottom: 2rem; color: var(--color-text-secondary);">全国 {getAllRecipes().length} 件のレシピを掲載中</p>
+  <main id="main" class="home">
 
-      <div class="recipe-grid">
-        {recipes.map((recipe) => (
-          <a href={`/recipes/${recipe.id}`} class="recipe-card">
-            <div class="recipe-card__image-wrap">
-              {recipe.photos.thumbnail
-                ? <img src={`/${recipe.photos.thumbnail}`} alt={recipe.title} class="recipe-card__image" loading="lazy" />
-                : <div class="recipe-card__no-image">{recipe.thumbnail_emoji}</div>
-              }
-            </div>
-            <div class="recipe-card__body">
-              <span class="recipe-card__region">{recipe.region.prefecture}</span>
-              <h2 class="recipe-card__title">{recipe.title}</h2>
-              <div class="recipe-card__tags">
-                {recipe.tags.slice(0, 3).map((tag) => (
-                  <span class="tag">{tag}</span>
-                ))}
-              </div>
-            </div>
-          </a>
-        ))}
+    <!-- ヒーローセクション -->
+    <section class="hero" aria-label="キャッチコピーと検索">
+      <div class="hero__bg" aria-hidden="true"></div>
+      <div class="hero__content">
+        <p class="hero__subtitle">全国のおばあちゃんの手料理が集まるメディア</p>
+        <h1 class="hero__title">80年後も、<br />食べられ続ける味がある</h1>
+        <p class="hero__lead">おばあちゃんの台所を、あなたの食卓へ。</p>
+        <form class="hero__search" action="/search" method="get" role="search" aria-label="レシピを検索">
+          <input
+            type="search"
+            name="q"
+            class="hero__search-input"
+            placeholder="料理名・地域・食材で検索…"
+            autocomplete="off"
+            aria-label="レシピを検索"
+          />
+          <button type="submit" class="hero__search-btn btn btn--primary">
+            <span aria-hidden="true">🔍</span> 検索
+          </button>
+        </form>
       </div>
+    </section>
 
-      <div style="text-align: center; margin-top: 3rem;">
-        <a href="/recipes" class="btn btn--primary">レシピをすべて見る</a>
+    <!-- 新着レシピ -->
+    <section class="home__latest" aria-labelledby="latest-heading">
+      <div class="container">
+        <div class="section-header animate-on-scroll">
+          <h2 id="latest-heading" class="section-title">新着レシピ</h2>
+          <p class="section-subtitle">おばあちゃんたちから届いたばかりの味</p>
+        </div>
+        <div class="recipe-grid recipe-grid--3">
+          {latest.map((recipe) => <RecipeCard recipe={recipe} />)}
+        </div>
+        <div class="section-footer">
+          <a href="/recipes" class="btn btn--outline">すべてのレシピを見る</a>
+        </div>
       </div>
+    </section>
+
+    <!-- wave -->
+    <div class="wave-divider wave-divider--cream-to-green">
+      <svg viewBox="0 0 1440 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,20 C240,40 480,0 720,20 C960,40 1200,0 1440,20 L1440,40 L0,40 Z" fill="#F0F5ED"/>
+      </svg>
     </div>
+
+    <!-- おばあちゃんから探す / レシピから探す -->
+    <section class="home__explore" aria-labelledby="explore-heading">
+      <div class="container">
+        <div class="explore-tabs">
+          <button class="explore-tab explore-tab--active" data-tab="grandma">
+            👵 おばあちゃんから探す
+          </button>
+          <button class="explore-tab" data-tab="recipe">
+            🍽 レシピから探す
+          </button>
+        </div>
+
+        <div class="explore-panel" id="panel-grandma">
+          <p class="explore-panel__lead">おばあちゃんのタイプで選んでみよう</p>
+          <div class="hashtag-cloud">
+            {grandmaTags.map(({ label, tag }) => (
+              <a href={`/recipes?tag=${encodeURIComponent(tag)}`} class="hashtag-btn">{label}</a>
+            ))}
+          </div>
+        </div>
+
+        <div class="explore-panel" id="panel-recipe" style="display:none">
+          <p class="explore-panel__lead">料理のジャンルで選ぶ</p>
+          <div class="category-grid">
+            {categories.map((c) => (
+              <a href={`/recipes?category=${encodeURIComponent(c.label)}`} class="category-btn animate-on-scroll">
+                <img class="category-btn__img" src={c.img} alt={c.label} loading="lazy" />
+                <span class="category-btn__label">{c.label}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- wave -->
+    <div class="wave-divider wave-divider--green-to-blue">
+      <svg viewBox="0 0 1440 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,20 C240,0 480,40 720,20 C960,0 1200,40 1440,20 L1440,40 L0,40 Z" fill="#EDF3F8"/>
+      </svg>
+    </div>
+
+    <!-- 地域で探す（マップ風） -->
+    <section class="home__regions-map" aria-labelledby="regions-heading">
+      <div class="container">
+        <div class="section-header animate-on-scroll">
+          <h2 id="regions-heading" class="section-title">地域で探す</h2>
+          <p class="section-subtitle">あなたのふるさとの味、探してみませんか</p>
+        </div>
+        <div class="japan-map-container">
+          <div class="japan-map-wrapper" id="japan-map-wrapper">
+            <!-- SVG will be loaded here via fetch -->
+          </div>
+          <div class="japan-map-tooltip" id="map-tooltip" style="display:none"></div>
+        </div>
+        <div class="section-footer">
+          <a href="/regions" class="btn btn--outline">地域一覧をすべて見る</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- wave -->
+    <div class="wave-divider wave-divider--blue-to-warm">
+      <svg viewBox="0 0 1440 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,20 C240,40 480,0 720,20 C960,40 1200,0 1440,20 L1440,40 L0,40 Z" fill="#E8DCC8"/>
+      </svg>
+    </div>
+
+    <!-- レシピ募集 -->
+    <section id="recruit" class="home__recruit" aria-labelledby="recruit-heading">
+      <div class="container">
+        <div class="recruit-block animate-on-scroll">
+          <div class="recruit-block__deco" aria-hidden="true">📮</div>
+          <h2 id="recruit-heading" class="recruit-block__title">おばあちゃんの「あの味」<br />募集しています</h2>
+          <p class="recruit-block__text">「おばあちゃんのレシピ」は、みんなの記憶やレシピでできています。</p>
+          <p class="recruit-block__text">「うちの祖母がよく作ってた」<br />「これよく食べてたな」</p>
+          <p class="recruit-block__text">そんな思い出の手料理を、ぜひ教えてください。</p>
+          <p class="recruit-block__text">
+            知っている方、いま聞ける方へ。<br />
+            残さないと消えていくものを、みんなで少しずつ残していけたら嬉しいです。
+          </p>
+          <div class="recruit-block__channels">
+            <a href="https://www.instagram.com/obaachan_recipe" target="_blank" rel="noopener noreferrer" class="recruit-channel recruit-channel--instagram">
+              <span class="recruit-channel__icon" aria-hidden="true">📸</span>
+              <span class="recruit-channel__name">Instagram</span>
+              <span class="recruit-channel__handle">@obaachan_recipe</span>
+            </a>
+            <a href="https://www.threads.net/@obaachan_recipe" target="_blank" rel="noopener noreferrer" class="recruit-channel recruit-channel--threads">
+              <span class="recruit-channel__icon" aria-hidden="true">🧵</span>
+              <span class="recruit-channel__name">Threads</span>
+              <span class="recruit-channel__handle">@obaachan_recipe</span>
+            </a>
+          </div>
+          <p class="recruit-block__note">DMで「おばあちゃんのレシピ募集を見た」と送ってください。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- サービスの想い -->
+    <section class="home__about" aria-labelledby="about-heading">
+      <div class="container">
+        <div class="about-block animate-on-scroll">
+          <div class="about-block__deco" aria-hidden="true"><img src="/assets/images/grandma-icon.png" alt="" class="about-block__deco-img" /></div>
+          <h2 id="about-heading" class="about-block__title">このサービスについて</h2>
+          <p class="about-block__text">
+            日本各地にある、おばあちゃんの手料理を残したい。<br />
+            「おばあちゃんのレシピ」は、「あの味」を記録し、次の世代へつなぐためのアーカイブです。
+          </p>
+          <p class="about-block__text">
+            計量カップは使わず、「だいたいこのくらい」と手のひらで量る。<br />
+            「昔からこうやって作ってきた」と語られるその言葉の中には、<br />
+            長い時間をかけて積み重なった知恵や経験が詰まっています。
+          </p>
+          <p class="about-block__text">
+            ここで大切にしているのは、レシピを正確に記録することだけではありません。<br />
+            当時の会話やエピソード、歴史や食文化とあわせて伝え続けていくこと。
+          </p>
+          <p class="about-block__text">
+            語られ、作られ、誰かの生活の中で使われ続けていくこと。<br />
+            その循環があってはじめて、文化として残っていくと私たちは考えています。
+          </p>
+          <p class="about-block__text">
+            何十年先の食卓でも、変わらず食べられ続ける「あの味」があることを目指して。
+          </p>
+          <div class="about-block__cta">
+            <a href="/recipes" class="btn btn--outline">レシピを探す</a>
+            <a href="/support" class="btn btn--support">活動を応援する</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <Footer />
+
+  <!-- タブ切り替え・地図読み込みJS -->
+  <script define:vars={{ regionRecipeCount }}>
+    // タブ切り替え
+    document.querySelectorAll('.explore-tab').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.explore-tab').forEach((b) => b.classList.remove('explore-tab--active'));
+        btn.classList.add('explore-tab--active');
+        const tab = btn.dataset.tab;
+        document.querySelectorAll('.explore-panel').forEach((p) => {
+          p.style.display = p.id === `panel-${tab}` ? '' : 'none';
+        });
+      });
+    });
+
+    // 地図SVGの読み込みとヒートマップ
+    const classToRegion = {
+      'hokkaido': 'hokkaido',
+      'tohoku': 'tohoku',
+      'kanto': 'kanto',
+      'ishikawa': 'hokuriku', 'toyama': 'hokuriku', 'fukui': 'hokuriku',
+      'niigata': 'koshinetsu', 'nagano': 'koshinetsu', 'yamanashi': 'koshinetsu',
+      'aichi': 'tokai', 'gifu': 'tokai', 'shizuoka': 'tokai', 'mie': 'tokai',
+      'kinki': 'kinki',
+      'chugoku': 'chugoku',
+      'shikoku': 'shikoku',
+      'kyushu': 'kyushu', 'kyushu-okinawa': 'kyushu',
+    };
+    const regionNames = {
+      hokkaido: '北海道', tohoku: '東北', kanto: '関東', hokuriku: '北陸',
+      koshinetsu: '甲信越', tokai: '東海', kinki: '近畿', chugoku: '中国',
+      shikoku: '四国', kyushu: '九州・沖縄',
+    };
+
+    function getColorForCount(count) {
+      if (count === 0) return '#E8DCC8';
+      if (count <= 2) return '#D4B896';
+      if (count <= 5) return '#C49A6C';
+      if (count <= 10) return '#A0703C';
+      return '#7D4E1E';
+    }
+
+    const mapWrapper = document.getElementById('japan-map-wrapper');
+    const mapTooltip = document.getElementById('map-tooltip');
+    if (mapWrapper) {
+      fetch('/assets/japan-map.svg')
+        .then(res => res.text())
+        .then(svgText => {
+          mapWrapper.innerHTML = svgText;
+          const svgEl = mapWrapper.querySelector('svg');
+          if (!svgEl) return;
+
+          const prefGroups = svgEl.querySelectorAll('.prefecture');
+          for (const g of prefGroups) {
+            const classes = (g.className.baseVal || g.getAttribute('class') || '').split(/\s+/);
+            let regionCode = null;
+            for (const [cls, code] of Object.entries(classToRegion)) {
+              if (classes.includes(cls)) { regionCode = code; break; }
+            }
+            if (!regionCode) continue;
+
+            const count = regionRecipeCount[regionCode] ?? 0;
+            const color = getColorForCount(count);
+
+            g.setAttribute('fill', color);
+            g.setAttribute('stroke', '#fff');
+            g.setAttribute('stroke-width', '0.8');
+            g.querySelectorAll('polygon, path').forEach(s => {
+              s.setAttribute('fill', color);
+              s.setAttribute('stroke', '#fff');
+              s.setAttribute('stroke-width', '0.8');
+            });
+
+            g.addEventListener('mouseenter', () => {
+              const name = regionNames[regionCode] ?? regionCode;
+              mapTooltip.innerHTML = `<strong>${name}</strong>${count}件のレシピ`;
+              mapTooltip.style.display = 'block';
+            });
+            g.addEventListener('mousemove', (e) => {
+              mapTooltip.style.left = (e.clientX + 12) + 'px';
+              mapTooltip.style.top = (e.clientY + 12) + 'px';
+            });
+            g.addEventListener('mouseleave', () => {
+              mapTooltip.style.display = 'none';
+            });
+
+            g.style.cursor = 'pointer';
+            g.addEventListener('click', () => {
+              window.location.href = `/recipes?region=${regionCode}`;
+            });
+          }
+        })
+        .catch(err => console.warn('Japan map SVG の読み込みに失敗しました:', err));
+    }
+
+    // スクロールアニメーション
+    const animatedEls = document.querySelectorAll('.animate-on-scroll');
+    if (animatedEls.length > 0 && 'IntersectionObserver' in window) {
+      document.documentElement.classList.add('js-scroll-ready');
+      const observer = new IntersectionObserver((entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        }
+      }, { threshold: 0.1 });
+      animatedEls.forEach((el) => observer.observe(el));
+    } else {
+      animatedEls.forEach((el) => el.classList.add('is-visible'));
+    }
+  </script>
 </BaseLayout>

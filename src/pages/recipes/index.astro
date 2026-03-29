@@ -2,52 +2,228 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
-import { getAllRecipes, getDifficultyLabel, getTotalTime } from '../../data/recipes';
+import RecipeCard from '../../components/RecipeCard.astro';
+import { getAllRecipes } from '../../data/recipes';
 
-const recipes = getAllRecipes().sort((a, b) =>
+const AREA_CODES = [
+  { code: 'hokkaido', label: '北海道' },
+  { code: 'tohoku',   label: '東北' },
+  { code: 'kanto',    label: '関東' },
+  { code: 'hokuriku', label: '北陸' },
+  { code: 'koshinetsu', label: '甲信越' },
+  { code: 'tokai',    label: '東海' },
+  { code: 'kinki',    label: '近畿' },
+  { code: 'chugoku',  label: '中国' },
+  { code: 'shikoku',  label: '四国' },
+  { code: 'kyushu',   label: '九州・沖縄' },
+];
+
+const COMMON_TAGS = ['煮物', '漬物', '汁物', '焼き物', '蒸し物', 'お正月', 'お祭り', '保存食', '郷土料理', '精進料理'];
+
+// 全レシピを新着順で出力（JSで絞り込み）
+const allRecipes = [...getAllRecipes()].sort((a, b) =>
   b.meta.created_at.localeCompare(a.meta.created_at)
 );
+const total = allRecipes.length;
 ---
 
 <BaseLayout
   title="レシピ一覧 | おばあちゃんのレシピ"
-  description={`全国のおばあちゃんから集めた ${recipes.length} 件のレシピ一覧。地域・タグで絞り込みできます。`}
+  description={`全国のおばあちゃんから集めた ${total} 件のレシピ一覧。地域・タグで絞り込みできます。`}
 >
   <Header />
 
-  <main class="list-page">
+  <main id="main" class="list-page">
     <div class="container">
-      <h1 class="page-title">レシピ一覧</h1>
-      <p style="margin-bottom: 2rem; color: var(--color-text-secondary);">{recipes.length} 件のレシピ</p>
+      <div class="page-header">
+        <h1 class="page-title" id="page-title">レシピ一覧</h1>
+      </div>
 
-      <div class="recipe-grid">
-        {recipes.map((recipe) => (
-          <a href={`/recipes/${recipe.id}`} class="recipe-card">
-            <div class="recipe-card__image-wrap">
-              {recipe.photos.thumbnail
-                ? <img src={`/${recipe.photos.thumbnail}`} alt={recipe.title} class="recipe-card__image" loading="lazy" />
-                : <div class="recipe-card__no-image">{recipe.thumbnail_emoji}</div>
-              }
-            </div>
-            <div class="recipe-card__body">
-              <span class="recipe-card__region">{recipe.region.prefecture}</span>
-              <h2 class="recipe-card__title">{recipe.title}</h2>
-              <div class="recipe-card__tags">
-                {recipe.tags.slice(0, 3).map((tag) => (
-                  <span class="tag">{tag}</span>
-                ))}
-              </div>
-              <div class="recipe-card__meta">
-                <span>⏱ {getTotalTime(recipe)}</span>
-                <span>👥 {recipe.servings}人分</span>
-                <span>{getDifficultyLabel(recipe.difficulty)}</span>
-              </div>
-            </div>
-          </a>
+      <!-- フィルターバー -->
+      <aside class="filter-bar" aria-label="絞り込み">
+        <div class="filter-bar__section">
+          <p class="filter-bar__label">地方で絞り込む</p>
+          <div class="filter-bar__buttons" id="region-buttons">
+            {AREA_CODES.map(({ code, label }) => (
+              <button class="filter-btn" data-filter-type="region" data-filter-value={code}>{label}</button>
+            ))}
+          </div>
+        </div>
+        <div class="filter-bar__section">
+          <p class="filter-bar__label">タグで絞り込む</p>
+          <div class="filter-bar__buttons" id="tag-buttons">
+            {COMMON_TAGS.map((t) => (
+              <button class="filter-btn filter-btn--tag" data-filter-type="tag" data-filter-value={t}>{t}</button>
+            ))}
+          </div>
+        </div>
+        <div class="filter-bar__footer" id="filter-reset-wrap" style="display:none">
+          <button class="filter-reset" id="filter-reset-btn">フィルターをリセット ×</button>
+        </div>
+      </aside>
+
+      <!-- 並び替え＆件数 -->
+      <div class="list-toolbar">
+        <p class="result-count" aria-live="polite">
+          <strong id="result-count">{total}</strong> 件のレシピが見つかりました
+        </p>
+        <div class="list-toolbar__sort">
+          <span class="list-toolbar__label">並び替え:</span>
+          <button class="filter-btn filter-btn--sort filter-btn--active" data-sort="newest" id="sort-newest">新着順</button>
+          <button class="filter-btn filter-btn--sort" data-sort="popular" id="sort-popular">人気順</button>
+        </div>
+      </div>
+
+      <!-- グリッド（全レシピ出力、JSで表示制御） -->
+      <div class="recipe-grid recipe-grid--3" id="recipe-grid">
+        {allRecipes.map((recipe) => (
+          <div
+            class="recipe-card-wrap"
+            data-region={recipe.region?.area ?? ''}
+            data-tags={JSON.stringify(recipe.tags)}
+            data-category={recipe.category ?? ''}
+            data-created={recipe.meta.created_at}
+            data-views={String(recipe.view_count ?? 0)}
+          >
+            <RecipeCard recipe={recipe} />
+          </div>
         ))}
+      </div>
+
+      <!-- 空状態 -->
+      <div class="empty-state" id="empty-state" style="display:none">
+        <p class="empty-state__icon" aria-hidden="true">🍳</p>
+        <p class="empty-state__msg">該当するレシピが見つかりませんでした。</p>
+        <button class="btn btn--outline" id="empty-reset-btn">すべてのレシピを見る</button>
       </div>
     </div>
   </main>
 
   <Footer />
+
+  <script>
+    const AREA_LABELS: Record<string, string> = {
+      hokkaido: '北海道', tohoku: '東北', kanto: '関東', hokuriku: '北陸',
+      koshinetsu: '甲信越', tokai: '東海', kinki: '近畿', chugoku: '中国',
+      shikoku: '四国', kyushu: '九州・沖縄',
+    };
+
+    let currentRegion = '';
+    let currentTag = '';
+    let currentCategory = '';
+    let currentSort = 'newest';
+
+    const grid = document.getElementById('recipe-grid')!;
+    const cards = Array.from(grid.querySelectorAll('.recipe-card-wrap')) as HTMLElement[];
+    const countEl = document.getElementById('result-count')!;
+    const titleEl = document.getElementById('page-title')!;
+    const emptyEl = document.getElementById('empty-state')!;
+    const resetWrap = document.getElementById('filter-reset-wrap')!;
+
+    // URLパラメータから初期状態を復元
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('region')) currentRegion = params.get('region')!;
+    if (params.get('tag')) currentTag = params.get('tag')!;
+    if (params.get('category')) currentCategory = params.get('category')!;
+    if (params.get('sort')) currentSort = params.get('sort')!;
+
+    function applyFilters() {
+      let visibleCount = 0;
+
+      // 並び替え
+      const sorted = [...cards].sort((a, b) => {
+        if (currentSort === 'popular') {
+          return parseInt(b.dataset.views ?? '0') - parseInt(a.dataset.views ?? '0');
+        }
+        return (b.dataset.created ?? '').localeCompare(a.dataset.created ?? '');
+      });
+      sorted.forEach((card) => grid.appendChild(card));
+
+      // フィルタリング
+      cards.forEach((card) => {
+        let show = true;
+        if (currentRegion && card.dataset.region !== currentRegion) show = false;
+        if (currentTag) {
+          const tags = JSON.parse(card.dataset.tags ?? '[]') as string[];
+          if (!tags.includes(currentTag)) show = false;
+        }
+        if (currentCategory && card.dataset.category !== currentCategory) show = false;
+
+        card.style.display = show ? '' : 'none';
+        if (show) visibleCount++;
+      });
+
+      countEl.textContent = String(visibleCount);
+
+      // タイトル更新
+      if (currentCategory) titleEl.textContent = `「${currentCategory}」のレシピ`;
+      else if (currentTag) titleEl.textContent = `「${currentTag}」のレシピ`;
+      else if (currentRegion) titleEl.textContent = `${AREA_LABELS[currentRegion] ?? ''}のレシピ`;
+      else titleEl.textContent = 'レシピ一覧';
+
+      // 空状態
+      grid.style.display = visibleCount > 0 ? '' : 'none';
+      emptyEl.style.display = visibleCount > 0 ? 'none' : '';
+
+      // リセットボタン
+      const hasFilter = currentRegion || currentTag || currentCategory;
+      resetWrap.style.display = hasFilter ? '' : 'none';
+
+      // ボタンのアクティブ状態
+      document.querySelectorAll('[data-filter-type="region"]').forEach((btn) => {
+        btn.classList.toggle('filter-btn--active', (btn as HTMLElement).dataset.filterValue === currentRegion);
+      });
+      document.querySelectorAll('[data-filter-type="tag"]').forEach((btn) => {
+        btn.classList.toggle('filter-btn--active', (btn as HTMLElement).dataset.filterValue === currentTag);
+      });
+      document.getElementById('sort-newest')!.classList.toggle('filter-btn--active', currentSort !== 'popular');
+      document.getElementById('sort-popular')!.classList.toggle('filter-btn--active', currentSort === 'popular');
+
+      // URL更新（履歴なし）
+      const qp = new URLSearchParams();
+      if (currentRegion) qp.set('region', currentRegion);
+      if (currentTag) qp.set('tag', currentTag);
+      if (currentCategory) qp.set('category', currentCategory);
+      if (currentSort !== 'newest') qp.set('sort', currentSort);
+      const qs = qp.toString();
+      history.replaceState(null, '', qs ? `/recipes?${qs}` : '/recipes');
+    }
+
+    function resetFilters() {
+      currentRegion = '';
+      currentTag = '';
+      currentCategory = '';
+      currentSort = 'newest';
+      applyFilters();
+    }
+
+    // フィルターボタン
+    document.querySelectorAll('[data-filter-type]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const type = (btn as HTMLElement).dataset.filterType;
+        const value = (btn as HTMLElement).dataset.filterValue ?? '';
+        if (type === 'region') {
+          currentRegion = currentRegion === value ? '' : value;
+          currentTag = '';
+          currentCategory = '';
+        } else if (type === 'tag') {
+          currentTag = currentTag === value ? '' : value;
+          currentRegion = '';
+          currentCategory = '';
+        }
+        applyFilters();
+      });
+    });
+
+    // 並び替え
+    document.getElementById('sort-newest')!.addEventListener('click', () => { currentSort = 'newest'; applyFilters(); });
+    document.getElementById('sort-popular')!.addEventListener('click', () => { currentSort = 'popular'; applyFilters(); });
+
+    // リセット
+    document.getElementById('filter-reset-btn')!.addEventListener('click', resetFilters);
+    document.getElementById('empty-reset-btn')!.addEventListener('click', resetFilters);
+
+    // 初期表示
+    applyFilters();
+  </script>
 </BaseLayout>

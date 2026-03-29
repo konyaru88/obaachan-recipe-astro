@@ -11,7 +11,7 @@ const navClass = (path: string) =>
 <div class="beta-bar" role="banner" aria-label="お知らせ">
   <span class="beta-bar__badge">β版公開中</span>
   <span class="beta-bar__text">現在β版公開中・レシピ募集中 ── あなたのおばあちゃんの味を教えてください</span>
-  <a href="/" class="beta-bar__link">詳しくはこちら</a>
+  <a href="/#recruit" class="beta-bar__link">詳しくはこちら</a>
 </div>
 
 <header class="site-header">
@@ -54,6 +54,17 @@ const navClass = (path: string) =>
       <a href="/regions" class={navClass('/regions')}>地域で探す</a>
       <a href="/articles" class={navClass('/articles')}>読み物</a>
     </nav>
+    <form class="mobile-menu__search" action="/search" method="get" role="search" aria-label="レシピ検索">
+      <input
+        type="search"
+        name="q"
+        class="mobile-menu__search-input"
+        placeholder="料理名・地域・食材で検索…"
+        aria-label="レシピを検索"
+        autocomplete="off"
+      />
+      <button type="submit" class="mobile-menu__search-btn" aria-label="検索">🔍 検索</button>
+    </form>
   </div>
 </header>
 

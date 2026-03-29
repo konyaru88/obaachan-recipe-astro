@@ -1,0 +1,158 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import RecipeCard from '../components/RecipeCard.astro';
+import { getAllRecipes } from '../data/recipes';
+
+const allRecipes = getAllRecipes();
+
+const SUGGESTIONS = ['煮物', '漬物', 'お正月', '保存食', 'お味噌汁', '炊き込みご飯', 'おひたし', '郷土料理'];
+
+// 検索用データ（JSON埋め込み用）
+const searchData = allRecipes.map((r) => ({
+  id: r.id,
+  title: r.title,
+  tags: r.tags,
+  category: r.category,
+  prefecture: r.grandmother?.prefecture ?? r.region?.prefecture ?? '',
+  area: r.region?.area ?? '',
+  ingredients: r.ingredients.flatMap((g) => g.items.map((i) => i.name)),
+}));
+---
+
+<BaseLayout
+  title="レシピ検索 | おばあちゃんのレシピ"
+  description="おばあちゃんのレシピを料理名・食材・地域名で検索できます。"
+>
+  <Header />
+
+  <main id="main" class="search-page">
+    <div class="container">
+      <div class="page-header">
+        <h1 class="page-title">レシピ検索</h1>
+      </div>
+
+      <!-- 検索フォーム -->
+      <form class="search-page__form" id="search-form" role="search" aria-label="レシピを検索">
+        <input
+          type="search"
+          id="search-input"
+          class="search-page__input"
+          placeholder="料理名・地域・食材で検索…"
+          autocomplete="off"
+          aria-label="レシピを検索"
+          autofocus
+        />
+        <button type="submit" class="btn btn--primary" aria-label="検索">
+          <span aria-hidden="true">🔍</span> 検索
+        </button>
+      </form>
+
+      <!-- 件数 -->
+      <p class="result-count" id="result-count" aria-live="polite" style="display:none"></p>
+
+      <!-- 結果グリッド（全カード出力、JSで制御） -->
+      <div class="recipe-grid recipe-grid--3" id="recipe-grid" style="display:none">
+        {allRecipes.map((recipe) => (
+          <div class="recipe-card-wrap" data-recipe-id={recipe.id} style="display:none">
+            <RecipeCard recipe={recipe} />
+          </div>
+        ))}
+      </div>
+
+      <!-- 初期状態 -->
+      <div class="empty-state" id="initial-state">
+        <p class="empty-state__icon" aria-hidden="true">🔍</p>
+        <p class="empty-state__msg">料理名・食材・地域名などで検索してみましょう。</p>
+      </div>
+
+      <!-- 0件状態 -->
+      <div class="empty-state" id="no-results" style="display:none">
+        <p class="empty-state__icon" aria-hidden="true">😢</p>
+        <p class="empty-state__msg" id="no-results-msg"></p>
+        <p class="empty-state__sub">別のキーワードで試してみましょう。</p>
+        <div class="suggestion-chips" aria-label="キーワード提案">
+          {SUGGESTIONS.map((kw) => (
+            <button class="suggestion-chip" data-keyword={kw}>{kw}</button>
+          ))}
+        </div>
+        <a href="/recipes" class="btn btn--outline" style="margin-top:1.5rem;">すべてのレシピを見る</a>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+
+  <script define:vars={{ searchData }}>
+    const input = document.getElementById('search-input');
+    const form = document.getElementById('search-form');
+    const grid = document.getElementById('recipe-grid');
+    const countEl = document.getElementById('result-count');
+    const initialEl = document.getElementById('initial-state');
+    const noResultsEl = document.getElementById('no-results');
+    const noResultsMsgEl = document.getElementById('no-results-msg');
+    const cards = document.querySelectorAll('.recipe-card-wrap');
+    const cardMap = {};
+    cards.forEach((c) => { cardMap[c.dataset.recipeId] = c; });
+
+    function doSearch(query) {
+      const q = query.trim().toLowerCase();
+      input.value = query.trim();
+
+      if (!q) {
+        grid.style.display = 'none';
+        countEl.style.display = 'none';
+        initialEl.style.display = '';
+        noResultsEl.style.display = 'none';
+        cards.forEach((c) => { c.style.display = 'none'; });
+        history.replaceState(null, '', '/search');
+        return;
+      }
+
+      initialEl.style.display = 'none';
+
+      // 検索実行
+      const matchedIds = [];
+      searchData.forEach((r) => {
+        const haystack = [
+          r.title, r.category, r.prefecture, r.area,
+          ...r.tags, ...r.ingredients,
+        ].join(' ').toLowerCase();
+        if (haystack.includes(q)) matchedIds.push(r.id);
+      });
+
+      // 表示更新
+      cards.forEach((c) => { c.style.display = 'none'; });
+      matchedIds.forEach((id) => {
+        if (cardMap[id]) cardMap[id].style.display = '';
+      });
+
+      countEl.innerHTML = `「<strong>${query.trim()}</strong>」の検索結果: <strong>${matchedIds.length}</strong> 件`;
+      countEl.style.display = '';
+      grid.style.display = matchedIds.length > 0 ? '' : 'none';
+      noResultsEl.style.display = matchedIds.length > 0 ? 'none' : '';
+      if (matchedIds.length === 0) {
+        noResultsMsgEl.textContent = `「${query.trim()}」に一致するレシピが見つかりませんでした。`;
+      }
+
+      history.replaceState(null, '', `/search?q=${encodeURIComponent(query.trim())}`);
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      doSearch(input.value);
+    });
+
+    // 提案キーワード
+    document.querySelectorAll('.suggestion-chip').forEach((chip) => {
+      chip.addEventListener('click', () => {
+        doSearch(chip.dataset.keyword);
+      });
+    });
+
+    // URLパラメータから初期検索
+    const urlQ = new URLSearchParams(window.location.search).get('q');
+    if (urlQ) doSearch(urlQ);
+  </script>
+</BaseLayout>

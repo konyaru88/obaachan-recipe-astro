@@ -1,0 +1,104 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import articlesData from '../../data/articles.json';
+
+const articles = [...articlesData].sort((a: any, b: any) =>
+  b.published_at.localeCompare(a.published_at)
+);
+---
+
+<BaseLayout
+  title="読み物 | おばあちゃんのレシピ"
+  description="おばあちゃんのストーリーと食文化コラム。日本の伝統的な食文化を深く知る読み物をお届けします。"
+>
+  <Header />
+
+  <main id="main" class="articles-page">
+    <div class="container">
+      <div class="page-header">
+        <h1 class="page-title">読み物</h1>
+        <p class="page-subtitle">おばあちゃんのストーリーと、食文化のコラム</p>
+      </div>
+
+      <!-- カテゴリータブ -->
+      <div class="article-tabs" role="tablist" aria-label="カテゴリー">
+        <button class="article-tab article-tab--active" data-category="">すべて</button>
+        <button class="article-tab" data-category="story">おばあちゃんのストーリー</button>
+        <button class="article-tab" data-category="column">食文化コラム</button>
+      </div>
+
+      <!-- 記事一覧（全記事出力、JSで表示制御） -->
+      <div class="article-list" id="article-list">
+        {articles.map((article: any) => {
+          const date = article.published_at.replace(/-/g, '.').slice(2);
+          return (
+            <a href={`/articles/${article.id}`} class="article-card" data-category-slug={article.category_slug}>
+              <div class="article-card__thumb" aria-hidden="true">{article.thumbnail_emoji}</div>
+              <div class="article-card__body">
+                <div class="article-card__header-row">
+                  <span class="article-card__category">{article.category}</span>
+                </div>
+                <h2 class="article-card__title">{article.title}</h2>
+                <p class="article-card__lead">{article.lead}</p>
+                <div class="article-card__meta">
+                  <time datetime={article.published_at}>{date}</time>
+                  <span class="article-card__read">約{article.reading_time}分で読める</span>
+                </div>
+              </div>
+            </a>
+          );
+        })}
+      </div>
+
+      <!-- 空状態 -->
+      <div class="empty-state" id="empty-state" style="display:none">
+        <p class="empty-state__icon" aria-hidden="true">📖</p>
+        <p class="empty-state__msg">まだ記事がありません。</p>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+
+  <script>
+    const tabs = document.querySelectorAll('.article-tab');
+    const cards = document.querySelectorAll('.article-card') as NodeListOf<HTMLElement>;
+    const emptyEl = document.getElementById('empty-state')!;
+
+    // URLパラメータから初期状態を復元
+    const params = new URLSearchParams(window.location.search);
+    let currentCategory = params.get('category') ?? '';
+
+    function applyFilter() {
+      let count = 0;
+      cards.forEach((card) => {
+        const slug = card.dataset.categorySlug ?? '';
+        const show = !currentCategory || slug === currentCategory;
+        card.style.display = show ? '' : 'none';
+        if (show) count++;
+      });
+      emptyEl.style.display = count > 0 ? 'none' : '';
+
+      tabs.forEach((tab) => {
+        const cat = (tab as HTMLElement).dataset.category ?? '';
+        tab.classList.toggle('article-tab--active', cat === currentCategory);
+      });
+
+      const qp = new URLSearchParams();
+      if (currentCategory) qp.set('category', currentCategory);
+      const qs = qp.toString();
+      history.replaceState(null, '', qs ? `/articles?${qs}` : '/articles');
+    }
+
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        currentCategory = (tab as HTMLElement).dataset.category ?? '';
+        applyFilter();
+      });
+    });
+
+    applyFilter();
+  </script>
+</BaseLayout>

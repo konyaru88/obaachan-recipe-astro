@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { getAllRecipes } from '../../data/recipes';
+import regionsData from '../../data/regions.json';
+
+const allRecipes = getAllRecipes();
+const regions = regionsData.areas;
+
+// 地方ごとのレシピ件数を集計
+const countMap: Record<string, number> = {};
+allRecipes.forEach((r) => {
+  const key = r.region?.area ?? '';
+  if (key) countMap[key] = (countMap[key] ?? 0) + 1;
+});
+---
+
+<BaseLayout
+  title="地域で探す | おばあちゃんのレシピ"
+  description="日本全国、10地方のおばあちゃんの味をお届けします。北海道から九州・沖縄まで、ふるさとの味を探してみませんか。"
+>
+  <Header />
+
+  <main id="main" class="region-page">
+    <div class="container">
+      <div class="page-header">
+        <h1 class="page-title">地域で探す</h1>
+        <p class="page-subtitle">日本全国、47都道府県のおばあちゃんの味をお届けします。</p>
+      </div>
+      <div class="region-card-grid">
+        {regions.map((r) => {
+          const count = countMap[r.code] ?? 0;
+          return (
+            <a href={`/region/${r.code}`} class="region-card" style={`--region-color:${r.color};`}>
+              <div class="region-card__header">
+                <span class="region-card__icon" aria-hidden="true">{r.code === 'hokkaido' ? '🐻' : r.code === 'tohoku' ? '⛩' : r.code === 'kanto' ? '🗼' : r.code === 'hokuriku' ? '🦀' : r.code === 'koshinetsu' ? '🗻' : r.code === 'tokai' ? '🏯' : r.code === 'kinki' ? '🏯' : r.code === 'chugoku' ? '⛩' : r.code === 'shikoku' ? '🍋' : '🌺'}</span>
+                <h2 class="region-card__name">{r.name}</h2>
+              </div>
+              {r.tagline && <p class="region-card__catch">{r.tagline}</p>}
+              <p class="region-card__count">{count}件のレシピ</p>
+            </a>
+          );
+        })}
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>

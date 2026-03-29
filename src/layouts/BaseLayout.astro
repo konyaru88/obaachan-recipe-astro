@@ -1,0 +1,80 @@
+---
+export interface Props {
+  title: string;
+  description: string;
+  ogImage?: string;
+  ogType?: string;
+  canonicalUrl?: string;
+}
+
+const {
+  title,
+  description,
+  ogImage = '/assets/images/grandma-icon.png',
+  ogType = 'website',
+  canonicalUrl,
+} = Astro.props;
+
+const siteUrl = 'https://www.obaachan-recipe.com';
+const currentUrl = canonicalUrl ?? siteUrl + Astro.url.pathname;
+const ogImageAbsolute = ogImage.startsWith('http') ? ogImage : siteUrl + ogImage;
+---
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+
+  <!-- SEO -->
+  <meta name="description" content={description} />
+  <link rel="canonical" href={currentUrl} />
+  <link rel="icon" type="image/png" href="/assets/images/grandma-icon.png" />
+
+  <!-- OGP -->
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content={ogType} />
+  <meta property="og:url" content={currentUrl} />
+  <meta property="og:image" content={ogImageAbsolute} />
+  <meta property="og:locale" content="ja_JP" />
+  <meta property="og:site_name" content="おばあちゃんのレシピ" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogImageAbsolute} />
+  <meta name="twitter:site" content="@obaachan_recipe" />
+
+  <!-- Google Search Console -->
+  <meta name="google-site-verification" content="o8CGRwi6p8d6FL8x-uHhxRCxZVuSK3pnas4yYmXAnJY" />
+
+  <!-- Google Analytics (GA4) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EVYD2MEX67"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-EVYD2MEX67');
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;600;700&family=Kaisei+Tokumin:wght@400;700&family=Zen+Maru+Gothic:wght@400;500;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="/styles/global.css" />
+
+  <!-- Page-specific structured data slot -->
+  <slot name="head" />
+</head>
+<body>
+  <slot />
+</body>
+</html>

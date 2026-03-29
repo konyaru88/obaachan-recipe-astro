@@ -1,0 +1,211 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { getAllRecipes, getRecipeById, getTotalTime, getDifficultyLabel } from '../../data/recipes';
+import type { Recipe } from '../../data/types';
+
+export async function getStaticPaths() {
+  const recipes = getAllRecipes();
+  return recipes.map((r) => ({ params: { id: r.id } }));
+}
+
+const { id } = Astro.params;
+const recipe = getRecipeById(id!) as Recipe;
+
+if (!recipe) {
+  return Astro.redirect('/404');
+}
+
+const siteUrl = 'https://www.obaachan-recipe.com';
+const totalTime = getTotalTime(recipe);
+const difficulty = getDifficultyLabel(recipe.difficulty);
+const description = recipe.story.replace(/<[^>]+>/g, '').slice(0, 120) + '…';
+const pageTitle = `${recipe.title}（${recipe.region.prefecture}）| おばあちゃんのレシピ`;
+const ogImage = recipe.photos.main
+  ? `${siteUrl}/${recipe.photos.main}`
+  : `${siteUrl}/assets/images/grandma-icon.png`;
+
+// Recipe 構造化データ（JSON-LD）
+const allIngredients = recipe.ingredients.flatMap((g) =>
+  g.items.map((item) => {
+    const amount = item.amount ?? '';
+    return `${item.name} ${amount}${item.unit}`.trim();
+  })
+);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Recipe',
+  name: recipe.title,
+  description: description,
+  image: ogImage,
+  datePublished: recipe.meta.created_at,
+  author: {
+    '@type': 'Organization',
+    name: 'おばあちゃんのレシピ',
+  },
+  recipeYield: `${recipe.servings}人分`,
+  prepTime: `PT${recipe.prep_time_minutes}M`,
+  cookTime: `PT${recipe.cook_time_minutes}M`,
+  totalTime: `PT${recipe.prep_time_minutes + recipe.cook_time_minutes}M`,
+  recipeCategory: recipe.category,
+  recipeCuisine: '日本料理',
+  keywords: recipe.tags.join(','),
+  recipeIngredient: allIngredients,
+  recipeInstructions: recipe.steps.map((s) => ({
+    '@type': 'HowToStep',
+    position: s.step,
+    text: s.text,
+    ...(s.tip ? { name: s.tip } : {}),
+  })),
+};
+---
+
+<BaseLayout title={pageTitle} description={description} ogImage={ogImage} ogType="article">
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
+
+  <Header />
+
+  <main class="detail-page">
+    <div class="container">
+
+      <!-- パンくず -->
+      <nav class="breadcrumb" aria-label="パンくず">
+        <ol class="breadcrumb__list">
+          <li class="breadcrumb__item"><a href="/">ホーム</a></li>
+          <li class="breadcrumb__item"><a href="/recipes">レシピ一覧</a></li>
+          <li class="breadcrumb__item" aria-current="page">{recipe.title}</li>
+        </ol>
+      </nav>
+
+      <!-- ヘッダー -->
+      <header class="detail-header">
+        <div class="detail-header__meta">
+          <span class="detail-header__region">{recipe.region.prefecture}</span>
+          {recipe.tags.slice(0, 3).map((tag) => (
+            <a href={`/recipes?tag=${encodeURIComponent(tag)}`} class="tag">{tag}</a>
+          ))}
+        </div>
+        <h1 class="detail-header__title">{recipe.title}</h1>
+        <div class="detail-header__info">
+          <span class="detail-info-item">
+            <span class="detail-info-item__icon">⏱</span>
+            {totalTime}
+          </span>
+          <span class="detail-info-item">
+            <span class="detail-info-item__icon">👥</span>
+            {recipe.servings}人分
+          </span>
+          <span class="detail-info-item">
+            <span class="detail-info-item__icon" aria-label={`難易度 ${recipe.difficulty}`}>{difficulty}</span>
+          </span>
+          {recipe.season.length > 0 && (
+            <span class="detail-info-item">
+              <span class="detail-info-item__icon">🗓</span>
+              {recipe.season.join('・')}
+            </span>
+          )}
+        </div>
+      </header>
+
+      <!-- メイン画像 -->
+      {recipe.photos.main && (
+        <div class="detail-image">
+          <img
+            src={`/${recipe.photos.main}`}
+            alt={recipe.title}
+            class="detail-image__img"
+            loading="eager"
+          />
+        </div>
+      )}
+
+      <div class="detail-body">
+        <!-- 材料 -->
+        <section class="detail-section detail-ingredients" aria-labelledby="ingredients-heading">
+          <h2 id="ingredients-heading" class="detail-section__title">材料</h2>
+          <p class="detail-ingredients__servings">{recipe.servings}人分</p>
+          {recipe.ingredients.map((group) => (
+            <div class="ingredient-group">
+              {group.group !== '主材料' && (
+                <h3 class="ingredient-group__name">{group.group}</h3>
+              )}
+              <ul class="ingredient-list">
+                {group.items.map((item) => (
+                  <li class="ingredient-item">
+                    <span class="ingredient-item__name">{item.name}</span>
+                    <span class="ingredient-item__amount">
+                      {item.grandma_amount
+                        ? item.grandma_amount
+                        : `${item.amount ?? ''}${item.unit}`}
+                    </span>
+                    {item.note && (
+                      <span class="ingredient-item__note">（{item.note}）</span>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </section>
+
+        <!-- 作り方 -->
+        <section class="detail-section detail-steps" aria-labelledby="steps-heading">
+          <h2 id="steps-heading" class="detail-section__title">作り方</h2>
+          <ol class="step-list">
+            {recipe.steps.map((step) => (
+              <li class="step-item">
+                <span class="step-item__num">{step.step}</span>
+                <div class="step-item__content">
+                  <p class="step-item__text">{step.text}</p>
+                  {step.tip && (
+                    <p class="step-item__tip">💡 {step.tip}</p>
+                  )}
+                </div>
+              </li>
+            ))}
+          </ol>
+        </section>
+      </div>
+
+      <!-- ストーリー・文化的背景 -->
+      {(recipe.story || recipe.cultural_background) && (
+        <section class="detail-section detail-story" aria-labelledby="story-heading">
+          <h2 id="story-heading" class="detail-section__title">このレシピについて</h2>
+          {recipe.story && <p class="detail-story__text" set:html={recipe.story} />}
+          {recipe.cultural_background && recipe.cultural_background !== recipe.story && (
+            <p class="detail-story__text" set:html={recipe.cultural_background} />
+          )}
+        </section>
+      )}
+
+      <!-- エピソード -->
+      {recipe.episode && (
+        <section class="detail-section detail-episode" aria-labelledby="episode-heading">
+          <h2 id="episode-heading" class="detail-section__title">おばあちゃんの思い出</h2>
+          <blockquote class="detail-episode__quote" set:html={recipe.episode} />
+        </section>
+      )}
+
+      <!-- 情報源 -->
+      <div class="detail-source">
+        <span class="detail-source__label">情報源：</span>
+        {recipe.source.types.map((t) => (
+          <span class="detail-source__badge">{t}</span>
+        ))}
+        {recipe.source.contributor && (
+          <span class="detail-source__contributor">（投稿者：{recipe.source.contributor}さん）</span>
+        )}
+      </div>
+
+      <!-- 戻るリンク -->
+      <div class="detail-back">
+        <a href="/recipes" class="btn btn--outline">← レシピ一覧に戻る</a>
+      </div>
+
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>

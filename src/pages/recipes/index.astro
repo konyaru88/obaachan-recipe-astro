@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { getAllRecipes, getDifficultyLabel, getTotalTime } from '../../data/recipes';
+
+const recipes = getAllRecipes().sort((a, b) =>
+  b.meta.created_at.localeCompare(a.meta.created_at)
+);
+---
+
+<BaseLayout
+  title="レシピ一覧 | おばあちゃんのレシピ"
+  description={`全国のおばあちゃんから集めた ${recipes.length} 件のレシピ一覧。地域・タグで絞り込みできます。`}
+>
+  <Header />
+
+  <main class="list-page">
+    <div class="container">
+      <h1 class="page-title">レシピ一覧</h1>
+      <p style="margin-bottom: 2rem; color: var(--color-text-secondary);">{recipes.length} 件のレシピ</p>
+
+      <div class="recipe-grid">
+        {recipes.map((recipe) => (
+          <a href={`/recipes/${recipe.id}`} class="recipe-card">
+            <div class="recipe-card__image-wrap">
+              {recipe.photos.thumbnail
+                ? <img src={`/${recipe.photos.thumbnail}`} alt={recipe.title} class="recipe-card__image" loading="lazy" />
+                : <div class="recipe-card__no-image">{recipe.thumbnail_emoji}</div>
+              }
+            </div>
+            <div class="recipe-card__body">
+              <span class="recipe-card__region">{recipe.region.prefecture}</span>
+              <h2 class="recipe-card__title">{recipe.title}</h2>
+              <div class="recipe-card__tags">
+                {recipe.tags.slice(0, 3).map((tag) => (
+                  <span class="tag">{tag}</span>
+                ))}
+              </div>
+              <div class="recipe-card__meta">
+                <span>⏱ {getTotalTime(recipe)}</span>
+                <span>👥 {recipe.servings}人分</span>
+                <span>{getDifficultyLabel(recipe.difficulty)}</span>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>

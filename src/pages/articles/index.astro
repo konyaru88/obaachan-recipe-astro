@@ -19,12 +19,14 @@ const articles = [...articlesData].sort((a: any, b: any) =>
     <div class="container">
       <div class="page-header">
         <h1 class="page-title">読み物</h1>
-        <p class="page-subtitle">おばあちゃんのストーリーと、食文化のコラム</p>
+        <p class="page-subtitle">おばあちゃんの知恵と暮らしを、読み物でお届けします</p>
       </div>
 
       <!-- カテゴリータブ -->
       <div class="article-tabs" role="tablist" aria-label="カテゴリー">
         <button class="article-tab article-tab--active" data-category="">すべて</button>
+        <button class="article-tab" data-category="life">暮らしのレシピ帖</button>
+        <button class="article-tab" data-category="teshigoto">季節の手仕事</button>
         <button class="article-tab" data-category="story">おばあちゃんのストーリー</button>
         <button class="article-tab" data-category="column">食文化コラム</button>
       </div>

@@ -140,7 +140,7 @@ const relatedArticles = [...sameCategory, ...diffCategory].slice(0, 3);
         <!-- ヘッダー -->
         <header class="article-header">
           <span class="article-card__category">{article.category}</span>
-          <h1 class="article-header__title">{article.title}</h1>
+          <h1 class="article-header__title" set:html={article.title.replace(/\n/g, '<br>')} />
           {article.subtitle && <p class="article-header__subtitle">{article.subtitle}</p>}
           <div class="article-header__meta">
             <time datetime={article.published_at}>{date}</time>

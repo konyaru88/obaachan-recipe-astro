@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import articlesData from '../../data/articles.json';
+import { getRecipeById, getTotalTime, getDifficultyLabel } from '../../data/recipes';
 
 export function getStaticPaths() {
   return articlesData.map((a: any) => ({ params: { id: a.id } }));
@@ -22,6 +23,40 @@ const date = article.published_at.replace(/-/g, '.').slice(2);
 const pageTitle = `${article.title} | おばあちゃんのレシピ`;
 const pageDescription = article.lead.slice(0, 120) + '…';
 
+// レシピカードHTMLを生成
+function buildRecipeCardHtml(recipeId: string): string {
+  const recipe = getRecipeById(recipeId);
+  if (!recipe) return '';
+  const prefecture = recipe.grandmother?.prefecture ?? recipe.region?.prefecture ?? '';
+  const timeStr = getTotalTime(recipe);
+  const stars = getDifficultyLabel(recipe.difficulty);
+  const servingsStr = recipe.servings ? `${recipe.servings}人分` : '-';
+  const imageUrl = recipe.photos?.main ?? recipe.photos?.thumbnail ?? '';
+  const tags = recipe.tags.slice(0, 3).map((t: string) => `<span class="recipe-card__tag">${t}</span>`).join('');
+  const imgHtml = imageUrl
+    ? `<img class="recipe-card__image" src="${base}${imageUrl}" alt="${recipe.title}" loading="lazy" />`
+    : `<img class="recipe-card__image recipe-card__image--placeholder" src="${base}assets/images/sample-placeholder.png.jpg" alt="準備中" loading="lazy" />`;
+  return `<div class="article-recipe-card">
+    <article class="recipe-card">
+      <a href="${base}recipes/${recipe.id}" class="recipe-card__link" aria-label="${recipe.title}のレシピを見る">
+        <div class="recipe-card__thumb${imageUrl ? '' : ' recipe-card__image-placeholder'}">
+          ${imgHtml}
+          ${prefecture ? `<span class="recipe-card__region-badge">${prefecture}</span>` : ''}
+        </div>
+        <div class="recipe-card__body">
+          <h3 class="recipe-card__title">${recipe.title}</h3>
+          <div class="recipe-card__tags">${tags}</div>
+          <ul class="recipe-card__meta">
+            <li class="recipe-card__meta-item">⏱ ${timeStr}</li>
+            <li class="recipe-card__meta-item">👥 ${servingsStr}</li>
+            <li class="recipe-card__meta-item" aria-label="難易度">${stars}</li>
+          </ul>
+        </div>
+      </a>
+    </article>
+  </div>`;
+}
+
 // 本文をHTMLに変換
 function formatBody(body: string): string {
   return body
@@ -29,6 +64,9 @@ function formatBody(body: string): string {
     .flatMap((para: string) => {
       const trimmed = para.trim();
       if (trimmed === '---') return '<hr class="article-content__divider">';
+      // レシピカード埋め込み
+      const recipeMatch = trimmed.match(/^\{\{recipe:(.+?)\}\}$/);
+      if (recipeMatch) return buildRecipeCardHtml(recipeMatch[1]);
       if (trimmed.startsWith('## ')) {
         const lines = trimmed.split('\n');
         const heading = `<h2 class="article-content__heading">${lines[0].slice(3)}</h2>`;
@@ -72,6 +110,12 @@ const articleLd = {
   },
   mainEntityOfPage: pageUrl,
 };
+
+// 関連読み物：同カテゴリ優先、最大3件
+const otherArticles = articlesData.filter((a: any) => a.id !== article.id);
+const sameCategory = otherArticles.filter((a: any) => a.category_slug === article.category_slug);
+const diffCategory = otherArticles.filter((a: any) => a.category_slug !== article.category_slug);
+const relatedArticles = [...sameCategory, ...diffCategory].slice(0, 3);
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription} ogType="article">
@@ -134,6 +178,29 @@ const articleLd = {
           ))}
         </div>
       </article>
+
+      <!-- 関連読み物 -->
+      {relatedArticles.length > 0 && (
+        <section class="related-articles">
+          <h2 class="related-articles__title">あわせて読みたい</h2>
+          <div class="related-articles__grid">
+            {relatedArticles.map((ra: any) => {
+              const raDate = ra.published_at.replace(/-/g, '.').slice(2);
+              return (
+                <a href={`${base}articles/${ra.id}`} class="related-article-card">
+                  <div class="related-article-card__emoji" aria-hidden="true">{ra.thumbnail_emoji}</div>
+                  <div class="related-article-card__body">
+                    <span class="related-article-card__category">{ra.category}</span>
+                    <h3 class="related-article-card__title">{ra.title}</h3>
+                    <p class="related-article-card__lead">{ra.lead.slice(0, 60)}…</p>
+                    <time class="related-article-card__date" datetime={ra.published_at}>{raDate}</time>
+                  </div>
+                </a>
+              );
+            })}
+          </div>
+        </section>
+      )}
 
       <!-- 戻るリンク -->
       <div style="text-align:center; margin: var(--space-2xl) 0">

@@ -2502,6 +2502,15 @@ input, textarea, select {
   font-weight: 600;
 }
 
+/* 記事内レシピカード埋め込み */
+.article-recipe-card {
+  max-width: 320px;
+  margin: var(--space-lg) auto var(--space-xl);
+}
+.article-recipe-card .recipe-card {
+  box-shadow: var(--shadow-sm);
+}
+
 .article-tags {
   display: flex;
   flex-wrap: wrap;
@@ -2523,6 +2532,77 @@ input, textarea, select {
   background: var(--color-accent-red);
   color: #fff;
   border-color: var(--color-accent-red);
+}
+
+/* 関連読み物 */
+.related-articles {
+  margin-top: var(--space-2xl);
+  padding-top: var(--space-xl);
+  border-top: 1px solid var(--color-divider);
+}
+.related-articles__title {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-lg);
+  text-align: center;
+}
+.related-articles__grid {
+  display: grid;
+  gap: var(--space-md);
+}
+.related-article-card {
+  display: flex;
+  gap: var(--space-md);
+  align-items: flex-start;
+  padding: var(--space-md);
+  background: var(--color-bg-warm);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  text-decoration: none;
+  color: inherit;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.related-article-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+.related-article-card__emoji {
+  font-size: 2.2rem;
+  line-height: 1;
+  flex-shrink: 0;
+  width: 48px;
+  text-align: center;
+}
+.related-article-card__body {
+  flex: 1;
+  min-width: 0;
+}
+.related-article-card__category {
+  font-size: 0.7rem;
+  color: var(--color-accent-red);
+  font-weight: 600;
+}
+.related-article-card__title {
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.5;
+  margin: 2px 0 var(--space-xs);
+  color: var(--color-text-primary);
+}
+.related-article-card__lead {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  margin: 0;
+}
+.related-article-card__date {
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+  margin-top: var(--space-xs);
+  display: block;
 }
 
 /* モバイル対応 */

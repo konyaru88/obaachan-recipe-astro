@@ -62,12 +62,17 @@ const allIngredients = recipe.ingredients.flatMap((g) =>
   g.items.map((item) => `${item.name} ${item.amount ?? ''}${item.unit}`.trim())
 );
 
+// image: 実レシピ画像があるときだけ ImageObject で指定（フォールバックアイコンは使わない）
+const recipeImageObj = imageUrl
+  ? { '@type': 'ImageObject', url: `${siteUrl}/${imageUrl}` }
+  : undefined;
+
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Recipe',
   name: recipe.title,
   description,
-  image: ogImage,
+  ...(recipeImageObj ? { image: recipeImageObj } : {}),
   url: pageUrl,
   datePublished: meta.created_at,
   author: { '@type': 'Organization', name: 'おばあちゃんのレシピ', url: siteUrl },
@@ -81,7 +86,12 @@ const jsonLd = {
   keywords: tags.join(','),
   recipeIngredient: allIngredients,
   recipeInstructions: recipe.steps.map((s) => ({
-    '@type': 'HowToStep', position: s.step, text: s.text, ...(s.tip ? { name: s.tip } : {}),
+    '@type': 'HowToStep',
+    position: s.step,
+    text: s.text,
+    url: `${pageUrl}#step-${s.step}`,
+    ...(recipeImageObj ? { image: recipeImageObj } : {}),
+    ...(s.tip ? { name: s.tip } : {}),
   })),
 };
 
@@ -239,7 +249,7 @@ function difficultyStars(d: number): string {
         <h2 class="detail__section-title">👩‍🍳 作り方</h2>
         <ol class="step-list">
           {recipe.steps.map((step, i) => (
-            <li class="step">
+            <li class="step" id={`step-${step.step ?? (i + 1)}`}>
               <div class="step__num">{step.step ?? (i + 1)}</div>
               <div class="step__content">
                 {step.title && <p class="step__title">{step.title}</p>}

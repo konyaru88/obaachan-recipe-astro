@@ -282,8 +282,8 @@
       "grandma_notes": null,
       "cultural_background": "おはぎは春と秋のお彼岸に食べる和菓子として知られています。「おはぎ」と「ぼたもち」は同じ食べ物でも秋には萩の花にちなんで「おはぎ」、春には牡丹にちなんで「ぼたもち」と呼ばれるとも言われています。京都では粒あんを使う家庭が多いとも言われており、手作りにこだわる家庭では小豆の炊き方や砂糖の加減にそれぞれの流儀があったようです。",
       "photos": {
-        "main": "",
-        "thumbnail": ""
+        "main": "assets/images/recipes/ohagi-kyoto-001.jpg",
+        "thumbnail": "assets/images/recipes/ohagi-kyoto-001.jpg"
       },
       "related_recipe_ids": [],
       "thumbnail_emoji": "🍡",
@@ -418,8 +418,8 @@
       "grandma_notes": null,
       "cultural_background": "関西ではタコは「多幸」という当て字で縁起の良い食材として親しまれているとも言われています。誕生日や節目のお祝いにタコ料理が食卓に並ぶ家庭も多かったとされており、酢味噌和えはさっぱりとした口当たりで老若男女に好まれてきた家庭料理のひとつとも言えます。",
       "photos": {
-        "main": "",
-        "thumbnail": ""
+        "main": "assets/images/recipes/tako-sumiso-osaka-001.jpg",
+        "thumbnail": "assets/images/recipes/tako-sumiso-osaka-001.jpg"
       },
       "related_recipe_ids": [],
       "thumbnail_emoji": "🐙",
@@ -565,8 +565,8 @@
       "grandma_notes": null,
       "cultural_background": "愛媛県を含む<a href=\"https://ja.wikipedia.org/wiki/%E7%80%AC%E6%88%B8%E5%86%85%E6%B5%B7\" target=\"_blank\" rel=\"noopener\">瀬戸内海</a>沿岸では鯛漁が古くから盛んで、鯛はお祝いの席に欠かせない魚として親しまれてきたとも言われています。愛媛には「松山鯛めし」と「宇和島鯛めし」の2スタイルがあるとも言われており、丸ごと炊き込む松山スタイルは土鍋でじっくり炊き上げるのが特徴です。",
       "photos": {
-        "main": "",
-        "thumbnail": ""
+        "main": "assets/images/recipes/taimeshi-ehime-001.jpg",
+        "thumbnail": "assets/images/recipes/taimeshi-ehime-001.jpg"
       },
       "related_recipe_ids": [],
       "thumbnail_emoji": "🐟",
@@ -741,8 +741,8 @@
       ],
       "cultural_background": "富山県は北前船の寄港地として<a href=\"https://ja.wikipedia.org/wiki/%E6%98%86%E5%B8%83\" target=\"_blank\" rel=\"noopener\">昆布</a>の消費量が全国トップクラスとも言われています。だしを取った後の昆布も捨てずに具材として使い切る「もったいない精神」が富山の食文化に深く根付いているようです。",
       "photos": {
-        "main": "",
-        "thumbnail": ""
+        "main": "assets/images/recipes/konbu-gottani-toyama-001.jpg",
+        "thumbnail": "assets/images/recipes/konbu-gottani-toyama-001.jpg"
       },
       "related_recipe_ids": [],
       "thumbnail_emoji": "🍲",
@@ -911,8 +911,8 @@
       ],
       "cultural_background": "醤油やソースを使わない素朴な塩味の焼き飯は、家庭ごとに味が異なる「おばあちゃんの味」の代表格かもしれません。錦糸卵を別に作って最後に盛り付けるひと手間が、家族への愛情を感じさせる一品です。",
       "photos": {
-        "main": "",
-        "thumbnail": ""
+        "main": "assets/images/recipes/yakimeshi-wakayama-001.jpg",
+        "thumbnail": "assets/images/recipes/yakimeshi-wakayama-001.jpg"
       },
       "related_recipe_ids": [],
       "thumbnail_emoji": "🍳",
@@ -1104,8 +1104,8 @@
       "grandma_notes": null,
       "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E3%81%8C%E3%82%81%E7%85%AE\" target=\"_blank\" rel=\"noopener\">がめ煮</a>は福岡県の郷土料理で、全国的には「筑前煮」として知られています。名前の由来は博多弁の「がめくり込む（寄せ集める）」からとも、<a href=\"https://ja.wikipedia.org/wiki/%E3%82%B9%E3%83%83%E3%83%9D%E3%83%B3\" target=\"_blank\" rel=\"noopener\">すっぽん</a>（がめ）を使ったのが始まりとも言われています。お正月や祝いの席、お盆の集まりなど、人が集まる場に欠かせない料理として親しまれてきました。",
       "photos": {
-        "main": "",
-        "thumbnail": ""
+        "main": "assets/images/recipes/gameni-fukuoka-001.jpg",
+        "thumbnail": "assets/images/recipes/gameni-fukuoka-001.jpg"
       },
       "related_recipe_ids": [],
       "thumbnail_emoji": "🍗",
@@ -1431,8 +1431,8 @@
       ],
       "cultural_background": "豚肉巻きフライは家庭ごとに中身のアレンジが異なる家庭料理の定番です。アスパラとチーズの組み合わせは比較的新しいスタイルかもしれませんが、おばあちゃんの世代でもオシャレな料理を取り入れて家族に振る舞う姿が印象的です。",
       "photos": {
-        "main": "",
-        "thumbnail": ""
+        "main": "assets/images/recipes/aspara-cheese-fry-gifu-001.jpg",
+        "thumbnail": "assets/images/recipes/aspara-cheese-fry-gifu-001.jpg"
       },
       "related_recipe_ids": [],
       "thumbnail_emoji": "🍖",
@@ -1717,8 +1717,8 @@
       ],
       "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E3%81%84%E3%81%8B%E3%81%AA%E3%81%94%E3%81%AE%E3%81%8F%E3%81%8E%E7%85%AE\" target=\"_blank\" rel=\"noopener\">いかなごのくぎ煮</a>は兵庫県の<a href=\"https://ja.wikipedia.org/wiki/%E6%92%AD%E7%A3%A8%E5%9C%B0%E6%96%B9\" target=\"_blank\" rel=\"noopener\">播磨</a>・<a href=\"https://ja.wikipedia.org/wiki/%E6%B7%A1%E8%B7%AF%E5%B3%B6\" target=\"_blank\" rel=\"noopener\">淡路</a>・<a href=\"https://ja.wikipedia.org/wiki/%E7%A5%9E%E6%88%B8%E5%B8%82\" target=\"_blank\" rel=\"noopener\">神戸</a>周辺で春の風物詩として親しまれている佃煮です。好きな人は大量に炊いて近所に配る文化もあるとも言われています。仕上がりが古釘に似ていることから「くぎ煮」と呼ばれるようになったとも言われています。",
       "photos": {
-        "main": "",
-        "thumbnail": ""
+        "main": "assets/images/recipes/ikanago-kugini-hyogo-001.jpg",
+        "thumbnail": "assets/images/recipes/ikanago-kugini-hyogo-001.jpg"
       },
       "related_recipe_ids": [
         "shoga-tsukudani-nagano-001"
@@ -2045,8 +2045,8 @@
       ],
       "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E3%83%8E%E3%83%93%E3%83%AB\" target=\"_blank\" rel=\"noopener\">野蒜</a>は日本各地の野原や道端に自生する野草で、古事記にも登場するほど古くから食べられてきたとも言われています。春先に摘んで酢味噌であえるのは、全国的に見られる素朴な食べ方のひとつです。",
       "photos": {
-        "main": "",
-        "thumbnail": ""
+        "main": "assets/images/recipes/nobiru-sumiso-tokyo-001.png",
+        "thumbnail": "assets/images/recipes/nobiru-sumiso-tokyo-001.png"
       },
       "related_recipe_ids": [
         "tako-sumiso-osaka-001"
@@ -2187,8 +2187,8 @@
       ],
       "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E3%82%BC%E3%83%B3%E3%83%9E%E3%82%A4\" target=\"_blank\" rel=\"noopener\">ぜんまい</a>は日本各地の山野に自生する山菜で、春に採取して干して保存食にするのが古くからの知恵とも言われています。新潟県をはじめ雪国では、冬場の貴重な食材として干しぜんまいが重宝されてきたようです。",
       "photos": {
-        "main": "",
-        "thumbnail": ""
+        "main": "assets/images/recipes/zenmai-nimono-niigata-001.jpg",
+        "thumbnail": "assets/images/recipes/zenmai-nimono-niigata-001.jpg"
       },
       "related_recipe_ids": [],
       "thumbnail_emoji": "🌱",
@@ -2321,8 +2321,8 @@
       ],
       "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E3%81%91%E3%82%93%E3%81%A1%E3%82%87%E3%81%86\" target=\"_blank\" rel=\"noopener\">けんちょう</a>は山口県全域で親しまれている郷土料理で、「けんちん」が訛ったものとも言われています。大根と豆腐という身近な材料だけで作れる庶民の味として、古くから各家庭で受け継がれてきたようです。",
       "photos": {
-        "main": "",
-        "thumbnail": ""
+        "main": "assets/images/recipes/kencho-yamaguchi-001.jpg",
+        "thumbnail": "assets/images/recipes/kencho-yamaguchi-001.jpg"
       },
       "related_recipe_ids": [],
       "thumbnail_emoji": "🥘",
@@ -2521,8 +2521,8 @@
       ],
       "cultural_background": "「かきまぜ」は<a href=\"https://ja.wikipedia.org/wiki/%E5%BE%B3%E5%B3%B6%E7%9C%8C\" target=\"_blank\" rel=\"noopener\">徳島県</a>の郷土料理で、ちらし寿司の一種とも言われています。お正月やお祭り、村の寄り合いなど人が集まる席で大鍋で作られてきた「ハレの日」の料理です。金時豆を甘く煮て入れるのが徳島ならではの特徴で、柚子を使うのは<a href=\"https://ja.wikipedia.org/wiki/%E5%BE%B3%E5%B3%B6%E7%9C%8C\" target=\"_blank\" rel=\"noopener\">徳島</a>の山間部で柚子が豊富に採れることと関係がありそうです。",
       "photos": {
-        "main": "",
-        "thumbnail": ""
+        "main": "assets/images/recipes/yuzu-kintoki-kakimaze-tokushima-001.jpg",
+        "thumbnail": "assets/images/recipes/yuzu-kintoki-kakimaze-tokushima-001.jpg"
       },
       "related_recipe_ids": [],
       "thumbnail_emoji": "🍣",
@@ -2623,8 +2623,8 @@
       ],
       "cultural_background": "お雑煮は日本全国でお正月に食べられる伝統料理ですが、地域によって味付けや具材が大きく異なるとも言われています。<a href=\"https://ja.wikipedia.org/wiki/%E4%BA%AC%E9%83%BD%E5%BA%9C\" target=\"_blank\" rel=\"noopener\">京都</a>をはじめ関西では白味噌仕立てが主流とされ、関東のすまし仕立てとは対照的です。",
       "photos": {
-        "main": "",
-        "thumbnail": ""
+        "main": "assets/images/recipes/ozoni-kyoto-002.jpg",
+        "thumbnail": "assets/images/recipes/ozoni-kyoto-002.jpg"
       },
       "related_recipe_ids": [
         "ohagi-kyoto-001"
@@ -2728,8 +2728,8 @@
       "grandma_notes": null,
       "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E3%82%BC%E3%83%B3%E3%83%9E%E3%82%A4\" target=\"_blank\" rel=\"noopener\">ゼンマイ</a>は春に山野で採れる山菜で、大分県をはじめ九州の山間部では春の味覚として親しまれてきたようです。下処理に手間がかかるため、家族総出で作業するのもまた思い出のひとつかもしれません。",
       "photos": {
-        "main": "",
-        "thumbnail": ""
+        "main": "assets/images/recipes/zenmai-nitsuke-oita-001.jpg",
+        "thumbnail": "assets/images/recipes/zenmai-nitsuke-oita-001.jpg"
       },
       "related_recipe_ids": [
         "zenmai-nimono-niigata-001"
@@ -3031,8 +3031,8 @@
       ],
       "cultural_background": "肉じゃがは明治時代に西洋のビーフシチューをもとに日本風にアレンジされた料理とも言われています。家庭ごとに具材や味付けにこだわりがあり、この<a href=\"https://ja.wikipedia.org/wiki/%E5%8D%83%E8%91%89%E7%9C%8C\" target=\"_blank\" rel=\"noopener\">千葉県</a>のお家では代々しらたきではなく厚揚げを使うのが特徴です。",
       "photos": {
-        "main": "",
-        "thumbnail": ""
+        "main": "assets/images/recipes/nikujaga-chiba-001.jpg",
+        "thumbnail": "assets/images/recipes/nikujaga-chiba-001.jpg"
       },
       "related_recipe_ids": [
         "imomochi-saitama-001"
@@ -3190,8 +3190,8 @@
       ],
       "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E3%81%84%E3%82%82%E3%81%8C%E3%82%89\" target=\"_blank\" rel=\"noopener\">いもがら</a>（芋がら）は里芋の茎を干して作る乾物で、東北地方を中心に古くから保存食として利用されてきたとも言われています。秋に収穫した芋の茎を軒下に干して冬の間の食材として蓄えるのは、雪国ならではの知恵かもしれません。",
       "photos": {
-        "main": "",
-        "thumbnail": ""
+        "main": "assets/images/recipes/imogara-nimono-miyagi-001.jpg",
+        "thumbnail": "assets/images/recipes/imogara-nimono-miyagi-001.jpg"
       },
       "related_recipe_ids": [
         "zenmai-nimono-niigata-001"
@@ -3343,8 +3343,8 @@
       ],
       "cultural_background": "古漬けのたくあんを煮物にする料理は、漬物文化が根づいた北陸地方で見られる家庭料理のひとつとも言われています。酸味が出てしまった古漬けを捨てずに煮て食べるのは、食材を無駄にしない昔ながらの知恵かもしれません。",
       "photos": {
-        "main": "",
-        "thumbnail": ""
+        "main": "assets/images/recipes/takuan-ni-ishikawa-001.jpg",
+        "thumbnail": "assets/images/recipes/takuan-ni-ishikawa-001.jpg"
       },
       "related_recipe_ids": [],
       "thumbnail_emoji": "🥒",
@@ -3498,8 +3498,8 @@
       ],
       "cultural_background": "なすの味噌炒めは日本各地で食べられている家庭料理ですが、<a href=\"https://ja.wikipedia.org/wiki/%E6%96%B0%E6%BD%9F%E7%9C%8C\" target=\"_blank\" rel=\"noopener\">新潟県</a>は良質ななすの産地としても知られています。夏の旬の時期には食卓に頻繁に登場する定番のおかずかもしれません。",
       "photos": {
-        "main": "",
-        "thumbnail": ""
+        "main": "assets/images/recipes/nasu-miso-itame-niigata-001.jpg",
+        "thumbnail": "assets/images/recipes/nasu-miso-itame-niigata-001.jpg"
       },
       "related_recipe_ids": [],
       "thumbnail_emoji": "🍆",
@@ -3619,8 +3619,8 @@
       ],
       "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E3%83%95%E3%82%AD\" target=\"_blank\" rel=\"noopener\">ふき</a>は日本原産の山菜で、春の訪れを告げる食材として古くから親しまれています。採れたてを使うのが最もおいしいとされ、裏山や畑の近くで自生するふきを摘んで料理するのは、田舎ならではの春の風物詩かもしれません。",
       "photos": {
-        "main": "",
-        "thumbnail": ""
+        "main": "assets/images/recipes/fuki-nimono-saga-001.jpg",
+        "thumbnail": "assets/images/recipes/fuki-nimono-saga-001.jpg"
       },
       "related_recipe_ids": [],
       "thumbnail_emoji": "🌿",
@@ -3730,8 +3730,8 @@
       ],
       "cultural_background": "磯辺焼きは日本全国で親しまれているお餅の食べ方ですが、甘い醤油だれで食べるスタイルは地域や家庭によってさまざまなようです。今では甘じょっぱいブームもありますが、昔からこの味を楽しんでいた家庭もあったかもしれません。",
       "photos": {
-        "main": "",
-        "thumbnail": ""
+        "main": "assets/images/recipes/mochi-isobe-nagano-001.jpg",
+        "thumbnail": "assets/images/recipes/mochi-isobe-nagano-001.jpg"
       },
       "related_recipe_ids": [],
       "thumbnail_emoji": "🍘",

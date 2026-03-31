@@ -1253,8 +1253,8 @@
       ],
       "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E5%B7%9D%E8%B6%8A%E5%B8%82\" target=\"_blank\" rel=\"noopener\">川越</a>は江戸時代からサツマイモの産地として知られ、「栗よりうまい十三里」という言葉でも親しまれてきたとも言われています。川越のおばあちゃんたちはサツマイモを使ったおやつを数多く伝えてきたようです。",
       "photos": {
-        "main": "",
-        "thumbnail": ""
+        "main": "assets/images/recipes/imomochi-saitama-001.jpg",
+        "thumbnail": "assets/images/recipes/imomochi-saitama-001.jpg"
       },
       "related_recipe_ids": [],
       "thumbnail_emoji": "🍠",
@@ -1936,8 +1936,8 @@
       ],
       "cultural_background": "福島県の田舎で育まれた家庭料理。雪平鍋でバターを使うところが独特で、根菜と豚肉の素朴な味わいに生姜の風味がアクセントになっています。",
       "photos": {
-        "main": "",
-        "thumbnail": ""
+        "main": "assets/images/recipes/shoga-amakara-don-fukushima-001.jpg",
+        "thumbnail": "assets/images/recipes/shoga-amakara-don-fukushima-001.jpg"
       },
       "related_recipe_ids": [],
       "thumbnail_emoji": "🍚",
@@ -2838,8 +2838,8 @@
       ],
       "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E8%8C%B6%E7%B2%A5\" target=\"_blank\" rel=\"noopener\">茶粥</a>は和歌山県や奈良県を中心に近畿地方で古くから親しまれてきた郷土料理とも言われています。「おかいさん」という愛称で呼ばれることもあり、日常の食事として朝昼晩問わず食べられてきたようです。",
       "photos": {
-        "main": "",
-        "thumbnail": ""
+        "main": "assets/images/recipes/chagayu-wakayama-002.jpg",
+        "thumbnail": "assets/images/recipes/chagayu-wakayama-002.jpg"
       },
       "related_recipe_ids": [
         "yakimeshi-wakayama-001"

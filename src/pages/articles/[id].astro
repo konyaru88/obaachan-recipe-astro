@@ -21,7 +21,7 @@ const siteUrl = 'https://www.obaachan-recipe.com';
 const pageUrl = `${siteUrl}/articles/${article.id}`;
 const date = article.published_at.replace(/-/g, '.').slice(2);
 const pageTitle = `${article.title} | おばあちゃんのレシピ`;
-const pageDescription = article.lead.slice(0, 120) + '…';
+const pageDescription = article.meta_description ?? (article.lead.slice(0, 120) + '…');
 
 // レシピカードHTMLを生成
 function buildRecipeCardHtml(recipeId: string): string {
@@ -78,7 +78,12 @@ function formatBody(body: string): string {
         return [heading];
       }
       const html = trimmed.replace(/\n/g, '<br>');
-      const formatted = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+      const formatted = html
+        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\[([^\]]+)\]\((\/[^)]+)\)/g, (_: string, text: string, href: string) =>
+          `<a href="${base}${href.slice(1)}" class="article-content__link">${text}</a>`)
+        .replace(/\[([^\]]+)\]\((https?:[^)]+)\)/g, (_: string, text: string, href: string) =>
+          `<a href="${href}" class="article-content__link" target="_blank" rel="noopener noreferrer">${text}</a>`);
       return [`<p>${formatted}</p>`];
     })
     .join('');
@@ -111,6 +116,16 @@ const articleLd = {
   mainEntityOfPage: pageUrl,
 };
 
+const faqLd = article.faq && article.faq.length > 0 ? {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: article.faq.map((item: any) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+} : null;
+
 // 関連読み物：同カテゴリ優先、最大3件
 const otherArticles = articlesData.filter((a: any) => a.id !== article.id);
 const sameCategory = otherArticles.filter((a: any) => a.category_slug === article.category_slug);
@@ -121,6 +136,7 @@ const relatedArticles = [...sameCategory, ...diffCategory].slice(0, 3);
 <BaseLayout title={pageTitle} description={pageDescription} ogType="article">
   <script type="application/ld+json" slot="head" set:html={JSON.stringify(breadcrumbLd)} />
   <script type="application/ld+json" slot="head" set:html={JSON.stringify(articleLd)} />
+  {faqLd && <script type="application/ld+json" slot="head" set:html={JSON.stringify(faqLd)} />}
 
   <Header />
 

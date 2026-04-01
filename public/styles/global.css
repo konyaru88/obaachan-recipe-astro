@@ -2448,6 +2448,15 @@ input, textarea, select {
   border-bottom: 2px solid var(--color-accent-gold);
 }
 
+.article-content__link {
+  color: var(--color-accent-brown);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-size: 0.9rem;
+}
+.article-content__link:hover {
+  opacity: 0.75;
+}
 .article-content__divider {
   border: none;
   border-top: 1px solid var(--color-divider);

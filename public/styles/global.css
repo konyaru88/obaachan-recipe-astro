@@ -2448,6 +2448,15 @@ input, textarea, select {
   border-bottom: 2px solid var(--color-accent-gold);
 }
 
+.article-content__subheading {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-top: var(--space-xl);
+  margin-bottom: var(--space-sm);
+}
+
 .article-content__link {
   color: var(--color-accent-brown);
   text-decoration: underline;

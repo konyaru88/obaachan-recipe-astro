@@ -2424,6 +2424,8 @@ input, textarea, select {
 }
 .article-content p {
   margin-bottom: var(--space-lg);
+  word-break: auto-phrase;
+  overflow-wrap: anywhere;
 }
 .article-content p:first-child::first-line {
   font-weight: 500;

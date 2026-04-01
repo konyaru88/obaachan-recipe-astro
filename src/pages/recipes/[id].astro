@@ -283,7 +283,7 @@ function difficultyStars(d: number): string {
         <section class="detail__background" aria-labelledby="background-heading">
           <h2 id="background-heading" class="detail__section-title">🍽 食文化の背景</h2>
           <div class="background-block">
-            {bgHistory && <p class="background-block__text">{bgHistory}</p>}
+            {bgHistory && <p class="background-block__text" set:html={bgHistory} />}
             {bgIngredients && <p class="background-block__text"><strong>この地域の特産食材：</strong>{bgIngredients}</p>}
             {bgSimilar && <p class="background-block__text"><strong>似た料理：</strong>{bgSimilar}</p>}
           </div>

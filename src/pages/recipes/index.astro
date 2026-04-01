@@ -18,7 +18,7 @@ const AREA_CODES = [
   { code: 'kyushu',   label: '九州・沖縄' },
 ];
 
-const COMMON_TAGS = ['煮物', '漬物', '汁物', '焼き物', '蒸し物', 'お正月', 'お祭り', '保存食', '郷土料理', '精進料理'];
+const COMMON_TAGS = ['煮物', '日常のごはん', 'お正月', '郷土料理', '山菜', '家庭料理', '常備菜', '保存食', '和え物', '春の味覚'];
 
 // 全レシピを新着順で出力（JSで絞り込み）
 const allRecipes = [...getAllRecipes()].sort((a, b) =>
@@ -109,6 +109,16 @@ const total = allRecipes.length;
       shikoku: '四国', kyushu: '九州・沖縄',
     };
 
+    // カテゴリグループ化（トップページのボタン → 実データのcategory値）
+    const CATEGORY_GROUPS: Record<string, string[]> = {
+      '汁物': ['汁物'],
+      '主菜': ['主菜', '煮物', '揚げ物'],
+      '副菜': ['副菜', '佃煮・常備菜', '和え物・酢の物'],
+      '漬物': ['漬物'],
+      'ご飯もの': ['ご飯もの'],
+      'おやつ': ['おやつ', '和菓子・甘味'],
+    };
+
     let currentRegion = '';
     let currentTag = '';
     let currentCategory = '';
@@ -148,7 +158,15 @@ const total = allRecipes.length;
           const tags = JSON.parse(card.dataset.tags ?? '[]') as string[];
           if (!tags.includes(currentTag)) show = false;
         }
-        if (currentCategory && card.dataset.category !== currentCategory) show = false;
+        if (currentCategory) {
+          const group = CATEGORY_GROUPS[currentCategory];
+          const cardCat = card.dataset.category ?? '';
+          if (group) {
+            if (!group.includes(cardCat)) show = false;
+          } else if (cardCat !== currentCategory) {
+            show = false;
+          }
+        }
 
         card.style.display = show ? '' : 'none';
         if (show) visibleCount++;

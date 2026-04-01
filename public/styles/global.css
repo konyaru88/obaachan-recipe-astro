@@ -2426,9 +2426,7 @@ input, textarea, select {
   margin-bottom: var(--space-lg);
   word-break: auto-phrase;
   overflow-wrap: anywhere;
-}
-.article-content p:first-child::first-line {
-  font-weight: 500;
+  text-wrap: pretty;
 }
 
 .article-header__subtitle {

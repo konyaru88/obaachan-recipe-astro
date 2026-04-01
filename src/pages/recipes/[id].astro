@@ -62,17 +62,15 @@ const allIngredients = recipe.ingredients.flatMap((g) =>
   g.items.map((item) => `${item.name} ${item.amount ?? ''}${item.unit}`.trim())
 );
 
-// image: 実レシピ画像があるときだけ ImageObject で指定（フォールバックアイコンは使わない）
-const recipeImageObj = imageUrl
-  ? { '@type': 'ImageObject', url: `${siteUrl}/${imageUrl}` }
-  : undefined;
+// image: 実レシピ画像があるときだけ URL 配列で指定（フォールバックアイコンは使わない）
+const recipeImageUrl = imageUrl ? `${siteUrl}/${imageUrl}` : undefined;
 
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Recipe',
   name: recipe.title,
   description,
-  ...(recipeImageObj ? { image: recipeImageObj } : {}),
+  ...(recipeImageUrl ? { image: [recipeImageUrl] } : {}),
   url: pageUrl,
   datePublished: meta.created_at,
   author: { '@type': 'Organization', name: 'おばあちゃんのレシピ', url: siteUrl },
@@ -90,7 +88,6 @@ const jsonLd = {
     position: s.step,
     text: s.text,
     url: `${pageUrl}#step-${s.step}`,
-    ...(recipeImageObj ? { image: recipeImageObj } : {}),
     ...(s.tip ? { name: s.tip } : {}),
   })),
 };

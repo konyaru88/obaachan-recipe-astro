@@ -55,7 +55,7 @@ const pageTitle = `${recipe.title}（${prefecture}）| おばあちゃんのレ�
 const ogImage = imageUrl
   ? `${siteUrl}/${imageUrl}`
   : `${siteUrl}/assets/images/grandma-icon.png`;
-const pageUrl = `${siteUrl}/recipes/${recipe.id}`;
+const pageUrl = `${siteUrl}/recipes/${recipe.id}/`;
 
 // JSON-LD
 const allIngredients = recipe.ingredients.flatMap((g) =>
@@ -97,7 +97,7 @@ const breadcrumbLd = {
   '@type': 'BreadcrumbList',
   itemListElement: [
     { '@type': 'ListItem', position: 1, name: 'ホーム', item: siteUrl },
-    { '@type': 'ListItem', position: 2, name: 'レシピ一覧', item: `${siteUrl}/recipes` },
+    { '@type': 'ListItem', position: 2, name: 'レシピ一覧', item: `${siteUrl}/recipes/` },
     { '@type': 'ListItem', position: 3, name: recipe.title, item: pageUrl },
   ],
 };
@@ -183,7 +183,7 @@ function difficultyStars(d: number): string {
 
         <div class="detail__tags">
           {tags.map((t) => (
-            <a href={`${base}recipes?tag=${encodeURIComponent(t)}`} class="tag-chip">{t}</a>
+            <a href={`${base}recipes/?tag=${encodeURIComponent(t)}`} class="tag-chip">{t}</a>
           ))}
         </div>
       </section>

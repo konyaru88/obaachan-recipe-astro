@@ -92,7 +92,7 @@ const regionLabels: Record<string, string> = {
           {latest.map((recipe) => <RecipeCard recipe={recipe} />)}
         </div>
         <div class="section-footer">
-          <a href={`${base}recipes`} class="btn btn--outline">すべてのレシピを見る</a>
+          <a href={`${base}recipes/`} class="btn btn--outline">すべてのレシピを見る</a>
         </div>
       </div>
     </section>
@@ -120,7 +120,7 @@ const regionLabels: Record<string, string> = {
           <p class="explore-panel__lead">おばあちゃんのタイプで選んでみよう</p>
           <div class="hashtag-cloud">
             {grandmaTags.map(({ label, tag }) => (
-              <a href={`${base}recipes?tag=${encodeURIComponent(tag)}`} class="hashtag-btn">{label}</a>
+              <a href={`${base}recipes/?tag=${encodeURIComponent(tag)}`} class="hashtag-btn">{label}</a>
             ))}
           </div>
         </div>
@@ -129,7 +129,7 @@ const regionLabels: Record<string, string> = {
           <p class="explore-panel__lead">料理のジャンルで選ぶ</p>
           <div class="category-grid">
             {categories.map((c) => (
-              <a href={`${base}recipes?category=${encodeURIComponent(c.label)}`} class="category-btn animate-on-scroll">
+              <a href={`${base}recipes/?category=${encodeURIComponent(c.label)}`} class="category-btn animate-on-scroll">
                 <img class="category-btn__img" src={c.img} alt={c.label} loading="lazy" />
                 <span class="category-btn__label">{c.label}</span>
               </a>
@@ -160,7 +160,7 @@ const regionLabels: Record<string, string> = {
           <div class="japan-map-tooltip" id="map-tooltip" style="display:none"></div>
         </div>
         <div class="section-footer">
-          <a href={`${base}regions`} class="btn btn--outline">地域一覧をすべて見る</a>
+          <a href={`${base}regions/`} class="btn btn--outline">地域一覧をすべて見る</a>
         </div>
       </div>
     </section>
@@ -229,8 +229,8 @@ const regionLabels: Record<string, string> = {
             何十年先の食卓でも、変わらず食べられ続ける「あの味」があることを目指して。
           </p>
           <div class="about-block__cta">
-            <a href={`${base}recipes`} class="btn btn--outline">レシピを探す</a>
-            <a href={`${base}support`} class="btn btn--support">活動を応援する</a>
+            <a href={`${base}recipes/`} class="btn btn--outline">レシピを探す</a>
+            <a href={`${base}support/`} class="btn btn--support">活動を応援する</a>
           </div>
         </div>
       </div>

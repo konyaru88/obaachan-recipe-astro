@@ -18,7 +18,7 @@ if (!article) {
 }
 
 const siteUrl = 'https://www.obaachan-recipe.com';
-const pageUrl = `${siteUrl}/articles/${article.id}`;
+const pageUrl = `${siteUrl}/articles/${article.id}/`;
 const date = article.published_at.replace(/-/g, '.').slice(2);
 const pageTitle = `${article.title} | おばあちゃんのレシピ`;
 const pageDescription = article.meta_description ?? (article.lead.slice(0, 120) + '…');
@@ -38,7 +38,7 @@ function buildRecipeCardHtml(recipeId: string): string {
     : `<img class="recipe-card__image recipe-card__image--placeholder" src="${base}assets/images/sample-placeholder.png.jpg" alt="準備中" loading="lazy" />`;
   return `<div class="article-recipe-card">
     <article class="recipe-card">
-      <a href="${base}recipes/${recipe.id}" class="recipe-card__link" aria-label="${recipe.title}のレシピを見る">
+      <a href="${base}recipes/${recipe.id}/" class="recipe-card__link" aria-label="${recipe.title}のレシピを見る">
         <div class="recipe-card__thumb${imageUrl ? '' : ' recipe-card__image-placeholder'}">
           ${imgHtml}
           ${prefecture ? `<span class="recipe-card__region-badge">${prefecture}</span>` : ''}
@@ -106,7 +106,7 @@ const breadcrumbLd = {
   '@type': 'BreadcrumbList',
   itemListElement: [
     { '@type': 'ListItem', position: 1, name: 'ホーム', item: siteUrl },
-    { '@type': 'ListItem', position: 2, name: '読み物', item: `${siteUrl}/articles` },
+    { '@type': 'ListItem', position: 2, name: '読み物', item: `${siteUrl}/articles/` },
     { '@type': 'ListItem', position: 3, name: article.title, item: pageUrl },
   ],
 };
@@ -157,7 +157,7 @@ const relatedArticles = [...sameCategory, ...diffCategory].slice(0, 3);
       <nav class="breadcrumb" aria-label="パンくずリスト">
         <a href={base}>ホーム</a>
         <span aria-hidden="true"> › </span>
-        <a href={`${base}articles`}>読み物</a>
+        <a href={`${base}articles/`}>読み物</a>
         <span aria-hidden="true"> › </span>
         <span aria-current="page">{article.title}</span>
       </nav>
@@ -193,14 +193,14 @@ const relatedArticles = [...sameCategory, ...diffCategory].slice(0, 3);
         {article.related_recipe_id && (
           <div class="article-related">
             <p class="article-related__label">📌 関連レシピ</p>
-            <a href={`${base}recipes/${article.related_recipe_id}`} class="btn btn--primary">このレシピを見る →</a>
+            <a href={`${base}recipes/${article.related_recipe_id}/`} class="btn btn--primary">このレシピを見る →</a>
           </div>
         )}
 
         <!-- タグ -->
         <div class="article-tags">
           {article.tags.map((tag: string) => (
-            <a href={`${base}articles`} class="article-tag">{tag}</a>
+            <a href={`${base}articles/`} class="article-tag">{tag}</a>
           ))}
         </div>
       </article>
@@ -213,7 +213,7 @@ const relatedArticles = [...sameCategory, ...diffCategory].slice(0, 3);
             {relatedArticles.map((ra: any) => {
               const raDate = ra.published_at.replace(/-/g, '.').slice(2);
               return (
-                <a href={`${base}articles/${ra.id}`} class="related-article-card">
+                <a href={`${base}articles/${ra.id}/`} class="related-article-card">
                   <div class="related-article-card__emoji" aria-hidden="true">{ra.thumbnail_emoji}</div>
                   <div class="related-article-card__body">
                     <span class="related-article-card__category">{ra.category}</span>
@@ -230,7 +230,7 @@ const relatedArticles = [...sameCategory, ...diffCategory].slice(0, 3);
 
       <!-- 戻るリンク -->
       <div style="text-align:center; margin: var(--space-2xl) 0">
-        <a href={`${base}articles`} class="btn btn--outline">← 読み物一覧へ戻る</a>
+        <a href={`${base}articles/`} class="btn btn--outline">← 読み物一覧へ戻る</a>
       </div>
 
     </div>

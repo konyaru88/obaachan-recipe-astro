@@ -25,12 +25,12 @@ const navClass = (path: string) =>
 
     <nav class="site-header__nav" aria-label="メインナビゲーション">
       <a href={base} class={navClass('/')}>ホーム</a>
-      <a href={`${base}recipes`} class={navClass('/recipes')}>レシピ一覧</a>
-      <a href={`${base}regions`} class={navClass('/regions')}>地域で探す</a>
-      <a href={`${base}articles`} class={navClass('/articles')}>読み物</a>
+      <a href={`${base}recipes/`} class={navClass('/recipes')}>レシピ一覧</a>
+      <a href={`${base}regions/`} class={navClass('/regions')}>地域で探す</a>
+      <a href={`${base}articles/`} class={navClass('/articles')}>読み物</a>
     </nav>
 
-    <form class="site-header__search" action={`${base}search`} method="get" role="search" aria-label="レシピ検索">
+    <form class="site-header__search" action={`${base}search/`} method="get" role="search" aria-label="レシピ検索">
       <input
         type="search"
         name="q"
@@ -52,11 +52,11 @@ const navClass = (path: string) =>
   <div class="mobile-menu" aria-hidden="true">
     <nav class="mobile-menu__nav" aria-label="モバイルナビゲーション">
       <a href={base} class={navClass('/')}>ホーム</a>
-      <a href={`${base}recipes`} class={navClass('/recipes')}>レシピ一覧</a>
-      <a href={`${base}regions`} class={navClass('/regions')}>地域で探す</a>
-      <a href={`${base}articles`} class={navClass('/articles')}>読み物</a>
+      <a href={`${base}recipes/`} class={navClass('/recipes')}>レシピ一覧</a>
+      <a href={`${base}regions/`} class={navClass('/regions')}>地域で探す</a>
+      <a href={`${base}articles/`} class={navClass('/articles')}>読み物</a>
     </nav>
-    <form class="mobile-menu__search" action={`${base}search`} method="get" role="search" aria-label="レシピ検索">
+    <form class="mobile-menu__search" action={`${base}search/`} method="get" role="search" aria-label="レシピ検索">
       <input
         type="search"
         name="q"

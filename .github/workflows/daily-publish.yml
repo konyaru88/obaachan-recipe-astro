@@ -1,0 +1,39 @@
+name: Daily Article Publish
+
+on:
+  schedule:
+    # 毎日 08:00 JST (= 23:00 UTC 前日) に実行
+    - cron: '0 23 * * *'
+  # 手動実行も可能
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Publish next article
+        id: publish
+        run: python3 scripts/publish-next.py
+
+      - name: Commit and push
+        if: steps.publish.outputs.article_id != ''
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/data/articles.json src/data/article_queue.json
+          git commit -m "📝 新記事公開: ${{ steps.publish.outputs.article_title }}"
+          git push

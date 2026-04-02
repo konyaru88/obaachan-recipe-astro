@@ -4129,6 +4129,146 @@
         ],
         "contributor": "ゆうちゃん"
       }
+    },
+    {
+      "id": "nasu-aburamiso-nagano-001",
+      "title": "ナスのあぶら味噌",
+      "grandmother": {
+        "name": null,
+        "age": null,
+        "prefecture": "長野県",
+        "city": null,
+        "village": null,
+        "message": null
+      },
+      "region": {
+        "area": "koshinetsu",
+        "prefecture_code": "20",
+        "prefecture": "長野県"
+      },
+      "meta": {
+        "created_at": "2026-04-02",
+        "is_featured": false,
+        "is_endangered": false
+      },
+      "category": "副菜",
+      "tags": [
+        "なす",
+        "味噌炒め",
+        "長野県",
+        "家庭料理",
+        "日常のごはん",
+        "夏野菜",
+        "春の味覚"
+      ],
+      "season": [
+        "夏"
+      ],
+      "servings": 4,
+      "prep_time_minutes": 10,
+      "cook_time_minutes": 10,
+      "difficulty": 1,
+      "story": "<a href=\"https://ja.wikipedia.org/wiki/%E9%95%B7%E9%87%8E%E7%9C%8C\" target=\"_blank\" rel=\"noopener\">長野県</a>は<a href=\"https://ja.wikipedia.org/wiki/%E4%BF%A1%E5%B7%9E%E5%91%B3%E5%99%8C\" target=\"_blank\" rel=\"noopener\">信州味噌</a>の産地として知られ、味噌を使った炒め物は夏の定番家庭料理のひとつとも言われています。畑で採れたばかりのなすを油でじゅっと炒めて味噌を絡める「あぶら味噌」は、ご飯が何杯でも進む夏のおかず。油を多めに使ってなすをトロトロに仕上げるのがおばあちゃん流のコツです。",
+      "ingredients": [
+        {
+          "group": "主材料",
+          "items": [
+            {
+              "name": "なす",
+              "amount": 5,
+              "unit": "個",
+              "note": "5〜6個",
+              "grandma_amount": "ザルにいっぱい（5〜6個）",
+              "approx_weight": "約500g"
+            },
+            {
+              "name": "ししとう",
+              "amount": 12,
+              "unit": "本",
+              "note": "10〜15本",
+              "grandma_amount": "片手でひと掴み分"
+            }
+          ]
+        },
+        {
+          "group": "調味料",
+          "items": [
+            {
+              "name": "味噌（信州味噌）",
+              "amount": 54,
+              "unit": "g",
+              "note": "大さじ3〜4",
+              "grandma_amount": "しゃもじに山盛り一杯"
+            },
+            {
+              "name": "砂糖",
+              "amount": 18,
+              "unit": "g",
+              "note": "大さじ2",
+              "grandma_amount": "指で三つまみくらい。甘めがいいんだよ"
+            },
+            {
+              "name": "サラダ油",
+              "amount": 45,
+              "unit": "cc",
+              "note": "大さじ3。多めに入れるのがコツ",
+              "grandma_amount": "多めに入れるのがコツ"
+            }
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "text": "なすはヘタを取り、縦半分に切ってから1cm幅の斜め切りにする。水にはさらさず、そのまま使う。",
+          "tip": "水にさらさないのがおばあちゃん流"
+        },
+        {
+          "step": 2,
+          "text": "ししとうは破裂しないように指で一箇所穴を開けておく。",
+          "tip": null
+        },
+        {
+          "step": 3,
+          "text": "フライパンに油を多めに熱し、強火でなすを炒める。なすが油を吸ってしんなりするまでしっかり火を通す。",
+          "tip": "当時は重い鉄鍋を使っていた。油は多めがコツ"
+        },
+        {
+          "step": 4,
+          "text": "ししとうを加えてさっと炒め合わせる。",
+          "tip": null
+        },
+        {
+          "step": 5,
+          "text": "火を少し弱め、味噌と砂糖を直接鍋に入れ、野菜の水分で溶かしながら全体に絡める。",
+          "tip": null
+        },
+        {
+          "step": 6,
+          "text": "味噌が少し焦げて香ばしい匂いがしてきたら完成。",
+          "tip": null
+        }
+      ],
+      "grandma_notes": [
+        "なすは水にさらさず、そのまま使うのがおばあちゃん流。",
+        "油は多めに入れるのがコツ。なすがトロトロになる。",
+        "「夏はこれさえあれば、ご飯が何杯でも食べられるんだよ」が口癖。"
+      ],
+      "cultural_background": "長野県では夏になると畑でなすやししとうが豊富に採れ、味噌と組み合わせた炒め物は各家庭の定番だったとも言われています。信州味噌の甘みとコクが油を吸ったなすと相性抜群で、白いご飯のお供として親しまれてきたようです。",
+      "photos": {
+        "main": null,
+        "thumbnail": null
+      },
+      "related_recipe_ids": [],
+      "thumbnail_emoji": "🍆",
+      "episode": "祖母の家に行くと、いつもキッチンから味噌が少し焦げた香ばしい匂いがしていました。おばあちゃんは「夏はこれさえあれば、ご飯が何杯でも食べられるんだよ」と笑いながら、大きなしゃもじで豪快に炒めてくれました。なすが油をたっぷり吸ってトロトロになっているのが大好きで、子供の頃はししとうの当たり（辛いもの）を引いて大騒ぎしたのも良い思い出です。今でも夏になると、あの鉄鍋の音とおばあちゃんの丸まった背中を思い出して、自分で真似して作っています。",
+      "source": {
+        "types": [
+          "おばあちゃん本人から直接教わった",
+          "記憶を頼りに書いている"
+        ],
+        "contributor": "ながののりんご"
+      }
     }
   ]
 }

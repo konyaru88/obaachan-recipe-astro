@@ -3966,6 +3966,169 @@
         ],
         "contributor": "なな"
       }
+    },
+    {
+      "id": "kasujiru-hyogo-001",
+      "title": "粕汁",
+      "grandmother": {
+        "name": null,
+        "age": null,
+        "prefecture": "兵庫県",
+        "city": null,
+        "village": null,
+        "message": null
+      },
+      "region": {
+        "area": "kinki",
+        "prefecture_code": "28",
+        "prefecture": "兵庫県"
+      },
+      "meta": {
+        "created_at": "2026-04-02",
+        "is_featured": false,
+        "is_endangered": false
+      },
+      "category": "汁物",
+      "tags": [
+        "粕汁",
+        "汁物",
+        "酒粕",
+        "鮭",
+        "兵庫県",
+        "家庭料理",
+        "日常のごはん"
+      ],
+      "season": [
+        "冬"
+      ],
+      "servings": 4,
+      "prep_time_minutes": 10,
+      "cook_time_minutes": 20,
+      "difficulty": 2,
+      "story": "<a href=\"https://ja.wikipedia.org/wiki/%E7%B2%95%E6%B1%81\" target=\"_blank\" rel=\"noopener\">粕汁</a>は<a href=\"https://ja.wikipedia.org/wiki/%E9%85%92%E7%B2%95\" target=\"_blank\" rel=\"noopener\">酒粕</a>を溶かし入れた冬の汁物で、<a href=\"https://ja.wikipedia.org/wiki/%E5%85%B5%E5%BA%AB%E7%9C%8C\" target=\"_blank\" rel=\"noopener\">兵庫県</a>をはじめ関西地方で広く親しまれてきたと言われています。灘五郷など酒どころが近い土地柄、酒粕が手に入りやすかったことも家庭に根付いた理由のひとつかもしれません。塩鮭を入れることで出汁に深みが加わり、体の芯から温まる冬の定番です。",
+      "ingredients": [
+        {
+          "group": "主材料",
+          "items": [
+            {
+              "name": "大根",
+              "amount": 200,
+              "unit": "g",
+              "note": "薄めのいちょう切り",
+              "grandma_amount": "薄めによぅさん切っとき"
+            },
+            {
+              "name": "にんじん",
+              "amount": 50,
+              "unit": "g",
+              "note": "薄めのいちょう切り",
+              "grandma_amount": "色どりにちょっとだけ"
+            },
+            {
+              "name": "こんにゃく",
+              "amount": 0.5,
+              "unit": "枚",
+              "note": "手でちぎる",
+              "grandma_amount": "手でちぎった方が味しゅむから",
+              "approx_weight": "約120g"
+            },
+            {
+              "name": "鮭（塩鮭）",
+              "amount": 2,
+              "unit": "切れ",
+              "note": null,
+              "grandma_amount": "ええ出汁出るから、これ入れとき",
+              "approx_weight": "160〜200g"
+            },
+            {
+              "name": "ねぎ",
+              "amount": 0.5,
+              "unit": "本",
+              "note": "仕上げ用・刻む",
+              "grandma_amount": "仕上げにパラッと",
+              "approx_weight": "約50g"
+            }
+          ]
+        },
+        {
+          "group": "調味料・出汁",
+          "items": [
+            {
+              "name": "酒粕",
+              "amount": 135,
+              "unit": "g",
+              "note": "120〜150g。別の器でだし汁で溶き伸ばしてから使う",
+              "grandma_amount": "味見しながら好きなだけ溶かすんやで"
+            },
+            {
+              "name": "味噌",
+              "amount": 18,
+              "unit": "g",
+              "note": "大さじ1",
+              "grandma_amount": "ほんの気持ちだけ"
+            },
+            {
+              "name": "だし汁",
+              "amount": 800,
+              "unit": "cc",
+              "note": null,
+              "grandma_amount": "鍋にたっぷり"
+            }
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "text": "大根とにんじんは薄めのいちょう切りにする。こんにゃくは手でちぎる。",
+          "tip": "こんにゃくは手でちぎった方が味がしみ込みやすい"
+        },
+        {
+          "step": 2,
+          "text": "鍋にだし汁を入れ、大根・にんじん・こんにゃくを中火でコトコト煮る。",
+          "tip": "「根菜は焦らんと、ゆっくり火い通すんや」がおばあちゃんの教え"
+        },
+        {
+          "step": 3,
+          "text": "野菜が少し柔らかくなったら、鮭を入れてさらに煮る。",
+          "tip": null
+        },
+        {
+          "step": 4,
+          "text": "酒粕は別の器で少しだし汁を加えて溶き伸ばしておいて、鍋に少しずつ入れる。",
+          "tip": "「一気に入れたらダマになるから、気をつけや」と必ず言われた"
+        },
+        {
+          "step": 5,
+          "text": "味噌を溶き入れて、味を整える。",
+          "tip": null
+        },
+        {
+          "step": 6,
+          "text": "最後に刻んだねぎを散らして完成。",
+          "tip": "仕上げに弱火で少しだけ温めると、味がいい感じに纏まって優しい味になる"
+        }
+      ],
+      "grandma_notes": [
+        "酒粕は味見しながら好きなだけ溶かすスタイル。",
+        "「根菜は焦らんと、ゆっくり火い通すんや」が口癖。",
+        "酒粕は一気に入れずに、別の器で溶き伸ばしてから少しずつ。"
+      ],
+      "cultural_background": "粕汁は酒造りが盛んな関西地方で特に親しまれてきた冬の汁物です。兵庫県の<a href=\"https://ja.wikipedia.org/wiki/%E7%81%98%E4%BA%94%E9%83%B7\" target=\"_blank\" rel=\"noopener\">灘五郷</a>は日本有数の酒どころとして知られ、新酒の時期に出回る新鮮な酒粕を使った粕汁は冬の風物詩だったとも言われています。塩鮭を入れるのは関西の粕汁の特徴のひとつかもしれません。",
+      "photos": {
+        "main": null,
+        "thumbnail": null
+      },
+      "related_recipe_ids": [],
+      "thumbnail_emoji": "🍲",
+      "episode": "冬になると、おばあちゃんの家の台所はいつも酒粕の甘い香りでいっぱいでした。大きな鍋から立ちのぼる湯気で眼鏡が曇って、「見えへんわ〜」と笑いながら味見していた姿が本当に忘れられません。寒そうに帰ってくると「これ食べたらあったまるで！」と、湯気の向こうから優しい声が聞こえてきました。具だくさんで、食べ終わる頃には体の芯までぽかぽかしてきて、おばあちゃんに包まれているような安心感がありました。今でも粕汁の匂いを嗅ぐと、あの冬の夕暮れと、おばあちゃんの笑顔が蘇る感じです。",
+      "source": {
+        "types": [
+          "おばあちゃん本人から直接教わった",
+          "記憶を頼りに書いている"
+        ],
+        "contributor": "ゆうちゃん"
+      }
     }
   ]
 }

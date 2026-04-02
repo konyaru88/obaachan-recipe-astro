@@ -4,6 +4,7 @@ import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import articlesData from '../../data/articles.json';
 
+const base = import.meta.env.BASE_URL;
 const articles = [...articlesData].sort((a: any, b: any) =>
   b.published_at.localeCompare(a.published_at)
 );
@@ -25,10 +26,10 @@ const articles = [...articlesData].sort((a: any, b: any) =>
       <!-- カテゴリータブ -->
       <div class="article-tabs" role="tablist" aria-label="カテゴリー">
         <button class="article-tab article-tab--active" data-category="">すべて</button>
-        <button class="article-tab" data-category="life">暮らしのレシピ帖</button>
-        <button class="article-tab" data-category="teshigoto">季節の手仕事</button>
-        <button class="article-tab" data-category="story">おばあちゃんのストーリー</button>
-        <button class="article-tab" data-category="column">食文化コラム</button>
+        <a href={`${base}articles/life`} class="article-tab" data-category="life">暮らしのレシピ帖</a>
+        <a href={`${base}articles/teshigoto`} class="article-tab" data-category="teshigoto">季節の手仕事</a>
+        <a href={`${base}articles/story`} class="article-tab" data-category="story">おばあちゃんのストーリー</a>
+        <a href={`${base}articles/column`} class="article-tab" data-category="column">食文化コラム</a>
       </div>
 
       <!-- 記事一覧（全記事出力、JSで表示制御） -->
@@ -54,54 +55,12 @@ const articles = [...articlesData].sort((a: any, b: any) =>
         })}
       </div>
 
-      <!-- 空状態 -->
-      <div class="empty-state" id="empty-state" style="display:none">
-        <p class="empty-state__icon" aria-hidden="true">📖</p>
-        <p class="empty-state__msg">まだ記事がありません。</p>
-      </div>
     </div>
   </main>
 
   <Footer />
 
   <script>
-    const BASE = document.body.dataset.base || '/';
-    const tabs = document.querySelectorAll('.article-tab');
-    const cards = document.querySelectorAll('.article-card') as NodeListOf<HTMLElement>;
-    const emptyEl = document.getElementById('empty-state')!;
-
-    // URLパラメータから初期状態を復元
-    const params = new URLSearchParams(window.location.search);
-    let currentCategory = params.get('category') ?? '';
-
-    function applyFilter() {
-      let count = 0;
-      cards.forEach((card) => {
-        const slug = card.dataset.categorySlug ?? '';
-        const show = !currentCategory || slug === currentCategory;
-        card.style.display = show ? '' : 'none';
-        if (show) count++;
-      });
-      emptyEl.style.display = count > 0 ? 'none' : '';
-
-      tabs.forEach((tab) => {
-        const cat = (tab as HTMLElement).dataset.category ?? '';
-        tab.classList.toggle('article-tab--active', cat === currentCategory);
-      });
-
-      const qp = new URLSearchParams();
-      if (currentCategory) qp.set('category', currentCategory);
-      const qs = qp.toString();
-      history.replaceState(null, '', qs ? `${BASE}articles?${qs}` : `${BASE}articles`);
-    }
-
-    tabs.forEach((tab) => {
-      tab.addEventListener('click', () => {
-        currentCategory = (tab as HTMLElement).dataset.category ?? '';
-        applyFilter();
-      });
-    });
-
-    applyFilter();
+    // 「すべて」ボタンはアクティブ状態を維持（他タブはリンクで遷移）
   </script>
 </BaseLayout>

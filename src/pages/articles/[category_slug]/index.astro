@@ -1,0 +1,122 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import articlesData from '../../../data/articles.json';
+
+const categoryMeta: Record<string, { name: string; description: string; intro: string }> = {
+  teshigoto: {
+    name: '季節の手仕事',
+    description: 'たくあん、梅干し、味噌づくり。昔ながらの保存食や季節の仕込みもののレシピと知恵をまとめました。',
+    intro: 'たくあん、梅干し、味噌——昔ながらの保存食や季節の仕込みもの。おばあちゃんが毎年繰り返してきた手仕事の知恵を、初心者にもわかるようにまとめました。',
+  },
+  life: {
+    name: '暮らしのレシピ帖',
+    description: '一人暮らし、体調がすぐれないとき、忙しい日の夕飯。暮らしの場面に寄り添うおばあちゃんのレシピまとめ。',
+    intro: '一人暮らし、体調がすぐれないとき、忙しい日の夕飯。暮らしの場面に寄り添うおばあちゃんのレシピをまとめました。',
+  },
+  story: {
+    name: 'おばあちゃんのストーリー',
+    description: '台所の記憶、煮物の匂い、あの小さな椅子。おばあちゃんにまつわる暮らしのエピソード。',
+    intro: '台所の記憶、煮物の匂い、あの小さな椅子。おばあちゃんにまつわる暮らしのエピソードを綴ります。',
+  },
+  column: {
+    name: '食文化コラム',
+    description: '目分量の科学、発酵の仕組み、郷土料理の歴史。おばあちゃんの料理を深く知るためのコラム。',
+    intro: '目分量の科学、発酵の仕組み、郷土料理の歴史。おばあちゃんの料理を少し深く知るためのコラムです。',
+  },
+};
+
+export function getStaticPaths() {
+  return ['teshigoto', 'life', 'story', 'column'].map((slug) => ({ params: { category_slug: slug } }));
+}
+
+const { category_slug } = Astro.params;
+const base = import.meta.env.BASE_URL;
+const meta = categoryMeta[category_slug!];
+
+if (!meta) {
+  return Astro.redirect('/404');
+}
+
+const articles = articlesData
+  .filter((a: any) => a.category_slug === category_slug)
+  .sort((a: any, b: any) => b.published_at.localeCompare(a.published_at));
+
+const siteUrl = 'https://www.obaachan-recipe.com';
+const pageUrl = `${siteUrl}/articles/${category_slug}/`;
+const pageTitle = `${meta.name}の記事一覧｜おばあちゃんのレシピ`;
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={meta.description}
+  canonicalUrl={pageUrl}
+>
+  <Header />
+
+  <main id="main" class="articles-page">
+    <div class="container">
+
+      <!-- パンくず -->
+      <nav class="breadcrumb" aria-label="パンくずリスト">
+        <ol class="breadcrumb__list">
+          <li class="breadcrumb__item"><a href={`${base}`}>ホーム</a></li>
+          <li class="breadcrumb__item"><a href={`${base}articles`}>読み物</a></li>
+          <li class="breadcrumb__item" aria-current="page">{meta.name}</li>
+        </ol>
+      </nav>
+
+      <div class="page-header">
+        <h1 class="page-title">{meta.name}</h1>
+        <p class="page-subtitle">{meta.intro}</p>
+      </div>
+
+      <!-- 記事一覧 -->
+      <div class="article-list" id="article-list">
+        {articles.map((article: any) => {
+          const date = article.published_at.replace(/-/g, '.').slice(2);
+          return (
+            <a href={`${base}articles/${article.id}`} class="article-card" data-category-slug={article.category_slug}>
+              <div class="article-card__thumb" aria-hidden="true">{article.thumbnail_emoji}</div>
+              <div class="article-card__body">
+                <div class="article-card__header-row">
+                  <span class="article-card__category">{article.category}</span>
+                </div>
+                <h2 class="article-card__title">{article.title}</h2>
+                <p class="article-card__lead">{article.lead}</p>
+                <div class="article-card__meta">
+                  <time datetime={article.published_at}>{date}</time>
+                  <span class="article-card__read">約{article.reading_time}分で読める</span>
+                </div>
+              </div>
+            </a>
+          );
+        })}
+      </div>
+
+      {articles.length === 0 && (
+        <div class="empty-state">
+          <p class="empty-state__icon" aria-hidden="true">📖</p>
+          <p class="empty-state__msg">まだ記事がありません。</p>
+        </div>
+      )}
+
+      <div class="back-link-wrap">
+        <a href={`${base}articles`} class="back-link">&larr; 読み物一覧にもどる</a>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "ホーム", "item": siteUrl },
+      { "@type": "ListItem", "position": 2, "name": "読み物", "item": `${siteUrl}/articles` },
+      { "@type": "ListItem", "position": 3, "name": meta.name, "item": pageUrl },
+    ],
+  })} slot="head" />
+</BaseLayout>

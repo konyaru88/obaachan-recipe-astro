@@ -57,6 +57,16 @@ for (const code of regions) {
   });
 }
 
+// Article category pages
+const articleCategories = ['teshigoto', 'life', 'story', 'column'];
+for (const cat of articleCategories) {
+  urls.push({
+    loc: `/articles/${cat}/`,
+    priority: '0.7',
+    changefreq: 'weekly',
+  });
+}
+
 // Article pages
 for (const article of articles) {
   if (article.id) {

@@ -109,7 +109,8 @@
               "amount": 1,
               "unit": "袋",
               "note": null,
-              "grandma_amount": "1袋まるごと"
+              "grandma_amount": "1袋まるごと",
+              "approx_weight": "145g"
             },
             {
               "name": "白ゴマ",
@@ -497,13 +498,15 @@
               "amount": 1,
               "unit": "枚",
               "note": null,
-              "grandma_amount": "1枚"
+              "grandma_amount": "1枚",
+              "approx_weight": "10〜15g"
             },
             {
               "name": "生姜",
               "amount": 1,
               "unit": "片",
               "note": null,
+              "approx_weight": "10〜15g",
               "grandma_amount": "1片"
             },
             {
@@ -511,7 +514,8 @@
               "amount": 1,
               "unit": "袋",
               "note": "仕上げに使う",
-              "grandma_amount": "ひと袋"
+              "grandma_amount": "ひと袋",
+              "approx_weight": "30〜40g"
             }
           ]
         },
@@ -630,35 +634,40 @@
               "amount": 0.5,
               "unit": "本",
               "note": "皮をむいて適当な大きさに切る",
-              "grandma_amount": "半分くらい"
+              "grandma_amount": "半分くらい",
+              "approx_weight": "400〜500g"
             },
             {
-              "name": "にんじん",
+              "name": "人参",
               "amount": 1,
               "unit": "本",
               "note": "皮をむいて一口大に切る",
-              "grandma_amount": "1本"
+              "grandma_amount": "1本",
+              "approx_weight": "150〜180g"
             },
             {
               "name": "しいたけ",
               "amount": 4,
               "unit": "枚",
               "note": "細切りにする",
-              "grandma_amount": "数枚"
+              "grandma_amount": "数枚",
+              "approx_weight": "60〜80g"
             },
             {
               "name": "こんにゃく",
               "amount": 0.5,
               "unit": "枚",
               "note": "細切りにする",
-              "grandma_amount": "半分くらい"
+              "grandma_amount": "半分くらい",
+              "approx_weight": "125g"
             },
             {
               "name": "じゃがいも",
               "amount": 2,
               "unit": "個",
               "note": "一口大に切る",
-              "grandma_amount": "2個"
+              "grandma_amount": "2個",
+              "approx_weight": "300g"
             },
             {
               "name": "鶏肉",
@@ -810,10 +819,11 @@
               "grandma_amount": "1合"
             },
             {
-              "name": "玉子",
+              "name": "卵",
               "amount": 2,
               "unit": "個",
               "note": "1個は錦糸卵用、1個は炒め用",
+              "approx_weight": "120g",
               "grandma_amount": "2個"
             },
             {
@@ -978,21 +988,21 @@
               "grandma_amount": "300〜400gくらい"
             },
             {
-              "name": "ごぼう",
+              "name": "牛蒡",
               "amount": 150,
               "unit": "g",
               "note": "食べやすい大きさに切る",
               "grandma_amount": "適宜"
             },
             {
-              "name": "にんじん",
+              "name": "人参",
               "amount": 150,
               "unit": "g",
               "note": null,
               "grandma_amount": "適宜"
             },
             {
-              "name": "れんこん",
+              "name": "蓮根",
               "amount": 150,
               "unit": "g",
               "note": null,
@@ -1003,6 +1013,7 @@
               "amount": 1,
               "unit": "枚",
               "note": "手でちぎるか食べやすい大きさに切る",
+              "approx_weight": "250g",
               "grandma_amount": null
             },
             {
@@ -1010,10 +1021,11 @@
               "amount": 4,
               "unit": "枚",
               "note": "戻して食べやすい大きさに切る。戻し汁はだしに加えてもOK",
+              "approx_weight": "20〜30g（乾燥時）",
               "grandma_amount": "3〜4枚"
             },
             {
-              "name": "さといも",
+              "name": "里芋",
               "amount": null,
               "unit": "適量",
               "note": "下茹でしておく",
@@ -1169,6 +1181,7 @@
               "amount": 1,
               "unit": "本",
               "note": "皮を剥いてアク抜きする",
+              "approx_weight": "200〜250g",
               "grandma_amount": "1本"
             },
             {
@@ -1320,21 +1333,24 @@
               "amount": 4,
               "unit": "枚",
               "note": null,
-              "grandma_amount": "4枚"
+              "grandma_amount": "4枚",
+              "approx_weight": "100〜120g"
             },
             {
               "name": "アスパラ",
               "amount": 3,
               "unit": "本",
               "note": "袴部分をピーラーで削いで4等分に切る",
-              "grandma_amount": "3本"
+              "grandma_amount": "3本",
+              "approx_weight": "60〜80g"
             },
             {
               "name": "スライスチーズ",
               "amount": 2,
               "unit": "枚",
               "note": "3等分に切る",
-              "grandma_amount": "2枚"
+              "grandma_amount": "2枚",
+              "approx_weight": "36g"
             }
           ]
         },
@@ -1346,7 +1362,8 @@
               "amount": 1,
               "unit": "個",
               "note": "バッター液用",
-              "grandma_amount": "1個"
+              "grandma_amount": "1個",
+              "approx_weight": "60g"
             },
             {
               "name": "薄力粉",
@@ -2255,21 +2272,24 @@
               "amount": 0.5,
               "unit": "本",
               "note": "イチョウ切りにする",
-              "grandma_amount": "食べたいだけ（半分くらい）"
+              "grandma_amount": "食べたいだけ（半分くらい）",
+              "approx_weight": "400〜500g"
             },
             {
               "name": "人参",
               "amount": 0.5,
               "unit": "本",
               "note": "イチョウ切りにする",
-              "grandma_amount": "食べたいだけ（半分くらい）"
+              "grandma_amount": "食べたいだけ（半分くらい）",
+              "approx_weight": "75〜90g"
             },
             {
               "name": "木綿豆腐",
               "amount": 0.5,
               "unit": "丁",
               "note": "潰しながら入れる",
-              "grandma_amount": "食べたいだけ（半分くらい）"
+              "grandma_amount": "食べたいだけ（半分くらい）",
+              "approx_weight": "150〜200g"
             }
           ]
         },
@@ -2588,10 +2608,11 @@
               "grandma_amount": "濃いめ"
             },
             {
-              "name": "おもち",
+              "name": "お餅",
               "amount": 2,
               "unit": "個",
               "note": null,
+              "approx_weight": "100g",
               "grandma_amount": "2つ"
             },
             {
@@ -2910,10 +2931,11 @@
               "grandma_amount": "ひとパックくらい"
             },
             {
-              "name": "ジャガイモ",
+              "name": "じゃがいも",
               "amount": 3,
               "unit": "個",
               "note": "スーパーで売っている普通のもの",
+              "approx_weight": "400〜450g",
               "grandma_amount": "3つくらい"
             },
             {
@@ -2921,6 +2943,7 @@
               "amount": 1,
               "unit": "本",
               "note": null,
+              "approx_weight": "150〜180g",
               "grandma_amount": "1本"
             },
             {
@@ -2928,6 +2951,7 @@
               "amount": 1,
               "unit": "個",
               "note": null,
+              "approx_weight": "200g",
               "grandma_amount": "1個"
             },
             {
@@ -3100,7 +3124,7 @@
               "grandma_amount": "一握りくらい"
             },
             {
-              "name": "にんじん",
+              "name": "人参",
               "amount": null,
               "unit": "適量",
               "note": "細切り",
@@ -3259,7 +3283,8 @@
               "amount": 2,
               "unit": "本",
               "note": "薄い輪切り（5ミリほど）にして水にさらす",
-              "grandma_amount": "2本ほど"
+              "grandma_amount": "2本ほど",
+              "approx_weight": "300〜400g"
             }
           ]
         },
@@ -3306,7 +3331,8 @@
               "amount": 1,
               "unit": "本",
               "note": null,
-              "grandma_amount": "一本"
+              "grandma_amount": "一本",
+              "approx_weight": "1〜2g"
             },
             {
               "name": "生姜すりおろし",
@@ -3404,7 +3430,7 @@
           "group": "主材料",
           "items": [
             {
-              "name": "なす",
+              "name": "茄子",
               "amount": null,
               "unit": "適量",
               "note": "大きめに切って水にさらす",

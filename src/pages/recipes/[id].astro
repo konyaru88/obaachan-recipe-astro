@@ -59,7 +59,10 @@ const pageUrl = `${siteUrl}/recipes/${recipe.id}/`;
 
 // JSON-LD
 const allIngredients = recipe.ingredients.flatMap((g) =>
-  g.items.map((item) => `${item.name} ${item.amount ?? ''}${item.unit}`.trim())
+  g.items.map((item) => {
+    const base = `${item.name} ${item.amount ?? ''}${item.unit}`.trim();
+    return item.approx_weight ? `${base}（約${item.approx_weight}）` : base;
+  })
 );
 
 // image: 実レシピ画像があるときだけ URL 配列で指定（フォールバックアイコンは使わない）
@@ -206,6 +209,7 @@ function difficultyStars(d: number): string {
             ⚖️ きっちり計量
           </button>
         </div>
+        <p class="ingredient__approx-note">※ おばあちゃんのレシピでは「だいたいこのくらい」で作ることも多いため、分量は目安としてご覧ください。</p>
         <table class="ingredient-table">
           <tbody id="ingredient-tbody">
             {recipe.ingredients.map((group) => (
@@ -223,12 +227,12 @@ function difficultyStars(d: number): string {
                         <>
                           <span class="ingredient__grandma">{ing.grandma_amount}</span>
                           <span class="ingredient__precise" style="display:none">
-                            <span class="ingredient__qty">{String(ing.amount ?? '')}</span>{ing.unit ?? ''}
+                            <span class="ingredient__qty">{String(ing.amount ?? '')}</span>{ing.unit ?? ''}{ing.approx_weight && <span class="ingredient__approx-weight">（約{ing.approx_weight}）</span>}
                           </span>
                         </>
                       ) : (
                         <span class="ingredient__precise-always">
-                          <span class="ingredient__qty">{String(ing.amount ?? '')}</span>{ing.unit ?? ''}
+                          <span class="ingredient__qty">{String(ing.amount ?? '')}</span>{ing.unit ?? ''}{ing.approx_weight && <span class="ingredient__approx-weight">（約{ing.approx_weight}）</span>}
                         </span>
                       )}
                       {ing.note && <small class="ingredient__note">（{ing.note}）</small>}

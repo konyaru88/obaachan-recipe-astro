@@ -1751,6 +1751,17 @@ input, textarea, select {
   font-size: 0.75rem;
   color: var(--color-text-muted);
 }
+.ingredient__approx-weight {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+.ingredient__approx-note {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  margin: 0.5rem 0;
+  font-family: var(--font-serif);
+}
 
 /* 手順 */
 .step-list {

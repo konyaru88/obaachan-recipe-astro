@@ -4,6 +4,7 @@ export interface IngredientItem {
   unit: string;
   note: string | null;
   grandma_amount?: string;
+  approx_weight?: string;
 }
 
 export interface IngredientGroup {

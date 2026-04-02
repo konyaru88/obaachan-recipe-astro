@@ -53,8 +53,8 @@ const ogImageAbsolute = ogImage.startsWith('http') ? ogImage : siteUrl + ogImage
   <meta name="google-site-verification" content="o8CGRwi6p8d6FL8x-uHhxRCxZVuSK3pnas4yYmXAnJY" />
 
   <!-- Google Analytics (GA4) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EVYD2MEX67"></script>
-  <script>
+  <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-EVYD2MEX67"></script>
+  <script is:inline>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());

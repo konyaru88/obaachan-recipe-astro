@@ -4269,6 +4269,151 @@
         ],
         "contributor": "ながののりんご"
       }
+    },
+    {
+      "id": "saba-nitsuke-hyogo-001",
+      "title": "鯖の煮付け（梅干しと生姜たっぷり仕立て）",
+      "grandmother": {
+        "name": null,
+        "age": null,
+        "prefecture": "兵庫県",
+        "city": null,
+        "village": null,
+        "message": null
+      },
+      "region": {
+        "area": "kinki",
+        "prefecture_code": "28",
+        "prefecture": "兵庫県"
+      },
+      "meta": {
+        "created_at": "2026-04-02",
+        "is_featured": false,
+        "is_endangered": false
+      },
+      "category": "主菜",
+      "tags": [
+        "鯖",
+        "煮物",
+        "煮付け",
+        "兵庫県",
+        "家庭料理",
+        "日常のごはん",
+        "梅干し"
+      ],
+      "season": [
+        "冬",
+        "夏"
+      ],
+      "servings": 2,
+      "prep_time_minutes": 10,
+      "cook_time_minutes": 15,
+      "difficulty": 2,
+      "story": "<a href=\"https://ja.wikipedia.org/wiki/%E3%82%B5%E3%83%90\" target=\"_blank\" rel=\"noopener\">鯖</a>の煮付けは日本各地で親しまれる家庭料理ですが、<a href=\"https://ja.wikipedia.org/wiki/%E5%85%B5%E5%BA%AB%E7%9C%8C\" target=\"_blank\" rel=\"noopener\">兵庫県</a>のこのおばあちゃんの煮付けは、<a href=\"https://ja.wikipedia.org/wiki/%E6%A2%85%E5%B9%B2%E3%81%97\" target=\"_blank\" rel=\"noopener\">梅干し</a>と生姜をたっぷり使い、<a href=\"https://ja.wikipedia.org/wiki/%E4%B8%AD%E5%8F%8C%E7%B3%96\" target=\"_blank\" rel=\"noopener\">中ザラ糖</a>のコクのある甘さで仕上げるのが特徴です。煮汁をスプーンで何度もかけながら、とろりと煮詰める丁寧な一品。",
+      "ingredients": [
+        {
+          "group": "主材料",
+          "items": [
+            {
+              "name": "真鯖（切り身）",
+              "amount": 2,
+              "unit": "切れ",
+              "note": null,
+              "grandma_amount": "ええ身のところ2切れ",
+              "approx_weight": "約200g"
+            },
+            {
+              "name": "生姜",
+              "amount": 20,
+              "unit": "g",
+              "note": "厚さ3mmのスライス",
+              "grandma_amount": "厚めに切って"
+            },
+            {
+              "name": "梅干し（昔ながらの塩辛いもの）",
+              "amount": 1,
+              "unit": "個",
+              "note": null,
+              "grandma_amount": "一粒"
+            }
+          ]
+        },
+        {
+          "group": "煮汁",
+          "items": [
+            {
+              "name": "水",
+              "amount": 150,
+              "unit": "cc",
+              "note": null,
+              "grandma_amount": "ひたひたよりちょっと少なめ"
+            },
+            {
+              "name": "酒",
+              "amount": 50,
+              "unit": "cc",
+              "note": null,
+              "grandma_amount": "ドボドボっと二回し"
+            },
+            {
+              "name": "醤油",
+              "amount": 45,
+              "unit": "cc",
+              "note": "大さじ3",
+              "grandma_amount": "色がええ感じになるまで"
+            },
+            {
+              "name": "砂糖（中ザラ糖）",
+              "amount": 18,
+              "unit": "g",
+              "note": "大さじ2",
+              "grandma_amount": "スプーンに山盛り2杯"
+            }
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "text": "霜降り：鯖の切り身にザルで熱湯を回しかけ、表面の白くなった汚れや血合いを冷水で優しく洗う。",
+          "tip": null
+        },
+        {
+          "step": 2,
+          "text": "鍋に水、酒、砂糖、醤油、スライスした生姜、ちぎった梅干しを入れて強火にかける。",
+          "tip": null
+        },
+        {
+          "step": 3,
+          "text": "煮汁が沸騰したら鯖の皮目を上にして入れる。再び沸いたら中火にし、落とし蓋をして10分ほど煮る。",
+          "tip": null
+        },
+        {
+          "step": 4,
+          "text": "落とし蓋を取り、スプーンで煮汁を鯖の表面に何度もかけながら、汁気が少しとろりとするまで煮詰める。",
+          "tip": "火加減は最後まで弱めず、中火で一気に仕上げるのがコツ。「魚は何度も触ったら身が崩れるから、じっと我慢やで」"
+        }
+      ],
+      "grandma_notes": [
+        "「魚は何度も触ったら身が崩れるから、じっと我慢やで」と言って、鍋をじっと見つめていた。",
+        "砂糖は中ザラ糖を使うのがこだわり。コクのある甘さになる。",
+        "火加減は最後まで弱めず、中火で一気に仕上げる。"
+      ],
+      "cultural_background": "鯖の煮付けは日本全国で食べられている家庭料理ですが、梅干しを加える煮付けは臭み消しと風味づけを兼ねた昔ながらの知恵とも言われています。中ザラ糖を使うのは関西の一部の家庭で見られる手法のようで、上白糖よりもコクのある仕上がりになるとされています。",
+      "photos": {
+        "main": null,
+        "thumbnail": null
+      },
+      "related_recipe_ids": [],
+      "thumbnail_emoji": "🐟",
+      "episode": "おばあちゃんはいつも、鯖を煮る時に「魚は何度も触ったら身が崩れるから、じっと我慢やで」と言って、鍋をじっと見つめていました。大人になり、食品卸の仕事を始めてからも、市場で良い鯖を見るたびにおばあちゃんのこの煮付けを思い出します。今の料理屋のような上品な薄味ではありませんが、あの梅干しの酸味とザラ糖のコクのある甘さが、白いご飯に最高に合ったんです。",
+      "source": {
+        "types": [
+          "おばあちゃん本人から直接教わった",
+          "記憶を頼りに書いている"
+        ],
+        "contributor": "くにお"
+      }
     }
   ]
 }

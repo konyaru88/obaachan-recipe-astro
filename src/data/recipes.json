@@ -3773,6 +3773,199 @@
         ],
         "contributor": "mao231"
       }
+    },
+    {
+      "id": "nikujaga-shimane-001",
+      "title": "肉じゃが",
+      "grandmother": {
+        "name": null,
+        "age": null,
+        "prefecture": "島根県",
+        "city": null,
+        "village": null,
+        "message": null
+      },
+      "region": {
+        "area": "chugoku",
+        "prefecture_code": "32",
+        "prefecture": "島根県"
+      },
+      "meta": {
+        "created_at": "2026-04-02",
+        "is_featured": false,
+        "is_endangered": false
+      },
+      "category": "煮物",
+      "tags": [
+        "肉じゃが",
+        "煮物",
+        "島根県",
+        "家庭料理",
+        "日常のごはん",
+        "牛肉",
+        "じゃがいも"
+      ],
+      "season": [
+        "春",
+        "夏",
+        "秋",
+        "冬"
+      ],
+      "servings": 4,
+      "prep_time_minutes": 15,
+      "cook_time_minutes": 25,
+      "difficulty": 2,
+      "story": "<a href=\"https://ja.wikipedia.org/wiki/%E8%82%89%E3%81%98%E3%82%83%E3%81%8C\" target=\"_blank\" rel=\"noopener\">肉じゃが</a>は日本の家庭料理の代名詞ともいえる一皿です。<a href=\"https://ja.wikipedia.org/wiki/%E5%B3%B6%E6%A0%B9%E7%9C%8C\" target=\"_blank\" rel=\"noopener\">島根県</a>では牛肉を使うのが一般的とも言われています。このおばあちゃんの肉じゃがは、甘い調味料から先に入れて味を染み込ませ、一度冷ましてから温め直すのがポイント。計量スプーンを使わずとも毎回同じ味に仕上がる、まさに手が覚えた味かもしれません。",
+      "ingredients": [
+        {
+          "group": "主材料",
+          "items": [
+            {
+              "name": "じゃがいも",
+              "amount": 5,
+              "unit": "個",
+              "note": "中サイズ。5〜6個",
+              "grandma_amount": "人数分よりちょっと多め",
+              "approx_weight": "600g程度"
+            },
+            {
+              "name": "玉ねぎ",
+              "amount": 2,
+              "unit": "個",
+              "note": null,
+              "grandma_amount": "鍋に広がるくらい",
+              "approx_weight": "約400g"
+            },
+            {
+              "name": "にんじん",
+              "amount": 1,
+              "unit": "本",
+              "note": null,
+              "grandma_amount": "色が出るくらい入れる",
+              "approx_weight": "約150g"
+            },
+            {
+              "name": "牛こま切れ肉",
+              "amount": 300,
+              "unit": "g",
+              "note": null,
+              "grandma_amount": "ケチらんでええ"
+            },
+            {
+              "name": "しらたき",
+              "amount": 1,
+              "unit": "袋",
+              "note": null,
+              "grandma_amount": "ひと袋",
+              "approx_weight": "200g"
+            }
+          ]
+        },
+        {
+          "group": "調味料",
+          "items": [
+            {
+              "name": "醤油",
+              "amount": 45,
+              "unit": "cc",
+              "note": "大さじ3",
+              "grandma_amount": "ぐるっとひと回し"
+            },
+            {
+              "name": "砂糖",
+              "amount": 18,
+              "unit": "g",
+              "note": "大さじ2",
+              "grandma_amount": "甘みが分かるくらい"
+            },
+            {
+              "name": "みりん",
+              "amount": 30,
+              "unit": "cc",
+              "note": "大さじ2",
+              "grandma_amount": "ちょろっと"
+            },
+            {
+              "name": "酒",
+              "amount": 30,
+              "unit": "cc",
+              "note": "大さじ2",
+              "grandma_amount": "ひとさし"
+            },
+            {
+              "name": "水",
+              "amount": 400,
+              "unit": "cc",
+              "note": null,
+              "grandma_amount": "具がちょっと顔出すくらい"
+            },
+            {
+              "name": "油",
+              "amount": 15,
+              "unit": "cc",
+              "note": "大さじ1",
+              "grandma_amount": "鍋の底に薄く"
+            }
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "text": "じゃがいもは皮をむいて大きめに切り、水にさらしておく。にんじんは乱切り、玉ねぎはくし切りにする。しらたきは下ゆでして食べやすく切る。",
+          "tip": null
+        },
+        {
+          "step": 2,
+          "text": "鍋に油をひいて中火で熱し、牛肉を先に炒める。",
+          "tip": "「色が変わればええ」とのこと"
+        },
+        {
+          "step": 3,
+          "text": "玉ねぎ・にんじんを加えて軽く炒め、全体に油が回ったらじゃがいもとしらたきを入れる。",
+          "tip": null
+        },
+        {
+          "step": 4,
+          "text": "水を加え、具が少し見えるくらいに調整する。沸騰したらアクを取る。",
+          "tip": null
+        },
+        {
+          "step": 5,
+          "text": "砂糖→酒→みりん→醤油の順で調味料を加える。",
+          "tip": "「甘いもんから先に入れると味が染みる」がおばあちゃんの教え"
+        },
+        {
+          "step": 6,
+          "text": "落とし蓋をして弱めの中火で15〜20分ほど煮る。途中で鍋をゆすって焦げないようにする。",
+          "tip": null
+        },
+        {
+          "step": 7,
+          "text": "じゃがいもが柔らかくなったら火を止め、そのまま少し置いて味をなじませる。食べる前に軽く温め直すとより美味しい。",
+          "tip": "煮すぎてじゃがいもを崩さないこと。一度冷ますと味がしみ込む"
+        }
+      ],
+      "grandma_notes": [
+        "「だいたいでええんよ」が口癖で、計量スプーンはほとんど使わなかった。それでも毎回同じ味に仕上がるのが不思議だった。",
+        "調味料は甘いものから先に入れるのが決まり。",
+        "完成したものより、少し時間が経ってからの方が美味しいといつも言っていた。"
+      ],
+      "cultural_background": "肉じゃがは明治時代に考案されたとも言われる、日本を代表する家庭料理のひとつです。西日本では牛肉を使うことが多いとされ、島根県でも牛肉の肉じゃがが一般的のようです。調味料を入れる順番や一度冷まして味を染み込ませるなど、家庭ごとに受け継がれた工夫があるのかもしれません。",
+      "photos": {
+        "main": null,
+        "thumbnail": null
+      },
+      "related_recipe_ids": [],
+      "thumbnail_emoji": "🥘",
+      "episode": "肉じゃがを作る日は台所に甘い醤油の匂いが広がって、「今日は肉じゃがだな」とすぐ分かりました。煮ている途中でつまみ食いすると「まだ味が入っとらんけん待ちなさい」とよく笑いながら言われました。翌日の肉じゃがはさらに味がしみていて、家族みんなの楽しみでした。素朴な料理ですが、家族が集まると自然と食卓に並ぶ、安心する味の代表でした。",
+      "source": {
+        "types": [
+          "おばあちゃん本人から直接教わった",
+          "おばあちゃん本人が書いたメモ・レシピが残っている"
+        ],
+        "contributor": "なな"
+      }
     }
   ]
 }

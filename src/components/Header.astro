@@ -56,7 +56,7 @@ const latestHref = `${base}recipes/${latest?.id || ''}/`;
       <span class="ticker__item is-active">残されたレシピ：<strong>{recipeCount}</strong>件</span>
       <span class="ticker__item">つながった土地：<strong>{prefCount}</strong>県</span>
       <span class="ticker__item">出会ったおばあちゃん：<strong>{grandmaCount}</strong>人</span>
-      <span class="ticker__item">最新の記録：<a href={latestHref} class="ticker__link">{latestLabel}</a></span>
+      <span class="ticker__item">最新の記録：<a href={latestHref} class="ticker__link" data-cta="ticker-recipe">{latestLabel}</a></span>
     </div>
   </div>
 </div>

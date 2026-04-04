@@ -25,15 +25,15 @@ const base = import.meta.env.BASE_URL;
     <div>
       <p class="site-footer__heading">SNS</p>
       <ul class="site-footer__links">
-        <li><a href="https://www.instagram.com/obaachan_recipe" target="_blank" rel="noopener noreferrer">Instagram</a></li>
-        <li><a href="https://www.threads.net/@obaachan_recipe" target="_blank" rel="noopener noreferrer">Threads</a></li>
-        <li><a href="https://note.com/obaachan_recipe" target="_blank" rel="noopener noreferrer">note</a></li>
+        <li><a href="https://www.instagram.com/obaachan_recipe" target="_blank" rel="noopener noreferrer" data-outbound="instagram">Instagram</a></li>
+        <li><a href="https://www.threads.net/@obaachan_recipe" target="_blank" rel="noopener noreferrer" data-outbound="threads">Threads</a></li>
+        <li><a href="https://note.com/obaachan_recipe" target="_blank" rel="noopener noreferrer" data-outbound="note">note</a></li>
       </ul>
     </div>
 
     <div>
       <p class="site-footer__heading">SUPPORT</p>
-      <a href={`${base}support/`} class="site-footer__link">この活動に参加する</a>
+      <a href={`${base}support/`} class="site-footer__link" data-cta="footer-support">この活動に参加する</a>
     </div>
   </div>
 

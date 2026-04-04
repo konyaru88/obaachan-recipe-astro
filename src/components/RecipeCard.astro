@@ -16,7 +16,7 @@ const imageUrl = recipe.photos?.main ?? recipe.photos?.thumbnail ?? '';
 ---
 
 <article class="recipe-card">
-  <a href={`${base}recipes/${recipe.id}/`} class="recipe-card__link" aria-label={`${recipe.title}のレシピを見る`}>
+  <a href={`${base}recipes/${recipe.id}/`} class="recipe-card__link" aria-label={`${recipe.title}のレシピを見る`} data-cta="recipe-view" data-recipe-name={recipe.title} data-recipe-id={recipe.id} data-region={prefecture}>
     <div class={`recipe-card__thumb${imageUrl ? '' : ' recipe-card__image-placeholder'}`}>
       {imageUrl
         ? <img class="recipe-card__image" src={`${base}${imageUrl}`} alt={recipe.title} loading="lazy" />

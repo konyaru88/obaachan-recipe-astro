@@ -97,7 +97,7 @@ const regionLabels: Record<string, string> = {
           {latest.map((recipe) => <RecipeCard recipe={recipe} />)}
         </div>
         <div class="section-footer">
-          <a href={`${base}recipes/`} class="btn btn--outline">すべてのレシピを見る</a>
+          <a href={`${base}recipes/`} class="btn btn--outline" data-cta="view-all-recipes">すべてのレシピを見る</a>
         </div>
       </div>
     </section>
@@ -124,7 +124,7 @@ const regionLabels: Record<string, string> = {
         <div class="explore-panel" id="panel-grandma">
           <div class="hashtag-cloud">
             {grandmaTags.map(({ label, tag }) => (
-              <a href={`${base}recipes/?tag=${encodeURIComponent(tag)}`} class="hashtag-btn">{label}</a>
+              <a href={`${base}recipes/?tag=${encodeURIComponent(tag)}`} class="hashtag-btn" data-cta="hashtag-filter">{label}</a>
             ))}
           </div>
         </div>
@@ -132,7 +132,7 @@ const regionLabels: Record<string, string> = {
         <div class="explore-panel" id="panel-recipe" style="display:none">
           <div class="category-grid">
             {categories.map((c) => (
-              <a href={`${base}recipes/?category=${encodeURIComponent(c.label)}`} class="category-btn animate-on-scroll">
+              <a href={`${base}recipes/?category=${encodeURIComponent(c.label)}`} class="category-btn animate-on-scroll" data-cta="category-filter">
                 <img class="category-btn__img" src={c.img} alt={c.label} loading="lazy" />
                 <span class="category-btn__label">{c.label}</span>
               </a>
@@ -162,7 +162,7 @@ const regionLabels: Record<string, string> = {
           <div class="japan-map-tooltip" id="map-tooltip" style="display:none"></div>
         </div>
         <div class="section-footer">
-          <a href={`${base}regions/`} class="btn btn--outline">地域一覧をすべて見る</a>
+          <a href={`${base}regions/`} class="btn btn--outline" data-cta="view-all-regions">地域一覧をすべて見る</a>
         </div>
       </div>
     </section>
@@ -182,7 +182,7 @@ const regionLabels: Record<string, string> = {
           何が出てくるかはわからない。<br />
           ランダムに、誰かの記憶の味に出会う。
         </p>
-        <a href="#" id="timemachine-btn" class="btn btn--outline" style="padding:1rem 3.5rem; font-family:var(--font-sans); font-size:0.8rem; letter-spacing:0.15em; text-transform:uppercase;">
+        <a href="#" id="timemachine-btn" class="btn btn--outline" data-cta="timemachine" style="padding:1rem 3.5rem; font-family:var(--font-sans); font-size:0.8rem; letter-spacing:0.15em; text-transform:uppercase;">
           タイムマシンに乗る
         </a>
       </div>
@@ -209,7 +209,7 @@ const regionLabels: Record<string, string> = {
             残したいのはレシピじゃない。<br />
             一緒に食卓を囲んだ、あの時間。
           </p>
-          <a href={base + 'support/'} class="about-block__btn">about</a>
+          <a href={base + 'support/'} class="about-block__btn" data-cta="about">about</a>
         </div>
       </div>
     </section>

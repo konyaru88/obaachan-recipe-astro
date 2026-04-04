@@ -61,6 +61,49 @@ const ogImageAbsolute = ogImage.startsWith('http') ? ogImage : siteUrl + ogImage
     gtag('config', 'G-EVYD2MEX67');
   </script>
 
+  <!-- GA4 Custom Events (イベント委譲で一括処理・二重発火なし) -->
+  <script is:inline>
+  (function() {
+    var isDev = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+    document.addEventListener('click', function(e) {
+      var ctaEl = e.target.closest('[data-cta]');
+      if (ctaEl) {
+        var params = {
+          cta_name: ctaEl.getAttribute('data-cta'),
+          page_location: location.href,
+          transport_type: 'beacon'
+        };
+        if (isDev) console.log('[GA4] cta_click', params);
+        gtag('event', 'cta_click', params);
+
+        if (ctaEl.getAttribute('data-cta') === 'recipe-view') {
+          var rp = {
+            recipe_name: ctaEl.getAttribute('data-recipe-name') || '',
+            recipe_id: ctaEl.getAttribute('data-recipe-id') || '',
+            region: ctaEl.getAttribute('data-region') || '',
+            click_source: location.pathname,
+            transport_type: 'beacon'
+          };
+          if (isDev) console.log('[GA4] recipe_click', rp);
+          gtag('event', 'recipe_click', rp);
+        }
+      }
+
+      var outEl = e.target.closest('[data-outbound]');
+      if (outEl) {
+        var op = {
+          link_url: outEl.href || '',
+          link_text: outEl.getAttribute('data-outbound'),
+          page_location: location.href,
+          transport_type: 'beacon'
+        };
+        if (isDev) console.log('[GA4] outbound_click', op);
+        gtag('event', 'outbound_click', op);
+      }
+    });
+  })();
+  </script>
+
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

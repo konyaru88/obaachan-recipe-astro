@@ -50,8 +50,18 @@ const seasonEmojiMap: Record<string, string> = { '春': '🌸', '夏': '🌻', '
 const seasonEmoji = (s: string) => seasonEmojiMap[s] ?? '🗓';
 
 // SEO
-const description = story.replace(/<[^>]+>/g, '').slice(0, 120) + '…';
+const rawDesc = story.replace(/<[^>]+>/g, '');
+const description = rawDesc
+  ? rawDesc.slice(0, 120) + '…'
+  : `「${recipe.title}」は${prefecture}のおばあちゃんから届いた${recipe.category ?? 'おばあちゃん'}のレシピです。`;
 const pageTitle = `${recipe.title}（${prefecture}）| おばあちゃんのレシピ`;
+
+// GA4 tracking vars
+const trackRecipeName = recipe.title;
+const trackRecipeId = recipe.id;
+const trackRegion = prefecture;
+const trackArea = areaCode;
+const trackCategory = recipe.category ?? '';
 const ogImage = imageUrl
   ? `${siteUrl}/${imageUrl}`
   : `${siteUrl}/assets/images/grandma-icon.png`;
@@ -355,5 +365,24 @@ function difficultyStars(d: number): string {
         }
       });
     });
+  </script>
+
+  <!-- GA4: recipe_view (SSG=毎回フルページ読み込みなので二重発火なし) -->
+  <script define:vars={{ trackRecipeName, trackRecipeId, trackRegion, trackArea, trackCategory }}>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof gtag === 'function') {
+        var isDev = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+        var params = {
+          recipe_name: trackRecipeName,
+          recipe_id: trackRecipeId,
+          region: trackRegion,
+          area: trackArea,
+          category: trackCategory,
+          page_location: location.href
+        };
+        if (isDev) console.log('[GA4] recipe_view', params);
+        gtag('event', 'recipe_view', params);
+      }
+    }, { once: true });
   </script>
 </BaseLayout>

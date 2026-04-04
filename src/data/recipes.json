@@ -6618,6 +6618,472 @@
           "記憶を頼りに書いている"
         ]
       }
+    },
+    {
+      "id": "kashiwameshi-fukuoka-001",
+      "title": "かしわめし",
+      "grandmother": {
+        "name": "ゆきおとこ",
+        "age": null,
+        "prefecture": "福岡県",
+        "city": null,
+        "village": null,
+        "message": null
+      },
+      "region": {
+        "area": "kyushu",
+        "prefecture_code": "40",
+        "prefecture": "福岡県"
+      },
+      "meta": {
+        "created_at": "2026-04-04",
+        "is_featured": false,
+        "is_endangered": false
+      },
+      "category": "ご飯もの",
+      "tags": [
+        "鶏肉",
+        "かしわ",
+        "炊き込みご飯",
+        "福岡県",
+        "ご飯もの",
+        "郷土料理",
+        "家庭料理",
+        "日常のごはん"
+      ],
+      "season": [
+        "春",
+        "夏",
+        "秋",
+        "冬"
+      ],
+      "servings": 4,
+      "prep_time_minutes": 20,
+      "cook_time_minutes": 60,
+      "difficulty": 2,
+      "view_count": 0,
+      "story": "<a href=\"https://ja.wikipedia.org/wiki/%E7%A6%8F%E5%B2%A1%E7%9C%8C\" target=\"_blank\">福岡</a>では鶏肉のことを「かしわ」と呼んでいて、この炊き込みご飯は本当によく食べました。具材を先に甘辛く煮詰めてからお米と一緒に炊くのがポイントで、ご飯全体にしっかり味が染みていて冷めても美味しいんです。おにぎりにして持たせてくれたのがいい思い出です。",
+      "ingredients": [
+        {
+          "group": "主材料",
+          "items": [
+            {
+              "name": "お米",
+              "amount": 3,
+              "unit": "合",
+              "note": "研いでおく",
+              "grandma_amount": null
+            },
+            {
+              "name": "鶏もも肉",
+              "amount": 200,
+              "unit": "g",
+              "note": "小さく切る",
+              "grandma_amount": "「かしわはたっぷり入れんね」"
+            },
+            {
+              "name": "ごぼう",
+              "amount": 1,
+              "unit": "本",
+              "note": "ささがきにして水にさらす",
+              "grandma_amount": null,
+              "approx_weight": "約150〜180g"
+            },
+            {
+              "name": "干ししいたけ",
+              "amount": 3,
+              "unit": "枚",
+              "note": "水で戻してみじん切り（戻し汁は後で使う）",
+              "grandma_amount": null,
+              "approx_weight": "約6〜9g（乾燥）"
+            }
+          ]
+        },
+        {
+          "group": "調味料",
+          "items": [
+            {
+              "name": "醤油",
+              "amount": 4,
+              "unit": "大さじ",
+              "note": null,
+              "grandma_amount": "「色がしっかりつくくらい」"
+            },
+            {
+              "name": "みりん",
+              "amount": 2,
+              "unit": "大さじ",
+              "note": null,
+              "grandma_amount": "「とろっとするくらい」"
+            },
+            {
+              "name": "砂糖",
+              "amount": 1,
+              "unit": "大さじ",
+              "note": null,
+              "grandma_amount": "「甘めにひとすくい」"
+            },
+            {
+              "name": "酒",
+              "amount": 2,
+              "unit": "大さじ",
+              "note": null,
+              "grandma_amount": null
+            }
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "text": "干ししいたけは水で戻してみじん切りにする。戻し汁は後で使うので取っておく。",
+          "tip": null
+        },
+        {
+          "step": 2,
+          "text": "鶏もも肉を小さく切り、ごぼうはささがきにして水にさらす。",
+          "tip": null
+        },
+        {
+          "step": 3,
+          "text": "フライパンに油を少し引いて、鶏肉、ごぼう、しいたけを炒める。",
+          "tip": "中火でしっかり火を通す"
+        },
+        {
+          "step": 4,
+          "text": "火が通ったら、醤油、みりん、砂糖、酒を入れて汁気がなくなるまでしっかり煮詰める。",
+          "tip": "焦がさないように注意しながら、しっかり味を含ませる"
+        },
+        {
+          "step": 5,
+          "text": "炊飯器に研いだお米と、しいたけの戻し汁を入れ、3合の目盛りまで水を足す。",
+          "tip": "戻し汁を使うことで旨みが増す"
+        },
+        {
+          "step": 6,
+          "text": "その上に煮詰めた具材を汁ごと乗せて、普通に炊飯する。炊き上がったらよく混ぜて完成。",
+          "tip": "具材は混ぜずに上に乗せたまま炊く"
+        }
+      ],
+      "grandma_notes": [],
+      "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E3%81%8B%E3%81%97%E3%82%8F%E3%82%81%E3%81%97\" target=\"_blank\">かしわめし</a>は福岡県を代表する郷土料理のひとつ。九州では鶏肉を「かしわ」と呼ぶ文化があり、駅弁としても親しまれています。具材を先に煮詰めてから炊き込む方法は、味がしっかり染み込むとされています。",
+      "photos": [],
+      "related_recipe_ids": [
+        "gameni-fukuoka-001"
+      ],
+      "thumbnail_emoji": "🍚",
+      "episode": "福岡では鶏肉のことをかしわと呼んでいて、この炊き込みご飯は本当によく食べました。具材を先に甘辛く煮詰めてからお米と一緒に炊くのがポイントで、ご飯全体にしっかり味が染みていて冷めても美味しいんです。おにぎりにして持たせてくれたのがいい思い出です。",
+      "source": {
+        "type": "family",
+        "details": [
+          "家族（親・きょうだいなど）から聞いた"
+        ]
+      }
+    },
+    {
+      "id": "houtou-yamanashi-001",
+      "title": "ほうとう",
+      "grandmother": {
+        "name": "あんこ",
+        "age": null,
+        "prefecture": "山梨県",
+        "city": null,
+        "village": null,
+        "message": null
+      },
+      "region": {
+        "area": "koshinetsu",
+        "prefecture_code": "19",
+        "prefecture": "山梨県"
+      },
+      "meta": {
+        "created_at": "2026-04-04",
+        "is_featured": false,
+        "is_endangered": false
+      },
+      "category": "汁物",
+      "tags": [
+        "ほうとう",
+        "かぼちゃ",
+        "味噌",
+        "山梨県",
+        "汁物",
+        "郷土料理",
+        "日常のごはん",
+        "家庭料理"
+      ],
+      "season": [
+        "秋",
+        "冬"
+      ],
+      "servings": 3,
+      "prep_time_minutes": 15,
+      "cook_time_minutes": 30,
+      "difficulty": 1,
+      "view_count": 0,
+      "story": "大鍋をぐるぐる混ぜながら「かぼちゃいれなきゃほうとうじゃないね」って笑いながら話してた。ほうとうの日に限って白い服着てたりもしました。肌寒い日や、野菜をたくさん食べたい日によく作ってくれた、冬に絶対作る定番の一品です。",
+      "ingredients": [
+        {
+          "group": "主材料",
+          "items": [
+            {
+              "name": "じゃがいも",
+              "amount": 3,
+              "unit": "個",
+              "note": null,
+              "grandma_amount": null,
+              "approx_weight": "約450g"
+            },
+            {
+              "name": "かぼちゃ",
+              "amount": "1/4",
+              "unit": "個",
+              "note": null,
+              "grandma_amount": null,
+              "approx_weight": "約400〜500g"
+            },
+            {
+              "name": "人参",
+              "amount": "1/2",
+              "unit": "本",
+              "note": null,
+              "grandma_amount": null,
+              "approx_weight": "約75〜100g"
+            },
+            {
+              "name": "ねぎ",
+              "amount": "1/2",
+              "unit": "本",
+              "note": null,
+              "grandma_amount": null,
+              "approx_weight": "約50g"
+            },
+            {
+              "name": "大根",
+              "amount": "1/4",
+              "unit": "本",
+              "note": null,
+              "grandma_amount": null,
+              "approx_weight": "約250〜300g"
+            },
+            {
+              "name": "白菜",
+              "amount": "4〜5",
+              "unit": "枚",
+              "note": null,
+              "grandma_amount": null,
+              "approx_weight": "約200〜250g"
+            },
+            {
+              "name": "ごぼう",
+              "amount": "1/3",
+              "unit": "本",
+              "note": null,
+              "grandma_amount": null,
+              "approx_weight": "約50〜60g"
+            },
+            {
+              "name": "豚肉",
+              "amount": "150〜200",
+              "unit": "g",
+              "note": null,
+              "grandma_amount": null
+            },
+            {
+              "name": "油揚げ",
+              "amount": 1,
+              "unit": "枚",
+              "note": null,
+              "grandma_amount": null,
+              "approx_weight": "約30g"
+            },
+            {
+              "name": "ほうとうの麺",
+              "amount": "3〜4",
+              "unit": "人前",
+              "note": null,
+              "grandma_amount": null
+            }
+          ]
+        },
+        {
+          "group": "調味料",
+          "items": [
+            {
+              "name": "味噌",
+              "amount": "5〜6",
+              "unit": "大さじ",
+              "note": null,
+              "grandma_amount": null
+            },
+            {
+              "name": "出汁",
+              "amount": null,
+              "unit": "適量",
+              "note": "だしパック一袋分くらい",
+              "grandma_amount": "「お味噌汁作るのと変わらない量」"
+            }
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "text": "野菜を食べやすい大きさに切る。じゃがいも・かぼちゃ・大根・人参など、かたい野菜は大きめに。",
+          "tip": null
+        },
+        {
+          "step": 2,
+          "text": "鍋に出汁を沸かし、かたい野菜（じゃがいも、かぼちゃ、大根、人参、ごぼう）を先に入れてクタクタになるまで煮込む。",
+          "tip": "中火でじっくりと"
+        },
+        {
+          "step": 3,
+          "text": "野菜がやわらかくなったら、ほうとうの麺、白菜、ねぎ、油揚げを加える。",
+          "tip": null
+        },
+        {
+          "step": 4,
+          "text": "豚肉を加え、中火で火を通す。",
+          "tip": "お肉は固くならないように最後に入れる"
+        },
+        {
+          "step": 5,
+          "text": "全体に火が通ったら味噌を溶き入れ、ひと煮立ちさせて完成。",
+          "tip": "かぼちゃが溶けてとろみがつくのがほうとうらしさ"
+        }
+      ],
+      "grandma_notes": [],
+      "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E3%81%BB%E3%81%86%E3%81%A8%E3%81%86\" target=\"_blank\">ほうとう</a>は<a href=\"https://ja.wikipedia.org/wiki/%E5%B1%B1%E6%A2%A8%E7%9C%8C\" target=\"_blank\">山梨県</a>を代表する郷土料理で、幅広の平打ち麺をたっぷりの野菜と味噌で煮込む一品。かぼちゃは欠かせない具材とされ、煮崩れることでとろみと甘みが加わります。",
+      "photos": [],
+      "related_recipe_ids": [],
+      "thumbnail_emoji": "🍲",
+      "episode": "大鍋をぐるぐる混ぜながら「かぼちゃいれなきゃほうとうじゃないね」って笑いながら話してた。ほうとうの日に限って白い服着てたりもしました。",
+      "source": {
+        "type": "direct",
+        "details": [
+          "おばあちゃん本人から直接教わった"
+        ]
+      }
+    },
+    {
+      "id": "nanakusagayu-chiba-001",
+      "title": "七草粥",
+      "grandmother": {
+        "name": "gheu4d32",
+        "age": null,
+        "prefecture": "千葉県",
+        "city": null,
+        "village": null,
+        "message": null
+      },
+      "region": {
+        "area": "kanto",
+        "prefecture_code": "12",
+        "prefecture": "千葉県"
+      },
+      "meta": {
+        "created_at": "2026-04-04",
+        "is_featured": false,
+        "is_endangered": false
+      },
+      "category": "ご飯もの",
+      "tags": [
+        "七草",
+        "お粥",
+        "お正月",
+        "千葉県",
+        "ご飯もの",
+        "日常のごはん",
+        "家庭料理",
+        "春の味覚"
+      ],
+      "season": [
+        "冬"
+      ],
+      "servings": 4,
+      "prep_time_minutes": 40,
+      "cook_time_minutes": 50,
+      "difficulty": 1,
+      "view_count": 0,
+      "story": "1月の朝はまだ暗く、台所はとても冷え込んでいましたが、おばあちゃんがまな板を叩くリズミカルな音で目が覚めるのが毎年の恒例でした。おばあちゃんは、歌を歌いながら「これで今年も風邪をひかないよ」と笑い、炊き立ての湯気と一緒に運ばれてくるお粥は、子供の私には少し苦味がありましたが、非常に安心できる優しい味でした。特に、庭で採れた小さな野菜が入っていると、とても嬉しかったのを覚えています。今でもお正月になると、あの静かな冬の朝の匂いと、おばあちゃんの鼻歌を思い出します。",
+      "ingredients": [
+        {
+          "group": "主材料",
+          "items": [
+            {
+              "name": "お米",
+              "amount": 1,
+              "unit": "合",
+              "note": "研いでザルにあげ30分ほど置く",
+              "grandma_amount": "「お茶碗に山盛り一杯分」"
+            },
+            {
+              "name": "水",
+              "amount": "1.2〜1.4",
+              "unit": "L",
+              "note": "お粥の好みの固さによる",
+              "grandma_amount": "「お鍋の真ん中よりちょっと上、六分目くらいまで」"
+            },
+            {
+              "name": "春の七草",
+              "amount": 1,
+              "unit": "パック",
+              "note": "セリ、ナズナ、ゴギョウ、ハコベラ、ホトケノザ、スズナ、スズシロ",
+              "grandma_amount": "「一握みずつ。カブ（スズナ）と大根（スズシロ）は小さいのを1個ずつ」"
+            }
+          ]
+        },
+        {
+          "group": "調味料",
+          "items": [
+            {
+              "name": "塩",
+              "amount": "1/2〜1",
+              "unit": "小さじ",
+              "note": "お好みで調整",
+              "grandma_amount": "「指三本でつまんで、味を見ながら二回くらい」"
+            }
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "text": "お米を研いでザルにあげ、30分ほど置いておく。",
+          "tip": "おばあちゃんは「お米にしっかり水を吸わせるのが、ふっくら炊くコツだよ」と言っていた"
+        },
+        {
+          "step": 2,
+          "text": "七草はさっと茹でて冷水にとり、細かく刻む。",
+          "tip": "おばあちゃんは、まな板の上で刻む時に鼻歌を口ずさみながら叩くように切っていた"
+        },
+        {
+          "step": 3,
+          "text": "鍋にお米と水を入れ、最初は強火、沸騰したら弱火にする。蓋を少しずらして、40分〜50分じっくり炊きます。",
+          "tip": "途中で混ぜすぎると粘りが出てしまうので、「あまりいじらないこと」が鉄則"
+        },
+        {
+          "step": 4,
+          "text": "お粥が炊き上がったら、刻んでおいた七草と塩を入れる。七草を入れた後は煮込みすぎず、色が鮮やかなうちに火を止める。",
+          "tip": null
+        }
+      ],
+      "grandma_notes": [],
+      "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E4%B8%83%E8%8D%89%E3%81%8C%E3%82%86\" target=\"_blank\">七草粥</a>は、1月7日の「人日の節句」に食べる日本の伝統的な行事食。正月のご馳走やお酒で疲れた胃を休め、一年の無病息災を願って食べられてきたとされています。<a href=\"https://ja.wikipedia.org/wiki/%E6%98%A5%E3%81%AE%E4%B8%83%E8%8D%89\" target=\"_blank\">春の七草</a>（セリ・ナズナ・ゴギョウ・ハコベラ・ホトケノザ・スズナ・スズシロ）を刻んで入れるのが習わしです。",
+      "photos": [],
+      "related_recipe_ids": [
+        "nikujaga-chiba-001"
+      ],
+      "thumbnail_emoji": "🌿",
+      "episode": "1月の朝はまだ暗く、台所はとても冷え込んでいましたが、おばあちゃんがまな板を叩くリズミカルな音で目が覚めるのが毎年の恒例でした。おばあちゃんは、歌を歌いながら「これで今年も風邪をひかないよ」と笑い、炊き立ての湯気と一緒に運ばれてくるお粥は、子供の私には少し苦味がありましたが、非常に安心できる優しい味でした。",
+      "source": {
+        "type": "direct_and_memory",
+        "details": [
+          "おばあちゃん本人から直接教わった",
+          "記憶を頼りに書いている"
+        ]
+      }
     }
   ]
 }

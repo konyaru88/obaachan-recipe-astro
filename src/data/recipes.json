@@ -2077,8 +2077,8 @@
       ],
       "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E3%83%8E%E3%83%93%E3%83%AB\" target=\"_blank\" rel=\"noopener\">野蒜</a>は日本各地の野原や道端に自生する野草で、古事記にも登場するほど古くから食べられてきたとも言われています。春先に摘んで酢味噌であえるのは、全国的に見られる素朴な食べ方のひとつです。",
       "photos": {
-        "main": "assets/images/recipes/nobiru-sumiso-tokyo-001.png",
-        "thumbnail": "assets/images/recipes/nobiru-sumiso-tokyo-001.png"
+        "main": "assets/images/recipes/nobiru-sumiso-tokyo-001.jpg",
+        "thumbnail": "assets/images/recipes/nobiru-sumiso-tokyo-001.jpg"
       },
       "related_recipe_ids": [
         "tako-sumiso-osaka-001"
@@ -3978,8 +3978,8 @@
       ],
       "cultural_background": "肉じゃがは明治時代に考案されたとも言われる、日本を代表する家庭料理のひとつです。西日本では牛肉を使うことが多いとされ、島根県でも牛肉の肉じゃがが一般的のようです。調味料を入れる順番や一度冷まして味を染み込ませるなど、家庭ごとに受け継がれた工夫があるのかもしれません。",
       "photos": {
-        "main": null,
-        "thumbnail": null
+        "main": "assets/images/recipes/nikujaga-shimane-001.jpg",
+        "thumbnail": "assets/images/recipes/nikujaga-shimane-001.jpg"
       },
       "related_recipe_ids": [],
       "thumbnail_emoji": "🥘",
@@ -4142,8 +4142,8 @@
       ],
       "cultural_background": "粕汁は酒造りが盛んな関西地方で特に親しまれてきた冬の汁物です。兵庫県の<a href=\"https://ja.wikipedia.org/wiki/%E7%81%98%E4%BA%94%E9%83%B7\" target=\"_blank\" rel=\"noopener\">灘五郷</a>は日本有数の酒どころとして知られ、新酒の時期に出回る新鮮な酒粕を使った粕汁は冬の風物詩だったとも言われています。塩鮭を入れるのは関西の粕汁の特徴のひとつかもしれません。",
       "photos": {
-        "main": null,
-        "thumbnail": null
+        "main": "assets/images/recipes/kasujiru-hyogo-001.jpg",
+        "thumbnail": "assets/images/recipes/kasujiru-hyogo-001.jpg"
       },
       "related_recipe_ids": [],
       "thumbnail_emoji": "🍲",
@@ -4283,8 +4283,8 @@
       ],
       "cultural_background": "長野県では夏になると畑でなすやししとうが豊富に採れ、味噌と組み合わせた炒め物は各家庭の定番だったとも言われています。信州味噌の甘みとコクが油を吸ったなすと相性抜群で、白いご飯のお供として親しまれてきたようです。",
       "photos": {
-        "main": null,
-        "thumbnail": null
+        "main": "assets/images/recipes/nasu-aburamiso-nagano-001.jpg",
+        "thumbnail": "assets/images/recipes/nasu-aburamiso-nagano-001.jpg"
       },
       "related_recipe_ids": [],
       "thumbnail_emoji": "🍆",
@@ -4429,8 +4429,8 @@
       ],
       "cultural_background": "鯖の煮付けは日本全国で食べられている家庭料理ですが、梅干しを加える煮付けは臭み消しと風味づけを兼ねた昔ながらの知恵とも言われています。中ザラ糖を使うのは関西の一部の家庭で見られる手法のようで、上白糖よりもコクのある仕上がりになるとされています。",
       "photos": {
-        "main": null,
-        "thumbnail": null
+        "main": "assets/images/recipes/saba-nitsuke-hyogo-001.jpg",
+        "thumbnail": "assets/images/recipes/saba-nitsuke-hyogo-001.jpg"
       },
       "related_recipe_ids": [],
       "thumbnail_emoji": "🐟",
@@ -4568,8 +4568,8 @@
       "grandma_notes": null,
       "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E8%B1%9A%E6%B1%81\" target=\"_blank\" rel=\"noopener\">豚汁</a>は日本各地で親しまれる定番の家庭料理ですが、<a href=\"https://ja.wikipedia.org/wiki/%E7%A6%8F%E5%B3%B6%E7%9C%8C\" target=\"_blank\" rel=\"noopener\">福島県</a>のこのおばあちゃんの豚汁は、<a href=\"https://ja.wikipedia.org/wiki/%E3%83%88%E3%83%9E%E3%83%88\" target=\"_blank\" rel=\"noopener\">トマト</a>をたっぷり加えるのが特徴です。味噌の風味にトマトの酸味が重なり、仕上げに<a href=\"https://ja.wikipedia.org/wiki/%E3%81%BF%E3%82%8A%E3%82%93\" target=\"_blank\" rel=\"noopener\">みりん</a>のコクで全体をまとめる、おばあちゃんならではの一杯かもしれません。",
       "photos": {
-        "main": null,
-        "thumbnail": null
+        "main": "assets/images/recipes/tomato-tonjiru-fukushima-001.jpg",
+        "thumbnail": "assets/images/recipes/tomato-tonjiru-fukushima-001.jpg"
       },
       "related_recipe_ids": [],
       "thumbnail_emoji": "🍅",
@@ -4707,8 +4707,8 @@
       "grandma_notes": null,
       "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E3%82%B5%E3%83%84%E3%83%9E%E3%82%A4%E3%83%A2\" target=\"_blank\" rel=\"noopener\">さつまいも</a>と<a href=\"https://ja.wikipedia.org/wiki/%E3%83%AA%E3%83%B3%E3%82%B4\" target=\"_blank\" rel=\"noopener\">りんご</a>を一緒にコトコト煮る素朴な一品。<a href=\"https://ja.wikipedia.org/wiki/%E4%B8%89%E9%87%8D%E7%9C%8C\" target=\"_blank\" rel=\"noopener\">三重県</a>のおばあちゃんが秋から冬にかけてよく作ってくれた副菜兼おやつで、仕上げにほんの少しだけ垂らす<a href=\"https://ja.wikipedia.org/wiki/%E9%86%A4%E6%B2%B9\" target=\"_blank\" rel=\"noopener\">醤油</a>が、甘さにほんのりコクを添えてくれます。",
       "photos": {
-        "main": null,
-        "thumbnail": null
+        "main": "assets/images/recipes/satsumaimo-ringo-amani-mie-001.jpg",
+        "thumbnail": "assets/images/recipes/satsumaimo-ringo-amani-mie-001.jpg"
       },
       "related_recipe_ids": [],
       "thumbnail_emoji": "🍠",
@@ -4845,8 +4845,8 @@
       "grandma_notes": null,
       "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E3%81%8D%E3%82%93%E3%81%B4%E3%82%89\" target=\"_blank\" rel=\"noopener\">きんぴらごぼう</a>は日本全国で親しまれている定番の副菜です。<a href=\"https://ja.wikipedia.org/wiki/%E5%AE%AE%E5%9F%8E%E7%9C%8C\" target=\"_blank\" rel=\"noopener\">宮城県</a>のこのおばあちゃんのきんぴらは、<a href=\"https://ja.wikipedia.org/wiki/%E3%82%B4%E3%83%9C%E3%82%A6\" target=\"_blank\" rel=\"noopener\">ごぼう</a>を「フライパンにいっぱい」入れるのが特徴で、少し甘めの仕上がりだったそうです。",
       "photos": {
-        "main": null,
-        "thumbnail": null
+        "main": "assets/images/recipes/kinpira-gobo-miyagi-001.jpg",
+        "thumbnail": "assets/images/recipes/kinpira-gobo-miyagi-001.jpg"
       },
       "related_recipe_ids": [],
       "thumbnail_emoji": "🥕",
@@ -5009,8 +5009,8 @@
       "grandma_notes": null,
       "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E5%92%8C%E6%AD%8C%E5%B1%B1%E7%9C%8C\" target=\"_blank\" rel=\"noopener\">和歌山県</a>のおばあちゃんが夏休みのお昼ごはんとして作ってくれた豪快な一品。<a href=\"https://ja.wikipedia.org/wiki/%E3%83%9B%E3%83%AB%E3%83%A2%E3%83%B3\" target=\"_blank\" rel=\"noopener\">ホルモン</a>の旨みとソースの香ばしさを<a href=\"https://ja.wikipedia.org/wiki/%E7%84%BC%E3%81%8D%E3%81%9D%E3%81%B0\" target=\"_blank\" rel=\"noopener\">焼きそば</a>に閉じ込め、玉子でふんわり包んでかつおぶしをかけて仕上げます。大食漢だった孫のために焼きそば3袋で作るのがおばあちゃん流だったそうです。",
       "photos": {
-        "main": null,
-        "thumbnail": null
+        "main": "assets/images/recipes/horumon-omusoba-wakayama-001.jpg",
+        "thumbnail": "assets/images/recipes/horumon-omusoba-wakayama-001.jpg"
       },
       "related_recipe_ids": [],
       "thumbnail_emoji": "🍳",
@@ -5143,8 +5143,8 @@
       "grandma_notes": null,
       "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E9%B9%BF%E5%85%90%E5%B3%B6%E7%9C%8C\" target=\"_blank\" rel=\"noopener\">鹿児島県</a>では<a href=\"https://ja.wikipedia.org/wiki/%E3%82%B5%E3%83%84%E3%83%9E%E3%82%A4%E3%83%A2\" target=\"_blank\" rel=\"noopener\">さつまいも</a>のかき揚げを「<a href=\"https://ja.wikipedia.org/wiki/%E3%81%8C%E3%81%AD_(%E6%96%99%E7%90%86)\" target=\"_blank\" rel=\"noopener\">がね</a>」と呼ぶことがあるそうです。砂糖を衣にたっぷり加えるのがおばあちゃん流で、外はカリカリ・中はもっちりした食感が特徴。おやつにもおかずにもなる不思議な一品です。",
       "photos": {
-        "main": null,
-        "thumbnail": null
+        "main": "assets/images/recipes/satsumaimo-kakiage-kagoshima-001.jpg",
+        "thumbnail": "assets/images/recipes/satsumaimo-kakiage-kagoshima-001.jpg"
       },
       "related_recipe_ids": [],
       "thumbnail_emoji": "🍠",
@@ -5300,8 +5300,8 @@
       "grandma_notes": null,
       "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E4%B8%89%E9%87%8D%E7%9C%8C\" target=\"_blank\" rel=\"noopener\">三重県</a>のおばあちゃんがお正月に親戚一同をもてなすために作っていた<a href=\"https://ja.wikipedia.org/wiki/%E3%82%A6%E3%83%AB%E3%83%A1%E3%82%A4%E3%83%AF%E3%82%B7\" target=\"_blank\" rel=\"noopener\">ウルメイワシ</a>のお寿司。塩と<a href=\"https://ja.wikipedia.org/wiki/%E9%85%A2\" target=\"_blank\" rel=\"noopener\">酢</a>で締めたウルメは身がきゅっと引き締まり、少し甘めの酢飯との相性も抜群です。料理好きでおもてなし上手だったおばあちゃんならではの一品かもしれません。",
       "photos": {
-        "main": null,
-        "thumbnail": null
+        "main": "assets/images/recipes/urume-sushi-mie-001.jpg",
+        "thumbnail": "assets/images/recipes/urume-sushi-mie-001.jpg"
       },
       "related_recipe_ids": [],
       "thumbnail_emoji": "🐟",
@@ -5464,8 +5464,8 @@
       "grandma_notes": null,
       "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E5%AE%AE%E5%B4%8E%E7%9C%8C\" target=\"_blank\" rel=\"noopener\">宮崎県</a>の郷土料理として知られる<a href=\"https://ja.wikipedia.org/wiki/%E5%86%B7%E3%82%84%E6%B1%81\" target=\"_blank\" rel=\"noopener\">冷や汁</a>。このおばあちゃんの冷や汁は、<a href=\"https://ja.wikipedia.org/wiki/%E3%82%A2%E3%82%B8_(%E9%AD%9A)\" target=\"_blank\" rel=\"noopener\">アジ</a>の干物と<a href=\"https://ja.wikipedia.org/wiki/%E9%BA%A6%E5%91%B3%E5%99%8C\" target=\"_blank\" rel=\"noopener\">麦味噌</a>をすり鉢でしっかり擂り、直火で炙って香ばしさを出すのが特徴。食べる直前にもう一丁の<a href=\"https://ja.wikipedia.org/wiki/%E8%B1%86%E8%85%90\" target=\"_blank\" rel=\"noopener\">豆腐</a>を追加する「追い豆腐」でボリュームを増すのがおばあちゃん流です。",
       "photos": {
-        "main": null,
-        "thumbnail": null
+        "main": "assets/images/recipes/oidofu-hiyajiru-miyazaki-001.jpg",
+        "thumbnail": "assets/images/recipes/oidofu-hiyajiru-miyazaki-001.jpg"
       },
       "related_recipe_ids": [],
       "thumbnail_emoji": "🥣",
@@ -5619,7 +5619,10 @@
       ],
       "grandma_notes": [],
       "cultural_background": "大阪では出汁文化が根付いており、乾物を使った含め煮は日常的な家庭料理のひとつ。高野豆腐と干し椎茸という保存食を組み合わせた、滋味深い一品。",
-      "photos": [],
+      "photos": {
+        "main": "assets/images/recipes/koya-dofu-fukumeni-osaka-001.jpg",
+        "thumbnail": "assets/images/recipes/koya-dofu-fukumeni-osaka-001.jpg"
+      },
       "related_recipe_ids": [],
       "thumbnail_emoji": "🍲",
       "episode": "夕方ドア開けた瞬間に、あのちょっと甘いような醤油の匂いがふわっと来て、「あ、大好きな高野豆腐としいたけの匂いだ！」と分かりいつもの美味しい味をその都度思い出し、食卓に並ぶのが楽しみでした。",
@@ -5765,7 +5768,10 @@
       ],
       "grandma_notes": [],
       "cultural_background": "宮城県では春になるとフキやタケノコ、タラの芽など山菜が自生し、それを使った煮物は春の訪れを告げる家庭の味。",
-      "photos": [],
+      "photos": {
+        "main": "assets/images/recipes/fuki-nimono-miyagi-001.jpg",
+        "thumbnail": "assets/images/recipes/fuki-nimono-miyagi-001.jpg"
+      },
       "related_recipe_ids": [],
       "thumbnail_emoji": "🌿",
       "episode": "おばあちゃんちにはフキのほかに、タケノコ、ミョウガ、タラの芽が自生しており行った時には、料理してくれた思い出があります。自分でも今作りますがおばあちゃんの味には追いつけません。",
@@ -5907,7 +5913,10 @@
       ],
       "grandma_notes": [],
       "cultural_background": "愛知県では八丁味噌を使った味噌おでんが冬の定番。ストーブの上でコトコト煮込み、数日かけて食べ進めるのが家庭の風物詩。",
-      "photos": [],
+      "photos": {
+        "main": "assets/images/recipes/daikon-konnyaku-miso-oden-aichi-001.jpg",
+        "thumbnail": "assets/images/recipes/daikon-konnyaku-miso-oden-aichi-001.jpg"
+      },
       "related_recipe_ids": [],
       "thumbnail_emoji": "🍢",
       "episode": "愛知特有の真っ黒なおでんで、お砂糖がたっぷり入っているので見た目よりかなり甘辛いです。数日煮込んで大根の中まで真っ茶色になったのが一番美味しくて、最後は残った味噌ダレをご飯にかけて食べるのが行儀が悪いけど好きでした。",
@@ -6036,7 +6045,10 @@
       ],
       "grandma_notes": [],
       "cultural_background": "熊本の家庭料理。シンプルな材料で作る素朴な一品で、偏食の子どもにも食べやすい優しい味わい。",
-      "photos": [],
+      "photos": {
+        "main": "assets/images/recipes/daikon-tamago-toji-kumamoto-001.jpg",
+        "thumbnail": "assets/images/recipes/daikon-tamago-toji-kumamoto-001.jpg"
+      },
       "related_recipe_ids": [],
       "thumbnail_emoji": "🥚",
       "episode": "小さい頃、偏食だった私が好きだったおばあちゃんの料理です。私が大好きなことを知っているおばあちゃんは「ほら、大根の煮たのあるばい」と出してくれていました。卵が甘めの醤油に絡まった部分が大好きで、「あんたは卵んところばっか食べて。大根も食べなんたい」と大根を入れられていました。お魚が苦手だった私のために特別に作ってくれることもあったり、残してくれていることもあって「あんたはこっだろ」と出してくれたおばあちゃんの笑顔は大切な思い出です。",
@@ -6171,7 +6183,10 @@
       ],
       "grandma_notes": [],
       "cultural_background": "人参嫌いの子どもでも食べられるようにと、ミカンやレーズンの甘みを活かした工夫が光るサラダ。親戚が集まる場で重宝された一品。",
-      "photos": [],
+      "photos": {
+        "main": "assets/images/recipes/ninjin-salad-tokyo-001.jpg",
+        "thumbnail": "assets/images/recipes/ninjin-salad-tokyo-001.jpg"
+      },
       "related_recipe_ids": [],
       "thumbnail_emoji": "🥕",
       "episode": "親戚のよく集まる家でした。中には人参嫌いな子もいて、どうにか美味しく人参を克服させようという気持ちがあったと聞いていました。私はとてもそのサラダが好きで母もよく作りますが、自分も料理するようになって自分の定番のサラダにもなっています。祖母はどんな料理の分量を聞いても適当が一番なのよ！というばかりでしたが作るのをよく見ていた記憶と母から教わった分量とを頼りに作っています。",
@@ -6767,7 +6782,10 @@
       ],
       "grandma_notes": [],
       "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E3%81%8B%E3%81%97%E3%82%8F%E3%82%81%E3%81%97\" target=\"_blank\">かしわめし</a>は福岡県を代表する郷土料理のひとつ。九州では鶏肉を「かしわ」と呼ぶ文化があり、駅弁としても親しまれています。具材を先に煮詰めてから炊き込む方法は、味がしっかり染み込むとされています。",
-      "photos": [],
+      "photos": {
+        "main": "assets/images/recipes/kashiwameshi-fukuoka-001.jpg",
+        "thumbnail": "assets/images/recipes/kashiwameshi-fukuoka-001.jpg"
+      },
       "related_recipe_ids": [
         "gameni-fukuoka-001"
       ],
@@ -6955,7 +6973,10 @@
       ],
       "grandma_notes": [],
       "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E3%81%BB%E3%81%86%E3%81%A8%E3%81%86\" target=\"_blank\">ほうとう</a>は<a href=\"https://ja.wikipedia.org/wiki/%E5%B1%B1%E6%A2%A8%E7%9C%8C\" target=\"_blank\">山梨県</a>を代表する郷土料理で、幅広の平打ち麺をたっぷりの野菜と味噌で煮込む一品。かぼちゃは欠かせない具材とされ、煮崩れることでとろみと甘みが加わります。",
-      "photos": [],
+      "photos": {
+        "main": "assets/images/recipes/houtou-yamanashi-001.jpg",
+        "thumbnail": "assets/images/recipes/houtou-yamanashi-001.jpg"
+      },
       "related_recipe_ids": [],
       "thumbnail_emoji": "🍲",
       "episode": "大鍋をぐるぐる混ぜながら「かぼちゃいれなきゃほうとうじゃないね」って笑いながら話してた。ほうとうの日に限って白い服着てたりもしました。",
@@ -7071,7 +7092,10 @@
       ],
       "grandma_notes": [],
       "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E4%B8%83%E8%8D%89%E3%81%8C%E3%82%86\" target=\"_blank\">七草粥</a>は、1月7日の「人日の節句」に食べる日本の伝統的な行事食。正月のご馳走やお酒で疲れた胃を休め、一年の無病息災を願って食べられてきたとされています。<a href=\"https://ja.wikipedia.org/wiki/%E6%98%A5%E3%81%AE%E4%B8%83%E8%8D%89\" target=\"_blank\">春の七草</a>（セリ・ナズナ・ゴギョウ・ハコベラ・ホトケノザ・スズナ・スズシロ）を刻んで入れるのが習わしです。",
-      "photos": [],
+      "photos": {
+        "main": "assets/images/recipes/nanakusagayu-chiba-001.jpg",
+        "thumbnail": "assets/images/recipes/nanakusagayu-chiba-001.jpg"
+      },
       "related_recipe_ids": [
         "nikujaga-chiba-001"
       ],
@@ -7209,7 +7233,10 @@
       ],
       "grandma_notes": [],
       "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E3%81%B9%E3%81%A3%E3%81%93%E3%81%86\" target=\"_blank\">べっこう</a>は富山県の郷土料理で、寒天に卵と醤油を加えて固めた料理。琥珀色の見た目が「鼈甲（べっこう）」に似ていることからその名がついたとされています。お正月やお祭りなど、ハレの日の食卓に欠かせない一品として親しまれてきたとも言われています。",
-      "photos": [],
+      "photos": {
+        "main": "assets/images/recipes/kohaku-bekko-toyama-001.jpg",
+        "thumbnail": "assets/images/recipes/kohaku-bekko-toyama-001.jpg"
+      },
       "related_recipe_ids": [
         "konbu-gottani-toyama-001"
       ],
@@ -7376,7 +7403,10 @@
       ],
       "grandma_notes": [],
       "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E3%81%99%E3%81%84%E3%81%A8%E3%82%93\" target=\"_blank\">すいとん</a>は、小麦粉を水で練った生地を汁に入れて煮た素朴な料理。戦時中の代用食としても知られていますが、各地でそれぞれの家庭の味として受け継がれてきたとも言われています。白米が足りない時のおかず兼主食として、おばあちゃんの知恵が詰まった一品かもしれません。",
-      "photos": [],
+      "photos": {
+        "main": "assets/images/recipes/suiton-jiru-tochigi-001.jpg",
+        "thumbnail": "assets/images/recipes/suiton-jiru-tochigi-001.jpg"
+      },
       "related_recipe_ids": [
         "suiton-jiru-tokyo-001"
       ],
@@ -7504,7 +7534,10 @@
       ],
       "grandma_notes": [],
       "cultural_background": "夏が旬の<a href=\"https://ja.wikipedia.org/wiki/%E3%83%8A%E3%82%B9\" target=\"_blank\">なす</a>は油との相性が抜群で、炒め物にするとトロッとした食感になるのが特徴。ポン酢で仕上げることでさっぱりと食べられ、暑い日のお昼にぴったりの一品かもしれません。",
-      "photos": [],
+      "photos": {
+        "main": "assets/images/recipes/nasumiso-don-saitama-001.jpg",
+        "thumbnail": "assets/images/recipes/nasumiso-don-saitama-001.jpg"
+      },
       "related_recipe_ids": [
         "imomochi-saitama-001"
       ],
@@ -7612,7 +7645,10 @@
       ],
       "grandma_notes": [],
       "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E3%81%8A%E3%81%8B%E3%81%8B\" target=\"_blank\">おかか</a>は鰹節の別名で、日本の伝統的なご飯のお供。炊きたてのご飯に醤油と鰹節を層にして詰めるお弁当は、時間が経つほどに出汁が染み渡り、冷めても美味しく食べられる先人の知恵かもしれません。",
-      "photos": [],
+      "photos": {
+        "main": "assets/images/recipes/okaka-gohan-wakayama-001.jpg",
+        "thumbnail": "assets/images/recipes/okaka-gohan-wakayama-001.jpg"
+      },
       "related_recipe_ids": [
         "yakimeshi-wakayama-001",
         "chagayu-wakayama-002"
@@ -7759,7 +7795,10 @@
       ],
       "grandma_notes": [],
       "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E3%81%AE%E3%81%A3%E3%81%BA%E3%81%84\" target=\"_blank\">のっぺ</a>は新潟県を代表する郷土料理の一つで、里芋をベースにした煮物。お正月やお盆、冠婚葬祭など人が集まる時に大鍋で作られることが多いとされています。各家庭で具材や味付けが異なり、「うちの味」があるのが特徴かもしれません。",
-      "photos": [],
+      "photos": {
+        "main": "assets/images/recipes/noppe-niigata-001.jpg",
+        "thumbnail": "assets/images/recipes/noppe-niigata-001.jpg"
+      },
       "related_recipe_ids": [
         "zenmai-nimono-niigata-001",
         "nasu-miso-itame-niigata-001"
@@ -7909,7 +7948,10 @@
       ],
       "grandma_notes": [],
       "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E3%82%B4%E3%83%BC%E3%83%A4%E3%83%BC%E3%83%81%E3%83%A3%E3%83%B3%E3%83%97%E3%83%AB%E3%83%BC\" target=\"_blank\">ゴーヤチャンプルー</a>は沖縄を代表する家庭料理。「チャンプルー」は沖縄の方言で「ごちゃまぜ」を意味し、豆腐や野菜、肉などを炒め合わせた料理です。ゴーヤの苦味にはビタミンCが豊富に含まれているとされ、夏バテ防止の食材として全国で親しまれるようになったとも言われています。",
-      "photos": [],
+      "photos": {
+        "main": "assets/images/recipes/goya-champuru-tokyo-001.jpg",
+        "thumbnail": "assets/images/recipes/goya-champuru-tokyo-001.jpg"
+      },
       "related_recipe_ids": [
         "nobiru-sumiso-tokyo-001",
         "suiton-jiru-tokyo-001"

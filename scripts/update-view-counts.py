@@ -32,19 +32,19 @@ def get_credentials():
 
 
 def fetch_view_counts(credentials):
-    """GA4 Data API から recipe_view の recipe_id 別カウントを全期間で取得"""
+    """GA4 Data API から /recipes/xxx/ ページの閲覧数を全期間で取得"""
     client = BetaAnalyticsDataClient(credentials=credentials)
     request = RunReportRequest(
         property=f"properties/{PROPERTY_ID}",
         date_ranges=[DateRange(start_date="2020-01-01", end_date="today")],
-        dimensions=[Dimension(name="customEvent:recipe_id")],
-        metrics=[Metric(name="eventCount")],
+        dimensions=[Dimension(name="pagePath")],
+        metrics=[Metric(name="screenPageViews")],
         dimension_filter=FilterExpression(
             filter=Filter(
-                field_name="eventName",
+                field_name="pagePath",
                 string_filter=Filter.StringFilter(
-                    value="recipe_view",
-                    match_type=Filter.StringFilter.MatchType.EXACT,
+                    value="/recipes/",
+                    match_type=Filter.StringFilter.MatchType.BEGINS_WITH,
                 ),
             )
         ),
@@ -52,10 +52,15 @@ def fetch_view_counts(credentials):
     )
     response = client.run_report(request)
     counts = {}
+    import re
     for row in response.rows:
-        recipe_id = row.dimension_values[0].value
+        path = row.dimension_values[0].value
         count = int(row.metric_values[0].value)
-        counts[recipe_id] = count
+        # /recipes/xxx/ からレシピIDを抽出（一覧ページ /recipes/ は除外）
+        m = re.match(r"^/recipes/([^/]+)/?$", path)
+        if m:
+            recipe_id = m.group(1)
+            counts[recipe_id] = counts.get(recipe_id, 0) + count
     return counts
 
 

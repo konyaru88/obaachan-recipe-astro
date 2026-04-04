@@ -1,4 +1,7 @@
 ---
+import recipesData from '../data/recipes.json';
+const recipes = recipesData.recipes;
+
 const base = import.meta.env.BASE_URL;
 const pathname = Astro.url.pathname;
 const isActive = (path: string) => {
@@ -8,12 +11,54 @@ const isActive = (path: string) => {
 };
 const navClass = (path: string) =>
   isActive(path) ? 'nav__link nav__link--active is-active' : 'nav__link';
+
+// Ticker data (build-time)
+const recipeCount = recipes.length;
+
+const prefSet = new Set<string>();
+recipes.forEach((r: any) => {
+  const pref = r.grandmother?.prefecture || r.region?.prefecture || '';
+  if (pref) prefSet.add(pref);
+});
+const prefCount = prefSet.size;
+
+const grandmaSet = new Set<string>();
+recipes.forEach((r: any) => {
+  const name = r.grandmother?.name;
+  const pref = r.grandmother?.prefecture || '';
+  if (name) {
+    grandmaSet.add(name);
+  } else if (pref) {
+    grandmaSet.add(pref + 'のおばあちゃん');
+  }
+});
+const grandmaCount = grandmaSet.size;
+
+const sorted = [...recipes].sort(
+  (a: any, b: any) => new Date(b.meta?.created_at ?? 0).getTime() - new Date(a.meta?.created_at ?? 0).getTime()
+);
+const latest = sorted[0];
+const latestPref = (latest?.grandmother?.prefecture || latest?.region?.prefecture || '').replace(/[都府県]$/, '');
+const latestGrandma = latest?.grandmother?.name || '';
+const latestTitle = latest?.title || '';
+const latestLabel = latestGrandma
+  ? `${latestPref}・${latestGrandma}さんの${latestTitle}`
+  : `${latestPref}の${latestTitle}`;
+const latestHref = `${base}recipes/${latest?.id || ''}/`;
 ---
 
+<!-- β版ティッカーバー -->
 <div class="beta-bar" role="banner" aria-label="お知らせ">
   <span class="beta-bar__badge">β版公開中</span>
-  <span class="beta-bar__text">現在β版公開中・レシピ募集中 ── あなたのおばあちゃんの味を教えてください</span>
-  <a href={`${base}#recruit`} class="beta-bar__link">詳しくはこちら</a>
+  <span class="beta-bar__sep">－</span>
+  <div class="beta-bar__ticker">
+    <div class="beta-bar__ticker-track" id="ticker-track">
+      <span class="ticker__item is-active">残されたレシピ：<strong>{recipeCount}</strong>件</span>
+      <span class="ticker__item">つながった土地：<strong>{prefCount}</strong>県</span>
+      <span class="ticker__item">出会ったおばあちゃん：<strong>{grandmaCount}</strong>人</span>
+      <span class="ticker__item">最新の記録：<a href={latestHref} class="ticker__link">{latestLabel}</a></span>
+    </div>
+  </div>
 </div>
 
 <header class="site-header">
@@ -71,6 +116,7 @@ const navClass = (path: string) =>
 </header>
 
 <script>
+  // Mobile menu toggle
   const btn = document.querySelector('.mobile-menu-btn');
   const menu = document.querySelector('.mobile-menu');
   btn?.addEventListener('click', () => {
@@ -79,4 +125,17 @@ const navClass = (path: string) =>
     menu?.setAttribute('aria-hidden', String(expanded));
     menu?.classList.toggle('is-open');
   });
+
+  // Ticker rotation (4s interval)
+  const track = document.getElementById('ticker-track');
+  if (track) {
+    let current = 0;
+    setInterval(() => {
+      const allItems = track.querySelectorAll('.ticker__item');
+      if (allItems.length === 0) return;
+      allItems[current].classList.remove('is-active');
+      current = (current + 1) % allItems.length;
+      allItems[current].classList.add('is-active');
+    }, 4000);
+  }
 </script>

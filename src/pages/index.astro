@@ -18,6 +18,9 @@ for (const r of allRecipes) {
   if (area) regionRecipeCount[area] = (regionRecipeCount[area] ?? 0) + 1;
 }
 
+// タイムマシン用：全レシピIDの配列
+const recipeIds = allRecipes.map((r: any) => r.id);
+
 const grandmaTags = [
   { label: 'コトコト煮物おばあちゃん', tag: '煮物' },
   { label: '毎日ごはんおばあちゃん', tag: '日常のごはん' },
@@ -62,31 +65,33 @@ const regionLabels: Record<string, string> = {
     <!-- ヒーローセクション -->
     <section class="hero" aria-label="キャッチコピーと検索">
       <div class="hero__bg" aria-hidden="true"></div>
+      <div class="hero__ripple" aria-hidden="true"></div>
+      <div class="hero__ripple" aria-hidden="true"></div>
+      <div class="hero__ripple" aria-hidden="true"></div>
+      <div class="hero__ripple" aria-hidden="true"></div>
       <div class="hero__content">
-        <h1 class="hero__title">もう一度たべたいのに<br />作り方がわからない味がある</h1>
-        <p class="hero__lead">全国のおばあちゃんの手料理が集まる文化メディア</p>
-        <form class="hero__search" action="/search" method="get" role="search" aria-label="レシピを検索">
-          <input
-            type="search"
-            name="q"
-            class="hero__search-input"
-            placeholder="料理名・地域・食材で検索…"
-            autocomplete="off"
-            aria-label="レシピを検索"
-          />
-          <button type="submit" class="hero__search-btn btn btn--primary">
-            <span aria-hidden="true">🔍</span> 検索
-          </button>
-        </form>
+        <h1 class="hero__title">
+          <span class="hero__line" style="--line-i:0">その一口で、</span><br />
+          <span class="hero__line" style="--line-i:1">私たちは過去へ旅をする。</span>
+        </h1>
+        <p class="hero__lead">
+          <span class="hero__line" style="--line-i:2">レシピは単なる作り方じゃない。</span><br />
+          <span class="hero__line" style="--line-i:3">誰かの暮らしと愛情の記録だ。</span><br />
+          <span class="hero__line" style="--line-i:4">使い込まれた鍋の音、まな板の傷、台所の匂い。</span><br />
+          <span class="hero__line" style="--line-i:5">これは、日本中の「あの日の食卓」を次世代へつなぐ、</span><br />
+          <span class="hero__line" style="--line-i:6">最も温かいタイムマシン。</span>
+        </p>
+        <!-- 検索はヘッダーに集約 -->
       </div>
     </section>
+
+    <div class="hero__divider" aria-hidden="true"><div class="hero__divider-line"></div></div>
 
     <!-- 新着レシピ -->
     <section class="home__latest" aria-labelledby="latest-heading">
       <div class="container">
         <div class="section-header animate-on-scroll">
-          <h2 id="latest-heading" class="section-title">新着レシピ</h2>
-          <p class="section-subtitle">おばあちゃんたちから届いたばかりの味</p>
+          <h2 id="latest-heading" class="section-title">届いたばかりの味</h2>
         </div>
         <div class="recipe-grid recipe-grid--3">
           {latest.map((recipe) => <RecipeCard recipe={recipe} />)}
@@ -100,7 +105,7 @@ const regionLabels: Record<string, string> = {
     <!-- wave -->
     <div class="wave-divider wave-divider--cream-to-green">
       <svg viewBox="0 0 1440 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0,20 C240,40 480,0 720,20 C960,40 1200,0 1440,20 L1440,40 L0,40 Z" fill="#F0F5ED"/>
+        <path d="M0,20 C240,40 480,0 720,20 C960,40 1200,0 1440,20 L1440,40 L0,40 Z" fill="#F5F3EF"/>
       </svg>
     </div>
 
@@ -109,15 +114,14 @@ const regionLabels: Record<string, string> = {
       <div class="container">
         <div class="explore-tabs">
           <button class="explore-tab explore-tab--active" data-tab="grandma">
-            👵 おばあちゃんから探す
+            台所から辿る
           </button>
           <button class="explore-tab" data-tab="recipe">
-            🍽 レシピから探す
+            料理から辿る
           </button>
         </div>
 
         <div class="explore-panel" id="panel-grandma">
-          <p class="explore-panel__lead">おばあちゃんのタイプで選んでみよう</p>
           <div class="hashtag-cloud">
             {grandmaTags.map(({ label, tag }) => (
               <a href={`${base}recipes/?tag=${encodeURIComponent(tag)}`} class="hashtag-btn">{label}</a>
@@ -126,7 +130,6 @@ const regionLabels: Record<string, string> = {
         </div>
 
         <div class="explore-panel" id="panel-recipe" style="display:none">
-          <p class="explore-panel__lead">料理のジャンルで選ぶ</p>
           <div class="category-grid">
             {categories.map((c) => (
               <a href={`${base}recipes/?category=${encodeURIComponent(c.label)}`} class="category-btn animate-on-scroll">
@@ -142,7 +145,7 @@ const regionLabels: Record<string, string> = {
     <!-- wave -->
     <div class="wave-divider wave-divider--green-to-blue">
       <svg viewBox="0 0 1440 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0,20 C240,0 480,40 720,20 C960,0 1200,40 1440,20 L1440,40 L0,40 Z" fill="#EDF3F8"/>
+        <path d="M0,20 C240,0 480,40 720,20 C960,0 1200,40 1440,20 L1440,40 L0,40 Z" fill="#FAFAF8"/>
       </svg>
     </div>
 
@@ -150,8 +153,7 @@ const regionLabels: Record<string, string> = {
     <section class="home__regions-map" aria-labelledby="regions-heading">
       <div class="container">
         <div class="section-header animate-on-scroll">
-          <h2 id="regions-heading" class="section-title">地域で探す</h2>
-          <p class="section-subtitle">あなたのふるさとの味、探してみませんか</p>
+          <h2 id="regions-heading" class="section-title">土地の記憶をたどる</h2>
         </div>
         <div class="japan-map-container">
           <div class="japan-map-wrapper" id="japan-map-wrapper">
@@ -168,37 +170,21 @@ const regionLabels: Record<string, string> = {
     <!-- wave -->
     <div class="wave-divider wave-divider--blue-to-warm">
       <svg viewBox="0 0 1440 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0,20 C240,40 480,0 720,20 C960,40 1200,0 1440,20 L1440,40 L0,40 Z" fill="#E8DCC8"/>
+        <path d="M0,20 C240,40 480,0 720,20 C960,40 1200,0 1440,20 L1440,40 L0,40 Z" fill="#F5F3EF"/>
       </svg>
     </div>
 
-    <!-- レシピ募集 -->
-    <section id="recruit" class="home__recruit" aria-labelledby="recruit-heading">
-      <div class="container">
-        <div class="recruit-block animate-on-scroll">
-          <div class="recruit-block__deco" aria-hidden="true">📮</div>
-          <h2 id="recruit-heading" class="recruit-block__title">おばあちゃんの「あの味」<br />募集しています</h2>
-          <p class="recruit-block__text">「おばあちゃんのレシピ」は、みんなの記憶やレシピでできています。</p>
-          <p class="recruit-block__text">「うちの祖母がよく作ってた」<br />「これよく食べてたな」</p>
-          <p class="recruit-block__text">そんな思い出の手料理を、ぜひ教えてください。</p>
-          <p class="recruit-block__text">
-            知っている方、いま聞ける方へ。<br />
-            残さないと消えていくものを、みんなで少しずつ残していけたら嬉しいです。
-          </p>
-          <div class="recruit-block__channels">
-            <a href="https://www.instagram.com/obaachan_recipe" target="_blank" rel="noopener noreferrer" class="recruit-channel recruit-channel--instagram">
-              <span class="recruit-channel__icon" aria-hidden="true">📸</span>
-              <span class="recruit-channel__name">Instagram</span>
-              <span class="recruit-channel__handle">@obaachan_recipe</span>
-            </a>
-            <a href="https://www.threads.net/@obaachan_recipe" target="_blank" rel="noopener noreferrer" class="recruit-channel recruit-channel--threads">
-              <span class="recruit-channel__icon" aria-hidden="true">🧵</span>
-              <span class="recruit-channel__name">Threads</span>
-              <span class="recruit-channel__handle">@obaachan_recipe</span>
-            </a>
-          </div>
-          <p class="recruit-block__note">DMで「おばあちゃんのレシピ募集を見た」と送ってください。</p>
-        </div>
+    <!-- タイムマシンセクション -->
+    <section class="home__timemachine" aria-labelledby="timemachine-heading">
+      <div class="container" style="text-align:center; padding: 5rem 1rem;">
+        <h2 id="timemachine-heading" style="font-family:var(--font-serif); font-size:clamp(1.5rem,3vw,2rem); font-weight:400; color:var(--color-text-primary); margin-bottom:1.5rem; letter-spacing:0.05em;">あの日の食卓へ</h2>
+        <p style="font-family:var(--font-serif); font-size:0.95rem; color:var(--color-text-muted); line-height:2; margin-bottom:2.5rem;">
+          何が出てくるかはわからない。<br />
+          ランダムに、誰かの記憶の味に出会う。
+        </p>
+        <a href="#" id="timemachine-btn" class="btn btn--outline" style="padding:1rem 3.5rem; font-family:var(--font-sans); font-size:0.8rem; letter-spacing:0.15em; text-transform:uppercase;">
+          タイムマシンに乗る
+        </a>
       </div>
     </section>
 
@@ -207,31 +193,23 @@ const regionLabels: Record<string, string> = {
       <div class="container">
         <div class="about-block animate-on-scroll">
           <div class="about-block__deco" aria-hidden="true"><img src={`${base}assets/images/grandma-icon.png`} alt="" class="about-block__deco-img" /></div>
-          <h2 id="about-heading" class="about-block__title">このサービスについて</h2>
+          <h2 id="about-heading" class="about-block__title">この活動について</h2>
           <p class="about-block__text">
-            日本各地にある、おばあちゃんの手料理を残したい。<br />
-            「おばあちゃんのレシピ」は、「あの味」を記録し、次の世代へつなぐためのアーカイブです。
+            計量カップは使わない。<br />
+            タイマーも使わない。
           </p>
           <p class="about-block__text">
-            計量カップは使わず、「だいたいこのくらい」と手のひらで量る。<br />
-            「昔からこうやって作ってきた」と語られるその言葉の中には、<br />
-            長い時間をかけて積み重なった知恵や経験が詰まっています。
+            「だいたいこのくらい」と手のひらで量り、<br />
+            「昔からこうやってきた」と火加減を調整する。
           </p>
           <p class="about-block__text">
-            ここで大切にしているのは、レシピを正確に記録することだけではありません。<br />
-            当時の会話やエピソード、歴史や食文化とあわせて伝え続けていくこと。
+            その曖昧さの中に、何十年もかけて磨かれた知恵がある。
           </p>
           <p class="about-block__text">
-            語られ、作られ、誰かの生活の中で使われ続けていくこと。<br />
-            その循環があってはじめて、文化として残っていくと私たちは考えています。
+            残したいのはレシピじゃない。<br />
+            一緒に食卓を囲んだ、あの時間。
           </p>
-          <p class="about-block__text">
-            何十年先の食卓でも、変わらず食べられ続ける「あの味」があることを目指して。
-          </p>
-          <div class="about-block__cta">
-            <a href={`${base}recipes/`} class="btn btn--outline">レシピを探す</a>
-            <a href={`${base}support/`} class="btn btn--support">活動を応援する</a>
-          </div>
+          <a href={base + 'support/'} class="about-block__btn">about</a>
         </div>
       </div>
     </section>
@@ -241,7 +219,7 @@ const regionLabels: Record<string, string> = {
   <Footer />
 
   <!-- タブ切り替え・地図読み込みJS -->
-  <script define:vars={{ regionRecipeCount, base }}>
+  <script define:vars={{ regionRecipeCount, base, recipeIds }}>
     // タブ切り替え
     document.querySelectorAll('.explore-tab').forEach((btn) => {
       btn.addEventListener('click', () => {
@@ -349,6 +327,18 @@ const regionLabels: Record<string, string> = {
       animatedEls.forEach((el) => observer.observe(el));
     } else {
       animatedEls.forEach((el) => el.classList.add('is-visible'));
+    }
+
+    // タイムマシンボタン: ランダムレシピへ遷移
+    const tmBtn = document.getElementById('timemachine-btn');
+    if (tmBtn) {
+      tmBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (recipeIds.length > 0) {
+          const randomId = recipeIds[Math.floor(Math.random() * recipeIds.length)];
+          window.location.href = base + 'recipes/' + randomId + '/';
+        }
+      });
     }
   </script>
 </BaseLayout>

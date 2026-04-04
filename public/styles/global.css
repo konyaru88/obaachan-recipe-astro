@@ -8,25 +8,25 @@
    ============================================================ */
 :root {
   /* カラーパレット */
-  --color-bg-base:       #F0E8DA; /* 温かい羊皮紙色 */
-  --color-bg-warm:       #E8DCC8; /* トースト色 */
-  --color-bg-card:       #FAF5EC; /* 温かいアイボリー */
-  --color-text-primary:  #1F150A; /* 深い茶黒 */
-  --color-text-secondary:#5C3D24; /* 深い茶色 */
-  --color-text-muted:    #8B7058; /* 温かいミュート */
-  --color-accent-red:    #A63020; /* 深い弁柄色 */
-  --color-accent-gold:   #B8893A; /* 銅色寄りのゴールド */
-  --color-accent-green:  #4A6B3E; /* 深い若竹色 */
-  --color-border:        #C4B09A; /* 温かいボーダー */
-  --color-divider:       #D9CCBB; /* 温かいディバイダー */
-  --color-copper:        #B87333; /* 銅鍋のアクセント色 */
-  --color-bg-dark:       #3A2416; /* 木目ダークトーン */
+  --color-bg-base:       #FAFAF8;
+  --color-bg-warm:       #F5F3EF;
+  --color-bg-card:       #FFFFFF;
+  --color-text-primary:  #47454B;
+  --color-text-secondary:#5C524A;
+  --color-text-muted:    #9A9088;
+  --color-accent-red:    #47454B;
+  --color-accent-gold:   #B8A88A;
+  --color-accent-green:  #47454B;
+  --color-border:        #E5E0D8;
+  --color-divider:       #F0EDE8;
+  --color-copper:        #B8A88A;
+  --color-bg-dark:       #47454B;
 
   /* タイポグラフィ */
-  --font-serif: 'Noto Serif JP', serif;
+  --font-serif: 'Shippori Mincho', 'Noto Serif JP', serif;
   --font-sans:  'Noto Sans JP', sans-serif;
-  --font-hand:  'Kaisei Tokumin', serif;
-  --font-round: 'Zen Maru Gothic', sans-serif;
+  --font-hand:  'Shippori Mincho', serif;
+  --font-round: 'Noto Sans JP', sans-serif;
 
   /* スペーシング */
   --space-xs:  0.25rem;
@@ -66,7 +66,8 @@ html {
 
 body {
   background-color: var(--color-bg-base);
-  background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h40v40H0z' fill='none'/%3E%3Cpath d='M20 20.5a.5.5 0 110-1 .5.5 0 010 1z' fill='%23000' fill-opacity='.015'/%3E%3C/svg%3E");
+  background-image: url('/assets/images/textures/plaster-noise.png');
+  background-repeat: repeat;
   font-family: var(--font-sans);
   color: var(--color-text-primary);
   line-height: 1.7;
@@ -164,12 +165,12 @@ input, textarea, select {
    ============================================================ */
 .site-header {
   position: sticky;
-  top: 0;
+  top: 32px;
   z-index: 100;
-  background: rgba(240, 232, 218, 0.92);
+  background: rgba(70, 82, 100, 0.85);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid rgba(55, 65, 81, 0.3);
 }
 
 .site-header__inner {
@@ -183,7 +184,7 @@ input, textarea, select {
   font-family: var(--font-serif);
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--color-accent-red);
+  color: #FAF5EC;
   white-space: nowrap;
   letter-spacing: 0.05em;
   flex-shrink: 0;
@@ -192,7 +193,7 @@ input, textarea, select {
 }
 
 .site-header__logo:hover {
-  color: var(--color-accent-red);
+  color: #FAF5EC;
   opacity: 0.85;
 }
 
@@ -202,6 +203,7 @@ input, textarea, select {
   object-fit: contain;
   vertical-align: middle;
   margin-right: 8px;
+  filter: invert(1) brightness(2);
 }
 
 .site-header__nav {
@@ -2646,41 +2648,76 @@ input, textarea, select {
 
 /* β版お知らせバー */
 .beta-bar {
-  background: linear-gradient(90deg, #1F150A 0%, #3A2416 100%);
+  background: linear-gradient(90deg, #3A4555 0%, #3A4555 100%);
   color: #FAF5EC;
   font-size: 0.8rem;
-  padding: 8px var(--space-lg);
+  padding: 0 var(--space-md);
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--space-md);
-  flex-wrap: wrap;
-  text-align: center;
+  gap: var(--space-sm);
+  overflow: hidden;
   letter-spacing: 0.03em;
   position: sticky;
   top: 0;
   z-index: 101;
+  height: 32px;
 }
 .beta-bar__badge {
-  background: var(--color-accent-gold);
-  color: #2C1A0E;
-  font-size: 0.7rem;
-  font-weight: 800;
-  padding: 2px 8px;
-  border-radius: 20px;
+  color: #FAF5EC;
+  font-size: 0.8rem;
+  flex-shrink: 0;
+  z-index: 2;
+  font-weight: 600;
   letter-spacing: 0.05em;
   white-space: nowrap;
 }
-.beta-bar__text {
-  opacity: 0.9;
+.beta-bar__sep {
+  color: #D4845A;
+  margin: 0 0.3em;
+  flex-shrink: 0;
+  font-weight: 400;
 }
-.beta-bar__link {
-  color: var(--color-accent-gold);
-  text-decoration: none;
-  font-weight: 700;
+.beta-bar__ticker {
+  overflow: hidden;
+  position: relative;
+  height: 32px;
+  display: grid;
+  align-items: center;
+}
+.beta-bar__ticker-track {
+  display: grid;
+  grid-area: 1 / 1;
+}
+.ticker__item {
+  grid-area: 1 / 1;
+  display: flex;
+  align-items: center;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
   white-space: nowrap;
 }
-.beta-bar__link:hover { text-decoration: underline; }
+.ticker__item.is-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+.ticker__item strong {
+  color: var(--color-accent-gold);
+  font-weight: 700;
+  margin: 0 2px;
+}
+.ticker__link {
+  color: var(--color-accent-gold);
+  text-decoration: none;
+  font-weight: 600;
+}
+.ticker__link:hover {
+  text-decoration: underline;
+}
 
 /* サンプルバッジ */
 .badge--sample {
@@ -3258,13 +3295,12 @@ input, textarea, select {
     white-space: nowrap;
   }
 
-  /* --- β版バー簡略化 --- */
-  .beta-bar__text {
-    display: none;
+  /* --- β版ティッカーバー（モバイル） --- */
+  .beta-bar__badge {
+    font-size: 0.7rem;
   }
-  .beta-bar {
-    font-size: 0.75rem;
-    padding: 6px var(--space-md);
+  .ticker__item {
+    font-size: 0.7rem;
   }
 
   /* --- ヒーロー調整 --- */
@@ -3647,8 +3683,15 @@ input, textarea, select {
 }
 
 .support-page__deco {
-  font-size: 3.5rem;
   margin-bottom: var(--space-md);
+  text-align: center;
+}
+.support-page__deco-img {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
 }
 
 .support-page__title {

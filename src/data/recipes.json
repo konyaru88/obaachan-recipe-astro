@@ -6484,6 +6484,140 @@
           "記憶を頼りに書いている"
         ]
       }
+    },
+    {
+      "id": "jagaimo-kinpira-hiroshima-001",
+      "title": "じゃがいもきんぴら",
+      "grandmother": {
+        "name": "たくま",
+        "age": null,
+        "prefecture": "広島県",
+        "city": null,
+        "village": null,
+        "message": null
+      },
+      "region": {
+        "area": "chugoku",
+        "prefecture_code": "34",
+        "prefecture": "広島県"
+      },
+      "meta": {
+        "created_at": "2026-04-04",
+        "is_featured": false,
+        "is_endangered": false
+      },
+      "category": "副菜",
+      "tags": [
+        "じゃがいも",
+        "きんぴら",
+        "広島県",
+        "副菜",
+        "日常のごはん",
+        "家庭料理",
+        "常備菜"
+      ],
+      "season": [
+        "春",
+        "夏",
+        "秋",
+        "冬"
+      ],
+      "servings": 2,
+      "prep_time_minutes": 5,
+      "cook_time_minutes": 10,
+      "difficulty": 1,
+      "view_count": 0,
+      "story": "両親が共働きでおばあちゃんがよく夕飯を作ってくれていましたが、学校から歩いて帰り自宅が近付くにつれて、ごま油の香りがよくしていました。ごま油は香りがとても分かりやすいので、今日はじゃがいもきんぴらだと帰りながら楽しみになっていましたし、今でもごま油の香りがするとおばあちゃんや当時の幼い頃を思い出します。",
+      "ingredients": [
+        {
+          "group": "主材料",
+          "items": [
+            {
+              "name": "じゃがいも",
+              "amount": 3,
+              "unit": "個",
+              "note": "細切り",
+              "grandma_amount": "「4個でもいいかな」",
+              "approx_weight": "約450g"
+            }
+          ]
+        },
+        {
+          "group": "調味料",
+          "items": [
+            {
+              "name": "ごま油",
+              "amount": "1/2",
+              "unit": "大さじ",
+              "note": null,
+              "grandma_amount": "適当"
+            },
+            {
+              "name": "みりん",
+              "amount": 1,
+              "unit": "大さじ",
+              "note": null,
+              "grandma_amount": "目分量"
+            },
+            {
+              "name": "麺つゆ",
+              "amount": 2,
+              "unit": "大さじ",
+              "note": null,
+              "grandma_amount": "適度に一回し"
+            },
+            {
+              "name": "白だし",
+              "amount": 1,
+              "unit": "大さじ",
+              "note": null,
+              "grandma_amount": "目分量"
+            },
+            {
+              "name": "砂糖",
+              "amount": 1,
+              "unit": "大さじ",
+              "note": null,
+              "grandma_amount": "ひとつまみ"
+            },
+            {
+              "name": "白ごま",
+              "amount": null,
+              "unit": "適量",
+              "note": "仕上げ用"
+            }
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "text": "じゃがいもを細切りにしてごま油で炒める。",
+          "tip": "中火で7分程度"
+        },
+        {
+          "step": 2,
+          "text": "じゃがいもがきつね色になったら、みりん、麺つゆ、白だし、砂糖を入れて中火で3分程度で炒める。",
+          "tip": null
+        },
+        {
+          "step": 3,
+          "text": "汁が完全になくなったら弱火にし、白ごまをふりかける。",
+          "tip": "白ごまはしっかりと混ぜる"
+        }
+      ],
+      "grandma_notes": [],
+      "cultural_background": "じゃがいもを使ったきんぴらは、ごぼうのきんぴらの変形版として各地の家庭で親しまれている。シャキシャキとした食感が特徴。",
+      "photos": [],
+      "related_recipe_ids": [],
+      "thumbnail_emoji": "🥔",
+      "episode": "両親が共働きでおばあちゃんがよく夕飯を作ってくれていましたが、学校から歩いて帰り自宅が近付くにつれて、ごま油の香りがよくしていました。ごま油は香りがとても分かりやすいので、今日はじゃがいもきんぴらだと帰りながら楽しみになっていましたし、今でもごま油の香りがするとおばあちゃんや当時の幼い頃を思い出します。",
+      "source": {
+        "type": "memory",
+        "details": [
+          "記憶を頼りに書いている"
+        ]
+      }
     }
   ]
 }

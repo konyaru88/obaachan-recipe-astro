@@ -18,12 +18,12 @@ for (const r of allRecipes) {
   if (area) regionRecipeCount[area] = (regionRecipeCount[area] ?? 0) + 1;
 }
 
-// タイムマシン用：全レシピIDと画像パスの配列
+// タイムマシン用：全レシピIDの配列
 const recipeIds = allRecipes.map((r: any) => r.id);
-const recipeImages = allRecipes.map((r: any) => ({
-  id: r.id,
-  img: r.photos?.[0] || r.image || null,
-}));
+// タイムマシン用：画像ありレシピのみ（フラッシュ演出用）
+const recipesWithImages = allRecipes
+  .filter((r: any) => r.photos?.main)
+  .map((r: any) => ({ id: r.id, img: r.photos.main }));
 
 const grandmaTags = [
   { label: 'コトコト煮物おばあちゃん', tag: '煮物' },
@@ -229,7 +229,7 @@ const regionLabels: Record<string, string> = {
   <Footer />
 
   <!-- タブ切り替え・地図読み込みJS -->
-  <script type="application/json" id="recipe-images-data" set:html={JSON.stringify(recipeImages)}></script>
+  <script type="application/json" id="recipe-images-data" set:html={JSON.stringify(recipesWithImages)}></script>
   <script define:vars={{ regionRecipeCount, base, recipeIds }}>
     // タブ切り替え
     document.querySelectorAll('.explore-tab').forEach((btn) => {
@@ -341,28 +341,27 @@ const regionLabels: Record<string, string> = {
     }
 
     // タイムマシンボタン: 料理フラッシュ → ランダムレシピへ遷移
-    const recipeImgs = JSON.parse(document.getElementById('recipe-images-data')?.textContent || '[]');
+    const recipesWithImgs = JSON.parse(document.getElementById('recipe-images-data')?.textContent || '[]');
     const tmBtn = document.getElementById('timemachine-btn');
     if (tmBtn) {
       tmBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        if (recipeIds.length === 0) return;
-
-        const idx = Math.floor(Math.random() * recipeIds.length);
-        const randomId = recipeIds[idx];
-        const recipeImg = recipeImgs[idx];
+        // 画像ありレシピがあればそこから選ぶ、なければ全レシピから選ぶ
+        const pool = recipesWithImgs.length > 0 ? recipesWithImgs : recipeIds.map(id => ({ id, img: null }));
+        const pick = pool[Math.floor(Math.random() * pool.length)];
+        const randomId = pick.id;
 
         // 画像パスを決定
-        const imgSrc = recipeImg?.img
-          ? (recipeImg.img.startsWith('http') ? recipeImg.img : base + 'assets/images/recipes/' + recipeImg.img)
-          : base + 'assets/images/recipes/' + randomId + '.jpg';
+        const imgSrc = pick.img
+          ? base + pick.img
+          : null;
 
         // オーバーレイを生成
         const overlay = document.createElement('div');
         overlay.className = 'tm-overlay';
         overlay.innerHTML = `
           <div class="tm-overlay__bg"></div>
-          <div class="tm-overlay__food"><img src="${imgSrc}" alt="" /></div>
+          ${imgSrc ? `<div class="tm-overlay__food"><img src="${imgSrc}" alt="" /></div>` : ''}
           <div class="tm-overlay__flash"></div>
         `;
         document.body.appendChild(overlay);

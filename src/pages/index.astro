@@ -18,8 +18,12 @@ for (const r of allRecipes) {
   if (area) regionRecipeCount[area] = (regionRecipeCount[area] ?? 0) + 1;
 }
 
-// タイムマシン用：全レシピIDの配列
+// タイムマシン用：全レシピIDと画像パスの配列
 const recipeIds = allRecipes.map((r: any) => r.id);
+const recipeImages = allRecipes.map((r: any) => ({
+  id: r.id,
+  img: r.photos?.[0] || r.image || null,
+}));
 
 const grandmaTags = [
   { label: 'コトコト煮物おばあちゃん', tag: '煮物' },
@@ -177,14 +181,20 @@ const regionLabels: Record<string, string> = {
     <!-- タイムマシンセクション -->
     <section class="home__timemachine" aria-labelledby="timemachine-heading">
       <div class="container" style="text-align:center; padding: 5rem 1rem;">
-        <h2 id="timemachine-heading" style="font-family:var(--font-serif); font-size:clamp(1.5rem,3vw,2rem); font-weight:400; color:var(--color-text-primary); margin-bottom:1.5rem; letter-spacing:0.05em;">あの日の食卓へ</h2>
+        <h2 id="timemachine-heading" style="font-family:var(--font-serif); font-size:clamp(1.5rem,3vw,2rem); font-weight:400; color:var(--color-text-primary); margin-bottom:1.5rem; letter-spacing:0.05em;">どこかの食卓へ</h2>
         <p style="font-family:var(--font-serif); font-size:0.95rem; color:var(--color-text-muted); line-height:2; margin-bottom:2.5rem;">
           何が出てくるかはわからない。<br />
           ランダムに、誰かの記憶の味に出会う。
         </p>
-        <a href="#" id="timemachine-btn" class="btn btn--outline" data-cta="timemachine" style="padding:1rem 3.5rem; font-family:var(--font-sans); font-size:0.8rem; letter-spacing:0.15em; text-transform:uppercase;">
-          タイムマシンに乗る
-        </a>
+        <div class="tm-btn-wrapper">
+          <a href="#" id="timemachine-btn" class="btn btn--outline tm-btn-combined" data-cta="timemachine" style="padding:1rem 3.5rem; font-family:var(--font-sans); font-size:0.8rem; letter-spacing:0.15em;">
+            <span class="tm-clock-icon" aria-hidden="true"></span>
+            タイムマシンに乗る
+          </a>
+          <span class="tm-gogogo tm-gogogo--1" aria-hidden="true">ゴゴゴゴ…</span>
+          <span class="tm-gogogo tm-gogogo--2" aria-hidden="true">ゴゴゴ…</span>
+          <span class="tm-gogogo tm-gogogo--3" aria-hidden="true">ゴ ゴ ゴ</span>
+        </div>
       </div>
     </section>
 
@@ -219,6 +229,7 @@ const regionLabels: Record<string, string> = {
   <Footer />
 
   <!-- タブ切り替え・地図読み込みJS -->
+  <script type="application/json" id="recipe-images-data" set:html={JSON.stringify(recipeImages)}></script>
   <script define:vars={{ regionRecipeCount, base, recipeIds }}>
     // タブ切り替え
     document.querySelectorAll('.explore-tab').forEach((btn) => {
@@ -329,15 +340,41 @@ const regionLabels: Record<string, string> = {
       animatedEls.forEach((el) => el.classList.add('is-visible'));
     }
 
-    // タイムマシンボタン: ランダムレシピへ遷移
+    // タイムマシンボタン: 料理フラッシュ → ランダムレシピへ遷移
+    const recipeImgs = JSON.parse(document.getElementById('recipe-images-data')?.textContent || '[]');
     const tmBtn = document.getElementById('timemachine-btn');
     if (tmBtn) {
       tmBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        if (recipeIds.length > 0) {
-          const randomId = recipeIds[Math.floor(Math.random() * recipeIds.length)];
+        if (recipeIds.length === 0) return;
+
+        const idx = Math.floor(Math.random() * recipeIds.length);
+        const randomId = recipeIds[idx];
+        const recipeImg = recipeImgs[idx];
+
+        // 画像パスを決定
+        const imgSrc = recipeImg?.img
+          ? (recipeImg.img.startsWith('http') ? recipeImg.img : base + 'assets/images/recipes/' + recipeImg.img)
+          : base + 'assets/images/recipes/' + randomId + '.jpg';
+
+        // オーバーレイを生成
+        const overlay = document.createElement('div');
+        overlay.className = 'tm-overlay';
+        overlay.innerHTML = `
+          <div class="tm-overlay__bg"></div>
+          <div class="tm-overlay__food"><img src="${imgSrc}" alt="" /></div>
+          <div class="tm-overlay__flash"></div>
+        `;
+        document.body.appendChild(overlay);
+        overlay.offsetHeight;
+        overlay.classList.add('is-active');
+
+        // フラッシュが白く覆ったタイミングでページ遷移
+        setTimeout(() => {
+          const flash = overlay.querySelector('.tm-overlay__flash');
+          if (flash) { flash.style.animation = 'none'; flash.style.opacity = '1'; }
           window.location.href = base + 'recipes/' + randomId + '/';
-        }
+        }, 1600);
       });
     }
   </script>

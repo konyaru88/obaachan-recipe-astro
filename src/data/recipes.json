@@ -6345,7 +6345,10 @@
       ],
       "grandma_notes": [],
       "cultural_background": "ひな祭りの定番料理。おばあちゃんと一緒に作ることで料理の楽しさを次の世代に伝える、家族の絆が詰まった一品。",
-      "photos": [],
+      "photos": {
+        "main": "assets/images/recipes/chirashi-sushi-tokyo-001.jpg",
+        "thumbnail": "assets/images/recipes/chirashi-sushi-tokyo-001.jpg"
+      },
       "related_recipe_ids": [],
       "thumbnail_emoji": "🍣",
       "episode": "子供の頃におばあちゃんの家に行った時に、おばあちゃんが作ってくれてとても美味しかった思い出があります。何度かおばあちゃんと一緒にちらし寿司を作って料理する楽しさをおばあちゃんから学び、今でも3月になると無性にちらし寿司が食べたくなります。",
@@ -6489,7 +6492,10 @@
       ],
       "grandma_notes": [],
       "cultural_background": "すいとんは戦中戦後の食糧難の時代から続く家庭料理。シンプルな材料で体が温まり、冷蔵庫の残り物で作れる実用的な一品。",
-      "photos": [],
+      "photos": {
+        "main": "assets/images/recipes/suiton-jiru-tokyo-001.jpg",
+        "thumbnail": "assets/images/recipes/suiton-jiru-tokyo-001.jpg"
+      },
       "related_recipe_ids": [],
       "thumbnail_emoji": "🍲",
       "episode": "今はIT企業で一日中パソコンに向かって事務仕事をしているので、夜遅く帰るとちゃんとしたご飯を作る気力がなくて。そんな時に、このすいとんを思い出してよく作ります。実家で、おばあちゃんが手は粉だらけにしながら生地をこねてくれたのを覚えています。特別な材料は入っていないのに、お出汁を吸ったモチモチのすいとんを食べるとすごくホッとします。",
@@ -6623,7 +6629,10 @@
       ],
       "grandma_notes": [],
       "cultural_background": "じゃがいもを使ったきんぴらは、ごぼうのきんぴらの変形版として各地の家庭で親しまれている。シャキシャキとした食感が特徴。",
-      "photos": [],
+      "photos": {
+        "main": "assets/images/recipes/jagaimo-kinpira-hiroshima-001.jpg",
+        "thumbnail": "assets/images/recipes/jagaimo-kinpira-hiroshima-001.jpg"
+      },
       "related_recipe_ids": [],
       "thumbnail_emoji": "🥔",
       "episode": "両親が共働きでおばあちゃんがよく夕飯を作ってくれていましたが、学校から歩いて帰り自宅が近付くにつれて、ごま油の香りがよくしていました。ごま油は香りがとても分かりやすいので、今日はじゃがいもきんぴらだと帰りながら楽しみになっていましたし、今でもごま油の香りがするとおばあちゃんや当時の幼い頃を思い出します。",

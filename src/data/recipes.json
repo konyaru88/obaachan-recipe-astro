@@ -5917,6 +5917,135 @@
           "記憶を頼りに書いている"
         ]
       }
+    },
+    {
+      "id": "daikon-tamago-toji-kumamoto-001",
+      "title": "大根の卵とじ",
+      "grandmother": {
+        "name": "ハルエおばあちゃん",
+        "age": null,
+        "prefecture": "熊本県",
+        "city": null,
+        "village": null,
+        "message": null
+      },
+      "region": {
+        "area": "kyushu",
+        "prefecture_code": "43",
+        "prefecture": "熊本県"
+      },
+      "meta": {
+        "created_at": "2026-04-04",
+        "is_featured": false,
+        "is_endangered": false
+      },
+      "category": "煮物",
+      "tags": [
+        "大根",
+        "卵",
+        "卵とじ",
+        "熊本県",
+        "煮物",
+        "日常のごはん",
+        "家庭料理"
+      ],
+      "season": [
+        "冬"
+      ],
+      "servings": 4,
+      "prep_time_minutes": 10,
+      "cook_time_minutes": 25,
+      "difficulty": 1,
+      "view_count": 0,
+      "story": "小さい頃、偏食だった私が好きだったおばあちゃんの料理です。私が大好きなことを知っているおばあちゃんは「ほら、大根の煮たのあるばい」と出してくれていました。卵が甘めの醤油に絡まった部分が大好きで、「あんたは卵んところばっか食べて。大根も食べなんたい」と大根を入れられていました。お魚が苦手だった私のために特別に作ってくれることもあったり、残してくれていることもあって「あんたはこっだろ」と出してくれたおばあちゃんの笑顔は大切な思い出です。",
+      "ingredients": [
+        {
+          "group": "主材料",
+          "items": [
+            {
+              "name": "大根",
+              "amount": 300,
+              "unit": "g",
+              "note": "細切り",
+              "grandma_amount": "大きい大根一本分"
+            },
+            {
+              "name": "卵",
+              "amount": 2,
+              "unit": "個",
+              "note": "溶いておく",
+              "grandma_amount": "好きなしこ（好きなだけ）"
+            }
+          ]
+        },
+        {
+          "group": "煮汁",
+          "items": [
+            {
+              "name": "水",
+              "amount": "半カップ",
+              "unit": "",
+              "note": null,
+              "grandma_amount": "大根が浸るくらい"
+            },
+            {
+              "name": "醤油",
+              "amount": 2,
+              "unit": "大さじ",
+              "note": null,
+              "grandma_amount": "よかあんばいに"
+            },
+            {
+              "name": "みりん",
+              "amount": 1,
+              "unit": "大さじ",
+              "note": null,
+              "grandma_amount": "よかあんばいに"
+            },
+            {
+              "name": "砂糖",
+              "amount": 1,
+              "unit": "大さじ",
+              "note": null,
+              "grandma_amount": "よかあんばいに"
+            }
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "text": "大根をできるだけ細く切って鍋に入れ、大根が浸るくらいの水を入れる。",
+          "tip": null
+        },
+        {
+          "step": 2,
+          "text": "砂糖、醤油、みりんを入れて中火で5分煮る。",
+          "tip": null
+        },
+        {
+          "step": 3,
+          "text": "ぐつぐつしてきたら弱火にしてじっくり20分ほど煮込み、大根がくたっとなるまで煮る。",
+          "tip": null
+        },
+        {
+          "step": 4,
+          "text": "溶いた卵を流し入れて蓋をし、卵が固まったら出来上がり。",
+          "tip": null
+        }
+      ],
+      "grandma_notes": [],
+      "cultural_background": "熊本の家庭料理。シンプルな材料で作る素朴な一品で、偏食の子どもにも食べやすい優しい味わい。",
+      "photos": [],
+      "related_recipe_ids": [],
+      "thumbnail_emoji": "🥚",
+      "episode": "小さい頃、偏食だった私が好きだったおばあちゃんの料理です。私が大好きなことを知っているおばあちゃんは「ほら、大根の煮たのあるばい」と出してくれていました。卵が甘めの醤油に絡まった部分が大好きで、「あんたは卵んところばっか食べて。大根も食べなんたい」と大根を入れられていました。お魚が苦手だった私のために特別に作ってくれることもあったり、残してくれていることもあって「あんたはこっだろ」と出してくれたおばあちゃんの笑顔は大切な思い出です。",
+      "source": {
+        "type": "memory",
+        "details": [
+          "記憶を頼りに書いている"
+        ]
+      }
     }
   ]
 }

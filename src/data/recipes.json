@@ -5775,6 +5775,148 @@
           "家族（親・きょうだいなど）から聞いた"
         ]
       }
+    },
+    {
+      "id": "daikon-konnyaku-miso-oden-aichi-001",
+      "title": "大根とこんにゃくの味噌おでん",
+      "grandmother": {
+        "name": "お鶴",
+        "age": null,
+        "prefecture": "愛知県",
+        "city": null,
+        "village": null,
+        "message": null
+      },
+      "region": {
+        "area": "tokai",
+        "prefecture_code": "23",
+        "prefecture": "愛知県"
+      },
+      "meta": {
+        "created_at": "2026-04-04",
+        "is_featured": false,
+        "is_endangered": false
+      },
+      "category": "煮物",
+      "tags": [
+        "大根",
+        "こんにゃく",
+        "味噌おでん",
+        "愛知県",
+        "煮物",
+        "郷土料理",
+        "日常のごはん"
+      ],
+      "season": [
+        "冬"
+      ],
+      "servings": 4,
+      "prep_time_minutes": 20,
+      "cook_time_minutes": 60,
+      "difficulty": 2,
+      "view_count": 0,
+      "story": "愛知特有の真っ黒なおでんで、お砂糖がたっぷり入っているので見た目よりかなり甘辛いです。数日煮込んで大根の中まで真っ茶色になったのが一番美味しくて、最後は残った味噌ダレをご飯にかけて食べるのが行儀が悪いけど好きでした。",
+      "ingredients": [
+        {
+          "group": "主材料",
+          "items": [
+            {
+              "name": "大根",
+              "amount": "1/2",
+              "unit": "本",
+              "note": "厚めの輪切り、隠し包丁を入れて下茹で",
+              "grandma_amount": "大きいのを半分くらい",
+              "approx_weight": "約400〜500g"
+            },
+            {
+              "name": "こんにゃく",
+              "amount": 2,
+              "unit": "枚",
+              "note": "三角に切って下茹でしてアク抜き",
+              "approx_weight": "約500g（2枚）"
+            },
+            {
+              "name": "豚モツ（または豚バラブロック）",
+              "amount": 200,
+              "unit": "g",
+              "note": null,
+              "grandma_amount": "パック全部"
+            }
+          ]
+        },
+        {
+          "group": "味噌ダレ",
+          "items": [
+            {
+              "name": "赤味噌（八丁味噌）",
+              "amount": 100,
+              "unit": "g",
+              "note": "ボウルで煮汁と溶かしてから加える",
+              "grandma_amount": "お玉にこんもり"
+            },
+            {
+              "name": "砂糖",
+              "amount": "5〜6",
+              "unit": "大さじ",
+              "note": null,
+              "grandma_amount": "お味噌と同じくらいドッサリ"
+            },
+            {
+              "name": "みりん",
+              "amount": 1,
+              "unit": "大さじ",
+              "note": null,
+              "grandma_amount": "ツヤ出しにちょっと"
+            },
+            {
+              "name": "だし汁",
+              "amount": 800,
+              "unit": "cc",
+              "note": null,
+              "grandma_amount": "具がかぶるくらい"
+            }
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "text": "大根は厚めの輪切りにして、隠し包丁を入れてから下茹でします。",
+          "tip": "隠し包丁で味が染みやすくなる"
+        },
+        {
+          "step": 2,
+          "text": "こんにゃくは三角に切って、下茹でしてアクを抜きます。",
+          "tip": null
+        },
+        {
+          "step": 3,
+          "text": "鍋にだし汁を入れて、大根、こんにゃく、豚肉またはモツを入れて柔らかくなるまで煮ます。",
+          "tip": null
+        },
+        {
+          "step": 4,
+          "text": "赤味噌と砂糖、みりんをボウルで少し煮汁と混ぜて溶かしてから、鍋に加えます。",
+          "tip": "ダマにならないよう先に溶いておく"
+        },
+        {
+          "step": 5,
+          "text": "弱火でじっくり、汁がドロドロになって具材が真っ黒になるまで煮込みます。",
+          "tip": "数日煮込むほど味が染みて美味しくなる"
+        }
+      ],
+      "grandma_notes": [],
+      "cultural_background": "愛知県では八丁味噌を使った味噌おでんが冬の定番。ストーブの上でコトコト煮込み、数日かけて食べ進めるのが家庭の風物詩。",
+      "photos": [],
+      "related_recipe_ids": [],
+      "thumbnail_emoji": "🍢",
+      "episode": "愛知特有の真っ黒なおでんで、お砂糖がたっぷり入っているので見た目よりかなり甘辛いです。数日煮込んで大根の中まで真っ茶色になったのが一番美味しくて、最後は残った味噌ダレをご飯にかけて食べるのが行儀が悪いけど好きでした。",
+      "source": {
+        "type": "memory",
+        "details": [
+          "記憶を頼りに書いている"
+        ]
+      }
     }
   ]
 }

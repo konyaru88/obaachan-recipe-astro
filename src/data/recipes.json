@@ -4414,6 +4414,1032 @@
         ],
         "contributor": "くにお"
       }
+    },
+    {
+      "id": "tomato-tonjiru-fukushima-001",
+      "title": "トマト豚汁",
+      "grandmother": {
+        "name": null,
+        "age": null,
+        "prefecture": "福島県",
+        "city": null,
+        "village": null,
+        "message": null
+      },
+      "region": {
+        "area": "tohoku",
+        "prefecture_code": "07",
+        "prefecture": "福島県"
+      },
+      "meta": {
+        "created_at": "2026-04-04",
+        "is_featured": false,
+        "is_endangered": false
+      },
+      "category": "汁物",
+      "tags": [
+        "トマト",
+        "豚汁",
+        "味噌汁",
+        "福島県",
+        "家庭料理",
+        "日常のごはん"
+      ],
+      "season": [
+        "冬"
+      ],
+      "servings": 5,
+      "prep_time_minutes": 10,
+      "cook_time_minutes": 15,
+      "difficulty": 1,
+      "story": "<a href=\"https://ja.wikipedia.org/wiki/%E8%B1%9A%E6%B1%81\" target=\"_blank\" rel=\"noopener\">豚汁</a>は日本各地で親しまれる定番の家庭料理ですが、<a href=\"https://ja.wikipedia.org/wiki/%E7%A6%8F%E5%B3%B6%E7%9C%8C\" target=\"_blank\" rel=\"noopener\">福島県</a>のこのおばあちゃんの豚汁は、<a href=\"https://ja.wikipedia.org/wiki/%E3%83%88%E3%83%9E%E3%83%88\" target=\"_blank\" rel=\"noopener\">トマト</a>をたっぷり加えるのが特徴です。味噌の風味にトマトの酸味が重なり、仕上げに<a href=\"https://ja.wikipedia.org/wiki/%E3%81%BF%E3%82%8A%E3%82%93\" target=\"_blank\" rel=\"noopener\">みりん</a>のコクで全体をまとめる、おばあちゃんならではの一杯かもしれません。",
+      "ingredients": [
+        {
+          "group": "主材料",
+          "items": [
+            {
+              "name": "トマト",
+              "amount": 300,
+              "unit": "g",
+              "note": null,
+              "grandma_amount": "最低5つは入れる"
+            },
+            {
+              "name": "豚肉",
+              "amount": 200,
+              "unit": "g",
+              "note": null
+            },
+            {
+              "name": "白ネギ",
+              "amount": 1,
+              "unit": "本",
+              "note": "緑の部分も全て使う",
+              "approx_weight": "100〜150g"
+            }
+          ]
+        },
+        {
+          "group": "調味料",
+          "items": [
+            {
+              "name": "味噌",
+              "amount": 40,
+              "unit": "g",
+              "note": null,
+              "grandma_amount": "おたま半分隠れるくらい"
+            },
+            {
+              "name": "みりん",
+              "amount": 5,
+              "unit": "大さじ",
+              "note": null,
+              "grandma_amount": "おたま大体ひとすくい"
+            }
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "text": "ごく普通の鍋に水を張り、コンロに火をかける。",
+          "tip": null
+        },
+        {
+          "step": 2,
+          "text": "お湯が沸くまでに食材を切る。トマトはできるだけ一口サイズに細かく切り、ネギはざく切りでOK。緑の部分も全て切り、バットにトマトとネギを待機させる。",
+          "tip": null
+        },
+        {
+          "step": 3,
+          "text": "湯が沸いたら初めに味噌をとく。具なしの味噌汁ができたところでトマトとネギを投入。",
+          "tip": "先に味噌をとくのがポイント"
+        },
+        {
+          "step": 4,
+          "text": "おたまを使ってゆっくりと味噌汁と具を調和させていく。時間にして大体5分。",
+          "tip": null
+        },
+        {
+          "step": 5,
+          "text": "トマトとネギの出汁が味噌汁に出たら、次に豚肉を投入。",
+          "tip": null
+        },
+        {
+          "step": 6,
+          "text": "豚肉に火を通す。あまり煮込み過ぎないように注意。肉が硬くなってしまうので大体3分くらいでOK。",
+          "tip": "煮込み過ぎると肉が硬くなる"
+        },
+        {
+          "step": 7,
+          "text": "肉の赤いところが消えたら最後にみりんを入れて、おたまで優しくかき混ぜてトマト豚汁の完成。",
+          "tip": "みりんのコクがトマトの風味と味噌汁と見事に調和して新たな味わいを生み出してくれる"
+        }
+      ],
+      "grandma_notes": null,
+      "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E8%B1%9A%E6%B1%81\" target=\"_blank\" rel=\"noopener\">豚汁</a>は日本各地で親しまれる定番の家庭料理ですが、<a href=\"https://ja.wikipedia.org/wiki/%E7%A6%8F%E5%B3%B6%E7%9C%8C\" target=\"_blank\" rel=\"noopener\">福島県</a>のこのおばあちゃんの豚汁は、<a href=\"https://ja.wikipedia.org/wiki/%E3%83%88%E3%83%9E%E3%83%88\" target=\"_blank\" rel=\"noopener\">トマト</a>をたっぷり加えるのが特徴です。味噌の風味にトマトの酸味が重なり、仕上げに<a href=\"https://ja.wikipedia.org/wiki/%E3%81%BF%E3%82%8A%E3%82%93\" target=\"_blank\" rel=\"noopener\">みりん</a>のコクで全体をまとめる、おばあちゃんならではの一杯かもしれません。",
+      "photos": {
+        "main": null,
+        "thumbnail": null
+      },
+      "related_recipe_ids": [],
+      "thumbnail_emoji": "🍅",
+      "episode": "おばあちゃんはかなり料理好きで色々なオリジナルレシピを持っていたのですが、そのどれもが簡単に作れるものばかりだったのでそこが本当にすごいなと常々思っていました。ある日、私が晩御飯前に「おばあちゃん、今日の献立何？」と聞くと「爽やかなお味噌汁」とだけ教えてくれて今回のトマト豚汁が出てきました。正直、その頃そこまでトマトが得意ではなかった私なのですが、この豚汁を食べたら一気にトマトが美味しく感じられて、今では本当におばあちゃんには感謝です。味噌とトマトの絶妙なハーモニーが美味しさを加速させている感じで最初食べた時は本当に驚きました。豚肉とトマト、ネギの相性もとにかくいいのでお米も進みますし心から満足できる味わいです。後日、おばあちゃんに「この前のトマト豚汁ってどう作るの？」と聞いた時、おばあちゃんは「すごく簡単だべ、作ってみる？」と一つ一つ私に手解きしてくれたことはいい思い出です。",
+      "source": {
+        "types": [
+          "おばあちゃん本人から直接教わった",
+          "記憶を頼りに書いている"
+        ],
+        "contributor": "ヨシダ"
+      }
+    },
+    {
+      "id": "satsumaimo-ringo-amani-mie-001",
+      "title": "さつまいもとりんごの甘煮",
+      "grandmother": {
+        "name": null,
+        "age": null,
+        "prefecture": "三重県",
+        "city": null,
+        "village": null,
+        "message": null
+      },
+      "region": {
+        "area": "tokai",
+        "prefecture_code": "24",
+        "prefecture": "三重県"
+      },
+      "meta": {
+        "created_at": "2026-04-04",
+        "is_featured": false,
+        "is_endangered": false
+      },
+      "category": "煮物・副菜",
+      "tags": [
+        "さつまいも",
+        "りんご",
+        "甘煮",
+        "三重県",
+        "副菜",
+        "おやつ",
+        "日常のごはん"
+      ],
+      "season": [
+        "秋",
+        "冬"
+      ],
+      "servings": 4,
+      "prep_time_minutes": 10,
+      "cook_time_minutes": 25,
+      "difficulty": 1,
+      "story": "<a href=\"https://ja.wikipedia.org/wiki/%E3%82%B5%E3%83%84%E3%83%9E%E3%82%A4%E3%83%A2\" target=\"_blank\" rel=\"noopener\">さつまいも</a>と<a href=\"https://ja.wikipedia.org/wiki/%E3%83%AA%E3%83%B3%E3%82%B4\" target=\"_blank\" rel=\"noopener\">りんご</a>を一緒にコトコト煮る素朴な一品。<a href=\"https://ja.wikipedia.org/wiki/%E4%B8%89%E9%87%8D%E7%9C%8C\" target=\"_blank\" rel=\"noopener\">三重県</a>のおばあちゃんが秋から冬にかけてよく作ってくれた副菜兼おやつで、仕上げにほんの少しだけ垂らす<a href=\"https://ja.wikipedia.org/wiki/%E9%86%A4%E6%B2%B9\" target=\"_blank\" rel=\"noopener\">醤油</a>が、甘さにほんのりコクを添えてくれます。",
+      "ingredients": [
+        {
+          "group": "主材料",
+          "items": [
+            {
+              "name": "さつまいも",
+              "amount": 1,
+              "unit": "本",
+              "note": "中サイズ",
+              "grandma_amount": "好きなだけごろっと切って入れる",
+              "approx_weight": "300〜400g"
+            },
+            {
+              "name": "りんご",
+              "amount": 1,
+              "unit": "個",
+              "note": null,
+              "grandma_amount": "1個をざくっと8つに切る",
+              "approx_weight": "250〜300g"
+            }
+          ]
+        },
+        {
+          "group": "調味料",
+          "items": [
+            {
+              "name": "水",
+              "amount": 200,
+              "unit": "ml",
+              "note": "〜250ml程度",
+              "grandma_amount": "具が少し浸かるくらい"
+            },
+            {
+              "name": "砂糖",
+              "amount": 2,
+              "unit": "大さじ",
+              "note": "約18g",
+              "grandma_amount": "大さじに山盛り気味で2杯くらい"
+            },
+            {
+              "name": "醤油",
+              "amount": 0.5,
+              "unit": "小さじ",
+              "note": "約3ml",
+              "grandma_amount": "ほんの少しだけ垂らす"
+            }
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "text": "さつまいもは皮付きのままざく切りにし、水にさらして軽くあく抜きをする。5分ほど浸けておくとえぐみが取れる。",
+          "tip": null
+        },
+        {
+          "step": 2,
+          "text": "りんごは皮をむかずに8つ切りにする。芯は取り除くが、大きめに切るのが特徴。",
+          "tip": null
+        },
+        {
+          "step": 3,
+          "text": "鍋にさつまいもとりんごを入れ、水を「具材が少し浸かるくらい」加える。入れすぎないのがポイント。",
+          "tip": "水を入れすぎないことで、煮崩れを防ぎつつ甘みがしっかり出る"
+        },
+        {
+          "step": 4,
+          "text": "砂糖を加え、中火にかける。沸騰してきたら弱めの中火にし、落とし蓋をしてコトコト煮る。",
+          "tip": null
+        },
+        {
+          "step": 5,
+          "text": "10〜15分ほど煮て、さつまいもが柔らかくなってきたら、仕上げに醤油を少しだけ加える。甘さの中にほんのりコクが出る。",
+          "tip": "醤油は入れすぎると風味が変わるため、「ほんの少し」が大切"
+        },
+        {
+          "step": 6,
+          "text": "さらに5分ほど煮て、全体に味がなじんだら火を止める。少し冷ますと味がしっかり染みて、よりおいしくなる。",
+          "tip": null
+        }
+      ],
+      "grandma_notes": null,
+      "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E3%82%B5%E3%83%84%E3%83%9E%E3%82%A4%E3%83%A2\" target=\"_blank\" rel=\"noopener\">さつまいも</a>と<a href=\"https://ja.wikipedia.org/wiki/%E3%83%AA%E3%83%B3%E3%82%B4\" target=\"_blank\" rel=\"noopener\">りんご</a>を一緒にコトコト煮る素朴な一品。<a href=\"https://ja.wikipedia.org/wiki/%E4%B8%89%E9%87%8D%E7%9C%8C\" target=\"_blank\" rel=\"noopener\">三重県</a>のおばあちゃんが秋から冬にかけてよく作ってくれた副菜兼おやつで、仕上げにほんの少しだけ垂らす<a href=\"https://ja.wikipedia.org/wiki/%E9%86%A4%E6%B2%B9\" target=\"_blank\" rel=\"noopener\">醤油</a>が、甘さにほんのりコクを添えてくれます。",
+      "photos": {
+        "main": null,
+        "thumbnail": null
+      },
+      "related_recipe_ids": [],
+      "thumbnail_emoji": "🍠",
+      "episode": "おばあちゃんは料理中、きちんと計量することはほとんどなく、「これくらいでええよ」と言いながら手際よく作っていました。特にこのさつまいもとりんごの煮物は、砂糖を入れるときも目分量で、少し多いのではと思っても、出来上がるとちょうどよい甘さになっているのが不思議でした。",
+      "source": {
+        "types": [
+          "おばあちゃん本人から直接教わった",
+          "記憶を頼りに書いている"
+        ],
+        "contributor": "さくらもち"
+      }
+    },
+    {
+      "id": "kinpira-gobo-miyagi-001",
+      "title": "きんぴらごぼう",
+      "grandmother": {
+        "name": null,
+        "age": null,
+        "prefecture": "宮城県",
+        "city": null,
+        "village": null,
+        "message": null
+      },
+      "region": {
+        "area": "tohoku",
+        "prefecture_code": "04",
+        "prefecture": "宮城県"
+      },
+      "meta": {
+        "created_at": "2026-04-04",
+        "is_featured": false,
+        "is_endangered": false
+      },
+      "category": "炒め物・副菜",
+      "tags": [
+        "ごぼう",
+        "にんじん",
+        "きんぴら",
+        "宮城県",
+        "副菜",
+        "常備菜",
+        "日常のごはん"
+      ],
+      "season": [
+        "秋",
+        "冬"
+      ],
+      "servings": 4,
+      "prep_time_minutes": 15,
+      "cook_time_minutes": 10,
+      "difficulty": 1,
+      "story": "<a href=\"https://ja.wikipedia.org/wiki/%E3%81%8D%E3%82%93%E3%81%B4%E3%82%89\" target=\"_blank\" rel=\"noopener\">きんぴらごぼう</a>は日本全国で親しまれている定番の副菜です。<a href=\"https://ja.wikipedia.org/wiki/%E5%AE%AE%E5%9F%8E%E7%9C%8C\" target=\"_blank\" rel=\"noopener\">宮城県</a>のこのおばあちゃんのきんぴらは、<a href=\"https://ja.wikipedia.org/wiki/%E3%82%B4%E3%83%9C%E3%82%A6\" target=\"_blank\" rel=\"noopener\">ごぼう</a>を「フライパンにいっぱい」入れるのが特徴で、少し甘めの仕上がりだったそうです。",
+      "ingredients": [
+        {
+          "group": "主材料",
+          "items": [
+            {
+              "name": "ごぼう",
+              "amount": 1,
+              "unit": "本",
+              "note": null,
+              "grandma_amount": "フライパンにいっぱい入れる",
+              "approx_weight": "150g"
+            },
+            {
+              "name": "にんじん",
+              "amount": 1,
+              "unit": "本",
+              "note": "中サイズ",
+              "grandma_amount": "ごぼうと同じくらい入れる",
+              "approx_weight": "150g"
+            }
+          ]
+        },
+        {
+          "group": "調味料",
+          "items": [
+            {
+              "name": "ごま油",
+              "amount": 1,
+              "unit": "大さじ",
+              "note": null
+            },
+            {
+              "name": "みりん",
+              "amount": 2,
+              "unit": "大さじ",
+              "note": null,
+              "grandma_amount": "フライパンに2回しくらい"
+            },
+            {
+              "name": "しょうゆ",
+              "amount": 2,
+              "unit": "大さじ",
+              "note": null,
+              "grandma_amount": "フライパンに2回しくらい"
+            }
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "text": "にんじんとごぼうはよく洗い、にんじんは千切りに、ごぼうはささがきにする。ごぼうは水をはったボウルなどに入れて10分くらいあく抜きをする。",
+          "tip": null
+        },
+        {
+          "step": 2,
+          "text": "ごぼうをザルにあげて水分を拭き取る。",
+          "tip": null
+        },
+        {
+          "step": 3,
+          "text": "フライパンにごま油大さじ1を中火で熱する。",
+          "tip": null
+        },
+        {
+          "step": 4,
+          "text": "ごぼう、にんじんを入れ中火で少ししんなりするまで炒める。",
+          "tip": null
+        },
+        {
+          "step": 5,
+          "text": "しょうゆ大さじ2、みりん大さじ2をフライパンの周りに沿うように回し入れ中火で炒める。",
+          "tip": null
+        },
+        {
+          "step": 6,
+          "text": "しょうゆやみりんの水分が飛ぶまで炒めてできあがり。",
+          "tip": null
+        }
+      ],
+      "grandma_notes": null,
+      "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E3%81%8D%E3%82%93%E3%81%B4%E3%82%89\" target=\"_blank\" rel=\"noopener\">きんぴらごぼう</a>は日本全国で親しまれている定番の副菜です。<a href=\"https://ja.wikipedia.org/wiki/%E5%AE%AE%E5%9F%8E%E7%9C%8C\" target=\"_blank\" rel=\"noopener\">宮城県</a>のこのおばあちゃんのきんぴらは、<a href=\"https://ja.wikipedia.org/wiki/%E3%82%B4%E3%83%9C%E3%82%A6\" target=\"_blank\" rel=\"noopener\">ごぼう</a>を「フライパンにいっぱい」入れるのが特徴で、少し甘めの仕上がりだったそうです。",
+      "photos": {
+        "main": null,
+        "thumbnail": null
+      },
+      "related_recipe_ids": [],
+      "thumbnail_emoji": "🥕",
+      "episode": "中学生くらいの時におばあちゃんの家に遊びに行った際に教えてもらったレシピです。ごぼうのささがきを慣れない手つきでしたことを覚えています。私の様子を見て心配そうにおばあちゃんが何度も「手っこ切んなよ」（手を切らないようにね）と言っていました。少し甘めの仕上がりでした。",
+      "source": {
+        "types": [
+          "おばあちゃん本人から直接教わった",
+          "記憶を頼りに書いている"
+        ],
+        "contributor": "ごぼうのささがき"
+      }
+    },
+    {
+      "id": "horumon-omusoba-wakayama-001",
+      "title": "ホルモンオムそば",
+      "grandmother": {
+        "name": null,
+        "age": null,
+        "prefecture": "和歌山県",
+        "city": null,
+        "village": null,
+        "message": null
+      },
+      "region": {
+        "area": "kinki",
+        "prefecture_code": "30",
+        "prefecture": "和歌山県"
+      },
+      "meta": {
+        "created_at": "2026-04-04",
+        "is_featured": false,
+        "is_endangered": false
+      },
+      "category": "麺類",
+      "tags": [
+        "焼きそば",
+        "ホルモン",
+        "オムそば",
+        "和歌山県",
+        "お昼ごはん",
+        "夏休み"
+      ],
+      "season": [
+        "夏"
+      ],
+      "servings": 1,
+      "prep_time_minutes": 5,
+      "cook_time_minutes": 15,
+      "difficulty": 2,
+      "story": "<a href=\"https://ja.wikipedia.org/wiki/%E5%92%8C%E6%AD%8C%E5%B1%B1%E7%9C%8C\" target=\"_blank\" rel=\"noopener\">和歌山県</a>のおばあちゃんが夏休みのお昼ごはんとして作ってくれた豪快な一品。<a href=\"https://ja.wikipedia.org/wiki/%E3%83%9B%E3%83%AB%E3%83%A2%E3%83%B3\" target=\"_blank\" rel=\"noopener\">ホルモン</a>の旨みとソースの香ばしさを<a href=\"https://ja.wikipedia.org/wiki/%E7%84%BC%E3%81%8D%E3%81%9D%E3%81%B0\" target=\"_blank\" rel=\"noopener\">焼きそば</a>に閉じ込め、玉子でふんわり包んでかつおぶしをかけて仕上げます。大食漢だった孫のために焼きそば3袋で作るのがおばあちゃん流だったそうです。",
+      "ingredients": [
+        {
+          "group": "主材料",
+          "items": [
+            {
+              "name": "焼きそば麺",
+              "amount": 3,
+              "unit": "袋",
+              "note": null,
+              "grandma_amount": "3っつ"
+            },
+            {
+              "name": "キャベツ",
+              "amount": 0.25,
+              "unit": "玉",
+              "note": null,
+              "grandma_amount": "ちょっと",
+              "approx_weight": "200〜250g"
+            },
+            {
+              "name": "ホルモン",
+              "amount": 300,
+              "unit": "g",
+              "note": null,
+              "grandma_amount": "ちょっと"
+            },
+            {
+              "name": "卵",
+              "amount": 1,
+              "unit": "個",
+              "note": null,
+              "grandma_amount": "一個"
+            }
+          ]
+        },
+        {
+          "group": "調味料",
+          "items": [
+            {
+              "name": "ソース（焼きそばソース＋ウスターソースのブレンド）",
+              "amount": null,
+              "unit": null,
+              "note": "焼きそばソース大匙60g＋ウスターソース40g",
+              "grandma_amount": "いっぱい"
+            },
+            {
+              "name": "かつおぶし",
+              "amount": 5,
+              "unit": "g",
+              "note": null,
+              "grandma_amount": "ふたつかみ"
+            }
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "text": "熱したフライパンに油をしき、ホルモンを入れて炒める。",
+          "tip": null
+        },
+        {
+          "step": 2,
+          "text": "ホルモンにある程度火が入ったら、千切りにしたキャベツを投入。",
+          "tip": null
+        },
+        {
+          "step": 3,
+          "text": "キャベツにも火が通ってきたら、炒めた具材を端に寄せ、空いたスペースに焼きそばを入れる。",
+          "tip": null
+        },
+        {
+          "step": 4,
+          "text": "フライパンを上手く使って端に寄せた具材を麺の上に乗せ、2分程加熱。",
+          "tip": null
+        },
+        {
+          "step": 5,
+          "text": "2分経過したら、フライパンを上手に振ってひっくり返す。",
+          "tip": null
+        },
+        {
+          "step": 6,
+          "text": "麺に焦げ目がついていたら、ソースを投入して混ぜ合わせる。",
+          "tip": null
+        },
+        {
+          "step": 7,
+          "text": "ある程度混ぜたら焼きそばをフライパンの端に寄せ、空いたスペースに油をしいて玉子を落とす。",
+          "tip": null
+        },
+        {
+          "step": 8,
+          "text": "玉子の黄身にチョンと触れて割り、その上へ焼きそばを乗せる。",
+          "tip": null
+        },
+        {
+          "step": 9,
+          "text": "45秒ほど加熱してから、フライパンを使ってひっくり返す。",
+          "tip": null
+        },
+        {
+          "step": 10,
+          "text": "大きめのお皿へ盛り付け、かつおぶしを適量掛けたら出来上がり。",
+          "tip": null
+        }
+      ],
+      "grandma_notes": null,
+      "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E5%92%8C%E6%AD%8C%E5%B1%B1%E7%9C%8C\" target=\"_blank\" rel=\"noopener\">和歌山県</a>のおばあちゃんが夏休みのお昼ごはんとして作ってくれた豪快な一品。<a href=\"https://ja.wikipedia.org/wiki/%E3%83%9B%E3%83%AB%E3%83%A2%E3%83%B3\" target=\"_blank\" rel=\"noopener\">ホルモン</a>の旨みとソースの香ばしさを<a href=\"https://ja.wikipedia.org/wiki/%E7%84%BC%E3%81%8D%E3%81%9D%E3%81%B0\" target=\"_blank\" rel=\"noopener\">焼きそば</a>に閉じ込め、玉子でふんわり包んでかつおぶしをかけて仕上げます。大食漢だった孫のために焼きそば3袋で作るのがおばあちゃん流だったそうです。",
+      "photos": {
+        "main": null,
+        "thumbnail": null
+      },
+      "related_recipe_ids": [],
+      "thumbnail_emoji": "🍳",
+      "episode": "おばあちゃんの家はバラックで狭かったため、テーブルのすぐ近くにキッチンがあったのでどうやって料理しているか見ることが出来ました。それでレシピは大体覚えています。夏休みになると私のお昼ご飯をどうするかおばあちゃんは困っていたようです。焼きそば3袋を一人前（私用）としていることからわかってもらえると思いますが、子供の頃から私は大食漢でしたから。ですのでそんな私の胃袋を満たしつつ、予算を掛けないためにおばあちゃんが編み出した料理でした。当時のおばあちゃんの家はエアコンがなく、汗を流しながら焼きそばを作ってくれていました。それだけに苦労を掛けているなと痛感し、おばあちゃんのためにも頑張らなければと思いながら、毎年夏休みのお昼はおばあちゃんの焼きそばを食べていました。",
+      "source": {
+        "types": [
+          "記憶を頼りに書いている",
+          "その他"
+        ],
+        "contributor": "次郎"
+      }
+    },
+    {
+      "id": "satsumaimo-kakiage-kagoshima-001",
+      "title": "さつまいものかき揚げ",
+      "grandmother": {
+        "name": null,
+        "age": null,
+        "prefecture": "鹿児島県",
+        "city": null,
+        "village": null,
+        "message": null
+      },
+      "region": {
+        "area": "kyushu",
+        "prefecture_code": "46",
+        "prefecture": "鹿児島県"
+      },
+      "meta": {
+        "created_at": "2026-04-04",
+        "is_featured": false,
+        "is_endangered": false
+      },
+      "category": "揚げ物",
+      "tags": [
+        "さつまいも",
+        "かき揚げ",
+        "鹿児島県",
+        "おやつ",
+        "副菜",
+        "がね"
+      ],
+      "season": [
+        "秋",
+        "冬"
+      ],
+      "servings": 4,
+      "prep_time_minutes": 15,
+      "cook_time_minutes": 15,
+      "difficulty": 2,
+      "story": "<a href=\"https://ja.wikipedia.org/wiki/%E9%B9%BF%E5%85%90%E5%B3%B6%E7%9C%8C\" target=\"_blank\" rel=\"noopener\">鹿児島県</a>では<a href=\"https://ja.wikipedia.org/wiki/%E3%82%B5%E3%83%84%E3%83%9E%E3%82%A4%E3%83%A2\" target=\"_blank\" rel=\"noopener\">さつまいも</a>のかき揚げを「<a href=\"https://ja.wikipedia.org/wiki/%E3%81%8C%E3%81%AD_(%E6%96%99%E7%90%86)\" target=\"_blank\" rel=\"noopener\">がね</a>」と呼ぶことがあるそうです。砂糖を衣にたっぷり加えるのがおばあちゃん流で、外はカリカリ・中はもっちりした食感が特徴。おやつにもおかずにもなる不思議な一品です。",
+      "ingredients": [
+        {
+          "group": "主材料",
+          "items": [
+            {
+              "name": "さつまいも",
+              "amount": 2,
+              "unit": "本",
+              "note": "中サイズ",
+              "grandma_amount": "中くらいのを2本",
+              "approx_weight": "400g"
+            },
+            {
+              "name": "にんじん",
+              "amount": 0.5,
+              "unit": "本",
+              "note": null,
+              "grandma_amount": "彩りにちょっとだけ",
+              "approx_weight": "約100g"
+            }
+          ]
+        },
+        {
+          "group": "衣",
+          "items": [
+            {
+              "name": "小麦粉",
+              "amount": 150,
+              "unit": "g",
+              "note": null,
+              "grandma_amount": "ボウルにドサッと"
+            },
+            {
+              "name": "砂糖",
+              "amount": 4,
+              "unit": "大さじ",
+              "note": null,
+              "grandma_amount": "甘い方がうまいからたっぷり"
+            },
+            {
+              "name": "水",
+              "amount": 100,
+              "unit": "cc",
+              "note": null,
+              "grandma_amount": "ドロドロになるくらい"
+            }
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "text": "さつまいもとにんじんを少し太めの千切りにする。",
+          "tip": null
+        },
+        {
+          "step": 2,
+          "text": "ボウルに切った野菜を入れて、小麦粉と砂糖を加えてざっくり混ぜる。",
+          "tip": null
+        },
+        {
+          "step": 3,
+          "text": "そこに水を少しずつ入れて、野菜に衣がもったりと絡むくらいにする。",
+          "tip": "水を入れすぎないように少しずつ調整する"
+        },
+        {
+          "step": 4,
+          "text": "フライパンに多めの油を熱して、お箸で食べやすい大きさにまとめて落とし入れる。",
+          "tip": null
+        },
+        {
+          "step": 5,
+          "text": "中火で両面がきつね色になるまでカリッと揚げ焼きにしたら完成。",
+          "tip": null
+        }
+      ],
+      "grandma_notes": null,
+      "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E9%B9%BF%E5%85%90%E5%B3%B6%E7%9C%8C\" target=\"_blank\" rel=\"noopener\">鹿児島県</a>では<a href=\"https://ja.wikipedia.org/wiki/%E3%82%B5%E3%83%84%E3%83%9E%E3%82%A4%E3%83%A2\" target=\"_blank\" rel=\"noopener\">さつまいも</a>のかき揚げを「<a href=\"https://ja.wikipedia.org/wiki/%E3%81%8C%E3%81%AD_(%E6%96%99%E7%90%86)\" target=\"_blank\" rel=\"noopener\">がね</a>」と呼ぶことがあるそうです。砂糖を衣にたっぷり加えるのがおばあちゃん流で、外はカリカリ・中はもっちりした食感が特徴。おやつにもおかずにもなる不思議な一品です。",
+      "photos": {
+        "main": null,
+        "thumbnail": null
+      },
+      "related_recipe_ids": [],
+      "thumbnail_emoji": "🍠",
+      "episode": "たまにこの甘いお芋の味を思い出します。鹿児島では「がね」と呼ぶ郷土料理みたいなものらしくて、おばあちゃんが揚げるそばから兄弟でつまみ食いしてよく怒られてました。外はカリカリで中はもっちりしていて、おやつのようなおかずのような不思議な食べ物です。",
+      "source": {
+        "types": [
+          "おばあちゃん本人から直接教わった"
+        ],
+        "contributor": "たなかなか"
+      }
+    },
+    {
+      "id": "urume-sushi-mie-001",
+      "title": "うるめ寿司",
+      "grandmother": {
+        "name": null,
+        "age": null,
+        "prefecture": "三重県",
+        "city": null,
+        "village": null,
+        "message": null
+      },
+      "region": {
+        "area": "tokai",
+        "prefecture_code": "24",
+        "prefecture": "三重県"
+      },
+      "meta": {
+        "created_at": "2026-04-04",
+        "is_featured": false,
+        "is_endangered": false
+      },
+      "category": "寿司・ご飯もの",
+      "tags": [
+        "うるめいわし",
+        "寿司",
+        "酢飯",
+        "三重県",
+        "お正月",
+        "おもてなし"
+      ],
+      "season": [
+        "冬"
+      ],
+      "servings": 10,
+      "prep_time_minutes": 60,
+      "cook_time_minutes": 30,
+      "difficulty": 3,
+      "story": "<a href=\"https://ja.wikipedia.org/wiki/%E4%B8%89%E9%87%8D%E7%9C%8C\" target=\"_blank\" rel=\"noopener\">三重県</a>のおばあちゃんがお正月に親戚一同をもてなすために作っていた<a href=\"https://ja.wikipedia.org/wiki/%E3%82%A6%E3%83%AB%E3%83%A1%E3%82%A4%E3%83%AF%E3%82%B7\" target=\"_blank\" rel=\"noopener\">ウルメイワシ</a>のお寿司。塩と<a href=\"https://ja.wikipedia.org/wiki/%E9%85%A2\" target=\"_blank\" rel=\"noopener\">酢</a>で締めたウルメは身がきゅっと引き締まり、少し甘めの酢飯との相性も抜群です。料理好きでおもてなし上手だったおばあちゃんならではの一品かもしれません。",
+      "ingredients": [
+        {
+          "group": "主材料",
+          "items": [
+            {
+              "name": "うるめいわし",
+              "amount": 40,
+              "unit": "匹",
+              "note": null,
+              "grandma_amount": "どっさり"
+            },
+            {
+              "name": "お米",
+              "amount": 5,
+              "unit": "合",
+              "note": null,
+              "grandma_amount": "炊飯器いっぱい"
+            }
+          ]
+        },
+        {
+          "group": "ウルメ用",
+          "items": [
+            {
+              "name": "塩",
+              "amount": null,
+              "unit": "適量",
+              "note": "全体にまぶすくらい",
+              "grandma_amount": "多めに"
+            },
+            {
+              "name": "酢",
+              "amount": 200,
+              "unit": "ml",
+              "note": null,
+              "grandma_amount": "ドバドバっと"
+            },
+            {
+              "name": "生姜",
+              "amount": 10,
+              "unit": "g",
+              "note": null,
+              "grandma_amount": "適当に"
+            }
+          ]
+        },
+        {
+          "group": "酢飯用",
+          "items": [
+            {
+              "name": "昆布",
+              "amount": 1,
+              "unit": "枚",
+              "note": "炊飯時に乗せる",
+              "grandma_amount": "1枚"
+            },
+            {
+              "name": "酢",
+              "amount": 120,
+              "unit": "ml",
+              "note": null,
+              "grandma_amount": "ドバドバっと"
+            },
+            {
+              "name": "砂糖",
+              "amount": 6,
+              "unit": "大さじ",
+              "note": null,
+              "grandma_amount": "適当に"
+            },
+            {
+              "name": "塩",
+              "amount": 2,
+              "unit": "小さじ",
+              "note": null,
+              "grandma_amount": "鍋にいっぱい入れてたよ"
+            }
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "text": "お米は研いで炊飯器に入れ、いつもより少なめの水分量にして、昆布を乗せて炊く。",
+          "tip": "少なめの水で炊くことで酢飯がベチャつかない"
+        },
+        {
+          "step": 2,
+          "text": "ウルメイワシは手開きにしてはらわたやぜいごを取り、塩をまぶしてしばらく置いたあと、出てきた水分を捨てて、酢と生姜を混ぜたものにつけておく。",
+          "tip": null
+        },
+        {
+          "step": 3,
+          "text": "炊きあがったご飯を寿司桶に移し、酢と砂糖と塩を混ぜて溶かしたものを回しかけ、切るように混ぜたあと、うちわで扇ぎながら冷ます。",
+          "tip": null
+        },
+        {
+          "step": 4,
+          "text": "粗熱が取れた酢飯を一口サイズのシャリに握って、水分を切ったウルメイワシの酢じめを包み込むように乗せる。",
+          "tip": null
+        }
+      ],
+      "grandma_notes": null,
+      "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E4%B8%89%E9%87%8D%E7%9C%8C\" target=\"_blank\" rel=\"noopener\">三重県</a>のおばあちゃんがお正月に親戚一同をもてなすために作っていた<a href=\"https://ja.wikipedia.org/wiki/%E3%82%A6%E3%83%AB%E3%83%A1%E3%82%A4%E3%83%AF%E3%82%B7\" target=\"_blank\" rel=\"noopener\">ウルメイワシ</a>のお寿司。塩と<a href=\"https://ja.wikipedia.org/wiki/%E9%85%A2\" target=\"_blank\" rel=\"noopener\">酢</a>で締めたウルメは身がきゅっと引き締まり、少し甘めの酢飯との相性も抜群です。料理好きでおもてなし上手だったおばあちゃんならではの一品かもしれません。",
+      "photos": {
+        "main": null,
+        "thumbnail": null
+      },
+      "related_recipe_ids": [],
+      "thumbnail_emoji": "🐟",
+      "episode": "料理好き、お寿司好きの祖母で、人をもてなすことが好きな人だったため、親族が集まるお正月は朝から大量に買い込んだ食材で、残るくらいたくさんの量の食事を作ってくれた。中でもウルメイワシのお寿司は、塩と酢で締めることで身がきゅっと引き締まり、酸味と塩味が少し強めのウルメと、少し甘めに仕上げた酢飯のバランスが最高で、子供ながらにお寿司の中で最も好きなネタとしてあげるくらい美味しかった。",
+      "source": {
+        "types": [
+          "おばあちゃん本人から直接教わった",
+          "家族（親・きょうだいなど）から聞いた"
+        ],
+        "contributor": "麻弥"
+      }
+    },
+    {
+      "id": "oidofu-hiyajiru-miyazaki-001",
+      "title": "追い豆腐の冷や汁",
+      "grandmother": {
+        "name": null,
+        "age": null,
+        "prefecture": "宮崎県",
+        "city": null,
+        "village": null,
+        "message": null
+      },
+      "region": {
+        "area": "kyushu",
+        "prefecture_code": "45",
+        "prefecture": "宮崎県"
+      },
+      "meta": {
+        "created_at": "2026-04-04",
+        "is_featured": false,
+        "is_endangered": false
+      },
+      "category": "汁物・ご飯もの",
+      "tags": [
+        "冷や汁",
+        "豆腐",
+        "宮崎県",
+        "夏",
+        "麦飯",
+        "郷土料理",
+        "お昼ごはん"
+      ],
+      "season": [
+        "夏"
+      ],
+      "servings": 5,
+      "prep_time_minutes": 30,
+      "cook_time_minutes": 20,
+      "difficulty": 3,
+      "story": "<a href=\"https://ja.wikipedia.org/wiki/%E5%AE%AE%E5%B4%8E%E7%9C%8C\" target=\"_blank\" rel=\"noopener\">宮崎県</a>の郷土料理として知られる<a href=\"https://ja.wikipedia.org/wiki/%E5%86%B7%E3%82%84%E6%B1%81\" target=\"_blank\" rel=\"noopener\">冷や汁</a>。このおばあちゃんの冷や汁は、<a href=\"https://ja.wikipedia.org/wiki/%E3%82%A2%E3%82%B8_(%E9%AD%9A)\" target=\"_blank\" rel=\"noopener\">アジ</a>の干物と<a href=\"https://ja.wikipedia.org/wiki/%E9%BA%A6%E5%91%B3%E5%99%8C\" target=\"_blank\" rel=\"noopener\">麦味噌</a>をすり鉢でしっかり擂り、直火で炙って香ばしさを出すのが特徴。食べる直前にもう一丁の<a href=\"https://ja.wikipedia.org/wiki/%E8%B1%86%E8%85%90\" target=\"_blank\" rel=\"noopener\">豆腐</a>を追加する「追い豆腐」でボリュームを増すのがおばあちゃん流です。",
+      "ingredients": [
+        {
+          "group": "主材料",
+          "items": [
+            {
+              "name": "アジ（またはカマス）の干物",
+              "amount": 5,
+              "unit": "枚",
+              "note": "正味約250g",
+              "grandma_amount": "大きいやつを4〜5枚、こんがり焼いてね"
+            },
+            {
+              "name": "麦味噌",
+              "amount": 200,
+              "unit": "g",
+              "note": null,
+              "grandma_amount": "お玉に山盛り二杯くらい、たっぷりね"
+            },
+            {
+              "name": "いりごま",
+              "amount": 7,
+              "unit": "大さじ",
+              "note": null,
+              "grandma_amount": "すり鉢の底が見えなくなるまで、これでもかってくらい"
+            },
+            {
+              "name": "だし汁（煮干し出し）",
+              "amount": 1200,
+              "unit": "cc",
+              "note": null,
+              "grandma_amount": "大きなボウルに並々と。氷も入れるから多めに"
+            },
+            {
+              "name": "きゅうり",
+              "amount": 3,
+              "unit": "本",
+              "note": null,
+              "grandma_amount": "細かく薄く、透けるくらいにたくさん",
+              "approx_weight": "300g"
+            },
+            {
+              "name": "木綿豆腐",
+              "amount": 3,
+              "unit": "丁",
+              "note": "2丁は最初に、1丁は食べる直前に追加",
+              "grandma_amount": "手で適当に崩して、最後にもう一丁追加するよ",
+              "approx_weight": "1kg強"
+            }
+          ]
+        },
+        {
+          "group": "薬味",
+          "items": [
+            {
+              "name": "大葉",
+              "amount": 10,
+              "unit": "枚",
+              "note": null,
+              "grandma_amount": "香りがするまでどっさり"
+            },
+            {
+              "name": "みょうが",
+              "amount": 10,
+              "unit": "個",
+              "note": null,
+              "grandma_amount": "香りがするまでどっさり"
+            }
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "text": "アジの干物を香ばしく焼き、熱いうちに身をほぐして骨を丁寧に取り除く。",
+          "tip": null
+        },
+        {
+          "step": 2,
+          "text": "大きなすり鉢にいりごまを入れて油が出るまでしっかり擂り、そこに麦味噌を加えてさらに擂り混ぜる。",
+          "tip": null
+        },
+        {
+          "step": 3,
+          "text": "すり鉢の淵に味噌を薄く広げ、直火で少し焦げ目がつくまで炙り、香ばしさを出す。",
+          "tip": "直火で炙ることで香ばしさが格段に増す"
+        },
+        {
+          "step": 4,
+          "text": "冷やしただし汁を少しずつ加え、味噌をダマにならないよう丁寧に溶きのばす。",
+          "tip": null
+        },
+        {
+          "step": 5,
+          "text": "ほぐした魚の身、薄切りにして塩もみしたきゅうり、手で崩した豆腐（2丁分）をたっぷり加える。",
+          "tip": null
+        },
+        {
+          "step": 6,
+          "text": "食べる直前に、さらにもう1丁の豆腐を大きめに崩して追い豆腐として加える。これでボリュームが増し、食欲がない時でもさらさらと食べられる。",
+          "tip": "追い豆腐がこのレシピのポイント"
+        },
+        {
+          "step": 7,
+          "text": "冷蔵庫で冷やし、食べる直前に刻んだ大葉とみょうがをのせ、麦飯にかけて完成。",
+          "tip": null
+        }
+      ],
+      "grandma_notes": null,
+      "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E5%AE%AE%E5%B4%8E%E7%9C%8C\" target=\"_blank\" rel=\"noopener\">宮崎県</a>の郷土料理として知られる<a href=\"https://ja.wikipedia.org/wiki/%E5%86%B7%E3%82%84%E6%B1%81\" target=\"_blank\" rel=\"noopener\">冷や汁</a>。このおばあちゃんの冷や汁は、<a href=\"https://ja.wikipedia.org/wiki/%E3%82%A2%E3%82%B8_(%E9%AD%9A)\" target=\"_blank\" rel=\"noopener\">アジ</a>の干物と<a href=\"https://ja.wikipedia.org/wiki/%E9%BA%A6%E5%91%B3%E5%99%8C\" target=\"_blank\" rel=\"noopener\">麦味噌</a>をすり鉢でしっかり擂り、直火で炙って香ばしさを出すのが特徴。食べる直前にもう一丁の<a href=\"https://ja.wikipedia.org/wiki/%E8%B1%86%E8%85%90\" target=\"_blank\" rel=\"noopener\">豆腐</a>を追加する「追い豆腐」でボリュームを増すのがおばあちゃん流です。",
+      "photos": {
+        "main": null,
+        "thumbnail": null
+      },
+      "related_recipe_ids": [],
+      "thumbnail_emoji": "🥣",
+      "episode": "夏休みに帰省すると、いつもおばあちゃんがこの料理も含めて色んな手料理を、「これ食べなね、たくさん食べなね」とタッパーから色々出してくれていました。数年前に祖父が亡くなり、おばあちゃん自身も高齢により以前よりも大分食が細くなってしまいましたが、その分私がこの冷や汁をたくさん食べる姿を見せて、「美味しいね」と一緒に笑い合って少しでもおばあちゃんに元気でいてほしいです。おばあちゃんがこれまで私たちに注いでくれた愛情を、少しずつでもいろいろな形で返していきたいと思っています。",
+      "source": {
+        "types": [
+          "家族（親・きょうだいなど）から聞いた",
+          "記憶を頼りに書いている"
+        ],
+        "contributor": "匿名希望"
+      }
     }
   ]
 }

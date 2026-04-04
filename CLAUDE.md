@@ -164,6 +164,19 @@ diff ... && echo "同期OK"
 - Actions 成功でも必ず `curl` で本番を確認する
 - ブラウザキャッシュが残ることがある → `Cmd+Shift+R` で強制リロード
 
+## 週次閲覧数更新システム（view_count）
+
+- GA4 Data API で `/recipes/xxx/` のページビュー数を取得 → recipes.json の `view_count` を更新
+- スクリプト：`scripts/update-view-counts.py`
+- ワークフロー：`.github/workflows/weekly-view-counts.yml`（毎週月曜 06:00 JST）
+- 手動実行も可（GitHub Actions → Weekly View Count Update → Run workflow）
+- 変更がある場合のみ commit → build → deploy（変更なしならスキップ）
+- GA4認証: サービスアカウント `ga4-reader@obaachan-recipe.iam.gserviceaccount.com`
+- GitHub Secret: `GA4_CREDENTIALS_JSON`（サービスアカウントのJSON鍵）
+- Google Cloud プロジェクト: `obaachan-recipe`（Analytics Data API 有効化済み）
+- GA4プロパティID: `529409641`
+- `view_count` はレシピ一覧の「人気順」ソートに使用（クライアントサイドJS）
+
 ## 日次自動公開システム
 
 - `src/data/article_queue.json` にキューを保持、毎日1本ずつ自動公開

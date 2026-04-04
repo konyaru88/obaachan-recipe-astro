@@ -6340,6 +6340,150 @@
           "記憶を頼りに書いている"
         ]
       }
+    },
+    {
+      "id": "suiton-jiru-tokyo-001",
+      "title": "すいとん汁",
+      "grandmother": {
+        "name": "あいみぃ",
+        "age": null,
+        "prefecture": "東京都",
+        "city": null,
+        "village": null,
+        "message": null
+      },
+      "region": {
+        "area": "kanto",
+        "prefecture_code": "13",
+        "prefecture": "東京都"
+      },
+      "meta": {
+        "created_at": "2026-04-04",
+        "is_featured": false,
+        "is_endangered": false
+      },
+      "category": "汁物",
+      "tags": [
+        "すいとん",
+        "汁物",
+        "東京都",
+        "日常のごはん",
+        "家庭料理"
+      ],
+      "season": [
+        "冬"
+      ],
+      "servings": 2,
+      "prep_time_minutes": 15,
+      "cook_time_minutes": 20,
+      "difficulty": 1,
+      "view_count": 0,
+      "story": "今はIT企業で一日中パソコンに向かって事務仕事をしているので、夜遅く帰るとちゃんとしたご飯を作る気力がなくて。そんな時に、このすいとんを思い出してよく作ります。実家で、おばあちゃんが手は粉だらけにしながら生地をこねてくれたのを覚えています。特別な材料は入っていないのに、お出汁を吸ったモチモチのすいとんを食べるとすごくホッとします。",
+      "ingredients": [
+        {
+          "group": "すいとん生地",
+          "items": [
+            {
+              "name": "小麦粉",
+              "amount": 150,
+              "unit": "g",
+              "note": null,
+              "grandma_amount": "お椀に2杯くらい"
+            },
+            {
+              "name": "水（すいとん用）",
+              "amount": 70,
+              "unit": "cc",
+              "note": "少しずつ足しながらこねる",
+              "grandma_amount": "耳たぶくらいの硬さになるまで"
+            }
+          ]
+        },
+        {
+          "group": "汁",
+          "items": [
+            {
+              "name": "大根",
+              "amount": null,
+              "unit": "適量",
+              "note": null,
+              "grandma_amount": "冷蔵庫にあるだけ"
+            },
+            {
+              "name": "にんじん",
+              "amount": null,
+              "unit": "適量",
+              "note": null,
+              "grandma_amount": "冷蔵庫にあるだけ"
+            },
+            {
+              "name": "長ネギ",
+              "amount": null,
+              "unit": "適量",
+              "note": null,
+              "grandma_amount": "冷蔵庫にあるだけ"
+            },
+            {
+              "name": "豚肉（こま切れ）",
+              "amount": 100,
+              "unit": "g",
+              "note": null
+            },
+            {
+              "name": "醤油",
+              "amount": 2,
+              "unit": "大さじ",
+              "note": null,
+              "grandma_amount": "おたまでひと回し"
+            },
+            {
+              "name": "和風だしの素",
+              "amount": 1,
+              "unit": "小さじ",
+              "note": null
+            }
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "text": "ボウルに小麦粉を入れて、水を少しずつ足しながら手でこねます。耳たぶくらいの柔らかさになったら、しばらく置いておきます。",
+          "tip": null
+        },
+        {
+          "step": 2,
+          "text": "鍋でお湯を沸かして、だしの素と切った野菜、豚肉を入れて煮ます。",
+          "tip": null
+        },
+        {
+          "step": 3,
+          "text": "野菜が柔らかくなったら、醤油で味付けをします。",
+          "tip": null
+        },
+        {
+          "step": 4,
+          "text": "作っておいたすいとんの生地を手で一口サイズにちぎりながら鍋に入れます。",
+          "tip": null
+        },
+        {
+          "step": 5,
+          "text": "すいとんが浮き上がってきて、5分くらい煮込んだら完成です。",
+          "tip": null
+        }
+      ],
+      "grandma_notes": [],
+      "cultural_background": "すいとんは戦中戦後の食糧難の時代から続く家庭料理。シンプルな材料で体が温まり、冷蔵庫の残り物で作れる実用的な一品。",
+      "photos": [],
+      "related_recipe_ids": [],
+      "thumbnail_emoji": "🍲",
+      "episode": "今はIT企業で一日中パソコンに向かって事務仕事をしているので、夜遅く帰るとちゃんとしたご飯を作る気力がなくて。そんな時に、このすいとんを思い出してよく作ります。実家で、おばあちゃんが手は粉だらけにしながら生地をこねてくれたのを覚えています。特別な材料は入っていないのに、お出汁を吸ったモチモチのすいとんを食べるとすごくホッとします。",
+      "source": {
+        "type": "memory",
+        "details": [
+          "記憶を頼りに書いている"
+        ]
+      }
     }
   ]
 }

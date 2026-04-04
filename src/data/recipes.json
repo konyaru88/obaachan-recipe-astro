@@ -7084,6 +7084,844 @@
         ],
         "contributor": "gheu4d32"
       }
+    },
+    {
+      "id": "kohaku-bekko-toyama-001",
+      "title": "琥珀色のべっこう",
+      "grandmother": {
+        "name": null,
+        "age": null,
+        "prefecture": "富山県",
+        "city": null,
+        "village": null,
+        "message": null
+      },
+      "region": {
+        "area": "hokuriku",
+        "prefecture_code": "16",
+        "prefecture": "富山県"
+      },
+      "meta": {
+        "created_at": "2026-04-04",
+        "is_featured": false,
+        "is_endangered": false
+      },
+      "category": "副菜",
+      "tags": [
+        "寒天",
+        "卵",
+        "お正月",
+        "富山県",
+        "郷土料理",
+        "家庭料理"
+      ],
+      "season": [
+        "冬"
+      ],
+      "servings": 4,
+      "prep_time_minutes": 15,
+      "cook_time_minutes": 20,
+      "difficulty": 2,
+      "view_count": 0,
+      "story": "お正月やお祭り、親戚が集まる行事の際によく作ってくれた一品。風邪を引いて食欲がない時にも、「喉越しが良くて食べやすいから」と、つるんとしたこの料理を出してくれたのが深く記憶に残っています。卵を回し入れる時の手つきがとても鮮やかで、鍋の中に黄色い花がパッと咲くような光景をいつも横で眺めていました。",
+      "ingredients": [
+        {
+          "group": "主材料",
+          "items": [
+            {
+              "name": "棒寒天",
+              "amount": 1,
+              "unit": "本",
+              "note": "水に浸して柔らかくしておく",
+              "grandma_amount": "「水に浸して柔らかくしたもの1本」",
+              "approx_weight": "約8g"
+            },
+            {
+              "name": "卵",
+              "amount": 2,
+              "unit": "個",
+              "note": "よく溶いておく",
+              "grandma_amount": "「よく溶いて、最後にお花が咲くように入れるよ」"
+            },
+            {
+              "name": "水",
+              "amount": 600,
+              "unit": "cc",
+              "note": null,
+              "grandma_amount": "「お鍋にたっぷり、指の節2つ分くらい」"
+            }
+          ]
+        },
+        {
+          "group": "調味料",
+          "items": [
+            {
+              "name": "砂糖",
+              "amount": "大さじ5〜6",
+              "unit": "",
+              "note": null,
+              "grandma_amount": "「甘めが美味しいから、思い切って山盛り」"
+            },
+            {
+              "name": "醤油",
+              "amount": "大さじ2",
+              "unit": "",
+              "note": null,
+              "grandma_amount": "「綺麗な琥珀色になるまで、少しずつ」"
+            },
+            {
+              "name": "おろし生姜",
+              "amount": 1,
+              "unit": "かけ",
+              "note": "約10g",
+              "grandma_amount": "「親指の先くらいの塊をすりおろして」",
+              "approx_weight": "約10〜15g"
+            }
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "text": "棒寒天はあらかじめ水に浸して柔らかくし、細かくちぎって絞っておく。",
+          "tip": null
+        },
+        {
+          "step": 2,
+          "text": "鍋に水と寒天を入れ、中火で煮溶かす。寒天の粒が完全に見えなくなるまでじっくり煮るのがコツ。",
+          "tip": null
+        },
+        {
+          "step": 3,
+          "text": "砂糖、醤油を入れ、綺麗な琥珀色になったらおろし生姜を加える。",
+          "tip": null
+        },
+        {
+          "step": 4,
+          "text": "強火にして沸騰しているところに、溶き卵を細く糸のように垂らしながら入れる。箸を止めずに、円を描くように回し入れると、卵が綺麗に広がる。",
+          "tip": "おばあちゃんは卵を回し入れる時、鍋の中に黄色い花がパッと咲くように入れていた"
+        },
+        {
+          "step": 5,
+          "text": "バットや四角い容器に流し入れ、涼しい場所で固まるまで待つ。",
+          "tip": null
+        }
+      ],
+      "grandma_notes": [],
+      "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E3%81%B9%E3%81%A3%E3%81%93%E3%81%86\" target=\"_blank\">べっこう</a>は富山県の郷土料理で、寒天に卵と醤油を加えて固めた料理。琥珀色の見た目が「鼈甲（べっこう）」に似ていることからその名がついたとされています。お正月やお祭りなど、ハレの日の食卓に欠かせない一品として親しまれてきたとも言われています。",
+      "photos": [],
+      "related_recipe_ids": [
+        "konbu-gottani-toyama-001"
+      ],
+      "thumbnail_emoji": "🟡",
+      "episode": "富山の行事食として親しまれている料理ですが、私にとってはまさにおばあちゃんの台所の匂いそのものです。生姜を効かせると体が温まる上に日持ちもするというおばあちゃんの知恵が詰まっており、食卓にこの琥珀色の綺麗な固まりが並ぶと、子供心にとても特別な日だと感じてワクワクしたのを覚えています。",
+      "source": {
+        "types": [
+          "記憶を頼りに書いている"
+        ],
+        "contributor": "Kouhei"
+      }
+    },
+    {
+      "id": "suiton-jiru-tochigi-001",
+      "title": "すいとん汁",
+      "grandmother": {
+        "name": null,
+        "age": null,
+        "prefecture": "栃木県",
+        "city": null,
+        "village": null,
+        "message": null
+      },
+      "region": {
+        "area": "kanto",
+        "prefecture_code": "09",
+        "prefecture": "栃木県"
+      },
+      "meta": {
+        "created_at": "2026-04-04",
+        "is_featured": false,
+        "is_endangered": false
+      },
+      "category": "汁物",
+      "tags": [
+        "すいとん",
+        "汁物",
+        "栃木県",
+        "家庭料理",
+        "日常のごはん"
+      ],
+      "season": [
+        "春",
+        "夏",
+        "秋",
+        "冬"
+      ],
+      "servings": 6,
+      "prep_time_minutes": 20,
+      "cook_time_minutes": 30,
+      "difficulty": 1,
+      "view_count": 0,
+      "story": "白米が足りない時や、野菜が余っている時に年中作ってくれた料理。おばあちゃんはだいたい目分量で作っていて、それがすごいなと感心していました。野菜たっぷりで、「お腹に溜まるから、お腹いっぱいになるよ」と言われていた、よく作ってもらっていた思い出の料理です。",
+      "ingredients": [
+        {
+          "group": "具材",
+          "items": [
+            {
+              "name": "里芋",
+              "amount": 3,
+              "unit": "個",
+              "note": null,
+              "grandma_amount": "「鍋にいっぱい」",
+              "approx_weight": "約120〜180g"
+            },
+            {
+              "name": "ネギ",
+              "amount": 3,
+              "unit": "本",
+              "note": null,
+              "grandma_amount": "「3、4本」",
+              "approx_weight": "約300g"
+            },
+            {
+              "name": "ごぼう",
+              "amount": 1,
+              "unit": "本",
+              "note": "ささがきにする",
+              "grandma_amount": "「1本くらい」",
+              "approx_weight": "約150〜180g"
+            },
+            {
+              "name": "大根",
+              "amount": "1/4",
+              "unit": "本",
+              "note": null,
+              "grandma_amount": "「冷蔵庫にある分（1本以内）」",
+              "approx_weight": "約200〜250g"
+            }
+          ]
+        },
+        {
+          "group": "すいとん生地",
+          "items": [
+            {
+              "name": "薄力粉",
+              "amount": 200,
+              "unit": "g",
+              "note": null,
+              "grandma_amount": "「目分量」"
+            },
+            {
+              "name": "水",
+              "amount": 100,
+              "unit": "ml",
+              "note": "少しずつ加える",
+              "grandma_amount": "「目分量」"
+            },
+            {
+              "name": "塩",
+              "amount": "ふたつまみ",
+              "unit": "",
+              "note": null,
+              "grandma_amount": "「ひとつまみ」"
+            }
+          ]
+        },
+        {
+          "group": "調味料",
+          "items": [
+            {
+              "name": "醤油",
+              "amount": "大さじ3〜4",
+              "unit": "",
+              "note": null,
+              "grandma_amount": "「目分量」"
+            },
+            {
+              "name": "だし汁",
+              "amount": "適量",
+              "unit": "",
+              "note": null,
+              "grandma_amount": "「目分量」"
+            }
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "text": "野菜は薄いいちょう切り、ごぼうはささがきに切る。ごぼうは水にさらしておく。",
+          "tip": null
+        },
+        {
+          "step": 2,
+          "text": "ボウルに薄力粉と塩を入れ、水を少しずつ加えながら、なめらかになるまで混ぜる。",
+          "tip": null
+        },
+        {
+          "step": 3,
+          "text": "鍋にだし汁と野菜（根菜）を入れて火にかけ、アクを取りながら具材が柔らかくなるまで煮る。",
+          "tip": null
+        },
+        {
+          "step": 4,
+          "text": "醤油で味を調える。お好みで砂糖やみりんを入れても良い。",
+          "tip": null
+        },
+        {
+          "step": 5,
+          "text": "沸騰した鍋に、濡らしたスプーンで生地を一口大にすくって落とし入れる。生地に火が通り、ぷかっと浮いてきたら完成。",
+          "tip": null
+        }
+      ],
+      "grandma_notes": [],
+      "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E3%81%99%E3%81%84%E3%81%A8%E3%82%93\" target=\"_blank\">すいとん</a>は、小麦粉を水で練った生地を汁に入れて煮た素朴な料理。戦時中の代用食としても知られていますが、各地でそれぞれの家庭の味として受け継がれてきたとも言われています。白米が足りない時のおかず兼主食として、おばあちゃんの知恵が詰まった一品かもしれません。",
+      "photos": [],
+      "related_recipe_ids": [
+        "suiton-jiru-tokyo-001"
+      ],
+      "thumbnail_emoji": "🥣",
+      "episode": "白米が少ない時に、よく出てきた料理。野菜たっぷりで、「お腹に溜まるから、お腹いっぱいになるよ」と言われていた。だいたい目分量で作っていたので、すごいなと感心していた、よく作ってもらっていた思い出の料理。",
+      "source": {
+        "types": [
+          "おばあちゃん本人から直接教わった"
+        ],
+        "contributor": "るり"
+      }
+    },
+    {
+      "id": "nasumiso-don-saitama-001",
+      "title": "なすみそ丼",
+      "grandmother": {
+        "name": null,
+        "age": null,
+        "prefecture": "埼玉県",
+        "city": null,
+        "village": null,
+        "message": null
+      },
+      "region": {
+        "area": "kanto",
+        "prefecture_code": "11",
+        "prefecture": "埼玉県"
+      },
+      "meta": {
+        "created_at": "2026-04-04",
+        "is_featured": false,
+        "is_endangered": false
+      },
+      "category": "ご飯もの",
+      "tags": [
+        "なす",
+        "丼",
+        "埼玉県",
+        "家庭料理",
+        "日常のごはん"
+      ],
+      "season": [
+        "夏"
+      ],
+      "servings": 1,
+      "prep_time_minutes": 5,
+      "cook_time_minutes": 10,
+      "difficulty": 1,
+      "view_count": 0,
+      "story": "夏に外遊びから帰ってきた時、お昼ご飯に作ってくれた一品。料理をしながら他にも簡単に食べられるキュウリの和え物や手作りのお菓子を色々食べさせてくれました。少し行儀が悪くても、「いいのいいの」と優しかった記憶があります。",
+      "ingredients": [
+        {
+          "group": "主材料",
+          "items": [
+            {
+              "name": "なす",
+              "amount": 1.5,
+              "unit": "個",
+              "note": "一口サイズに切る",
+              "grandma_amount": "「1個半くらい」",
+              "approx_weight": "約120〜150g"
+            },
+            {
+              "name": "挽肉",
+              "amount": 150,
+              "unit": "g",
+              "note": null,
+              "grandma_amount": "「150グラムくらい」"
+            },
+            {
+              "name": "ご飯",
+              "amount": 1,
+              "unit": "杯分",
+              "note": "丼に盛っておく",
+              "grandma_amount": "「丼にいっぱい」"
+            }
+          ]
+        },
+        {
+          "group": "調味料",
+          "items": [
+            {
+              "name": "塩こしょう",
+              "amount": "少々",
+              "unit": "",
+              "note": null,
+              "grandma_amount": "「おばあちゃんの目分量」"
+            },
+            {
+              "name": "ポン酢",
+              "amount": "少々",
+              "unit": "",
+              "note": null,
+              "grandma_amount": "「おばあちゃんの目分量」"
+            }
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "text": "なすを一口サイズに切る。",
+          "tip": null
+        },
+        {
+          "step": 2,
+          "text": "油を敷いたフライパンになすを入れて炒める。",
+          "tip": null
+        },
+        {
+          "step": 3,
+          "text": "挽肉を加え、なすと共にしっかり炒める。",
+          "tip": null
+        },
+        {
+          "step": 4,
+          "text": "塩こしょうとポン酢を入れて炒め合わせる。",
+          "tip": null
+        },
+        {
+          "step": 5,
+          "text": "ご飯の入っている丼に乗せたら完成。",
+          "tip": null
+        }
+      ],
+      "grandma_notes": [],
+      "cultural_background": "夏が旬の<a href=\"https://ja.wikipedia.org/wiki/%E3%83%8A%E3%82%B9\" target=\"_blank\">なす</a>は油との相性が抜群で、炒め物にするとトロッとした食感になるのが特徴。ポン酢で仕上げることでさっぱりと食べられ、暑い日のお昼にぴったりの一品かもしれません。",
+      "photos": [],
+      "related_recipe_ids": [
+        "imomochi-saitama-001"
+      ],
+      "thumbnail_emoji": "🍆",
+      "episode": "料理をしながら他にも簡単に食べられるキュウリの和え物や手作りのお菓子を色々食べさせてくれた。少し行儀が悪くても、「いいのいいの」と優しかった記憶がある。",
+      "source": {
+        "types": [
+          "おばあちゃん本人から直接教わった"
+        ],
+        "contributor": "たぴおか"
+      }
+    },
+    {
+      "id": "okaka-gohan-wakayama-001",
+      "title": "おかかご飯",
+      "grandmother": {
+        "name": null,
+        "age": null,
+        "prefecture": "和歌山県",
+        "city": null,
+        "village": null,
+        "message": null
+      },
+      "region": {
+        "area": "kinki",
+        "prefecture_code": "30",
+        "prefecture": "和歌山県"
+      },
+      "meta": {
+        "created_at": "2026-04-04",
+        "is_featured": false,
+        "is_endangered": false
+      },
+      "category": "ご飯もの",
+      "tags": [
+        "鰹節",
+        "ご飯もの",
+        "和歌山県",
+        "家庭料理",
+        "日常のごはん"
+      ],
+      "season": [
+        "夏"
+      ],
+      "servings": 1,
+      "prep_time_minutes": 5,
+      "cook_time_minutes": 0,
+      "difficulty": 1,
+      "view_count": 0,
+      "story": "夏の釣りの時のお昼ごはんとして、おじいちゃんのお弁当がこのおかかご飯と漬け物でした。一口もらってからハマってしまい、それを知ったおばあちゃんが、釣りの時の私のお弁当も次からおかかご飯にしてくれるようになりました。",
+      "ingredients": [
+        {
+          "group": "主材料",
+          "items": [
+            {
+              "name": "ご飯",
+              "amount": 200,
+              "unit": "g",
+              "note": "炊きたて",
+              "grandma_amount": "「お好み」"
+            },
+            {
+              "name": "鰹節",
+              "amount": "お好み",
+              "unit": "",
+              "note": null,
+              "grandma_amount": "「お好み」"
+            },
+            {
+              "name": "醤油",
+              "amount": "お好み",
+              "unit": "",
+              "note": null,
+              "grandma_amount": "「お好み」"
+            }
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "text": "器に鰹節と醤油を入れ、よく混ぜる。",
+          "tip": null
+        },
+        {
+          "step": 2,
+          "text": "弁当箱に炊きたてのご飯を入れる。",
+          "tip": null
+        },
+        {
+          "step": 3,
+          "text": "ご飯の上に醤油と混ぜた鰹節をまんべんなく薄くのせる。",
+          "tip": null
+        },
+        {
+          "step": 4,
+          "text": "またその上に炊きたてのご飯をのせ、鰹節を重ねる。これを交互に繰り返す。",
+          "tip": "ミルフィーユのように層にするのがおばあちゃん流"
+        },
+        {
+          "step": 5,
+          "text": "冷まして蓋をする。お昼ごはんの頃には、出汁と醤油のしみた美味しいおかかご飯の出来上がり。",
+          "tip": "時間を置くことで味がじんわり馴染むのがポイント"
+        }
+      ],
+      "grandma_notes": [],
+      "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E3%81%8A%E3%81%8B%E3%81%8B\" target=\"_blank\">おかか</a>は鰹節の別名で、日本の伝統的なご飯のお供。炊きたてのご飯に醤油と鰹節を層にして詰めるお弁当は、時間が経つほどに出汁が染み渡り、冷めても美味しく食べられる先人の知恵かもしれません。",
+      "photos": [],
+      "related_recipe_ids": [
+        "yakimeshi-wakayama-001",
+        "chagayu-wakayama-002"
+      ],
+      "thumbnail_emoji": "🍚",
+      "episode": "釣りの時の祖父のお弁当がこのおかかご飯と漬け物で、一口もらってからハマってしまい、それを知った祖母が釣りの時の私のお弁当も次からおかかご飯にしてくれていました。",
+      "source": {
+        "types": [
+          "記憶を頼りに書いている"
+        ],
+        "contributor": "ぬう"
+      }
+    },
+    {
+      "id": "noppe-niigata-001",
+      "title": "のっぺ",
+      "grandmother": {
+        "name": null,
+        "age": null,
+        "prefecture": "新潟県",
+        "city": null,
+        "village": null,
+        "message": null
+      },
+      "region": {
+        "area": "koshinetsu",
+        "prefecture_code": "15",
+        "prefecture": "新潟県"
+      },
+      "meta": {
+        "created_at": "2026-04-04",
+        "is_featured": false,
+        "is_endangered": false
+      },
+      "category": "煮物",
+      "tags": [
+        "のっぺ",
+        "煮物",
+        "お正月",
+        "新潟県",
+        "郷土料理",
+        "家庭料理"
+      ],
+      "season": [
+        "冬"
+      ],
+      "servings": 4,
+      "prep_time_minutes": 15,
+      "cook_time_minutes": 30,
+      "difficulty": 1,
+      "view_count": 0,
+      "story": "年末からお正月にかけての恒例の料理で、おせち料理とセットで毎食事毎に必ず出ていました。何日続いても飽きなかった味。大人になってからはビールのお供に最適で、家族みんなで食べられるおかずです。",
+      "ingredients": [
+        {
+          "group": "主材料",
+          "items": [
+            {
+              "name": "里芋",
+              "amount": "5〜6",
+              "unit": "個",
+              "note": null,
+              "grandma_amount": "「5、6個」",
+              "approx_weight": "約200〜360g"
+            },
+            {
+              "name": "鶏肉",
+              "amount": "500〜600",
+              "unit": "g",
+              "note": null,
+              "grandma_amount": "「好きなだけ」"
+            },
+            {
+              "name": "人参",
+              "amount": "2〜3",
+              "unit": "本",
+              "note": null,
+              "grandma_amount": "「あるだけ」",
+              "approx_weight": "約300〜540g"
+            },
+            {
+              "name": "いんげん",
+              "amount": "ひとつかみ",
+              "unit": "",
+              "note": null,
+              "grandma_amount": "「ひとつかみ」"
+            }
+          ]
+        },
+        {
+          "group": "調味料",
+          "items": [
+            {
+              "name": "醤油",
+              "amount": "大さじ2",
+              "unit": "",
+              "note": null,
+              "grandma_amount": "「味見ながら」"
+            },
+            {
+              "name": "酒",
+              "amount": "大さじ2",
+              "unit": "",
+              "note": null,
+              "grandma_amount": "「味見ながら」"
+            },
+            {
+              "name": "みりん",
+              "amount": "大さじ1",
+              "unit": "",
+              "note": null,
+              "grandma_amount": "「味見ながら」"
+            },
+            {
+              "name": "砂糖",
+              "amount": "小さじ2",
+              "unit": "",
+              "note": null,
+              "grandma_amount": "「味見ながら」"
+            }
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "text": "里芋、人参、鶏肉を食べやすい大きさに切る。",
+          "tip": null
+        },
+        {
+          "step": 2,
+          "text": "鍋に水と材料を入れて火にかける。",
+          "tip": null
+        },
+        {
+          "step": 3,
+          "text": "人参が柔らかくなってきたら調味料を入れる。",
+          "tip": "鶏肉の出汁で味がよくなるから、ざっくり作ってもそれらしくなる"
+        },
+        {
+          "step": 4,
+          "text": "味見しながら微調整し、全体に味が馴染んだら完成。仕上げにいんげんを添える。",
+          "tip": null
+        }
+      ],
+      "grandma_notes": [],
+      "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E3%81%AE%E3%81%A3%E3%81%BA%E3%81%84\" target=\"_blank\">のっぺ</a>は新潟県を代表する郷土料理の一つで、里芋をベースにした煮物。お正月やお盆、冠婚葬祭など人が集まる時に大鍋で作られることが多いとされています。各家庭で具材や味付けが異なり、「うちの味」があるのが特徴かもしれません。",
+      "photos": [],
+      "related_recipe_ids": [
+        "zenmai-nimono-niigata-001",
+        "nasu-miso-itame-niigata-001"
+      ],
+      "thumbnail_emoji": "🍲",
+      "episode": "年末からお正月にかけての恒例の料理。何日続いても飽きなかった。大人になってからはビールのツマミに最適。家族みんなで食べられるおかず。",
+      "source": {
+        "types": [
+          "家族（親・きょうだいなど）から聞いた",
+          "記憶を頼りに書いている"
+        ],
+        "contributor": "トム"
+      }
+    },
+    {
+      "id": "goya-champuru-tokyo-001",
+      "title": "ゴーヤチャンプルー",
+      "grandmother": {
+        "name": null,
+        "age": null,
+        "prefecture": "東京都",
+        "city": null,
+        "village": null,
+        "message": null
+      },
+      "region": {
+        "area": "kanto",
+        "prefecture_code": "13",
+        "prefecture": "東京都"
+      },
+      "meta": {
+        "created_at": "2026-04-04",
+        "is_featured": false,
+        "is_endangered": false
+      },
+      "category": "主菜",
+      "tags": [
+        "ゴーヤ",
+        "炒め物",
+        "東京都",
+        "家庭料理",
+        "日常のごはん"
+      ],
+      "season": [
+        "夏"
+      ],
+      "servings": 2,
+      "prep_time_minutes": 10,
+      "cook_time_minutes": 15,
+      "difficulty": 1,
+      "view_count": 0,
+      "story": "毎年暑くなる6月から7月に、日常のお昼や夕ご飯として作ってくれた料理。夏休みに祖母の家に遊びに行った時によく調理してくれました。当時はソフトテニス部で頑張っていたので、「夏バテ防止」といって笑いながらよく作ってくれました。おばあちゃんがよく言っていたのが、「苦い料理ほど元気になれるよ」という言葉です。",
+      "ingredients": [
+        {
+          "group": "主材料",
+          "items": [
+            {
+              "name": "ゴーヤ",
+              "amount": 200,
+              "unit": "g",
+              "note": null,
+              "grandma_amount": "「ゴーヤ1本分くらい」"
+            },
+            {
+              "name": "豚肉",
+              "amount": 100,
+              "unit": "g",
+              "note": null,
+              "grandma_amount": "「豚肉は少しでいいよ」"
+            },
+            {
+              "name": "ちくわ",
+              "amount": 1,
+              "unit": "本",
+              "note": null,
+              "grandma_amount": "「ちくわ1本」"
+            },
+            {
+              "name": "もやし",
+              "amount": 50,
+              "unit": "g",
+              "note": null,
+              "grandma_amount": "「もやしはちょっと」"
+            },
+            {
+              "name": "卵",
+              "amount": 1,
+              "unit": "個",
+              "note": null,
+              "grandma_amount": "「卵1個」"
+            }
+          ]
+        },
+        {
+          "group": "調味料",
+          "items": [
+            {
+              "name": "醤油",
+              "amount": "少々",
+              "unit": "",
+              "note": null,
+              "grandma_amount": "「少々」"
+            },
+            {
+              "name": "みりん",
+              "amount": "少々",
+              "unit": "",
+              "note": null,
+              "grandma_amount": "「少々」"
+            },
+            {
+              "name": "かつお節",
+              "amount": "多め",
+              "unit": "",
+              "note": null,
+              "grandma_amount": "「多め」"
+            }
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "text": "ゴーヤは縦半分に切り、種とワタを取り除いて薄切りにする。ちくわは斜め切りにする。",
+          "tip": null
+        },
+        {
+          "step": 2,
+          "text": "フライパンに油をひき、豚肉を先に入れてじっくりと火を通す。",
+          "tip": "おばあちゃんは豚肉を始めに入れてじっくり火を通すのがこだわり"
+        },
+        {
+          "step": 3,
+          "text": "ゴーヤとちくわを加え、中火でよく炒める。ゴーヤは火に通しても栄養分が落ちにくいので、しっかり炒めて大丈夫。",
+          "tip": null
+        },
+        {
+          "step": 4,
+          "text": "最後にもやしを入れてさっと炒め、醤油とみりんで味付けする。",
+          "tip": "もやしは最後に入れるのがおばあちゃん流"
+        },
+        {
+          "step": 5,
+          "text": "溶き卵を回し入れ、かつお節をたっぷりかけて完成。",
+          "tip": null
+        }
+      ],
+      "grandma_notes": [],
+      "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E3%82%B4%E3%83%BC%E3%83%A4%E3%83%BC%E3%83%81%E3%83%A3%E3%83%B3%E3%83%97%E3%83%AB%E3%83%BC\" target=\"_blank\">ゴーヤチャンプルー</a>は沖縄を代表する家庭料理。「チャンプルー」は沖縄の方言で「ごちゃまぜ」を意味し、豆腐や野菜、肉などを炒め合わせた料理です。ゴーヤの苦味にはビタミンCが豊富に含まれているとされ、夏バテ防止の食材として全国で親しまれるようになったとも言われています。",
+      "photos": [],
+      "related_recipe_ids": [
+        "nobiru-sumiso-tokyo-001",
+        "suiton-jiru-tokyo-001"
+      ],
+      "thumbnail_emoji": "🥒",
+      "episode": "一昨年に89歳で天国に旅立ってしまった祖母ですが、暑くなる前の6月頃になると「苦い料理ほど元気になれるよ」という言葉を思い出して、自分でも調理しています。おかげで夏バテ防止や体調管理に役立った思い出があります。",
+      "source": {
+        "types": [
+          "おばあちゃん本人から直接教わった"
+        ],
+        "contributor": "ローズマリー"
+      }
     }
   ]
 }

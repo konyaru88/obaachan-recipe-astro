@@ -6182,6 +6182,164 @@
           "記憶を頼りに書いている"
         ]
       }
+    },
+    {
+      "id": "chirashi-sushi-tokyo-001",
+      "title": "ちらし寿司",
+      "grandmother": {
+        "name": "サウナスーツ",
+        "age": null,
+        "prefecture": "東京都",
+        "city": null,
+        "village": null,
+        "message": null
+      },
+      "region": {
+        "area": "kanto",
+        "prefecture_code": "13",
+        "prefecture": "東京都"
+      },
+      "meta": {
+        "created_at": "2026-04-04",
+        "is_featured": false,
+        "is_endangered": false
+      },
+      "category": "ご飯もの",
+      "tags": [
+        "ちらし寿司",
+        "ひな祭り",
+        "東京都",
+        "ご飯もの",
+        "日常のごはん",
+        "家庭料理"
+      ],
+      "season": [
+        "春"
+      ],
+      "servings": 5,
+      "prep_time_minutes": 20,
+      "cook_time_minutes": 15,
+      "difficulty": 2,
+      "view_count": 0,
+      "story": "子供の頃におばあちゃんの家に行った時に、おばあちゃんが作ってくれてとても美味しかった思い出があります。何度かおばあちゃんと一緒にちらし寿司を作って料理する楽しさをおばあちゃんから学び、今でも3月になると無性にちらし寿司が食べたくなります。",
+      "ingredients": [
+        {
+          "group": "酢飯",
+          "items": [
+            {
+              "name": "白ご飯",
+              "amount": 5,
+              "unit": "膳",
+              "note": null,
+              "grandma_amount": "5膳くらい"
+            },
+            {
+              "name": "お酢",
+              "amount": 3,
+              "unit": "大さじ",
+              "note": null
+            },
+            {
+              "name": "砂糖",
+              "amount": 2,
+              "unit": "大さじ",
+              "note": null
+            },
+            {
+              "name": "塩",
+              "amount": 2,
+              "unit": "小さじ",
+              "note": null
+            }
+          ]
+        },
+        {
+          "group": "具材",
+          "items": [
+            {
+              "name": "卵焼き",
+              "amount": null,
+              "unit": "適量",
+              "note": "刻む",
+              "grandma_amount": "おばあちゃんの目分量"
+            },
+            {
+              "name": "蓮根",
+              "amount": null,
+              "unit": "適量",
+              "note": "細かく刻む",
+              "grandma_amount": "おばあちゃんの目分量"
+            },
+            {
+              "name": "にんじん",
+              "amount": null,
+              "unit": "適量",
+              "note": "細かく刻む",
+              "grandma_amount": "おばあちゃんの目分量"
+            },
+            {
+              "name": "しいたけ",
+              "amount": null,
+              "unit": "適量",
+              "note": "細かく刻む",
+              "grandma_amount": "おばあちゃんの目分量"
+            },
+            {
+              "name": "ごぼう",
+              "amount": null,
+              "unit": "適量",
+              "note": "細かく刻む",
+              "grandma_amount": "おばあちゃんの目分量"
+            }
+          ]
+        },
+        {
+          "group": "トッピング",
+          "items": [
+            {
+              "name": "いりごま",
+              "amount": null,
+              "unit": "適量",
+              "note": "お好みで"
+            },
+            {
+              "name": "刻み海苔",
+              "amount": null,
+              "unit": "適量",
+              "note": "お好みで"
+            }
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "text": "蓮根、にんじん、しいたけ、ごぼうなどをまな板にのせ細かく刻む。",
+          "tip": null
+        },
+        {
+          "step": 2,
+          "text": "お酢、砂糖、塩を耐熱皿に入れてレンジで15秒ほど、または鍋で沸騰するまで温め、ご飯に混ぜる。刻んだ卵焼き、蓮根、にんじん、しいたけ、ごぼうも入れて混ぜる。",
+          "tip": null
+        },
+        {
+          "step": 3,
+          "text": "いりごまや海苔、などお好みの具を飾ったら完成です。",
+          "tip": null
+        }
+      ],
+      "grandma_notes": [],
+      "cultural_background": "ひな祭りの定番料理。おばあちゃんと一緒に作ることで料理の楽しさを次の世代に伝える、家族の絆が詰まった一品。",
+      "photos": [],
+      "related_recipe_ids": [],
+      "thumbnail_emoji": "🍣",
+      "episode": "子供の頃におばあちゃんの家に行った時に、おばあちゃんが作ってくれてとても美味しかった思い出があります。何度かおばあちゃんと一緒にちらし寿司を作って料理する楽しさをおばあちゃんから学び、今でも3月になると無性にちらし寿司が食べたくなります。",
+      "source": {
+        "type": "memory",
+        "details": [
+          "記憶を頼りに書いている"
+        ]
+      }
     }
   ]
 }

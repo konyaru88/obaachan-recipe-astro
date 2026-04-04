@@ -5478,6 +5478,303 @@
         "contributor": "匿名希望"
       },
       "view_count": 0
+    },
+    {
+      "id": "koya-dofu-fukumeni-osaka-001",
+      "title": "高野豆腐と干ししいたけの含め煮",
+      "grandmother": {
+        "name": "みか",
+        "age": null,
+        "prefecture": "大阪府",
+        "city": null,
+        "village": null,
+        "message": null
+      },
+      "region": {
+        "area": "kinki",
+        "prefecture_code": "27",
+        "prefecture": "大阪府"
+      },
+      "meta": {
+        "created_at": "2026-04-04",
+        "is_featured": false,
+        "is_endangered": false
+      },
+      "category": "煮物",
+      "tags": [
+        "高野豆腐",
+        "干し椎茸",
+        "含め煮",
+        "大阪府",
+        "煮物",
+        "日常のごはん"
+      ],
+      "season": [
+        "秋",
+        "冬"
+      ],
+      "servings": 4,
+      "prep_time_minutes": 20,
+      "cook_time_minutes": 30,
+      "difficulty": 2,
+      "view_count": 0,
+      "story": "夕方ドア開けた瞬間に、あのちょっと甘いような醤油の匂いがふわっと来て、「あ、大好きな高野豆腐としいたけの匂いだ！」と分かりいつもの美味しい味をその都度思い出し、食卓に並ぶのが楽しみでした。",
+      "ingredients": [
+        {
+          "group": "主材料",
+          "items": [
+            {
+              "name": "高野豆腐",
+              "amount": 6,
+              "unit": "個",
+              "note": null,
+              "approx_weight": "約100g（6個）"
+            },
+            {
+              "name": "干し椎茸",
+              "amount": 10,
+              "unit": "個",
+              "note": "水で戻しておく"
+            },
+            {
+              "name": "にんじん",
+              "amount": "1/3",
+              "unit": "本",
+              "note": "いちょう切り薄切り",
+              "approx_weight": "約50〜60g"
+            },
+            {
+              "name": "スナップえんどう",
+              "amount": null,
+              "unit": "好きなだけ",
+              "note": null,
+              "grandma_amount": "好きなだけ"
+            }
+          ]
+        },
+        {
+          "group": "煮汁",
+          "items": [
+            {
+              "name": "だし汁",
+              "amount": 500,
+              "unit": "cc",
+              "note": null
+            },
+            {
+              "name": "みりん",
+              "amount": 3,
+              "unit": "大さじ",
+              "note": null
+            },
+            {
+              "name": "酒",
+              "amount": 2,
+              "unit": "大さじ",
+              "note": null
+            },
+            {
+              "name": "砂糖",
+              "amount": 2,
+              "unit": "大さじ",
+              "note": null
+            },
+            {
+              "name": "塩",
+              "amount": null,
+              "unit": "少々",
+              "note": null,
+              "grandma_amount": "少々"
+            },
+            {
+              "name": "醤油",
+              "amount": 2,
+              "unit": "大さじ",
+              "note": null
+            }
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "text": "高野豆腐は水に少し漬けて絞って、食べやすい大きさに切る。干し椎茸も水で戻しておく。",
+          "tip": null
+        },
+        {
+          "step": 2,
+          "text": "鍋にだし汁を沸かし、みりん、酒、砂糖、塩、醤油を加える。高野豆腐、干し椎茸、にんじん（いちょう切り薄切り）を加えて煮立てる。",
+          "tip": null
+        },
+        {
+          "step": 3,
+          "text": "煮立ったら弱火にして20分煮る。",
+          "tip": null
+        },
+        {
+          "step": 4,
+          "text": "火を止めてから鍋のまま冷めるまで放置し、味を染み込ませる。",
+          "tip": "冷める過程で味がしっかり入る"
+        }
+      ],
+      "grandma_notes": [],
+      "cultural_background": "大阪では出汁文化が根付いており、乾物を使った含め煮は日常的な家庭料理のひとつ。高野豆腐と干し椎茸という保存食を組み合わせた、滋味深い一品。",
+      "photos": [],
+      "related_recipe_ids": [],
+      "thumbnail_emoji": "🍲",
+      "episode": "夕方ドア開けた瞬間に、あのちょっと甘いような醤油の匂いがふわっと来て、「あ、大好きな高野豆腐としいたけの匂いだ！」と分かりいつもの美味しい味をその都度思い出し、食卓に並ぶのが楽しみでした。",
+      "source": {
+        "type": "direct",
+        "details": [
+          "おばあちゃん本人から直接教わった"
+        ]
+      }
+    },
+    {
+      "id": "fuki-nimono-miyagi-001",
+      "title": "フキの煮物",
+      "grandmother": {
+        "name": "ケイ",
+        "age": null,
+        "prefecture": "宮城県",
+        "city": null,
+        "village": null,
+        "message": null
+      },
+      "region": {
+        "area": "tohoku",
+        "prefecture_code": "04",
+        "prefecture": "宮城県"
+      },
+      "meta": {
+        "created_at": "2026-04-04",
+        "is_featured": false,
+        "is_endangered": false
+      },
+      "category": "煮物",
+      "tags": [
+        "フキ",
+        "煮物",
+        "宮城県",
+        "春の味覚",
+        "山菜",
+        "家庭料理"
+      ],
+      "season": [
+        "春"
+      ],
+      "servings": 4,
+      "prep_time_minutes": 30,
+      "cook_time_minutes": 30,
+      "difficulty": 2,
+      "view_count": 0,
+      "story": "おばあちゃんちにはフキのほかに、タケノコ、ミョウガ、タラの芽が自生しており行った時には、料理してくれた思い出があります。自分でも今作りますがおばあちゃんの味には追いつけません。",
+      "ingredients": [
+        {
+          "group": "主材料",
+          "items": [
+            {
+              "name": "フキ",
+              "amount": 1,
+              "unit": "束",
+              "note": null,
+              "grandma_amount": "収穫した分",
+              "approx_weight": "約300〜400g"
+            },
+            {
+              "name": "鶏もも肉",
+              "amount": 200,
+              "unit": "g",
+              "note": "表面を焼いて一口大に切る"
+            },
+            {
+              "name": "油揚げ",
+              "amount": 1,
+              "unit": "枚",
+              "note": "短冊切り",
+              "grandma_amount": "1枚",
+              "approx_weight": "約30g"
+            }
+          ]
+        },
+        {
+          "group": "煮汁",
+          "items": [
+            {
+              "name": "かつおだし",
+              "amount": 300,
+              "unit": "cc",
+              "note": null,
+              "grandma_amount": "鰹節からだしを作っていた。適量"
+            },
+            {
+              "name": "酒",
+              "amount": 3,
+              "unit": "大さじ",
+              "note": null,
+              "grandma_amount": "適量"
+            },
+            {
+              "name": "みりん",
+              "amount": 3,
+              "unit": "大さじ",
+              "note": null,
+              "grandma_amount": "適量"
+            },
+            {
+              "name": "醤油",
+              "amount": 3,
+              "unit": "大さじ",
+              "note": null,
+              "grandma_amount": "適量"
+            }
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "text": "フキの下処理をする。板ずりして茹でたフキを冷水でさまし、食べやすい大きさに切る。",
+          "tip": "板ずりすると皮が剥きやすくなる"
+        },
+        {
+          "step": 2,
+          "text": "油揚げは短冊切りにする。",
+          "tip": null
+        },
+        {
+          "step": 3,
+          "text": "もも肉は表面を焼いて一口大に切る。",
+          "tip": "先に焼くことで旨みを閉じ込める"
+        },
+        {
+          "step": 4,
+          "text": "鍋にかつおのだし、酒、みりん、醤油を入れて煮立てて、もも肉と油揚げを入れる。",
+          "tip": null
+        },
+        {
+          "step": 5,
+          "text": "もも肉に火が入ったらフキを入れて弱火で20分から30分ぐらい煮る。",
+          "tip": null
+        },
+        {
+          "step": 6,
+          "text": "冷まして時間をおいて味を染みこませる。",
+          "tip": "一晩置くとさらに味が馴染む"
+        }
+      ],
+      "grandma_notes": [],
+      "cultural_background": "宮城県では春になるとフキやタケノコ、タラの芽など山菜が自生し、それを使った煮物は春の訪れを告げる家庭の味。",
+      "photos": [],
+      "related_recipe_ids": [],
+      "thumbnail_emoji": "🌿",
+      "episode": "おばあちゃんちにはフキのほかに、タケノコ、ミョウガ、タラの芽が自生しており行った時には、料理してくれた思い出があります。自分でも今作りますがおばあちゃんの味には追いつけません。",
+      "source": {
+        "type": "family",
+        "details": [
+          "家族（親・きょうだいなど）から聞いた"
+        ]
+      }
     }
   ]
 }

@@ -21,11 +21,10 @@
       }
     ],
     "tags": [
-      "九州料理",
       "郷土料理",
-      "家庭料理",
       "煮物",
-      "保存食"
+      "家庭料理",
+      "九州"
     ],
     "category": "食文化コラム",
     "category_slug": "column",
@@ -55,11 +54,10 @@
       }
     ],
     "tags": [
-      "東北料理",
       "郷土料理",
       "保存食",
-      "冬の知恵",
-      "煮物"
+      "煮物",
+      "東北"
     ],
     "category": "食文化コラム",
     "category_slug": "column",
@@ -90,10 +88,8 @@
     ],
     "tags": [
       "郷土料理",
-      "全国",
       "家庭料理",
-      "まとめ",
-      "地方の味"
+      "煮物"
     ],
     "category": "食文化コラム",
     "category_slug": "column",
@@ -124,10 +120,8 @@
     ],
     "tags": [
       "煮物",
-      "基本",
-      "黄金比",
-      "和食",
-      "調味料"
+      "家庭料理",
+      "日常のごはん"
     ],
     "category": "暮らしのレシピ帖",
     "category_slug": "life",
@@ -155,10 +149,8 @@
     ],
     "related_recipe_id": null,
     "tags": [
-      "目分量",
-      "計量",
-      "昭和の台所",
-      "料理の知恵"
+      "家庭料理",
+      "日常のごはん"
     ],
     "reading_time": 8
   },
@@ -177,10 +169,8 @@
     "references": [],
     "related_recipe_id": null,
     "tags": [
-      "一人暮らし",
-      "簡単レシピ",
-      "初心者向け",
-      "まとめ"
+      "日常のごはん",
+      "家庭料理"
     ],
     "reading_time": 7
   },
@@ -199,11 +189,9 @@
     "references": [],
     "related_recipe_id": null,
     "tags": [
-      "体に優しい",
-      "胃に優しい",
-      "養生食",
-      "野菜たっぷり",
-      "まとめ"
+      "日常のごはん",
+      "煮物",
+      "家庭料理"
     ],
     "reading_time": 6
   },
@@ -222,11 +210,10 @@
     "references": [],
     "related_recipe_id": null,
     "tags": [
-      "田舎料理",
       "郷土料理",
-      "昔ながら",
-      "まとめ",
-      "日本各地"
+      "日常のごはん",
+      "家庭料理",
+      "保存食"
     ],
     "reading_time": 7
   },
@@ -245,11 +232,8 @@
     "references": [],
     "related_recipe_id": null,
     "tags": [
-      "料理初心者",
-      "基本レシピ",
-      "簡単",
-      "和食",
-      "まとめ"
+      "日常のごはん",
+      "家庭料理"
     ],
     "reading_time": 6,
     "meta_description": "料理が苦手な方に、おばあちゃんのシンプル和食6品から始めることをおすすめします。材料は醤油・味噌・砂糖など5つ、道具はフライパン1つ。失敗しにくい基本レシピで料理の第一歩を踏み出しましょう。",
@@ -284,11 +268,9 @@
     "references": [],
     "related_recipe_id": null,
     "tags": [
-      "台所",
-      "昭和の暮らし",
-      "思い出",
-      "おばあちゃん",
-      "家族"
+      "家庭料理",
+      "煮物",
+      "日常のごはん"
     ],
     "reading_time": 8
   },
@@ -308,11 +290,8 @@
     "references": [],
     "related_recipe_id": "takuan-ni-ishikawa-001",
     "tags": [
-      "たくあん",
-      "漬物",
       "保存食",
-      "干し大根",
-      "冬の手仕事"
+      "常備菜"
     ],
     "reading_time": 10,
     "faq": [
@@ -358,11 +337,8 @@
     "references": [],
     "related_recipe_id": "takuan-ni-ishikawa-001",
     "tags": [
-      "たくあん",
-      "保存方法",
       "保存食",
-      "冷凍保存",
-      "冬の手仕事"
+      "常備菜"
     ],
     "reading_time": 5,
     "faq": [
@@ -396,11 +372,8 @@
     "references": [],
     "related_recipe_id": "takuan-ni-ishikawa-001",
     "tags": [
-      "たくあん",
-      "漬物",
-      "失敗しない",
-      "初心者向け",
-      "冬の手仕事"
+      "保存食",
+      "常備菜"
     ],
     "reading_time": 6,
     "faq": [
@@ -430,11 +403,8 @@
     "references": [],
     "related_recipe_id": null,
     "tags": [
-      "干し大根",
-      "たくあん",
-      "漬物",
-      "下ごしらえ",
-      "冬の手仕事"
+      "保存食",
+      "常備菜"
     ],
     "reading_time": 5,
     "faq": [
@@ -468,11 +438,8 @@
     "references": [],
     "related_recipe_id": "takuan-ni-ishikawa-001",
     "tags": [
-      "たくあん",
-      "塩抜き",
-      "アレンジ",
-      "漬物",
-      "保存食"
+      "保存食",
+      "常備菜"
     ],
     "reading_time": 5,
     "faq": [

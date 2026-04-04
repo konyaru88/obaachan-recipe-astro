@@ -13,6 +13,17 @@ const base = import.meta.env.BASE_URL;
 const { id } = Astro.params;
 const article = articlesData.find((a: any) => a.id === id) as any;
 
+// タグ→リンク先マッピング
+const REGION_MAP: Record<string, string> = {
+  '北海道': 'hokkaido', '東北': 'tohoku', '関東': 'kanto', '北陸': 'hokuriku',
+  '甲信越': 'koshinetsu', '東海': 'tokai', '近畿': 'kinki', '中国': 'chugoku',
+  '四国': 'shikoku', '九州': 'kyushu',
+};
+function tagToUrl(tag: string): string {
+  if (REGION_MAP[tag]) return `${base}region/${REGION_MAP[tag]}/`;
+  return `${base}recipes/?tag=${encodeURIComponent(tag)}`;
+}
+
 if (!article) {
   return Astro.redirect('/404');
 }
@@ -58,6 +69,15 @@ function buildRecipeCardHtml(recipeId: string): string {
 }
 
 // 本文をHTMLに変換
+function formatInline(text: string): string {
+  return text
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\[([^\]]+)\]\((\/[^)]+)\)/g, (_: string, t: string, href: string) =>
+      `<a href="${base}${href.slice(1)}" class="article-content__link">${t}</a>`)
+    .replace(/\[([^\]]+)\]\((https?:[^)]+)\)/g, (_: string, t: string, href: string) =>
+      `<a href="${href}" class="article-content__link" target="_blank" rel="noopener noreferrer">${t}</a>`);
+}
+
 function formatBody(body: string): string {
   return body
     .split('\n\n')
@@ -69,32 +89,24 @@ function formatBody(body: string): string {
       if (recipeMatch) return buildRecipeCardHtml(recipeMatch[1]);
       if (trimmed.startsWith('### ')) {
         const lines = trimmed.split('\n');
-        const heading = `<h3 class="article-content__subheading">${lines[0].slice(4)}</h3>`;
+        const heading = `<h3 class="article-content__subheading">${formatInline(lines[0].slice(4))}</h3>`;
         if (lines.length > 1) {
           const rest = lines.slice(1).join('\n').trim().replace(/\n/g, '<br>');
-          const formatted = rest.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-          return [heading, `<p>${formatted}</p>`];
+          return [heading, `<p>${formatInline(rest)}</p>`];
         }
         return [heading];
       }
       if (trimmed.startsWith('## ')) {
         const lines = trimmed.split('\n');
-        const heading = `<h2 class="article-content__heading">${lines[0].slice(3)}</h2>`;
+        const heading = `<h2 class="article-content__heading">${formatInline(lines[0].slice(3))}</h2>`;
         if (lines.length > 1) {
           const rest = lines.slice(1).join('\n').trim().replace(/\n/g, '<br>');
-          const formatted = rest.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-          return [heading, `<p>${formatted}</p>`];
+          return [heading, `<p>${formatInline(rest)}</p>`];
         }
         return [heading];
       }
       const html = trimmed.replace(/\n/g, '<br>');
-      const formatted = html
-        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-        .replace(/\[([^\]]+)\]\((\/[^)]+)\)/g, (_: string, text: string, href: string) =>
-          `<a href="${base}${href.slice(1)}" class="article-content__link">${text}</a>`)
-        .replace(/\[([^\]]+)\]\((https?:[^)]+)\)/g, (_: string, text: string, href: string) =>
-          `<a href="${href}" class="article-content__link" target="_blank" rel="noopener noreferrer">${text}</a>`);
-      return [`<p>${formatted}</p>`];
+      return [`<p>${formatInline(html)}</p>`];
     })
     .join('');
 }
@@ -200,7 +212,7 @@ const relatedArticles = [...sameCategory, ...diffCategory].slice(0, 3);
         <!-- タグ -->
         <div class="article-tags">
           {article.tags.map((tag: string) => (
-            <a href={`${base}articles/`} class="article-tag">{tag}</a>
+            <a href={tagToUrl(tag)} class="article-tag">{tag}</a>
           ))}
         </div>
       </article>

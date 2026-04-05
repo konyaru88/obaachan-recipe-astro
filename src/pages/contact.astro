@@ -1,0 +1,97 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout
+  title="お問い合わせ | おばあちゃんのレシピ"
+  description="「おばあちゃんのレシピ」へのお問い合わせはこちらから。ご質問・ご感想・取材依頼など、お気軽にご連絡ください。"
+>
+  <Header />
+
+  <main class="contact-page">
+
+    <div class="contact-page__hero">
+      <div class="contact-page__deco" aria-hidden="true"><img src={`${base}assets/images/grandma-icon.png`} alt="" class="contact-page__deco-img" /></div>
+      <h1 class="contact-page__title">お問い合わせ</h1>
+    </div>
+
+    <div class="contact-page__body container">
+
+      <p class="contact-page__intro">
+        「おばあちゃんのレシピ」に関するご質問・ご感想・取材のご依頼など、<br />
+        お気軽にお問い合わせください。
+      </p>
+      <p class="contact-page__intro contact-page__intro--note">
+        レシピの投稿・活動の応援は<a href={`${base}support/`}>こちら</a>からお願いいたします。
+      </p>
+
+      <form
+        class="contact-page__form"
+        action="https://formspree.io/f/mzdkkjoo"
+        method="POST"
+      >
+        <div class="contact-page__field">
+          <label for="contact-name" class="contact-page__label">お名前</label>
+          <input
+            type="text"
+            id="contact-name"
+            name="name"
+            class="contact-page__input"
+            placeholder="山田 花子"
+          />
+        </div>
+
+        <div class="contact-page__field">
+          <label for="contact-email" class="contact-page__label">メールアドレス <span class="contact-page__required">必須</span></label>
+          <input
+            type="email"
+            id="contact-email"
+            name="email"
+            class="contact-page__input"
+            placeholder="example@mail.com"
+            required
+          />
+        </div>
+
+        <div class="contact-page__field">
+          <label for="contact-category" class="contact-page__label">お問い合わせ種別</label>
+          <select id="contact-category" name="category" class="contact-page__select">
+            <option value="ご質問">ご質問</option>
+            <option value="ご感想・ご意見">ご感想・ご意見</option>
+            <option value="取材・メディア">取材・メディア</option>
+            <option value="コラボ・タイアップ">コラボ・タイアップ</option>
+            <option value="その他">その他</option>
+          </select>
+        </div>
+
+        <div class="contact-page__field">
+          <label for="contact-message" class="contact-page__label">お問い合わせ内容 <span class="contact-page__required">必須</span></label>
+          <textarea
+            id="contact-message"
+            name="message"
+            class="contact-page__textarea"
+            rows="8"
+            placeholder="お問い合わせ内容をご記入ください"
+            required
+          ></textarea>
+        </div>
+
+        <div class="contact-page__submit-wrap">
+          <button type="submit" class="contact-page__submit">送信する</button>
+        </div>
+      </form>
+
+      <p class="contact-page__note">
+        通常3営業日以内にご返信いたします。<br />
+        お急ぎの場合はSNSのDMもご利用ください。
+      </p>
+
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>

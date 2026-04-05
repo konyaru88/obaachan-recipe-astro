@@ -38,6 +38,7 @@ urls.push({ loc: '/recipes/', priority: '0.9', changefreq: 'daily' });
 urls.push({ loc: '/regions/', priority: '0.7', changefreq: 'weekly' });
 urls.push({ loc: '/articles/', priority: '0.7', changefreq: 'weekly' });
 urls.push({ loc: '/support/', priority: '0.5', changefreq: 'monthly' });
+urls.push({ loc: '/contact/', priority: '0.3', changefreq: 'yearly' });
 
 // Individual recipe pages
 for (const recipe of recipes) {

@@ -27,10 +27,10 @@ SNS：@obaachan_recipe（Instagram・Threads・TikTok）
 - `---` → `<hr>`
 - `{{recipe:レシピID}}` → レシピカードを埋め込み（独立した段落として記述）
   **必ず「カード → 説明文」の順で書くこと。説明文を先に書いてカードを後に置くのはNG。**
-- `{{recruit:#おばあちゃんのレシピ}}` → レシピ募集リンク
 - タイトル（title）に `\n` を入れると `<br>` として改行表示
-- `[テキスト](/パス)` → サイト内リンク
+- `[テキスト](/パス)` → サイト内リンク（`##`/`###` 見出し内でも変換される）
 - `[テキスト](https://...)` → 外部リンク（`target="_blank"` 付き）
+- ⚠️ `{{recruit:}}` は使用禁止
 
 ## articles.json のフィールド
 
@@ -43,7 +43,7 @@ SNS：@obaachan_recipe（Instagram・Threads・TikTok）
 | `meta_description` | | SEO用（省略時は lead 先頭120文字） |
 | `body` | ✓ | 本文 |
 | `faq` | | `[{q,a}]` 配列。FAQPage JSON-LD が自動生成される |
-| `tags` | ✓ | タグ配列 |
+| `tags` | ✓ | タグ配列（下記「記事タグのルール」参照） |
 | `category` | ✓ | 表示用カテゴリ名 |
 | `category_slug` | ✓ | `life` / `teshigoto` / `story` / `column` |
 | `published_at` | ✓ | `YYYY-MM-DD` |
@@ -51,6 +51,19 @@ SNS：@obaachan_recipe（Instagram・Threads・TikTok）
 | `thumbnail_emoji` | ✓ | 絵文字1つ |
 | `related_recipe_id` | | 記事末尾にボタン表示 |
 | `references` | | 参考文献配列 |
+
+## 記事タグのルール
+
+タグはサイト内回遊のためのリンク。リンク先が存在する値のみ使用すること。
+
+**使用可能なタグ値：**
+- レシピのCOMMON_TAGS → `/recipes/?tag=X` にリンク
+  煮物 / 日常のごはん / お正月 / 郷土料理 / 山菜 / 家庭料理 / 常備菜 / 保存食 / 和え物 / 春の味覚
+- 地域名 → `/region/{code}/` にリンク
+  北海道 / 東北 / 関東 / 北陸 / 甲信越 / 東海 / 近畿 / 中国 / 四国 / 九州
+
+**禁止：** リンク先のない独自タグ（回遊性がないため意味がない）
+**マッピングロジック：** `src/pages/articles/[id].astro` の `tagToUrl()`
 
 ## 本文テキストの注意点
 

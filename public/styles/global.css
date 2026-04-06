@@ -144,7 +144,7 @@ input, textarea, select {
 @media (max-width: 768px) {
   body {
     word-break: auto-phrase;
-    overflow-wrap: anywhere;
+    overflow-wrap: break-word;
     text-wrap: pretty;
   }
 
@@ -1968,6 +1968,7 @@ input, textarea, select {
   color: var(--color-text-primary);
   word-break: keep-all;
   overflow-wrap: break-word;
+  min-width: 0;
 }
 
 .step__tip {
@@ -2956,17 +2957,18 @@ input, textarea, select {
 
 .explore-tab {
   flex: 1;
-  padding: 0.8rem 1rem;
+  padding: 0.8rem 0.5rem;
   border: none;
   background: transparent;
   font-family: var(--font-serif);
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
   color: var(--color-text-muted);
   border-bottom: 3px solid transparent;
   margin-bottom: -2px;
   transition: all 0.3s ease;
+  white-space: nowrap;
 }
 
 .explore-tab--active {
@@ -3347,9 +3349,10 @@ input, textarea, select {
     color: #fff;
     border: none;
     border-radius: var(--radius-sm);
-    font-size: 0.85rem;
+    font-size: 1rem;
     cursor: pointer;
     white-space: nowrap;
+    flex-shrink: 0;
   }
 
   /* --- β版ティッカー --- */
@@ -3397,6 +3400,9 @@ input, textarea, select {
   }
   .detail__meta {
     gap: var(--space-md);
+  }
+  .step__text {
+    word-break: normal;
   }
 
   /* --- 記事詳細ページ --- */

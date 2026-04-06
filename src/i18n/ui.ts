@@ -235,8 +235,8 @@ export const ui = {
     'home.about.text.3': '"About this much," she\'d say, measuring with her palm.',
     'home.about.text.4': '"This is how it\'s always been done," adjusting the heat by feel.',
     'home.about.text.5': 'In that imprecision lies wisdom refined over decades.',
-    'home.about.text.6': "It's not the recipe we want to preserve.",
-    'home.about.text.7': "It's the time we spent together around the table.",
+    'home.about.text.6': "What we truly want to preserve isn't the recipes themselves.",
+    'home.about.text.7': "It's the warmth of the moments shared around the table.",
 
     // Recipe list
     'recipes.title': 'All Recipes',
@@ -344,15 +344,15 @@ export const ui = {
     'area.kyushu': 'Kyushu & Okinawa',
 
     // Hashtag labels
-    'tag.nimono': 'Slow-Simmered Classics',
-    'tag.daily': 'Everyday Home Cooking',
-    'tag.sansai': 'Wild Mountain Vegetables',
-    'tag.newyear': 'New Year Traditions',
-    'tag.kyodo': 'Regional Specialties',
-    'tag.home': 'Home-style Favorites',
-    'tag.jobi': 'Make-Ahead Staples',
-    'tag.hozon': 'Preserved & Fermented',
-    'tag.spring': 'Spring Flavors',
+    'tag.nimono': "Grandma's Slow-Simmered",
+    'tag.daily': "Grandma's Everyday Meals",
+    'tag.sansai': "Grandma's Wild Harvest",
+    'tag.newyear': "Grandma's New Year",
+    'tag.kyodo': "Grandma's Regional Gems",
+    'tag.home': "Grandma's Home-style",
+    'tag.jobi': "Grandma's Make-Ahead",
+    'tag.hozon': "Grandma's Preserved",
+    'tag.spring': "Grandma's Spring Flavors",
   },
 } as const;
 

@@ -41,6 +41,12 @@ const isEndangered = meta.is_endangered ?? false;
 const imageUrl = recipe.photos?.main ?? recipe.photos?.thumbnail ?? '';
 const areaCode = region.area ?? '';
 const prefecture = grandmother.prefecture ?? region.prefecture ?? '';
+const AREA_LABELS_EN: Record<string, string> = {
+  hokkaido: 'Hokkaido', tohoku: 'Tohoku', kanto: 'Kanto', hokuriku: 'Hokuriku',
+  koshinetsu: 'Koshinetsu', tokai: 'Tokai', kinki: 'Kansai', chugoku: 'Chugoku',
+  shikoku: 'Shikoku', kyushu: 'Kyushu & Okinawa',
+};
+const areaLabelEn = AREA_LABELS_EN[areaCode] ?? '';
 const seasonArr = Array.isArray(recipe.season) ? recipe.season : [];
 const story = enData?.story_en ?? recipe.story ?? '';
 const episode = enData?.episode_en ?? recipe.episode ?? '';
@@ -313,7 +319,7 @@ const hasBackground = bgHistory || bgIngredients;
     {related.length > 0 && (
       <section class="detail__related">
         <div class="container">
-          <h2 class="detail__section-title">{t(lang, 'recipe.related')}</h2>
+          <h2 class="detail__section-title">🍽 {areaLabelEn} Recipes</h2>
           <div class="recipe-grid recipe-grid--4">
             {related.map((r) => {
               const enR = (recipesEnData as any[]).find((e: any) => e.id === r.id);

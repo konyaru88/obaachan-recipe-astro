@@ -35,6 +35,12 @@ const isEndangered = meta.is_endangered ?? false;
 const imageUrl = recipe.photos?.main ?? recipe.photos?.thumbnail ?? '';
 const areaCode = region.area ?? '';
 const prefecture = grandmother.prefecture ?? region.prefecture ?? '';
+const AREA_LABELS: Record<string, string> = {
+  hokkaido: '北海道', tohoku: '東北', kanto: '関東', hokuriku: '北陸',
+  koshinetsu: '甲信越', tokai: '東海', kinki: '近畿', chugoku: '中国',
+  shikoku: '四国', kyushu: '九州・沖縄',
+};
+const areaLabel = AREA_LABELS[areaCode] ?? '';
 const seasonArr = Array.isArray(recipe.season) ? recipe.season : [];
 const story = recipe.story ?? '';
 const episode = recipe.episode ?? '';
@@ -311,7 +317,7 @@ function difficultyStars(d: number): string {
     {related.length > 0 && (
       <section class="detail__related">
         <div class="container">
-          <h2 class="detail__section-title">🍽 同じ地域のレシピ</h2>
+          <h2 class="detail__section-title">🍽 {areaLabel}のレシピ</h2>
           <div class="recipe-grid recipe-grid--4">
             {related.map((r) => <RecipeCard recipe={r} />)}
           </div>

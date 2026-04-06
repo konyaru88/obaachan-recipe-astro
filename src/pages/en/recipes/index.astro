@@ -23,7 +23,7 @@ const AREA_CODES = [
   { code: 'kyushu',   label: areaLabel('kyushu', lang) },
 ];
 
-const COMMON_TAGS_JA = ['煮物', '日常のごはん', 'お正月', '郷土料理', '山菜', '家庭���理', '常備菜', '保存食', '和え物', '春の味覚'];
+const COMMON_TAGS_JA = ['煮物', '日常のごはん', 'お正月', '郷土料理', '山菜', '家庭料理', '常備菜', '保存食', '和え物', '春の味覚'];
 const COMMON_TAGS = COMMON_TAGS_JA.map(ja => ({ ja, en: tagLabel(ja, lang) }));
 
 const allRecipes = [...getAllRecipes()].sort((a, b) =>

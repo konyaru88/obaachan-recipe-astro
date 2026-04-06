@@ -40,7 +40,7 @@ recipes.forEach((r: any) => {
   if (name) {
     grandmaSet.add(name);
   } else if (pref) {
-    grandmaSet.add(pref + 'のおばあ���ゃん');
+    grandmaSet.add(pref + 'のおばあちゃん');
   }
 });
 const grandmaCount = grandmaSet.size;
@@ -135,7 +135,7 @@ const searchPath = localePath(lang, `${base}search/`);
         aria-label={t(lang, 'search.placeholder')}
         autocomplete="off"
       />
-      <button type="submit" class="mobile-menu__search-btn" aria-label={t(lang, 'search.button')}>���� {t(lang, 'search.button')}</button>
+      <button type="submit" class="mobile-menu__search-btn" aria-label={t(lang, 'search.button')}>🔍 {t(lang, 'search.button')}</button>
     </form>
   </div>
 </header>

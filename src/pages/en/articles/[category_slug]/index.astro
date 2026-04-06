@@ -1,0 +1,131 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import Header from '../../../../components/Header.astro';
+import Footer from '../../../../components/Footer.astro';
+import articlesData from '../../../../data/articles.json';
+import articlesEnData from '../../../../data/articles.en.json';
+import { t, localePath } from '../../../../i18n/index';
+
+const lang = 'en';
+
+const categoryMeta: Record<string, { name: string; description: string; intro: string }> = {
+  teshigoto: {
+    name: t(lang, 'articles.cat.teshigoto'),
+    description: 'Traditional Japanese preserved foods and seasonal preparations — takuan, umeboshi, miso, and more. Step-by-step guides from grandmothers who have been making these for decades.',
+    intro: "Takuan pickles, umeboshi plums, homemade miso — these are the seasonal crafts that Japanese grandmothers have practiced year after year. Here we share their wisdom in beginner-friendly guides.",
+  },
+  life: {
+    name: t(lang, 'articles.cat.life'),
+    description: "Practical Japanese home cooking guides for everyday situations — solo living, feeling under the weather, busy weeknights. Grandma's solutions for real life.",
+    intro: "Living alone, feeling unwell, too busy to cook — grandmothers always had a recipe for every situation. Here are their practical solutions for everyday life.",
+  },
+  story: {
+    name: t(lang, 'articles.cat.story'),
+    description: "Personal stories and memories of Japanese grandmothers — the kitchen, the smells, the small moments that shaped a lifetime of cooking.",
+    intro: "The kitchen memories, the smell of simmering food, that small chair by the stove. Stories and episodes about grandmothers and the kitchens where they cooked.",
+  },
+  column: {
+    name: t(lang, 'articles.cat.column'),
+    description: "Deep dives into Japanese food culture — the science of intuitive cooking, regional cuisine histories, and the wisdom behind grandma's techniques.",
+    intro: "The science behind measuring by eye, the history of fermentation, the roots of regional dishes. Columns that help you understand grandma's cooking on a deeper level.",
+  },
+};
+
+export function getStaticPaths() {
+  return ['teshigoto', 'life', 'story', 'column'].map((slug) => ({ params: { category_slug: slug } }));
+}
+
+const { category_slug } = Astro.params;
+const base = import.meta.env.BASE_URL;
+const meta = categoryMeta[category_slug!];
+
+if (!meta) {
+  return Astro.redirect('/en/');
+}
+
+const articles = articlesData
+  .filter((a: any) => a.category_slug === category_slug)
+  .sort((a: any, b: any) => b.published_at.localeCompare(a.published_at));
+
+const enMap = new Map((articlesEnData as any[]).map((a: any) => [a.id, a]));
+
+const siteUrl = 'https://www.obaachan-recipe.com';
+const pageUrl = `${siteUrl}/en/articles/${category_slug}/`;
+const pageTitle = `${meta.name} | Japanese Grandma Recipes`;
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={meta.description}
+  canonicalUrl={pageUrl}
+  lang="en"
+>
+  <Header lang="en" />
+
+  <main id="main" class="articles-page">
+    <div class="container">
+
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <ol class="breadcrumb__list">
+          <li class="breadcrumb__item"><a href={localePath(lang, `${base}`)}>Home</a></li>
+          <li class="breadcrumb__item"><a href={localePath(lang, `${base}articles`)}>Articles</a></li>
+          <li class="breadcrumb__item" aria-current="page">{meta.name}</li>
+        </ol>
+      </nav>
+
+      <div class="page-header">
+        <h1 class="page-title">{meta.name}</h1>
+        <p class="page-subtitle">{meta.intro}</p>
+      </div>
+
+      <div class="article-list" id="article-list">
+        {articles.map((article: any) => {
+          const en = enMap.get(article.id);
+          const date = article.published_at.replace(/-/g, '.').slice(2);
+          const title = en?.title_en ?? article.title;
+          const lead = en?.lead_en ?? article.lead;
+          const catName = en?.category_en ?? meta.name;
+          return (
+            <a href={localePath(lang, `${base}articles/${article.id}`)} class="article-card" data-category-slug={article.category_slug}>
+              <div class="article-card__thumb" aria-hidden="true">{article.thumbnail_emoji}</div>
+              <div class="article-card__body">
+                <div class="article-card__header-row">
+                  <span class="article-card__category">{catName}</span>
+                </div>
+                <h2 class="article-card__title">{title}</h2>
+                <p class="article-card__lead">{lead}</p>
+                <div class="article-card__meta">
+                  <time datetime={article.published_at}>{date}</time>
+                  <span class="article-card__read">{article.reading_time}{t(lang, 'articles.reading.suffix')}</span>
+                </div>
+              </div>
+            </a>
+          );
+        })}
+      </div>
+
+      {articles.length === 0 && (
+        <div class="empty-state">
+          <p class="empty-state__icon" aria-hidden="true">📖</p>
+          <p class="empty-state__msg">{t(lang, 'articles.empty')}</p>
+        </div>
+      )}
+
+      <div class="back-link-wrap">
+        <a href={localePath(lang, `${base}articles`)} class="back-link">{t(lang, 'articles.back.short')}</a>
+      </div>
+    </div>
+  </main>
+
+  <Footer lang="en" />
+
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": siteUrl + '/en/' },
+      { "@type": "ListItem", "position": 2, "name": "Articles", "item": `${siteUrl}/en/articles/` },
+      { "@type": "ListItem", "position": 3, "name": meta.name, "item": pageUrl },
+    ],
+  })} slot="head" />
+</BaseLayout>

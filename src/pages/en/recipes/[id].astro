@@ -310,7 +310,10 @@ const hasBackground = bgHistory || bgIngredients;
         <div class="container">
           <h2 class="detail__section-title">{t(lang, 'recipe.related')}</h2>
           <div class="recipe-grid recipe-grid--4">
-            {related.map((r) => <RecipeCard recipe={r} lang="en" />)}
+            {related.map((r) => {
+              const enR = (recipesEnData as any[]).find((e: any) => e.id === r.id);
+              return <RecipeCard recipe={r} lang="en" titleOverride={enR?.title_en} tagsOverride={enR?.tags_en} />;
+            })}
           </div>
         </div>
       </section>

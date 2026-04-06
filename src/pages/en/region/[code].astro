@@ -5,7 +5,10 @@ import Footer from '../../../components/Footer.astro';
 import RecipeCard from '../../../components/RecipeCard.astro';
 import { getAllRecipes } from '../../../data/recipes';
 import regionsEnData from '../../../data/regions.en.json';
+import recipesEnData from '../../../data/recipes.en.json';
 import { t, localePath } from '../../../i18n/index';
+
+const enMap = new Map((recipesEnData as any[]).map((r: any) => [r.id, r]));
 
 const lang = 'en';
 const regions = regionsEnData.areas;
@@ -79,7 +82,10 @@ const regionIcon: Record<string, string> = {
       {recipes.length > 0
         ? (
           <div class="recipe-grid recipe-grid--3">
-            {recipes.map((r) => <RecipeCard recipe={r} lang="en" />)}
+            {recipes.map((r) => {
+              const en = enMap.get(r.id);
+              return <RecipeCard recipe={r} lang="en" titleOverride={en?.title_en} tagsOverride={en?.tags_en} />;
+            })}
           </div>
         ) : (
           <div class="empty-state">

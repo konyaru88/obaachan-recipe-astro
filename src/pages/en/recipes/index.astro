@@ -5,8 +5,10 @@ import Footer from '../../../components/Footer.astro';
 import RecipeCard from '../../../components/RecipeCard.astro';
 import { getAllRecipes } from '../../../data/recipes';
 import { t, areaLabel, tagLabel } from '../../../i18n/index';
+import recipesEnData from '../../../data/recipes.en.json';
 
 const lang = 'en';
+const enMap = new Map((recipesEnData as any[]).map((r: any) => [r.id, r]));
 
 const AREA_CODES = [
   { code: 'hokkaido', label: areaLabel('hokkaido', lang) },
@@ -80,18 +82,21 @@ const total = allRecipes.length;
 
       <!-- Grid -->
       <div class="recipe-grid recipe-grid--3" id="recipe-grid">
-        {allRecipes.map((recipe) => (
-          <div
-            class="recipe-card-wrap"
-            data-region={recipe.region?.area ?? ''}
-            data-tags={JSON.stringify(recipe.tags)}
-            data-category={recipe.category ?? ''}
-            data-created={recipe.meta.created_at}
-            data-views={String(recipe.view_count ?? 0)}
-          >
-            <RecipeCard recipe={recipe} lang="en" />
-          </div>
-        ))}
+        {allRecipes.map((recipe) => {
+          const en = enMap.get(recipe.id);
+          return (
+            <div
+              class="recipe-card-wrap"
+              data-region={recipe.region?.area ?? ''}
+              data-tags={JSON.stringify(recipe.tags)}
+              data-category={recipe.category ?? ''}
+              data-created={recipe.meta.created_at}
+              data-views={String(recipe.view_count ?? 0)}
+            >
+              <RecipeCard recipe={recipe} lang="en" titleOverride={en?.title_en} tagsOverride={en?.tags_en} />
+            </div>
+          );
+        })}
       </div>
 
       <!-- Empty state -->

@@ -5,9 +5,11 @@ import Footer from '../../components/Footer.astro';
 import RecipeCard from '../../components/RecipeCard.astro';
 import { getAllRecipes } from '../../data/recipes';
 import { t, localePath, areaLabel } from '../../i18n/index';
+import recipesEnData from '../../data/recipes.en.json';
 
 const lang = 'en';
 const base = import.meta.env.BASE_URL;
+const enMap = new Map((recipesEnData as any[]).map((r: any) => [r.id, r]));
 const allRecipes = getAllRecipes();
 const latest = [...allRecipes]
   .sort((a, b) => b.meta.created_at.localeCompare(a.meta.created_at))
@@ -97,7 +99,10 @@ const categories = [
           <h2 id="latest-heading" class="section-title">{t(lang, 'home.latest.title')}</h2>
         </div>
         <div class="recipe-grid recipe-grid--3">
-          {latest.map((recipe) => <RecipeCard recipe={recipe} lang="en" />)}
+          {latest.map((recipe) => {
+            const en = enMap.get(recipe.id);
+            return <RecipeCard recipe={recipe} lang="en" titleOverride={en?.title_en} tagsOverride={en?.tags_en} />;
+          })}
         </div>
         <div class="section-footer">
           <a href={localePath(lang, `${base}recipes/`)} class="btn btn--outline" data-cta="view-all-recipes">{t(lang, 'home.latest.viewall')}</a>

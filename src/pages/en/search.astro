@@ -5,6 +5,9 @@ import Footer from '../../components/Footer.astro';
 import RecipeCard from '../../components/RecipeCard.astro';
 import { getAllRecipes } from '../../data/recipes';
 import { t } from '../../i18n/index';
+import recipesEnData from '../../data/recipes.en.json';
+
+const enMap = new Map((recipesEnData as any[]).map((r: any) => [r.id, r]));
 
 const lang = 'en';
 const allRecipes = getAllRecipes();
@@ -55,7 +58,7 @@ const searchData = allRecipes.map((r) => ({
       <div class="recipe-grid recipe-grid--3" id="recipe-grid" style="display:none">
         {allRecipes.map((recipe) => (
           <div class="recipe-card-wrap" data-recipe-id={recipe.id} style="display:none">
-            <RecipeCard recipe={recipe} lang="en" />
+            <RecipeCard recipe={recipe} lang="en" titleOverride={enMap.get(recipe.id)?.title_en} tagsOverride={enMap.get(recipe.id)?.tags_en} />
           </div>
         ))}
       </div>

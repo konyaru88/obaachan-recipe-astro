@@ -21,7 +21,7 @@ const privacyPath = localePath(lang, `${base}privacy/`);
   <div class="container site-footer__grid">
     <div>
       <a class="site-footer__logo" href={homePath}>
-        <img src={`${base}assets/images/grandma-icon.png`} alt="" class="site-footer__logo-img" />
+        <img src={`${base}assets/images/grandma-icon.png`} alt="" class="site-footer__logo-img" aria-hidden="true" />
         {t(lang, 'site.name')}
       </a>
       <p class="site-footer__tagline">{t(lang, 'site.tagline')}</p>

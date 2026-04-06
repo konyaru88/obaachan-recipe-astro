@@ -417,21 +417,8 @@ input, textarea, select {
 }
 
 /* ヒーロー文字 — 記憶がポツリと浮かぶように */
-@keyframes hero-line-appear {
-  from {
-    filter: blur(4px);
-    transform: translateY(8px);
-  }
-  to {
-    filter: blur(0);
-    transform: translateY(0);
-  }
-}
-
 .hero__line {
   display: inline-block;
-  animation: hero-line-appear 2s ease-out forwards;
-  animation-delay: calc(0.6s + var(--line-i) * 0.7s);
 }
 
 .hero__eyebrow {
@@ -3191,33 +3178,11 @@ input, textarea, select {
 /* ============================================================
    Animations
    ============================================================ */
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
 @keyframes bounce {
   0%, 100% { transform: translateY(0); }
   40%      { transform: translateY(-8px); }
   60%      { transform: translateY(-4px); }
 }
-
-.animate-on-scroll {
-  opacity: 1;
-  transform: translateY(20px);
-  transition: transform 0.6s ease;
-}
-
-.animate-on-scroll.is-visible {
-  transform: translateY(0);
-}
-
-/* stagger delay for cards */
-.animate-on-scroll.is-visible:nth-child(2) { transition-delay: 0.1s; }
-.animate-on-scroll.is-visible:nth-child(3) { transition-delay: 0.2s; }
-.animate-on-scroll.is-visible:nth-child(4) { transition-delay: 0.3s; }
-.animate-on-scroll.is-visible:nth-child(5) { transition-delay: 0.4s; }
-.animate-on-scroll.is-visible:nth-child(6) { transition-delay: 0.5s; }
 
 /* ============================================================
    Recipe card emoji placeholder

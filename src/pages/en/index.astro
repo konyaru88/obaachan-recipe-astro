@@ -95,7 +95,7 @@ const categories = [
     <!-- Recently Added -->
     <section class="home__latest" aria-labelledby="latest-heading">
       <div class="container">
-        <div class="section-header animate-on-scroll">
+        <div class="section-header">
           <h2 id="latest-heading" class="section-title">{t(lang, 'home.latest.title')}</h2>
         </div>
         <div class="recipe-grid recipe-grid--3">
@@ -140,7 +140,7 @@ const categories = [
         <div class="explore-panel" id="panel-recipe" style="display:none">
           <div class="category-grid">
             {categories.map((c) => (
-              <a href={localePath(lang, `${base}recipes/?category=${encodeURIComponent(c.label)}`)} class="category-btn animate-on-scroll" data-cta="category-filter">
+              <a href={localePath(lang, `${base}recipes/?category=${encodeURIComponent(c.label)}`)} class="category-btn" data-cta="category-filter">
                 <img class="category-btn__img" src={c.img} alt={c.label} loading="lazy" />
                 <span class="category-btn__label">{c.label}</span>
               </a>
@@ -160,7 +160,7 @@ const categories = [
     <!-- Explore by Region -->
     <section class="home__regions-map" aria-labelledby="regions-heading">
       <div class="container">
-        <div class="section-header animate-on-scroll">
+        <div class="section-header">
           <h2 id="regions-heading" class="section-title">{t(lang, 'home.regions.title')}</h2>
         </div>
         <div class="japan-map-container">
@@ -200,7 +200,7 @@ const categories = [
     <!-- About This Project -->
     <section class="home__about" aria-labelledby="about-heading">
       <div class="container">
-        <div class="about-block animate-on-scroll">
+        <div class="about-block">
           <div class="about-block__deco" aria-hidden="true"><img src={`${base}assets/images/grandma-icon.png`} alt="" class="about-block__deco-img" /></div>
           <h2 id="about-heading" class="about-block__title">{t(lang, 'home.about.title')}</h2>
           <p class="about-block__text">
@@ -315,21 +315,6 @@ const categories = [
         .catch(err => console.warn('Japan map SVG load failed:', err));
     }
 
-    // Scroll animation (Progressive Enhancement)
-    const animatedEls = document.querySelectorAll('.animate-on-scroll');
-    if (animatedEls.length > 0 && 'IntersectionObserver' in window) {
-      const observer = new IntersectionObserver((entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-            observer.unobserve(entry.target);
-          }
-        }
-      }, { threshold: 0.1 });
-      animatedEls.forEach((el) => observer.observe(el));
-    } else {
-      animatedEls.forEach((el) => el.classList.add('is-visible'));
-    }
 
     // Time machine
     const recipesWithImgs = JSON.parse(document.getElementById('recipe-images-data')?.textContent || '[]');

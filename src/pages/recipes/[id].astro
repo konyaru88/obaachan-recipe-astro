@@ -5,6 +5,7 @@ import Footer from '../../components/Footer.astro';
 import RecipeCard from '../../components/RecipeCard.astro';
 import { getAllRecipes, getRecipeById, getTotalTime, getDifficultyLabel } from '../../data/recipes';
 import type { Recipe } from '../../data/types';
+import articlesData from '../../data/articles.json';
 
 export async function getStaticPaths() {
   const recipes = getAllRecipes();
@@ -130,6 +131,28 @@ const related = areaCode
       .slice(0, 4)
   : [];
 
+// 関連記事（地域タグ一致 → レシピタグ一致の優先順）
+const AREA_TO_REGION: Record<string, string> = {
+  hokkaido: '北海道', tohoku: '東北', kanto: '関東', hokuriku: '北陸',
+  koshinetsu: '甲信越', tokai: '東海', kinki: '近畿', chugoku: '中国',
+  shikoku: '四国', kyushu: '九州',
+};
+const regionName = AREA_TO_REGION[areaCode] ?? '';
+const regionArticles = regionName
+  ? (articlesData as any[]).filter((a: any) => a.tags?.includes(regionName))
+  : [];
+const tagArticles = (articlesData as any[]).filter((a: any) =>
+  !regionArticles.some((ra: any) => ra.id === a.id) &&
+  a.tags?.some((t: string) => tags.includes(t))
+);
+const relatedArticles = [...regionArticles, ...tagArticles].slice(0, 2);
+
+// 似た料理（related_recipe_ids）
+const relatedRecipeIds: string[] = (recipe as any).related_recipe_ids ?? [];
+const similarRecipes = relatedRecipeIds
+  .map((rid: string) => getRecipeById(rid))
+  .filter((r): r is Recipe => r != null && r.id !== recipe.id);
+
 // 食文化背景（文字列 or オブジェクト対応）
 const bgHistory = typeof culturalBg === 'string' ? culturalBg : (culturalBg.history ?? story ?? '');
 const bgIngredients = typeof culturalBg === 'object' && culturalBg !== null ? (culturalBg.local_ingredients ?? []).join('、') : '';
@@ -165,7 +188,7 @@ function difficultyStars(d: number): string {
     <div class="detail__hero">
       {imageUrl && (
         <div class="detail__hero-img-wrap">
-          <img class="detail__hero-img" src={`${base}${imageUrl}`} alt={recipe.title} style={recipe.photos?.position ? `object-position: ${recipe.photos.position}` : ''} />
+          <img class="detail__hero-img" src={`${base}${imageUrl}`} alt={recipe.title} width="1200" height="800" style={recipe.photos?.position ? `object-position: ${recipe.photos.position}` : ''} />
           <span class="detail__hero-img-note">※写真はイメージです</span>
         </div>
       )}
@@ -178,7 +201,8 @@ function difficultyStars(d: number): string {
       <section class="detail__info">
         <div class="detail__badges">
           {isEndangered && <span class="badge badge--endangered">🕯 消えゆくレシピ</span>}
-          {prefecture && <span class="badge badge--region">{prefecture}</span>}
+          {prefecture && areaCode && <a href={`${base}region/${areaCode}/`} class="badge badge--region">{prefecture}</a>}
+          {prefecture && !areaCode && <span class="badge badge--region">{prefecture}</span>}
           {seasonArr.length > 0 && <span class="badge badge--season">{seasonEmoji(seasonArr[0])} {seasonArr.join('・')}</span>}
         </div>
         <h1 class="detail__title">{recipe.title}</h1>
@@ -320,6 +344,43 @@ function difficultyStars(d: number): string {
           <h2 class="detail__section-title">🍽 {areaLabel}のレシピ</h2>
           <div class="recipe-grid recipe-grid--4">
             {related.map((r) => <RecipeCard recipe={r} />)}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- 似た料理（related_recipe_ids） -->
+    {similarRecipes.length > 0 && (
+      <section class="detail__related">
+        <div class="container">
+          <h2 class="detail__section-title">🍳 似た料理</h2>
+          <div class="recipe-grid recipe-grid--4">
+            {similarRecipes.map((r) => <RecipeCard recipe={r} />)}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- 関連する読み物 -->
+    {relatedArticles.length > 0 && (
+      <section class="detail__related detail__related--articles">
+        <div class="container">
+          <h2 class="detail__section-title">📖 関連する読み物</h2>
+          <div class="related-articles__grid">
+            {relatedArticles.map((ra: any) => {
+              const raDate = ra.published_at.replace(/-/g, '.').slice(2);
+              return (
+                <a href={`${base}articles/${ra.id}/`} class="related-article-card">
+                  <div class="related-article-card__emoji" aria-hidden="true">{ra.thumbnail_emoji}</div>
+                  <div class="related-article-card__body">
+                    <span class="related-article-card__category">{ra.category}</span>
+                    <h3 class="related-article-card__title">{ra.title.replace(/\n/g, '')}</h3>
+                    <p class="related-article-card__lead">{ra.lead.slice(0, 60)}…</p>
+                    <time class="related-article-card__date" datetime={ra.published_at}>{raDate}</time>
+                  </div>
+                </a>
+              );
+            })}
           </div>
         </div>
       </section>

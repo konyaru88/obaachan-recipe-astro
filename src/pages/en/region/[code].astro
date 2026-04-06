@@ -7,6 +7,8 @@ import { getAllRecipes } from '../../../data/recipes';
 import regionsEnData from '../../../data/regions.en.json';
 import recipesEnData from '../../../data/recipes.en.json';
 import { t, localePath } from '../../../i18n/index';
+import articlesData from '../../../data/articles.json';
+import articlesEnData from '../../../data/articles.en.json';
 
 const enMap = new Map((recipesEnData as any[]).map((r: any) => [r.id, r]));
 
@@ -46,6 +48,18 @@ const breadcrumbLd = {
 };
 
 const otherRegions = regions.filter((r) => r.code !== code);
+
+// Related articles (Japanese region name is used as tag in articles.json)
+const AREA_TO_JA: Record<string, string> = {
+  hokkaido: '北海道', tohoku: '東北', kanto: '関東', hokuriku: '北陸',
+  koshinetsu: '甲信越', tokai: '東海', kinki: '近畿', chugoku: '中国',
+  shikoku: '四国', kyushu: '九州',
+};
+const regionNameJa = AREA_TO_JA[code!] ?? '';
+const enArticleMap = new Map((articlesEnData as any[]).map((a: any) => [a.id, a]));
+const regionArticles = regionNameJa
+  ? (articlesData as any[]).filter((a: any) => a.tags?.includes(regionNameJa)).slice(0, 3)
+  : [];
 const regionIcon: Record<string, string> = {
   hokkaido: '🐻', tohoku: '⛩', kanto: '🗼', hokuriku: '🦀',
   koshinetsu: '🗻', tokai: '🏯', kinki: '🏯', chugoku: '⛩',
@@ -95,6 +109,32 @@ const regionIcon: Record<string, string> = {
           </div>
         )
       }
+
+      <!-- Related articles -->
+      {regionArticles.length > 0 && (
+        <section class="related-articles" style="margin-top: var(--space-xl, 2rem)">
+          <h2 class="related-articles__title">📖 {regionInfo.name} Articles</h2>
+          <div class="related-articles__grid">
+            {regionArticles.map((ra: any) => {
+              const enA = enArticleMap.get(ra.id);
+              const raTitle = (enA?.title_en ?? ra.title).replace(/\n/g, '');
+              const raLead = enA?.lead_en ?? ra.lead;
+              const raDate = ra.published_at.replace(/-/g, '.').slice(2);
+              return (
+                <a href={localePath(lang, `${base}articles/${ra.id}/`)} class="related-article-card">
+                  <div class="related-article-card__emoji" aria-hidden="true">{ra.thumbnail_emoji}</div>
+                  <div class="related-article-card__body">
+                    <span class="related-article-card__category">{enA?.category_en ?? ra.category}</span>
+                    <h3 class="related-article-card__title">{raTitle}</h3>
+                    <p class="related-article-card__lead">{raLead.slice(0, 60)}…</p>
+                    <time class="related-article-card__date" datetime={ra.published_at}>{raDate}</time>
+                  </div>
+                </a>
+              );
+            })}
+          </div>
+        </section>
+      )}
 
       <nav class="region-nav" aria-label="Explore other regions">
         <h2 class="region-nav__title">{t(lang, 'regions.other')}</h2>

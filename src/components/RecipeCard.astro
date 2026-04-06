@@ -32,8 +32,8 @@ const altPlaceholder = lang === 'en' ? 'Coming soon' : '準備中';
   <a href={href} class="recipe-card__link" aria-label={ariaLabel} data-cta="recipe-view" data-recipe-name={recipe.title} data-recipe-id={recipe.id} data-region={prefecture}>
     <div class={`recipe-card__thumb${imageUrl ? '' : ' recipe-card__image-placeholder'}`}>
       {imageUrl
-        ? <img class="recipe-card__image" src={`${base}${imageUrl}`} alt={displayTitle} loading="lazy" />
-        : <img class="recipe-card__image recipe-card__image--placeholder" src={`${base}assets/images/sample-placeholder.png.jpg`} alt={altPlaceholder} loading="lazy" />
+        ? <img class="recipe-card__image" src={`${base}${imageUrl}`} alt={displayTitle} loading="lazy" width="400" height="300" />
+        : <img class="recipe-card__image recipe-card__image--placeholder" src={`${base}assets/images/sample-placeholder.png.jpg`} alt={altPlaceholder} loading="lazy" width="400" height="300" />
       }
       <div class="recipe-card__badges"></div>
       {prefecture && <span class="recipe-card__region-badge">{prefecture}</span>}

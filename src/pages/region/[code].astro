@@ -5,6 +5,7 @@ import Footer from '../../components/Footer.astro';
 import RecipeCard from '../../components/RecipeCard.astro';
 import { getAllRecipes } from '../../data/recipes';
 import regionsData from '../../data/regions.json';
+import articlesData from '../../data/articles.json';
 
 const regions = regionsData.areas;
 
@@ -41,6 +42,11 @@ const breadcrumbLd = {
 };
 
 const otherRegions = regions.filter((r) => r.code !== code);
+
+// 関連記事（この地域に関するタグを持つ記事）
+const regionArticles = (articlesData as any[])
+  .filter((a: any) => a.tags?.includes(regionInfo.name))
+  .slice(0, 3);
 
 const regionIcon: Record<string, string> = {
   hokkaido: '🐻', tohoku: '⛩', kanto: '🗼', hokuriku: '🦀',
@@ -90,6 +96,29 @@ const regionIcon: Record<string, string> = {
           </div>
         )
       }
+
+      <!-- 関連する読み物 -->
+      {regionArticles.length > 0 && (
+        <section class="related-articles" style="margin-top: var(--space-xl, 2rem)">
+          <h2 class="related-articles__title">📖 {regionInfo.name}の読み物</h2>
+          <div class="related-articles__grid">
+            {regionArticles.map((ra: any) => {
+              const raDate = ra.published_at.replace(/-/g, '.').slice(2);
+              return (
+                <a href={`${base}articles/${ra.id}/`} class="related-article-card">
+                  <div class="related-article-card__emoji" aria-hidden="true">{ra.thumbnail_emoji}</div>
+                  <div class="related-article-card__body">
+                    <span class="related-article-card__category">{ra.category}</span>
+                    <h3 class="related-article-card__title">{ra.title.replace(/\n/g, '')}</h3>
+                    <p class="related-article-card__lead">{ra.lead.slice(0, 60)}…</p>
+                    <time class="related-article-card__date" datetime={ra.published_at}>{raDate}</time>
+                  </div>
+                </a>
+              );
+            })}
+          </div>
+        </section>
+      )}
 
       <!-- 他の地方へのリンク -->
       <nav class="region-nav" aria-label="他の地方を見る">

@@ -62,6 +62,53 @@ const regionLabels: Record<string, string> = {
   title="おばあちゃんのレシピ | 全国のおばあちゃんの手料理が集まる文化メディア"
   description="もう一度たべたいのに、作り方がわからない味がある。全国のおばあちゃんの手料理が集まる文化メディア。"
 >
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://www.obaachan-recipe.com/#website",
+          "url": "https://www.obaachan-recipe.com/",
+          "name": "おばあちゃんのレシピ",
+          "description": "全国のおばあちゃんの手料理が集まる文化メディア",
+          "inLanguage": ["ja", "en"],
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": {
+              "@type": "EntryPoint",
+              "urlTemplate": "https://www.obaachan-recipe.com/search/?q={search_term_string}"
+            },
+            "query-input": "required name=search_term_string"
+          }
+        },
+        {
+          "@type": "Organization",
+          "@id": "https://www.obaachan-recipe.com/#organization",
+          "name": "おばあちゃんのレシピ",
+          "url": "https://www.obaachan-recipe.com/",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://www.obaachan-recipe.com/assets/images/grandma-icon.png"
+          },
+          "sameAs": [
+            "https://www.instagram.com/obaachan_recipe",
+            "https://www.threads.net/@obaachan_recipe",
+            "https://note.com/obaachan_recipe"
+          ]
+        },
+        {
+          "@type": "ItemList",
+          "name": "届いたばかりの味",
+          "itemListElement": latest.map((r, i) => ({
+            "@type": "ListItem",
+            "position": i + 1,
+            "url": `https://www.obaachan-recipe.com/recipes/${r.id}/`
+          }))
+        }
+      ]
+    })} />
+  </Fragment>
   <Header />
 
   <main id="main" class="home">

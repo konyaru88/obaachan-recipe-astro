@@ -26,10 +26,10 @@ const articles = [...articlesData].sort((a: any, b: any) =>
       <!-- カテゴリータブ -->
       <div class="article-tabs" role="tablist" aria-label="カテゴリー">
         <button class="article-tab article-tab--active" data-category="">すべて</button>
-        <a href={`${base}articles/life`} class="article-tab" data-category="life">暮らしのレシピ帖</a>
-        <a href={`${base}articles/teshigoto`} class="article-tab" data-category="teshigoto">季節の手仕事</a>
-        <a href={`${base}articles/story`} class="article-tab" data-category="story">おばあちゃんのストーリー</a>
-        <a href={`${base}articles/column`} class="article-tab" data-category="column">食文化コラム</a>
+        <a href={`${base}articles/life/`} class="article-tab" data-category="life">暮らしのレシピ帖</a>
+        <a href={`${base}articles/teshigoto/`} class="article-tab" data-category="teshigoto">季節の手仕事</a>
+        <a href={`${base}articles/story/`} class="article-tab" data-category="story">おばあちゃんのストーリー</a>
+        <a href={`${base}articles/column/`} class="article-tab" data-category="column">食文化コラム</a>
       </div>
 
       <!-- 記事一覧（全記事出力、JSで表示制御） -->
@@ -37,7 +37,7 @@ const articles = [...articlesData].sort((a: any, b: any) =>
         {articles.map((article: any) => {
           const date = article.published_at.replace(/-/g, '.').slice(2);
           return (
-            <a href={`${import.meta.env.BASE_URL}articles/${article.id}`} class="article-card" data-category-slug={article.category_slug}>
+            <a href={`${import.meta.env.BASE_URL}articles/${article.id}/`} class="article-card" data-category-slug={article.category_slug}>
               <div class="article-card__thumb" aria-hidden="true">{article.thumbnail_emoji}</div>
               <div class="article-card__body">
                 <div class="article-card__header-row">

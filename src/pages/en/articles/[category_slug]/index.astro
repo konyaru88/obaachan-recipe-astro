@@ -68,7 +68,7 @@ const pageTitle = `${meta.name} | Japanese Grandma Recipes`;
       <nav class="breadcrumb" aria-label="Breadcrumb">
         <ol class="breadcrumb__list">
           <li class="breadcrumb__item"><a href={localePath(lang, `${base}`)}>Home</a></li>
-          <li class="breadcrumb__item"><a href={localePath(lang, `${base}articles`)}>Articles</a></li>
+          <li class="breadcrumb__item"><a href={localePath(lang, `${base}articles/`)}>Articles</a></li>
           <li class="breadcrumb__item" aria-current="page">{meta.name}</li>
         </ol>
       </nav>
@@ -86,7 +86,7 @@ const pageTitle = `${meta.name} | Japanese Grandma Recipes`;
           const lead = en?.lead_en ?? article.lead;
           const catName = en?.category_en ?? meta.name;
           return (
-            <a href={localePath(lang, `${base}articles/${article.id}`)} class="article-card" data-category-slug={article.category_slug}>
+            <a href={localePath(lang, `${base}articles/${article.id}/`)} class="article-card" data-category-slug={article.category_slug}>
               <div class="article-card__thumb" aria-hidden="true">{article.thumbnail_emoji}</div>
               <div class="article-card__body">
                 <div class="article-card__header-row">
@@ -112,7 +112,7 @@ const pageTitle = `${meta.name} | Japanese Grandma Recipes`;
       )}
 
       <div class="back-link-wrap">
-        <a href={localePath(lang, `${base}articles`)} class="back-link">{t(lang, 'articles.back.short')}</a>
+        <a href={localePath(lang, `${base}articles/`)} class="back-link">{t(lang, 'articles.back.short')}</a>
       </div>
     </div>
   </main>

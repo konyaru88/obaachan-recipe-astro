@@ -62,7 +62,7 @@ const pageTitle = `${meta.name}の記事一覧｜おばあちゃんのレシピ`
       <nav class="breadcrumb" aria-label="パンくずリスト">
         <ol class="breadcrumb__list">
           <li class="breadcrumb__item"><a href={`${base}`}>ホーム</a></li>
-          <li class="breadcrumb__item"><a href={`${base}articles`}>読み物</a></li>
+          <li class="breadcrumb__item"><a href={`${base}articles/`}>読み物</a></li>
           <li class="breadcrumb__item" aria-current="page">{meta.name}</li>
         </ol>
       </nav>
@@ -77,7 +77,7 @@ const pageTitle = `${meta.name}の記事一覧｜おばあちゃんのレシピ`
         {articles.map((article: any) => {
           const date = article.published_at.replace(/-/g, '.').slice(2);
           return (
-            <a href={`${base}articles/${article.id}`} class="article-card" data-category-slug={article.category_slug}>
+            <a href={`${base}articles/${article.id}/`} class="article-card" data-category-slug={article.category_slug}>
               <div class="article-card__thumb" aria-hidden="true">{article.thumbnail_emoji}</div>
               <div class="article-card__body">
                 <div class="article-card__header-row">
@@ -103,7 +103,7 @@ const pageTitle = `${meta.name}の記事一覧｜おばあちゃんのレシピ`
       )}
 
       <div class="back-link-wrap">
-        <a href={`${base}articles`} class="back-link">&larr; 読み物一覧にもどる</a>
+        <a href={`${base}articles/`} class="back-link">&larr; 読み物一覧にもどる</a>
       </div>
     </div>
   </main>

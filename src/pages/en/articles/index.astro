@@ -37,10 +37,10 @@ const categoryNames: Record<string, string> = {
 
       <div class="article-tabs" role="tablist" aria-label="Categories">
         <button class="article-tab article-tab--active" data-category="">{t(lang, 'articles.all')}</button>
-        <a href={localePath(lang, `${base}articles/life`)} class="article-tab" data-category="life">{t(lang, 'articles.cat.life')}</a>
-        <a href={localePath(lang, `${base}articles/teshigoto`)} class="article-tab" data-category="teshigoto">{t(lang, 'articles.cat.teshigoto')}</a>
-        <a href={localePath(lang, `${base}articles/story`)} class="article-tab" data-category="story">{t(lang, 'articles.cat.story')}</a>
-        <a href={localePath(lang, `${base}articles/column`)} class="article-tab" data-category="column">{t(lang, 'articles.cat.column')}</a>
+        <a href={localePath(lang, `${base}articles/life/`)} class="article-tab" data-category="life">{t(lang, 'articles.cat.life')}</a>
+        <a href={localePath(lang, `${base}articles/teshigoto/`)} class="article-tab" data-category="teshigoto">{t(lang, 'articles.cat.teshigoto')}</a>
+        <a href={localePath(lang, `${base}articles/story/`)} class="article-tab" data-category="story">{t(lang, 'articles.cat.story')}</a>
+        <a href={localePath(lang, `${base}articles/column/`)} class="article-tab" data-category="column">{t(lang, 'articles.cat.column')}</a>
       </div>
 
       <div class="article-list" id="article-list">
@@ -51,7 +51,7 @@ const categoryNames: Record<string, string> = {
           const title = en?.title_en ?? article.title;
           const lead = en?.lead_en ?? article.lead;
           return (
-            <a href={localePath(lang, `${base}articles/${article.id}`)} class="article-card" data-category-slug={article.category_slug}>
+            <a href={localePath(lang, `${base}articles/${article.id}/`)} class="article-card" data-category-slug={article.category_slug}>
               <div class="article-card__thumb" aria-hidden="true">{article.thumbnail_emoji}</div>
               <div class="article-card__body">
                 <div class="article-card__header-row">

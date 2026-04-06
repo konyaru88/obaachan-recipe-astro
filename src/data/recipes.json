@@ -926,7 +926,7 @@
         "味の素はふたつまみぐらいかけるのがちょうどいいんよ。",
         "塩、コショウ、砂糖はパパっと二掛けくらい。目分量でええんよ。"
       ],
-      "cultural_background": "醤油やソースを使わない素朴な塩味の焼き飯は、家庭ごとに味が異なる「おばあちゃんの味」の代表格かもしれません。錦糸卵を別に作って最後に盛り付けるひと手間が、家族への愛情を感じさせる一品です。",
+      "cultural_background": "焼き飯と炒飯（チャーハン）は似ているようで調理法が異なるとも言われています。炒飯は中華料理由来で強火で油を多めに使い米粒を一気に炒めるのに対し、焼き飯はフライパンで具材とご飯をじっくり焼くように仕上げる日本の家庭料理とされています。味付けもソースや醤油が主流のなか、塩とコショウだけで仕上げる素朴なスタイルは、素材の味を活かす和歌山の食文化を反映しているのかもしれません。",
       "photos": {
         "main": "assets/images/recipes/yakimeshi-wakayama-001.jpg",
         "thumbnail": "assets/images/recipes/yakimeshi-wakayama-001.jpg"
@@ -1193,22 +1193,22 @@
             },
             {
               "name": "片栗粉",
-              "amount": 1,
-              "unit": "大さじ",
+              "amount": null,
+              "unit": "大さじ1",
               "note": "気持ち多めに",
               "grandma_amount": "大体大さじ1くらい（気持ち多めに）"
             },
             {
               "name": "砂糖",
-              "amount": 1,
-              "unit": "大さじ",
+              "amount": null,
+              "unit": "大さじ1",
               "note": null,
               "grandma_amount": "大体大さじ1くらい"
             },
             {
               "name": "生クリーム",
-              "amount": 1,
-              "unit": "大さじ",
+              "amount": null,
+              "unit": "大さじ1",
               "note": null,
               "grandma_amount": "大体大さじ1くらい"
             }
@@ -1457,7 +1457,7 @@
         "しっかりした味付けが好きなら塩・こしょうは5振り程度で、通常は3振り程度で十分よ。",
         "一人前程度を揚げるのならフライパンに豚肉が半分程度浸かる程度の油の量で問題ないよ。"
       ],
-      "cultural_background": "豚肉巻きフライは家庭ごとに中身のアレンジが異なる家庭料理の定番です。アスパラとチーズの組み合わせは比較的新しいスタイルかもしれませんが、おばあちゃんの世代でもオシャレな料理を取り入れて家族に振る舞う姿が印象的です。",
+      "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E5%B2%90%E9%98%9C%E7%9C%8C\" target=\"_blank\" rel=\"noopener\">岐阜県</a>は飛騨牛や朴葉味噌など伝統的な食文化で知られていますが、戦後の食の洋風化の流れのなかで、フライやカツなどの洋食を家庭料理に取り入れる家庭も増えていったようです。豚肉巻きフライは肉を薄くスライスして具材を包む調理法で、少量の肉でもボリュームを出せる工夫として昭和の家庭で広まったとも言われています。",
       "photos": {
         "main": "assets/images/recipes/aspara-cheese-fry-gifu-001.jpg",
         "thumbnail": "assets/images/recipes/aspara-cheese-fry-gifu-001.jpg"
@@ -1609,7 +1609,7 @@
       "grandma_notes": [
         "栗の甘露煮はシロップごと全部入れるのがポイントよ。だから砂糖は少なめでいいの。"
       ],
-      "cultural_background": "「とりくり」はおばあちゃんのオリジナルレシピで、鶏肉（とり）と栗（くり）を組み合わせた名前がそのまま料理名になっています。一般的な料理ではなく、このおばあちゃんの家庭だけに伝わる味のようです。",
+      "cultural_background": "「とりくり」はおばあちゃんのオリジナルレシピで、鶏肉（とり）と栗（くり）を組み合わせた名前がそのまま料理名になっています。一般的な料理ではなく、その家庭だけに伝わる味のようです。",
       "photos": {
         "main": "assets/images/recipes/torikuri-hokkaido-003.jpg",
         "thumbnail": "assets/images/recipes/torikuri-hokkaido-003.jpg"
@@ -2767,7 +2767,7 @@
         }
       ],
       "grandma_notes": null,
-      "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E3%82%BC%E3%83%B3%E3%83%9E%E3%82%A4\" target=\"_blank\" rel=\"noopener\">ゼンマイ</a>は春に山野で採れる山菜で、大分県をはじめ九州の山間部では春の味覚として親しまれてきたようです。下処理に手間がかかるため、家族総出で作業するのもまた思い出のひとつかもしれません。",
+      "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E3%82%BC%E3%83%B3%E3%83%9E%E3%82%A4\" target=\"_blank\" rel=\"noopener\">ゼンマイ</a>は日本各地の山野に自生するシダ植物の一種で、春に若芽を摘んで食用にします。採取後はアク抜きと天日干しの工程が必要で、この下処理に数日かかることから「手間のかかる山菜」として知られています。乾燥させると長期保存が可能になり、水で戻すと独特の歯ごたえが生まれるため、<a href=\"https://ja.wikipedia.org/wiki/%E5%A4%A7%E5%88%86%E7%9C%8C\" target=\"_blank\" rel=\"noopener\">大分県</a>をはじめ九州の山間部では冬場の貴重なタンパク源の代わりとしても重宝されてきたようです。",
       "photos": {
         "main": "assets/images/recipes/zenmai-nitsuke-oita-001.jpg",
         "thumbnail": "assets/images/recipes/zenmai-nitsuke-oita-001.jpg"
@@ -3783,7 +3783,7 @@
       "grandma_notes": [
         "醤油砂糖は砂糖をめちゃ入れてました。醤油と砂糖の比率は5:5か4:6位の体感です。"
       ],
-      "cultural_background": "磯辺焼きは日本全国で親しまれているお餅の食べ方ですが、甘い醤油だれで食べるスタイルは地域や家庭によってさまざまなようです。今では甘じょっぱいブームもありますが、昔からこの味を楽しんでいた家庭もあったかもしれません。",
+      "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E7%A3%AF%E8%BE%BA%E7%84%BC%E3%81%8D\" target=\"_blank\" rel=\"noopener\">磯辺焼き</a>は焼いた餅に醤油をつけて海苔で巻くシンプルな食べ方で、海苔の「磯の香り」からこの名前がついたとされています。醤油に砂糖を加えた甘辛いタレで食べるスタイルは<a href=\"https://ja.wikipedia.org/wiki/%E9%95%B7%E9%87%8E%E7%9C%8C\" target=\"_blank\" rel=\"noopener\">長野県</a>をはじめ信州地方の一部で見られる食べ方とも言われており、「甘じょっぱい」味付けは五平餅にも通じる中部地方の味覚の特徴かもしれません。",
       "photos": {
         "main": "assets/images/recipes/mochi-isobe-nagano-001.jpg",
         "thumbnail": "assets/images/recipes/mochi-isobe-nagano-001.jpg"
@@ -3840,7 +3840,7 @@
       "prep_time_minutes": 15,
       "cook_time_minutes": 25,
       "difficulty": 2,
-      "story": "<a href=\"https://ja.wikipedia.org/wiki/%E8%82%89%E3%81%98%E3%82%83%E3%81%8C\" target=\"_blank\" rel=\"noopener\">肉じゃが</a>は日本の家庭料理の代名詞ともいえる一皿です。<a href=\"https://ja.wikipedia.org/wiki/%E5%B3%B6%E6%A0%B9%E7%9C%8C\" target=\"_blank\" rel=\"noopener\">島根県</a>では牛肉を使うのが一般的とも言われています。このおばあちゃんの肉じゃがは、甘い調味料から先に入れて味を染み込ませ、一度冷ましてから温め直すのがポイント。計量スプーンを使わずとも毎回同じ味に仕上がる、まさに手が覚えた味かもしれません。",
+      "story": "<a href=\"https://ja.wikipedia.org/wiki/%E8%82%89%E3%81%98%E3%82%83%E3%81%8C\" target=\"_blank\" rel=\"noopener\">肉じゃが</a>は日本の家庭料理の代名詞ともいえる一皿です。<a href=\"https://ja.wikipedia.org/wiki/%E5%B3%B6%E6%A0%B9%E7%9C%8C\" target=\"_blank\" rel=\"noopener\">島根県</a>では牛肉を使うのが一般的とも言われています。甘い調味料から先に入れて味を染み込ませ、一度冷ましてから温め直すのがこのレシピのポイント。計量スプーンを使わずとも毎回同じ味に仕上がる、まさに手が覚えた味かもしれません。",
       "ingredients": [
         {
           "group": "主材料",
@@ -3859,7 +3859,7 @@
               "unit": "個",
               "note": null,
               "grandma_amount": "鍋に広がるくらい",
-              "approx_weight": "約400g"
+              "approx_weight": "400g"
             },
             {
               "name": "にんじん",
@@ -3867,7 +3867,7 @@
               "unit": "本",
               "note": null,
               "grandma_amount": "色が出るくらい入れる",
-              "approx_weight": "約150g"
+              "approx_weight": "150g"
             },
             {
               "name": "牛こま切れ肉",
@@ -4056,7 +4056,7 @@
               "unit": "枚",
               "note": "手でちぎる",
               "grandma_amount": "手でちぎった方が味しゅむから",
-              "approx_weight": "約120g"
+              "approx_weight": "120g"
             },
             {
               "name": "鮭（塩鮭）",
@@ -4072,7 +4072,7 @@
               "unit": "本",
               "note": "仕上げ用・刻む",
               "grandma_amount": "仕上げにパラッと",
-              "approx_weight": "約50g"
+              "approx_weight": "50g"
             }
           ]
         },
@@ -4206,7 +4206,7 @@
               "unit": "個",
               "note": "5〜6個",
               "grandma_amount": "ザルにいっぱい（5〜6個）",
-              "approx_weight": "約500g"
+              "approx_weight": "500g"
             },
             {
               "name": "ししとう",
@@ -4337,7 +4337,7 @@
       "prep_time_minutes": 10,
       "cook_time_minutes": 15,
       "difficulty": 2,
-      "story": "<a href=\"https://ja.wikipedia.org/wiki/%E3%82%B5%E3%83%90\" target=\"_blank\" rel=\"noopener\">鯖</a>の煮付けは日本各地で親しまれる家庭料理ですが、<a href=\"https://ja.wikipedia.org/wiki/%E5%85%B5%E5%BA%AB%E7%9C%8C\" target=\"_blank\" rel=\"noopener\">兵庫県</a>のこのおばあちゃんの煮付けは、<a href=\"https://ja.wikipedia.org/wiki/%E6%A2%85%E5%B9%B2%E3%81%97\" target=\"_blank\" rel=\"noopener\">梅干し</a>と生姜をたっぷり使い、<a href=\"https://ja.wikipedia.org/wiki/%E4%B8%AD%E5%8F%8C%E7%B3%96\" target=\"_blank\" rel=\"noopener\">中ザラ糖</a>のコクのある甘さで仕上げるのが特徴です。煮汁をスプーンで何度もかけながら、とろりと煮詰める丁寧な一品。",
+      "story": "<a href=\"https://ja.wikipedia.org/wiki/%E3%82%B5%E3%83%90\" target=\"_blank\" rel=\"noopener\">鯖</a>の煮付けは日本各地で親しまれる家庭料理ですが、<a href=\"https://ja.wikipedia.org/wiki/%E5%85%B5%E5%BA%AB%E7%9C%8C\" target=\"_blank\" rel=\"noopener\">兵庫県</a>のこの煮付けは、<a href=\"https://ja.wikipedia.org/wiki/%E6%A2%85%E5%B9%B2%E3%81%97\" target=\"_blank\" rel=\"noopener\">梅干し</a>と生姜をたっぷり使い、<a href=\"https://ja.wikipedia.org/wiki/%E4%B8%AD%E5%8F%8C%E7%B3%96\" target=\"_blank\" rel=\"noopener\">中ザラ糖</a>のコクのある甘さで仕上げるのが特徴です。煮汁をスプーンで何度もかけながら、とろりと煮詰める丁寧な一品。",
       "ingredients": [
         {
           "group": "主材料",
@@ -4348,7 +4348,7 @@
               "unit": "切れ",
               "note": null,
               "grandma_amount": "ええ身のところ2切れ",
-              "approx_weight": "約200g"
+              "approx_weight": "200g"
             },
             {
               "name": "生姜",
@@ -4481,7 +4481,7 @@
       "prep_time_minutes": 10,
       "cook_time_minutes": 15,
       "difficulty": 1,
-      "story": "<a href=\"https://ja.wikipedia.org/wiki/%E8%B1%9A%E6%B1%81\" target=\"_blank\" rel=\"noopener\">豚汁</a>は日本各地で親しまれる定番の家庭料理ですが、<a href=\"https://ja.wikipedia.org/wiki/%E7%A6%8F%E5%B3%B6%E7%9C%8C\" target=\"_blank\" rel=\"noopener\">福島県</a>のこのおばあちゃんの豚汁は、<a href=\"https://ja.wikipedia.org/wiki/%E3%83%88%E3%83%9E%E3%83%88\" target=\"_blank\" rel=\"noopener\">トマト</a>をたっぷり加えるのが特徴です。味噌の風味にトマトの酸味が重なり、仕上げに<a href=\"https://ja.wikipedia.org/wiki/%E3%81%BF%E3%82%8A%E3%82%93\" target=\"_blank\" rel=\"noopener\">みりん</a>のコクで全体をまとめる、おばあちゃんならではの一杯かもしれません。",
+      "story": "<a href=\"https://ja.wikipedia.org/wiki/%E8%B1%9A%E6%B1%81\" target=\"_blank\" rel=\"noopener\">豚汁</a>は日本各地で親しまれる定番の家庭料理ですが、<a href=\"https://ja.wikipedia.org/wiki/%E7%A6%8F%E5%B3%B6%E7%9C%8C\" target=\"_blank\" rel=\"noopener\">福島県</a>のこの豚汁は、<a href=\"https://ja.wikipedia.org/wiki/%E3%83%88%E3%83%9E%E3%83%88\" target=\"_blank\" rel=\"noopener\">トマト</a>をたっぷり加えるのが特徴です。味噌の風味にトマトの酸味が重なり、仕上げに<a href=\"https://ja.wikipedia.org/wiki/%E3%81%BF%E3%82%8A%E3%82%93\" target=\"_blank\" rel=\"noopener\">みりん</a>のコクで全体をまとめる、おばあちゃんならではの一杯かもしれません。",
       "ingredients": [
         {
           "group": "主材料",
@@ -4520,8 +4520,8 @@
             },
             {
               "name": "みりん",
-              "amount": 5,
-              "unit": "大さじ",
+              "amount": null,
+              "unit": "大さじ5",
               "note": null,
               "grandma_amount": "おたま大体ひとすくい"
             }
@@ -4566,7 +4566,7 @@
         }
       ],
       "grandma_notes": null,
-      "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E8%B1%9A%E6%B1%81\" target=\"_blank\" rel=\"noopener\">豚汁</a>は日本各地で親しまれる定番の家庭料理ですが、<a href=\"https://ja.wikipedia.org/wiki/%E7%A6%8F%E5%B3%B6%E7%9C%8C\" target=\"_blank\" rel=\"noopener\">福島県</a>のこのおばあちゃんの豚汁は、<a href=\"https://ja.wikipedia.org/wiki/%E3%83%88%E3%83%9E%E3%83%88\" target=\"_blank\" rel=\"noopener\">トマト</a>をたっぷり加えるのが特徴です。味噌の風味にトマトの酸味が重なり、仕上げに<a href=\"https://ja.wikipedia.org/wiki/%E3%81%BF%E3%82%8A%E3%82%93\" target=\"_blank\" rel=\"noopener\">みりん</a>のコクで全体をまとめる、おばあちゃんならではの一杯かもしれません。",
+      "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E8%B1%9A%E6%B1%81\" target=\"_blank\" rel=\"noopener\">豚汁</a>は具だくさんの味噌汁にルーツを持つとされ、地域によって「とんじる」「ぶたじる」と読み方が分かれるとも言われています。<a href=\"https://ja.wikipedia.org/wiki/%E7%A6%8F%E5%B3%B6%E7%9C%8C\" target=\"_blank\" rel=\"noopener\">福島県</a>は夏秋トマトの生産量が全国でも上位で、トマトを味噌汁に加えるアレンジは近年注目されていますが、農家の家庭では昔から行われていた可能性もあるようです。トマトに含まれるグルタミン酸は出汁の旨みと相性が良いとされています。",
       "photos": {
         "main": "assets/images/recipes/tomato-tonjiru-fukushima-001.jpg",
         "thumbnail": "assets/images/recipes/tomato-tonjiru-fukushima-001.jpg"
@@ -4657,15 +4657,15 @@
             },
             {
               "name": "砂糖",
-              "amount": 2,
-              "unit": "大さじ",
+              "amount": null,
+              "unit": "大さじ2",
               "note": "約18g",
               "grandma_amount": "大さじに山盛り気味で2杯くらい"
             },
             {
               "name": "醤油",
-              "amount": 0.5,
-              "unit": "小さじ",
+              "amount": null,
+              "unit": "小さじ0.5",
               "note": "約3ml",
               "grandma_amount": "ほんの少しだけ垂らす"
             }
@@ -4705,7 +4705,7 @@
         }
       ],
       "grandma_notes": null,
-      "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E3%82%B5%E3%83%84%E3%83%9E%E3%82%A4%E3%83%A2\" target=\"_blank\" rel=\"noopener\">さつまいも</a>と<a href=\"https://ja.wikipedia.org/wiki/%E3%83%AA%E3%83%B3%E3%82%B4\" target=\"_blank\" rel=\"noopener\">りんご</a>を一緒にコトコト煮る素朴な一品。<a href=\"https://ja.wikipedia.org/wiki/%E4%B8%89%E9%87%8D%E7%9C%8C\" target=\"_blank\" rel=\"noopener\">三重県</a>のおばあちゃんが秋から冬にかけてよく作ってくれた副菜兼おやつで、仕上げにほんの少しだけ垂らす<a href=\"https://ja.wikipedia.org/wiki/%E9%86%A4%E6%B2%B9\" target=\"_blank\" rel=\"noopener\">醤油</a>が、甘さにほんのりコクを添えてくれます。",
+      "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E3%82%B5%E3%83%84%E3%83%9E%E3%82%A4%E3%83%A2\" target=\"_blank\" rel=\"noopener\">さつまいも</a>は江戸時代に<a href=\"https://ja.wikipedia.org/wiki/%E9%9D%92%E6%9C%A8%E6%98%86%E9%99%BD\" target=\"_blank\" rel=\"noopener\">青木昆陽</a>によって飢饉対策として普及が進められたとされ、保存性が高く栄養価も豊富な作物です。りんごと一緒に煮る調理法は、りんごに含まれるクエン酸がさつまいもの甘みを引き立てるとされており、砂糖を控えめにしても自然な甘さが楽しめる昔ながらの知恵といえるかもしれません。",
       "photos": {
         "main": "assets/images/recipes/satsumaimo-ringo-amani-mie-001.jpg",
         "thumbnail": "assets/images/recipes/satsumaimo-ringo-amani-mie-001.jpg"
@@ -4761,7 +4761,7 @@
       "prep_time_minutes": 15,
       "cook_time_minutes": 10,
       "difficulty": 1,
-      "story": "<a href=\"https://ja.wikipedia.org/wiki/%E3%81%8D%E3%82%93%E3%81%B4%E3%82%89\" target=\"_blank\" rel=\"noopener\">きんぴらごぼう</a>は日本全国で親しまれている定番の副菜です。<a href=\"https://ja.wikipedia.org/wiki/%E5%AE%AE%E5%9F%8E%E7%9C%8C\" target=\"_blank\" rel=\"noopener\">宮城県</a>のこのおばあちゃんのきんぴらは、<a href=\"https://ja.wikipedia.org/wiki/%E3%82%B4%E3%83%9C%E3%82%A6\" target=\"_blank\" rel=\"noopener\">ごぼう</a>を「フライパンにいっぱい」入れるのが特徴で、少し甘めの仕上がりだったそうです。",
+      "story": "<a href=\"https://ja.wikipedia.org/wiki/%E3%81%8D%E3%82%93%E3%81%B4%E3%82%89\" target=\"_blank\" rel=\"noopener\">きんぴらごぼう</a>は日本全国で親しまれている定番の副菜です。<a href=\"https://ja.wikipedia.org/wiki/%E5%AE%AE%E5%9F%8E%E7%9C%8C\" target=\"_blank\" rel=\"noopener\">宮城県</a>のこのきんぴらは、<a href=\"https://ja.wikipedia.org/wiki/%E3%82%B4%E3%83%9C%E3%82%A6\" target=\"_blank\" rel=\"noopener\">ごぼう</a>を「フライパンにいっぱい」入れるのが特徴で、少し甘めの仕上がりだったそうです。",
       "ingredients": [
         {
           "group": "主材料",
@@ -4789,21 +4789,21 @@
           "items": [
             {
               "name": "ごま油",
-              "amount": 1,
-              "unit": "大さじ",
+              "amount": null,
+              "unit": "大さじ1",
               "note": null
             },
             {
               "name": "みりん",
-              "amount": 2,
-              "unit": "大さじ",
+              "amount": null,
+              "unit": "大さじ2",
               "note": null,
               "grandma_amount": "フライパンに2回しくらい"
             },
             {
               "name": "しょうゆ",
-              "amount": 2,
-              "unit": "大さじ",
+              "amount": null,
+              "unit": "大さじ2",
               "note": null,
               "grandma_amount": "フライパンに2回しくらい"
             }
@@ -4843,7 +4843,7 @@
         }
       ],
       "grandma_notes": null,
-      "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E3%81%8D%E3%82%93%E3%81%B4%E3%82%89\" target=\"_blank\" rel=\"noopener\">きんぴらごぼう</a>は日本全国で親しまれている定番の副菜です。<a href=\"https://ja.wikipedia.org/wiki/%E5%AE%AE%E5%9F%8E%E7%9C%8C\" target=\"_blank\" rel=\"noopener\">宮城県</a>のこのおばあちゃんのきんぴらは、<a href=\"https://ja.wikipedia.org/wiki/%E3%82%B4%E3%83%9C%E3%82%A6\" target=\"_blank\" rel=\"noopener\">ごぼう</a>を「フライパンにいっぱい」入れるのが特徴で、少し甘めの仕上がりだったそうです。",
+      "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E3%81%8D%E3%82%93%E3%81%B4%E3%82%89\" target=\"_blank\" rel=\"noopener\">きんぴらごぼう</a>は江戸時代から続く日本の定番副菜で、その名前は怪力で知られる「<a href=\"https://ja.wikipedia.org/wiki/%E5%9D%82%E7%94%B0%E9%87%91%E5%B9%B3\" target=\"_blank\" rel=\"noopener\">坂田金平</a>」に由来するとも言われています。ごぼうは食物繊維が非常に豊富で、日本以外ではほとんど食用にされない珍しい根菜とされています。地域や家庭によって甘め・辛めなど味付けのバリエーションがあり、常備菜として冷蔵庫に入っている家庭も多い一品です。",
       "photos": {
         "main": "assets/images/recipes/kinpira-gobo-miyagi-001.jpg",
         "thumbnail": "assets/images/recipes/kinpira-gobo-miyagi-001.jpg"
@@ -5007,7 +5007,7 @@
         }
       ],
       "grandma_notes": null,
-      "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E5%92%8C%E6%AD%8C%E5%B1%B1%E7%9C%8C\" target=\"_blank\" rel=\"noopener\">和歌山県</a>のおばあちゃんが夏休みのお昼ごはんとして作ってくれた豪快な一品。<a href=\"https://ja.wikipedia.org/wiki/%E3%83%9B%E3%83%AB%E3%83%A2%E3%83%B3\" target=\"_blank\" rel=\"noopener\">ホルモン</a>の旨みとソースの香ばしさを<a href=\"https://ja.wikipedia.org/wiki/%E7%84%BC%E3%81%8D%E3%81%9D%E3%81%B0\" target=\"_blank\" rel=\"noopener\">焼きそば</a>に閉じ込め、玉子でふんわり包んでかつおぶしをかけて仕上げます。大食漢だった孫のために焼きそば3袋で作るのがおばあちゃん流だったそうです。",
+      "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E3%83%9B%E3%83%AB%E3%83%A2%E3%83%B3%E7%84%BC%E3%81%8D\" target=\"_blank\" rel=\"noopener\">ホルモン</a>は「放るもん（捨てるもの）」が語源ともされる内臓肉の総称で、戦後の食糧難の時代に広まったとも言われています。<a href=\"https://ja.wikipedia.org/wiki/%E5%92%8C%E6%AD%8C%E5%B1%B1%E7%9C%8C\" target=\"_blank\" rel=\"noopener\">和歌山県</a>や大阪府など関西圏ではホルモン食文化が根付いており、焼きそばやうどんに入れて食べるスタイルは関西の鉄板料理の定番のひとつとも言えます。",
       "photos": {
         "main": "assets/images/recipes/horumon-omusoba-wakayama-001.jpg",
         "thumbnail": "assets/images/recipes/horumon-omusoba-wakayama-001.jpg"
@@ -5082,7 +5082,7 @@
               "unit": "本",
               "note": null,
               "grandma_amount": "彩りにちょっとだけ",
-              "approx_weight": "約100g"
+              "approx_weight": "100g"
             }
           ]
         },
@@ -5098,8 +5098,8 @@
             },
             {
               "name": "砂糖",
-              "amount": 4,
-              "unit": "大さじ",
+              "amount": null,
+              "unit": "大さじ4",
               "note": null,
               "grandma_amount": "甘い方がうまいからたっぷり"
             },
@@ -5141,7 +5141,7 @@
         }
       ],
       "grandma_notes": null,
-      "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E9%B9%BF%E5%85%90%E5%B3%B6%E7%9C%8C\" target=\"_blank\" rel=\"noopener\">鹿児島県</a>では<a href=\"https://ja.wikipedia.org/wiki/%E3%82%B5%E3%83%84%E3%83%9E%E3%82%A4%E3%83%A2\" target=\"_blank\" rel=\"noopener\">さつまいも</a>のかき揚げを「<a href=\"https://ja.wikipedia.org/wiki/%E3%81%8C%E3%81%AD_(%E6%96%99%E7%90%86)\" target=\"_blank\" rel=\"noopener\">がね</a>」と呼ぶことがあるそうです。砂糖を衣にたっぷり加えるのがおばあちゃん流で、外はカリカリ・中はもっちりした食感が特徴。おやつにもおかずにもなる不思議な一品です。",
+      "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E9%B9%BF%E5%85%90%E5%B3%B6%E7%9C%8C\" target=\"_blank\" rel=\"noopener\">鹿児島県</a>はさつまいも生産量全国1位の産地で、「薩摩（さつま）」の名がそのまま芋の名前になったことでも知られています。鹿児島ではさつまいものかき揚げを「<a href=\"https://ja.wikipedia.org/wiki/%E3%81%8C%E3%81%AD_(%E9%A3%9F%E5%93%81)\" target=\"_blank\" rel=\"noopener\">がね</a>」と呼ぶことがあり、これは揚げた形がカニ（蟹＝がね）の足に似ているからとも言われています。衣に砂糖を加えるのは鹿児島独特の甘い味付けの特徴で、おやつにもおかずにもなる存在です。",
       "photos": {
         "main": "assets/images/recipes/satsumaimo-kakiage-kagoshima-001.jpg",
         "thumbnail": "assets/images/recipes/satsumaimo-kakiage-kagoshima-001.jpg"
@@ -5260,15 +5260,15 @@
             },
             {
               "name": "砂糖",
-              "amount": 6,
-              "unit": "大さじ",
+              "amount": null,
+              "unit": "大さじ6",
               "note": null,
               "grandma_amount": "適当に"
             },
             {
               "name": "塩",
-              "amount": 2,
-              "unit": "小さじ",
+              "amount": null,
+              "unit": "小さじ2",
               "note": null,
               "grandma_amount": "鍋にいっぱい入れてたよ"
             }
@@ -5298,7 +5298,7 @@
         }
       ],
       "grandma_notes": null,
-      "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E4%B8%89%E9%87%8D%E7%9C%8C\" target=\"_blank\" rel=\"noopener\">三重県</a>のおばあちゃんがお正月に親戚一同をもてなすために作っていた<a href=\"https://ja.wikipedia.org/wiki/%E3%82%A6%E3%83%AB%E3%83%A1%E3%82%A4%E3%83%AF%E3%82%B7\" target=\"_blank\" rel=\"noopener\">ウルメイワシ</a>のお寿司。塩と<a href=\"https://ja.wikipedia.org/wiki/%E9%85%A2\" target=\"_blank\" rel=\"noopener\">酢</a>で締めたウルメは身がきゅっと引き締まり、少し甘めの酢飯との相性も抜群です。料理好きでおもてなし上手だったおばあちゃんならではの一品かもしれません。",
+      "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E3%82%A6%E3%83%AB%E3%83%A1%E3%82%A4%E3%83%AF%E3%82%B7\" target=\"_blank\" rel=\"noopener\">ウルメイワシ</a>は目が潤んで見えることから「潤目」の名がついたとされ、<a href=\"https://ja.wikipedia.org/wiki/%E4%B8%89%E9%87%8D%E7%9C%8C\" target=\"_blank\" rel=\"noopener\">三重県</a>をはじめ太平洋沿岸で水揚げされる青魚です。鮮度が落ちやすいため、塩と酢で締めて保存性を高める調理法は沿岸部の漁師町で古くから行われてきたとも言われています。お正月の祝い膳に魚の寿司を並べるのは、海の恵みへの感謝が込められた風習かもしれません。",
       "photos": {
         "main": "assets/images/recipes/urume-sushi-mie-001.jpg",
         "thumbnail": "assets/images/recipes/urume-sushi-mie-001.jpg"
@@ -5353,7 +5353,7 @@
       "prep_time_minutes": 30,
       "cook_time_minutes": 20,
       "difficulty": 3,
-      "story": "<a href=\"https://ja.wikipedia.org/wiki/%E5%AE%AE%E5%B4%8E%E7%9C%8C\" target=\"_blank\" rel=\"noopener\">宮崎県</a>の郷土料理として知られる<a href=\"https://ja.wikipedia.org/wiki/%E5%86%B7%E3%82%84%E6%B1%81\" target=\"_blank\" rel=\"noopener\">冷や汁</a>。このおばあちゃんの冷や汁は、<a href=\"https://ja.wikipedia.org/wiki/%E3%82%A2%E3%82%B8_(%E9%AD%9A)\" target=\"_blank\" rel=\"noopener\">アジ</a>の干物と<a href=\"https://ja.wikipedia.org/wiki/%E9%BA%A6%E5%91%B3%E5%99%8C\" target=\"_blank\" rel=\"noopener\">麦味噌</a>をすり鉢でしっかり擂り、直火で炙って香ばしさを出すのが特徴。食べる直前にもう一丁の<a href=\"https://ja.wikipedia.org/wiki/%E8%B1%86%E8%85%90\" target=\"_blank\" rel=\"noopener\">豆腐</a>を追加する「追い豆腐」でボリュームを増すのがおばあちゃん流です。",
+      "story": "<a href=\"https://ja.wikipedia.org/wiki/%E5%AE%AE%E5%B4%8E%E7%9C%8C\" target=\"_blank\" rel=\"noopener\">宮崎県</a>の郷土料理として知られる<a href=\"https://ja.wikipedia.org/wiki/%E5%86%B7%E3%82%84%E6%B1%81\" target=\"_blank\" rel=\"noopener\">冷や汁</a>。この冷や汁は、<a href=\"https://ja.wikipedia.org/wiki/%E3%82%A2%E3%82%B8_(%E9%AD%9A)\" target=\"_blank\" rel=\"noopener\">アジ</a>の干物と<a href=\"https://ja.wikipedia.org/wiki/%E9%BA%A6%E5%91%B3%E5%99%8C\" target=\"_blank\" rel=\"noopener\">麦味噌</a>をすり鉢でしっかり擂り、直火で炙って香ばしさを出すのが特徴。食べる直前にもう一丁の<a href=\"https://ja.wikipedia.org/wiki/%E8%B1%86%E8%85%90\" target=\"_blank\" rel=\"noopener\">豆腐</a>を追加する「追い豆腐」でボリュームを増すのがおばあちゃん流です。",
       "ingredients": [
         {
           "group": "主材料",
@@ -5374,8 +5374,8 @@
             },
             {
               "name": "いりごま",
-              "amount": 7,
-              "unit": "大さじ",
+              "amount": null,
+              "unit": "大さじ7",
               "note": null,
               "grandma_amount": "すり鉢の底が見えなくなるまで、これでもかってくらい"
             },
@@ -5462,7 +5462,7 @@
         }
       ],
       "grandma_notes": null,
-      "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E5%AE%AE%E5%B4%8E%E7%9C%8C\" target=\"_blank\" rel=\"noopener\">宮崎県</a>の郷土料理として知られる<a href=\"https://ja.wikipedia.org/wiki/%E5%86%B7%E3%82%84%E6%B1%81\" target=\"_blank\" rel=\"noopener\">冷や汁</a>。このおばあちゃんの冷や汁は、<a href=\"https://ja.wikipedia.org/wiki/%E3%82%A2%E3%82%B8_(%E9%AD%9A)\" target=\"_blank\" rel=\"noopener\">アジ</a>の干物と<a href=\"https://ja.wikipedia.org/wiki/%E9%BA%A6%E5%91%B3%E5%99%8C\" target=\"_blank\" rel=\"noopener\">麦味噌</a>をすり鉢でしっかり擂り、直火で炙って香ばしさを出すのが特徴。食べる直前にもう一丁の<a href=\"https://ja.wikipedia.org/wiki/%E8%B1%86%E8%85%90\" target=\"_blank\" rel=\"noopener\">豆腐</a>を追加する「追い豆腐」でボリュームを増すのがおばあちゃん流です。",
+      "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E5%86%B7%E3%82%84%E6%B1%81\" target=\"_blank\" rel=\"noopener\">冷や汁</a>は<a href=\"https://ja.wikipedia.org/wiki/%E5%AE%AE%E5%B4%8E%E7%9C%8C\" target=\"_blank\" rel=\"noopener\">宮崎県</a>を代表する郷土料理で、鎌倉時代の「芳飯」がルーツともされています。味噌をすり鉢で擂ってから直火で炙る「焼き味噌」の工程が香ばしさの秘訣とされ、冷たい出汁を注いで麦飯にかけて食べるのが伝統的なスタイルです。農作業の合間に手早く栄養を摂れる「農家めし」として、宮崎の夏に欠かせない一品とも言われています。",
       "photos": {
         "main": "assets/images/recipes/oidofu-hiyajiru-miyazaki-001.jpg",
         "thumbnail": "assets/images/recipes/oidofu-hiyajiru-miyazaki-001.jpg"
@@ -5528,7 +5528,7 @@
               "amount": 6,
               "unit": "個",
               "note": null,
-              "approx_weight": "約100g（6個）"
+              "approx_weight": "100g"
             },
             {
               "name": "干し椎茸",
@@ -5541,7 +5541,7 @@
               "amount": "1/3",
               "unit": "本",
               "note": "いちょう切り薄切り",
-              "approx_weight": "約50〜60g"
+              "approx_weight": "50〜60g"
             },
             {
               "name": "スナップえんどう",
@@ -5563,20 +5563,20 @@
             },
             {
               "name": "みりん",
-              "amount": 3,
-              "unit": "大さじ",
+              "amount": null,
+              "unit": "大さじ3",
               "note": null
             },
             {
               "name": "酒",
-              "amount": 2,
-              "unit": "大さじ",
+              "amount": null,
+              "unit": "大さじ2",
               "note": null
             },
             {
               "name": "砂糖",
-              "amount": 2,
-              "unit": "大さじ",
+              "amount": null,
+              "unit": "大さじ2",
               "note": null
             },
             {
@@ -5588,8 +5588,8 @@
             },
             {
               "name": "醤油",
-              "amount": 2,
-              "unit": "大さじ",
+              "amount": null,
+              "unit": "大さじ2",
               "note": null
             }
           ]
@@ -5682,7 +5682,7 @@
               "unit": "束",
               "note": null,
               "grandma_amount": "収穫した分",
-              "approx_weight": "約300〜400g"
+              "approx_weight": "300〜400g"
             },
             {
               "name": "鶏もも肉",
@@ -5696,7 +5696,7 @@
               "unit": "枚",
               "note": "短冊切り",
               "grandma_amount": "1枚",
-              "approx_weight": "約30g"
+              "approx_weight": "30g"
             }
           ]
         },
@@ -5712,22 +5712,22 @@
             },
             {
               "name": "酒",
-              "amount": 3,
-              "unit": "大さじ",
+              "amount": null,
+              "unit": "大さじ3",
               "note": null,
               "grandma_amount": "適量"
             },
             {
               "name": "みりん",
-              "amount": 3,
-              "unit": "大さじ",
+              "amount": null,
+              "unit": "大さじ3",
               "note": null,
               "grandma_amount": "適量"
             },
             {
               "name": "醤油",
-              "amount": 3,
-              "unit": "大さじ",
+              "amount": null,
+              "unit": "大さじ3",
               "note": null,
               "grandma_amount": "適量"
             }
@@ -5767,7 +5767,7 @@
         }
       ],
       "grandma_notes": [],
-      "cultural_background": "宮城県では春になるとフキやタケノコ、タラの芽など山菜が自生し、それを使った煮物は春の訪れを告げる家庭の味。",
+      "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E3%83%95%E3%82%AD\" target=\"_blank\" rel=\"noopener\">フキ</a>は数少ない日本原産の野菜のひとつで、北海道から九州まで広く自生しています。<a href=\"https://ja.wikipedia.org/wiki/%E5%AE%AE%E5%9F%8E%E7%9C%8C\" target=\"_blank\" rel=\"noopener\">宮城県</a>をはじめ東北地方では春になるとフキやタケノコ、タラの芽など山菜が一斉に芽吹き、それらを使った煮物や天ぷらは春の訪れを告げる食卓の風物詩とされています。フキは茎の部分を食べるのが一般的ですが、葉の部分を佃煮にする地域もあるようです。",
       "photos": {
         "main": "assets/images/recipes/fuki-nimono-miyagi-001.jpg",
         "thumbnail": "assets/images/recipes/fuki-nimono-miyagi-001.jpg"
@@ -5832,14 +5832,14 @@
               "unit": "本",
               "note": "厚めの輪切り、隠し包丁を入れて下茹で",
               "grandma_amount": "大きいのを半分くらい",
-              "approx_weight": "約400〜500g"
+              "approx_weight": "400〜500g"
             },
             {
               "name": "こんにゃく",
               "amount": 2,
               "unit": "枚",
               "note": "三角に切って下茹でしてアク抜き",
-              "approx_weight": "約500g（2枚）"
+              "approx_weight": "500g"
             },
             {
               "name": "豚モツ（または豚バラブロック）",
@@ -5862,15 +5862,15 @@
             },
             {
               "name": "砂糖",
-              "amount": "5〜6",
-              "unit": "大さじ",
+              "amount": null,
+              "unit": "大さじ5〜6",
               "note": null,
               "grandma_amount": "お味噌と同じくらいドッサリ"
             },
             {
               "name": "みりん",
-              "amount": 1,
-              "unit": "大さじ",
+              "amount": null,
+              "unit": "大さじ1",
               "note": null,
               "grandma_amount": "ツヤ出しにちょっと"
             },
@@ -5912,7 +5912,7 @@
         }
       ],
       "grandma_notes": [],
-      "cultural_background": "愛知県では八丁味噌を使った味噌おでんが冬の定番。ストーブの上でコトコト煮込み、数日かけて食べ進めるのが家庭の風物詩。",
+      "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E5%85%AB%E4%B8%81%E5%91%B3%E5%99%8C\" target=\"_blank\" rel=\"noopener\">八丁味噌</a>は<a href=\"https://ja.wikipedia.org/wiki/%E5%B2%A1%E5%B4%8E%E5%B8%82\" target=\"_blank\" rel=\"noopener\">岡崎市</a>（旧八帖町）発祥の豆味噌で、大豆と塩のみで2年以上熟成させるため色が濃く独特のコクがあるとされています。愛知県の味噌おでんはこの八丁味噌をベースに砂糖を加えた甘辛いタレで煮込むのが特徴で、煮込むほどに具材に味が染み込むため、数日かけて食べ進めるのが愛知の家庭の冬の風物詩ともいわれています。",
       "photos": {
         "main": "assets/images/recipes/daikon-konnyaku-miso-oden-aichi-001.jpg",
         "thumbnail": "assets/images/recipes/daikon-konnyaku-miso-oden-aichi-001.jpg"
@@ -5999,22 +5999,22 @@
             },
             {
               "name": "醤油",
-              "amount": 2,
-              "unit": "大さじ",
+              "amount": null,
+              "unit": "大さじ2",
               "note": null,
               "grandma_amount": "よかあんばいに"
             },
             {
               "name": "みりん",
-              "amount": 1,
-              "unit": "大さじ",
+              "amount": null,
+              "unit": "大さじ1",
               "note": null,
               "grandma_amount": "よかあんばいに"
             },
             {
               "name": "砂糖",
-              "amount": 1,
-              "unit": "大さじ",
+              "amount": null,
+              "unit": "大さじ1",
               "note": null,
               "grandma_amount": "よかあんばいに"
             }
@@ -6044,7 +6044,7 @@
         }
       ],
       "grandma_notes": [],
-      "cultural_background": "熊本の家庭料理。シンプルな材料で作る素朴な一品で、偏食の子どもにも食べやすい優しい味わい。",
+      "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E5%A4%A7%E6%A0%B9\" target=\"_blank\" rel=\"noopener\">大根</a>は古くから日本の食卓に欠かせない野菜で、「大根十二態」という言葉があるほど煮る・焼く・漬けるなど多彩な調理法があるとされています。<a href=\"https://ja.wikipedia.org/wiki/%E7%86%8A%E6%9C%AC%E7%9C%8C\" target=\"_blank\" rel=\"noopener\">熊本県</a>をはじめ九州では甘口醤油を使う家庭が多いとも言われており、卵とじにすると出汁の旨みと卵のまろやかさが大根に絡み、素朴ながらも滋味深い味わいになるようです。",
       "photos": {
         "main": "assets/images/recipes/daikon-tamago-toji-kumamoto-001.jpg",
         "thumbnail": "assets/images/recipes/daikon-tamago-toji-kumamoto-001.jpg"
@@ -6111,7 +6111,7 @@
               "amount": 2,
               "unit": "本（大）",
               "note": "皮をむいてできるだけ細い千切り",
-              "approx_weight": "約300〜360g"
+              "approx_weight": "300〜360g"
             },
             {
               "name": "レーズン",
@@ -6132,8 +6132,8 @@
           "items": [
             {
               "name": "塩",
-              "amount": 1,
-              "unit": "小さじ",
+              "amount": null,
+              "unit": "小さじ1",
               "note": "人参にまぶして30分おく"
             },
             {
@@ -6145,15 +6145,15 @@
             },
             {
               "name": "ミカンの缶詰の汁",
-              "amount": 2,
-              "unit": "大さじ",
+              "amount": null,
+              "unit": "大さじ2",
               "note": null,
               "grandma_amount": "適当"
             },
             {
               "name": "寿司酢",
-              "amount": 2,
-              "unit": "大さじ",
+              "amount": null,
+              "unit": "大さじ2",
               "note": null
             }
           ]
@@ -6182,7 +6182,7 @@
         }
       ],
       "grandma_notes": [],
-      "cultural_background": "人参嫌いの子どもでも食べられるようにと、ミカンやレーズンの甘みを活かした工夫が光るサラダ。親戚が集まる場で重宝された一品。",
+      "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E3%83%8B%E3%83%B3%E3%82%B8%E3%83%B3\" target=\"_blank\" rel=\"noopener\">人参</a>は緑黄色野菜の代表格で、β-カロテンの含有量は野菜のなかでもトップクラスとされています。生のまま食べるとシャキシャキした食感になりますが、独特の青臭さから子どもに嫌われやすい野菜のひとつでもあります。ミカンやレーズンなど果物の甘みと合わせるとその臭みが和らぐとされており、サラダやラペ（フランスの家庭料理）として世界各地で親しまれてきたようです。",
       "photos": {
         "main": "assets/images/recipes/ninjin-salad-tokyo-001.jpg",
         "thumbnail": "assets/images/recipes/ninjin-salad-tokyo-001.jpg"
@@ -6250,20 +6250,20 @@
             },
             {
               "name": "お酢",
-              "amount": 3,
-              "unit": "大さじ",
+              "amount": null,
+              "unit": "大さじ3",
               "note": null
             },
             {
               "name": "砂糖",
-              "amount": 2,
-              "unit": "大さじ",
+              "amount": null,
+              "unit": "大さじ2",
               "note": null
             },
             {
               "name": "塩",
-              "amount": 2,
-              "unit": "小さじ",
+              "amount": null,
+              "unit": "小さじ2",
               "note": null
             }
           ]
@@ -6344,7 +6344,7 @@
         }
       ],
       "grandma_notes": [],
-      "cultural_background": "ひな祭りの定番料理。おばあちゃんと一緒に作ることで料理の楽しさを次の世代に伝える、家族の絆が詰まった一品。",
+      "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E3%81%A1%E3%82%89%E3%81%97%E5%AF%BF%E5%8F%B8\" target=\"_blank\" rel=\"noopener\">ちらし寿司</a>は酢飯の上に具材を散らした（ちらした）寿司で、ひな祭りや祝いの席で作られることが多い日本の伝統料理です。地域によって具材が大きく異なり、江戸前では刺身を乗せるスタイル、関西では具材を酢飯に混ぜ込む「ばら寿司」が主流とも言われています。錦糸卵やれんこんなど縁起の良い食材を使うのは、子どもの健やかな成長を願う親心が込められているとされています。",
       "photos": {
         "main": "assets/images/recipes/chirashi-sushi-tokyo-001.jpg",
         "thumbnail": "assets/images/recipes/chirashi-sushi-tokyo-001.jpg"
@@ -6449,15 +6449,15 @@
             },
             {
               "name": "醤油",
-              "amount": 2,
-              "unit": "大さじ",
+              "amount": null,
+              "unit": "大さじ2",
               "note": null,
               "grandma_amount": "おたまでひと回し"
             },
             {
               "name": "和風だしの素",
-              "amount": 1,
-              "unit": "小さじ",
+              "amount": null,
+              "unit": "小さじ1",
               "note": null
             }
           ]
@@ -6491,7 +6491,7 @@
         }
       ],
       "grandma_notes": [],
-      "cultural_background": "すいとんは戦中戦後の食糧難の時代から続く家庭料理。シンプルな材料で体が温まり、冷蔵庫の残り物で作れる実用的な一品。",
+      "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E3%81%99%E3%81%84%E3%81%A8%E3%82%93\" target=\"_blank\" rel=\"noopener\">すいとん</a>は室町時代から食べられていたとも言われる歴史の長い料理で、戦時中は米の代用食として広く食べられていました。小麦粉を水で練って汁に落とすだけという素朴な作り方ながら、地域によって「ひっつみ」（岩手）、「はっと」（宮城）、「だご汁」（九州）など呼び名が異なり、それぞれに独自の食文化が息づいているようです。",
       "photos": {
         "main": "assets/images/recipes/suiton-jiru-tokyo-001.jpg",
         "thumbnail": "assets/images/recipes/suiton-jiru-tokyo-001.jpg"
@@ -6559,7 +6559,7 @@
               "unit": "個",
               "note": "細切り",
               "grandma_amount": "「4個でもいいかな」",
-              "approx_weight": "約450g"
+              "approx_weight": "450g"
             }
           ]
         },
@@ -6568,36 +6568,36 @@
           "items": [
             {
               "name": "ごま油",
-              "amount": "1/2",
-              "unit": "大さじ",
+              "amount": null,
+              "unit": "大さじ1/2",
               "note": null,
               "grandma_amount": "適当"
             },
             {
               "name": "みりん",
-              "amount": 1,
-              "unit": "大さじ",
+              "amount": null,
+              "unit": "大さじ1",
               "note": null,
               "grandma_amount": "目分量"
             },
             {
               "name": "麺つゆ",
-              "amount": 2,
-              "unit": "大さじ",
+              "amount": null,
+              "unit": "大さじ2",
               "note": null,
               "grandma_amount": "適度に一回し"
             },
             {
               "name": "白だし",
-              "amount": 1,
-              "unit": "大さじ",
+              "amount": null,
+              "unit": "大さじ1",
               "note": null,
               "grandma_amount": "目分量"
             },
             {
               "name": "砂糖",
-              "amount": 1,
-              "unit": "大さじ",
+              "amount": null,
+              "unit": "大さじ1",
               "note": null,
               "grandma_amount": "ひとつまみ"
             },
@@ -6628,7 +6628,7 @@
         }
       ],
       "grandma_notes": [],
-      "cultural_background": "じゃがいもを使ったきんぴらは、ごぼうのきんぴらの変形版として各地の家庭で親しまれている。シャキシャキとした食感が特徴。",
+      "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E3%81%8D%E3%82%93%E3%81%B4%E3%82%89\" target=\"_blank\" rel=\"noopener\">きんぴら</a>の名前は、江戸時代の浄瑠璃に登場する怪力の持ち主「<a href=\"https://ja.wikipedia.org/wiki/%E5%9D%82%E7%94%B0%E9%87%91%E5%B9%B3\" target=\"_blank\" rel=\"noopener\">坂田金平</a>」に由来するとも言われています。ごぼうが定番ですが、じゃがいもで作るきんぴらはシャキシャキとした食感が特徴で、短時間で火が通るため手軽な副菜として各地の家庭で親しまれてきたようです。ごま油で炒めることで香ばしさが加わり、冷めても美味しいためお弁当のおかずにも重宝されています。",
       "photos": {
         "main": "assets/images/recipes/jagaimo-kinpira-hiroshima-001.jpg",
         "thumbnail": "assets/images/recipes/jagaimo-kinpira-hiroshima-001.jpg"
@@ -6711,7 +6711,7 @@
               "unit": "本",
               "note": "ささがきにして水にさらす",
               "grandma_amount": null,
-              "approx_weight": "約150〜180g"
+              "approx_weight": "150〜180g"
             },
             {
               "name": "干ししいたけ",
@@ -6719,7 +6719,7 @@
               "unit": "枚",
               "note": "水で戻してみじん切り（戻し汁は後で使う）",
               "grandma_amount": null,
-              "approx_weight": "約6〜9g（乾燥）"
+              "approx_weight": "6〜9g（乾燥）"
             }
           ]
         },
@@ -6728,29 +6728,29 @@
           "items": [
             {
               "name": "醤油",
-              "amount": 4,
-              "unit": "大さじ",
+              "amount": null,
+              "unit": "大さじ4",
               "note": null,
               "grandma_amount": "「色がしっかりつくくらい」"
             },
             {
               "name": "みりん",
-              "amount": 2,
-              "unit": "大さじ",
+              "amount": null,
+              "unit": "大さじ2",
               "note": null,
               "grandma_amount": "「とろっとするくらい」"
             },
             {
               "name": "砂糖",
-              "amount": 1,
-              "unit": "大さじ",
+              "amount": null,
+              "unit": "大さじ1",
               "note": null,
               "grandma_amount": "「甘めにひとすくい」"
             },
             {
               "name": "酒",
-              "amount": 2,
-              "unit": "大さじ",
+              "amount": null,
+              "unit": "大さじ2",
               "note": null,
               "grandma_amount": null
             }
@@ -6859,7 +6859,7 @@
               "unit": "個",
               "note": null,
               "grandma_amount": null,
-              "approx_weight": "約450g"
+              "approx_weight": "450g"
             },
             {
               "name": "かぼちゃ",
@@ -6867,7 +6867,7 @@
               "unit": "個",
               "note": null,
               "grandma_amount": null,
-              "approx_weight": "約400〜500g"
+              "approx_weight": "400〜500g"
             },
             {
               "name": "人参",
@@ -6875,7 +6875,7 @@
               "unit": "本",
               "note": null,
               "grandma_amount": null,
-              "approx_weight": "約75〜100g"
+              "approx_weight": "75〜100g"
             },
             {
               "name": "ねぎ",
@@ -6883,7 +6883,7 @@
               "unit": "本",
               "note": null,
               "grandma_amount": null,
-              "approx_weight": "約50g"
+              "approx_weight": "50g"
             },
             {
               "name": "大根",
@@ -6891,7 +6891,7 @@
               "unit": "本",
               "note": null,
               "grandma_amount": null,
-              "approx_weight": "約250〜300g"
+              "approx_weight": "250〜300g"
             },
             {
               "name": "白菜",
@@ -6899,7 +6899,7 @@
               "unit": "枚",
               "note": null,
               "grandma_amount": null,
-              "approx_weight": "約200〜250g"
+              "approx_weight": "200〜250g"
             },
             {
               "name": "ごぼう",
@@ -6907,7 +6907,7 @@
               "unit": "本",
               "note": null,
               "grandma_amount": null,
-              "approx_weight": "約50〜60g"
+              "approx_weight": "50〜60g"
             },
             {
               "name": "豚肉",
@@ -6922,7 +6922,7 @@
               "unit": "枚",
               "note": null,
               "grandma_amount": null,
-              "approx_weight": "約30g"
+              "approx_weight": "30g"
             },
             {
               "name": "ほうとうの麺",
@@ -6938,8 +6938,8 @@
           "items": [
             {
               "name": "味噌",
-              "amount": "5〜6",
-              "unit": "大さじ",
+              "amount": null,
+              "unit": "大さじ5〜6",
               "note": null,
               "grandma_amount": null
             },
@@ -7069,8 +7069,8 @@
           "items": [
             {
               "name": "塩",
-              "amount": "1/2〜1",
-              "unit": "小さじ",
+              "amount": null,
+              "unit": "小さじ1/2〜1",
               "note": "お好みで調整",
               "grandma_amount": "「指三本でつまんで、味を見ながら二回くらい」"
             }
@@ -7167,7 +7167,7 @@
               "unit": "本",
               "note": "水に浸して柔らかくしておく",
               "grandma_amount": "「水に浸して柔らかくしたもの1本」",
-              "approx_weight": "約8g"
+              "approx_weight": "8g"
             },
             {
               "name": "卵",
@@ -7208,7 +7208,7 @@
               "unit": "かけ",
               "note": "約10g",
               "grandma_amount": "「親指の先くらいの塊をすりおろして」",
-              "approx_weight": "約10〜15g"
+              "approx_weight": "10〜15g"
             }
           ]
         }
@@ -7309,7 +7309,7 @@
               "unit": "個",
               "note": null,
               "grandma_amount": "「鍋にいっぱい」",
-              "approx_weight": "約120〜180g"
+              "approx_weight": "120〜180g"
             },
             {
               "name": "ネギ",
@@ -7317,7 +7317,7 @@
               "unit": "本",
               "note": null,
               "grandma_amount": "「3、4本」",
-              "approx_weight": "約300g"
+              "approx_weight": "300g"
             },
             {
               "name": "ごぼう",
@@ -7325,7 +7325,7 @@
               "unit": "本",
               "note": "ささがきにする",
               "grandma_amount": "「1本くらい」",
-              "approx_weight": "約150〜180g"
+              "approx_weight": "150〜180g"
             },
             {
               "name": "大根",
@@ -7333,7 +7333,7 @@
               "unit": "本",
               "note": null,
               "grandma_amount": "「冷蔵庫にある分（1本以内）」",
-              "approx_weight": "約200〜250g"
+              "approx_weight": "200〜250g"
             }
           ]
         },
@@ -7476,7 +7476,7 @@
               "unit": "個",
               "note": "一口サイズに切る",
               "grandma_amount": "「1個半くらい」",
-              "approx_weight": "約120〜150g"
+              "approx_weight": "120〜150g"
             },
             {
               "name": "挽肉",
@@ -7720,7 +7720,7 @@
               "unit": "個",
               "note": null,
               "grandma_amount": "「5、6個」",
-              "approx_weight": "約200〜360g"
+              "approx_weight": "200〜360g"
             },
             {
               "name": "鶏肉",
@@ -7735,7 +7735,7 @@
               "unit": "本",
               "note": null,
               "grandma_amount": "「あるだけ」",
-              "approx_weight": "約300〜540g"
+              "approx_weight": "300〜540g"
             },
             {
               "name": "いんげん",

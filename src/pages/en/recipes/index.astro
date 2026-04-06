@@ -1,0 +1,234 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import RecipeCard from '../../../components/RecipeCard.astro';
+import { getAllRecipes } from '../../../data/recipes';
+import { t, areaLabel, tagLabel } from '../../../i18n/index';
+
+const lang = 'en';
+
+const AREA_CODES = [
+  { code: 'hokkaido', label: areaLabel('hokkaido', lang) },
+  { code: 'tohoku',   label: areaLabel('tohoku', lang) },
+  { code: 'kanto',    label: areaLabel('kanto', lang) },
+  { code: 'hokuriku', label: areaLabel('hokuriku', lang) },
+  { code: 'koshinetsu', label: areaLabel('koshinetsu', lang) },
+  { code: 'tokai',    label: areaLabel('tokai', lang) },
+  { code: 'kinki',    label: areaLabel('kinki', lang) },
+  { code: 'chugoku',  label: areaLabel('chugoku', lang) },
+  { code: 'shikoku',  label: areaLabel('shikoku', lang) },
+  { code: 'kyushu',   label: areaLabel('kyushu', lang) },
+];
+
+const COMMON_TAGS_JA = ['煮物', '日常のごはん', 'お正月', '郷土料理', '山菜', '家庭���理', '常備菜', '保存食', '和え物', '春の味覚'];
+const COMMON_TAGS = COMMON_TAGS_JA.map(ja => ({ ja, en: tagLabel(ja, lang) }));
+
+const allRecipes = [...getAllRecipes()].sort((a, b) =>
+  b.meta.created_at.localeCompare(a.meta.created_at)
+);
+const total = allRecipes.length;
+---
+
+<BaseLayout
+  title="All Recipes | Japanese Grandma Recipes"
+  description={`Browse ${total} authentic Japanese grandma recipes. Filter by region, tag, or category. Traditional home cooking from across Japan.`}
+  lang="en"
+>
+  <Header lang="en" />
+
+  <main id="main" class="list-page">
+    <div class="container">
+      <div class="page-header">
+        <h1 class="page-title" id="page-title">{t(lang, 'recipes.title')}</h1>
+      </div>
+
+      <!-- Filter bar -->
+      <aside class="filter-bar" aria-label="Filters">
+        <div class="filter-bar__section">
+          <p class="filter-bar__label">{t(lang, 'recipes.filter.region')}</p>
+          <div class="filter-bar__buttons" id="region-buttons">
+            {AREA_CODES.map(({ code, label }) => (
+              <button class="filter-btn" data-filter-type="region" data-filter-value={code}>{label}</button>
+            ))}
+          </div>
+        </div>
+        <div class="filter-bar__section">
+          <p class="filter-bar__label">{t(lang, 'recipes.filter.tag')}</p>
+          <div class="filter-bar__buttons" id="tag-buttons">
+            {COMMON_TAGS.map(({ ja, en }) => (
+              <button class="filter-btn filter-btn--tag" data-filter-type="tag" data-filter-value={ja}>{en}</button>
+            ))}
+          </div>
+        </div>
+        <div class="filter-bar__footer" id="filter-reset-wrap" style="display:none">
+          <button class="filter-reset" id="filter-reset-btn">{t(lang, 'recipes.filter.reset')}</button>
+        </div>
+      </aside>
+
+      <!-- Sort & count -->
+      <div class="list-toolbar">
+        <p class="result-count" aria-live="polite">
+          <strong id="result-count">{total}</strong>{t(lang, 'recipes.count.suffix')}
+        </p>
+        <div class="list-toolbar__sort">
+          <span class="list-toolbar__label">{t(lang, 'recipes.sort.label')}</span>
+          <button class="filter-btn filter-btn--sort filter-btn--active" data-sort="newest" id="sort-newest">{t(lang, 'recipes.sort.newest')}</button>
+          <button class="filter-btn filter-btn--sort" data-sort="popular" id="sort-popular">{t(lang, 'recipes.sort.popular')}</button>
+        </div>
+      </div>
+
+      <!-- Grid -->
+      <div class="recipe-grid recipe-grid--3" id="recipe-grid">
+        {allRecipes.map((recipe) => (
+          <div
+            class="recipe-card-wrap"
+            data-region={recipe.region?.area ?? ''}
+            data-tags={JSON.stringify(recipe.tags)}
+            data-category={recipe.category ?? ''}
+            data-created={recipe.meta.created_at}
+            data-views={String(recipe.view_count ?? 0)}
+          >
+            <RecipeCard recipe={recipe} lang="en" />
+          </div>
+        ))}
+      </div>
+
+      <!-- Empty state -->
+      <div class="empty-state" id="empty-state" style="display:none">
+        <p class="empty-state__icon" aria-hidden="true">🍳</p>
+        <p class="empty-state__msg">{t(lang, 'recipes.empty')}</p>
+        <button class="btn btn--outline" id="empty-reset-btn">{t(lang, 'search.viewall')}</button>
+      </div>
+    </div>
+  </main>
+
+  <Footer lang="en" />
+
+  <script>
+    const BASE = '/en/';
+    const AREA_LABELS: Record<string, string> = {
+      hokkaido: 'Hokkaido', tohoku: 'Tohoku', kanto: 'Kanto', hokuriku: 'Hokuriku',
+      koshinetsu: 'Koshinetsu', tokai: 'Tokai', kinki: 'Kansai', chugoku: 'Chugoku',
+      shikoku: 'Shikoku', kyushu: 'Kyushu & Okinawa',
+    };
+
+    const CATEGORY_GROUPS: Record<string, string[]> = {
+      'Soups': ['汁物'],
+      'Main Dishes': ['主菜', '煮物', '揚げ物'],
+      'Side Dishes': ['副菜', '佃煮・常備菜', '和え物・酢の物'],
+      'Pickles': ['漬物'],
+      'Rice Dishes': ['ご飯もの'],
+      'Sweets': ['おやつ', '和菓子・甘味'],
+    };
+
+    let currentRegion = '';
+    let currentTag = '';
+    let currentCategory = '';
+    let currentSort = 'newest';
+
+    const grid = document.getElementById('recipe-grid')!;
+    const cards = Array.from(grid.querySelectorAll('.recipe-card-wrap')) as HTMLElement[];
+    const countEl = document.getElementById('result-count')!;
+    const titleEl = document.getElementById('page-title')!;
+    const emptyEl = document.getElementById('empty-state')!;
+    const resetWrap = document.getElementById('filter-reset-wrap')!;
+
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('region')) currentRegion = params.get('region')!;
+    if (params.get('tag')) currentTag = params.get('tag')!;
+    if (params.get('category')) currentCategory = params.get('category')!;
+    if (params.get('sort')) currentSort = params.get('sort')!;
+
+    function applyFilters() {
+      let visibleCount = 0;
+      const sorted = [...cards].sort((a, b) => {
+        if (currentSort === 'popular') {
+          return parseInt(b.dataset.views ?? '0') - parseInt(a.dataset.views ?? '0');
+        }
+        return (b.dataset.created ?? '').localeCompare(a.dataset.created ?? '');
+      });
+      sorted.forEach((card) => grid.appendChild(card));
+
+      cards.forEach((card) => {
+        let show = true;
+        if (currentRegion && card.dataset.region !== currentRegion) show = false;
+        if (currentTag) {
+          const tags = JSON.parse(card.dataset.tags ?? '[]') as string[];
+          if (!tags.includes(currentTag)) show = false;
+        }
+        if (currentCategory) {
+          const group = CATEGORY_GROUPS[currentCategory];
+          const cardCat = card.dataset.category ?? '';
+          if (group) {
+            if (!group.includes(cardCat)) show = false;
+          } else if (cardCat !== currentCategory) {
+            show = false;
+          }
+        }
+        card.style.display = show ? '' : 'none';
+        if (show) visibleCount++;
+      });
+
+      countEl.textContent = String(visibleCount);
+
+      if (currentCategory) titleEl.textContent = `${currentCategory} Recipes`;
+      else if (currentTag) titleEl.textContent = `Recipes tagged "${currentTag}"`;
+      else if (currentRegion) titleEl.textContent = `${AREA_LABELS[currentRegion] ?? ''} Recipes`;
+      else titleEl.textContent = 'All Recipes';
+
+      grid.style.display = visibleCount > 0 ? '' : 'none';
+      emptyEl.style.display = visibleCount > 0 ? 'none' : '';
+      const hasFilter = currentRegion || currentTag || currentCategory;
+      resetWrap.style.display = hasFilter ? '' : 'none';
+
+      document.querySelectorAll('[data-filter-type="region"]').forEach((btn) => {
+        btn.classList.toggle('filter-btn--active', (btn as HTMLElement).dataset.filterValue === currentRegion);
+      });
+      document.querySelectorAll('[data-filter-type="tag"]').forEach((btn) => {
+        btn.classList.toggle('filter-btn--active', (btn as HTMLElement).dataset.filterValue === currentTag);
+      });
+      document.getElementById('sort-newest')!.classList.toggle('filter-btn--active', currentSort !== 'popular');
+      document.getElementById('sort-popular')!.classList.toggle('filter-btn--active', currentSort === 'popular');
+
+      const qp = new URLSearchParams();
+      if (currentRegion) qp.set('region', currentRegion);
+      if (currentTag) qp.set('tag', currentTag);
+      if (currentCategory) qp.set('category', currentCategory);
+      if (currentSort !== 'newest') qp.set('sort', currentSort);
+      const qs = qp.toString();
+      history.replaceState(null, '', qs ? `${BASE}recipes?${qs}` : `${BASE}recipes`);
+    }
+
+    function resetFilters() {
+      currentRegion = '';
+      currentTag = '';
+      currentCategory = '';
+      currentSort = 'newest';
+      applyFilters();
+    }
+
+    document.querySelectorAll('[data-filter-type]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const type = (btn as HTMLElement).dataset.filterType;
+        const value = (btn as HTMLElement).dataset.filterValue ?? '';
+        if (type === 'region') {
+          currentRegion = currentRegion === value ? '' : value;
+          currentTag = '';
+          currentCategory = '';
+        } else if (type === 'tag') {
+          currentTag = currentTag === value ? '' : value;
+          currentRegion = '';
+          currentCategory = '';
+        }
+        applyFilters();
+      });
+    });
+
+    document.getElementById('sort-newest')!.addEventListener('click', () => { currentSort = 'newest'; applyFilters(); });
+    document.getElementById('sort-popular')!.addEventListener('click', () => { currentSort = 'popular'; applyFilters(); });
+    document.getElementById('filter-reset-btn')!.addEventListener('click', resetFilters);
+    document.getElementById('empty-reset-btn')!.addEventListener('click', resetFilters);
+    applyFilters();
+  </script>
+</BaseLayout>

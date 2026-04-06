@@ -1,0 +1,75 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import articlesData from '../../../data/articles.json';
+import articlesEnData from '../../../data/articles.en.json';
+import { t, localePath } from '../../../i18n/index';
+
+const lang = 'en';
+const base = import.meta.env.BASE_URL;
+const articles = [...articlesData].sort((a: any, b: any) =>
+  b.published_at.localeCompare(a.published_at)
+);
+const enMap = new Map((articlesEnData as any[]).map((a: any) => [a.id, a]));
+
+const categoryNames: Record<string, string> = {
+  'life': t(lang, 'articles.cat.life'),
+  'teshigoto': t(lang, 'articles.cat.teshigoto'),
+  'story': t(lang, 'articles.cat.story'),
+  'column': t(lang, 'articles.cat.column'),
+};
+---
+
+<BaseLayout
+  title="Articles | Japanese Grandma Recipes"
+  description="Stories, seasonal cooking wisdom, and cultural insights from Japan's grandmothers. Explore the food culture behind traditional Japanese home cooking."
+  lang="en"
+>
+  <Header lang="en" />
+
+  <main id="main" class="articles-page">
+    <div class="container">
+      <div class="page-header">
+        <h1 class="page-title">{t(lang, 'articles.title')}</h1>
+        <p class="page-subtitle">{t(lang, 'articles.subtitle')}</p>
+      </div>
+
+      <div class="article-tabs" role="tablist" aria-label="Categories">
+        <button class="article-tab article-tab--active" data-category="">{t(lang, 'articles.all')}</button>
+        <a href={localePath(lang, `${base}articles/life`)} class="article-tab" data-category="life">{t(lang, 'articles.cat.life')}</a>
+        <a href={localePath(lang, `${base}articles/teshigoto`)} class="article-tab" data-category="teshigoto">{t(lang, 'articles.cat.teshigoto')}</a>
+        <a href={localePath(lang, `${base}articles/story`)} class="article-tab" data-category="story">{t(lang, 'articles.cat.story')}</a>
+        <a href={localePath(lang, `${base}articles/column`)} class="article-tab" data-category="column">{t(lang, 'articles.cat.column')}</a>
+      </div>
+
+      <div class="article-list" id="article-list">
+        {articles.map((article: any) => {
+          const en = enMap.get(article.id);
+          const date = article.published_at.replace(/-/g, '.').slice(2);
+          const catName = en?.category_en ?? categoryNames[article.category_slug] ?? article.category;
+          const title = en?.title_en ?? article.title;
+          const lead = en?.lead_en ?? article.lead;
+          return (
+            <a href={localePath(lang, `${base}articles/${article.id}`)} class="article-card" data-category-slug={article.category_slug}>
+              <div class="article-card__thumb" aria-hidden="true">{article.thumbnail_emoji}</div>
+              <div class="article-card__body">
+                <div class="article-card__header-row">
+                  <span class="article-card__category">{catName}</span>
+                </div>
+                <h2 class="article-card__title">{title}</h2>
+                <p class="article-card__lead">{lead}</p>
+                <div class="article-card__meta">
+                  <time datetime={article.published_at}>{date}</time>
+                  <span class="article-card__read">{t(lang, 'articles.reading.prefix')}{article.reading_time}{t(lang, 'articles.reading.suffix')}</span>
+                </div>
+              </div>
+            </a>
+          );
+        })}
+      </div>
+    </div>
+  </main>
+
+  <Footer lang="en" />
+</BaseLayout>

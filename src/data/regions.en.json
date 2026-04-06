@@ -1,0 +1,64 @@
+{
+  "areas": [
+    {
+      "code": "hokkaido",
+      "name": "Hokkaido",
+      "tagline": "Bold frontier cooking born from the land and sea",
+      "description": "Hokkaido's vast farmlands and rich fishing grounds gave rise to a unique food culture shaped by Meiji-era settlers and indigenous Ainu traditions. Salmon, kelp, and potatoes form the foundation of hearty dishes built to endure long, harsh winters — a living legacy of preservation wisdom."
+    },
+    {
+      "code": "tohoku",
+      "name": "Tohoku",
+      "tagline": "Fermented flavors from Japan's snow country",
+      "description": "Tohoku — the northernmost region of Honshu — is known for deep snowfall and long winters. Generations of grandmothers developed a rich tradition of preserved and fermented foods to sustain families through the cold months. From Yamagata's famous imoni stew to Akita's kiritanpo, each prefecture has its own distinctive soul food."
+    },
+    {
+      "code": "kanto",
+      "name": "Kanto",
+      "tagline": "Where Edo sophistication meets country kitchen wisdom",
+      "description": "Centered around Tokyo (old Edo), the Kanto region blends big-city food culture with humble farmhouse cooking from the surrounding plains. As the birthplace of dark soy sauce culture, Kanto cuisine features bold, savory flavors. Rural areas of Ibaraki, Tochigi, and Gunma still preserve unique seasonal dishes passed down through generations."
+    },
+    {
+      "code": "hokuriku",
+      "name": "Hokuriku",
+      "tagline": "Sea of Japan treasures and refined fermented traditions",
+      "description": "Facing the Sea of Japan, Hokuriku is blessed with exceptional seafood and a deep fermentation culture shaped by snowy winters. From Ishikawa's elegant Kaga cuisine to Toyama's kelp-rich comfort food and Fukui's fermented fish, this region offers some of Japan's most sophisticated yet homey flavors."
+    },
+    {
+      "code": "koshinetsu",
+      "name": "Koshinetsu",
+      "tagline": "Mountain wisdom — hearty, humble, and deeply satisfying",
+      "description": "Surrounded by the Japanese Alps, Koshinetsu is a treasure trove of mountain vegetables and preserved foods. Nagano's oyaki dumplings and pickled nozawana, Yamanashi's hearty houtou noodle stew, and Niigata's sasa-dango — each dish reflects generations of ingenuity in working with what the mountains provide."
+    },
+    {
+      "code": "tokai",
+      "name": "Tokai",
+      "tagline": "Rich miso and soy flavors at Japan's culinary crossroads",
+      "description": "The Tokai region is defined by its distinctive seasonings — hatcho miso and tamari soy sauce give local dishes their deep, savory character. Nagoya's bold comfort food leads the way, alongside Shizuoka's black hanpen fish cakes and Gifu's hoba miso grilled on magnolia leaves. A region where flavor runs deep."
+    },
+    {
+      "code": "kinki",
+      "name": "Kansai",
+      "tagline": "A thousand years of dashi mastery and elegant simplicity",
+      "description": "Home to Kyoto, Osaka, and Nara, the Kansai region has been Japan's culinary heart for over a millennium. Kyoto's delicate dashi philosophy emphasizes bringing out the best in simple ingredients, while Osaka's 'eat till you drop' spirit celebrates bold, generous flavors. Together with ancient fermentation traditions from Shiga and Nara, this region shaped the very foundations of Japanese cuisine."
+    },
+    {
+      "code": "chugoku",
+      "name": "Chugoku",
+      "tagline": "Mountain meets sea — quiet, deep flavors of western Honshu",
+      "description": "Chugoku's food culture splits dramatically between the San'in coast (Tottori, Shimane) facing the Sea of Japan and the San'yo coast (Okayama, Hiroshima, Yamaguchi) along the Seto Inland Sea. Each side developed distinct culinary traditions — from Izumo soba to Seto Inland Sea fish dishes — many of which are at risk of being lost as rural communities age."
+    },
+    {
+      "code": "shikoku",
+      "name": "Shikoku",
+      "tagline": "Bonito, citrus, and the bold spirit of pilgrim island cooking",
+      "description": "The four prefectures of Shikoku — Tokushima, Kagawa, Ehime, and Kochi — developed vibrant food cultures shaped by both the Pacific Ocean and the Seto Inland Sea. Kochi's dramatic katsuo tataki, Kagawa's beloved udon, Ehime's tai-meshi sea bream rice — each reflects a generous, ocean-forward approach to cooking. The island's pilgrimage tradition also left behind a legacy of humble temple food."
+    },
+    {
+      "code": "kyushu",
+      "name": "Kyushu & Okinawa",
+      "tagline": "Sweet soy, rich soil, and the warmth of southern kitchens",
+      "description": "Kyushu's seven prefectures plus Okinawa enjoy a warm climate and volcanic-enriched soil that nurtures distinctive ingredients. Sweet soy sauce, barley miso, and generous use of sugar define the region's comfort-food character. Continental influences brought unique fermented foods, while each prefecture — from Fukuoka's gameni chicken stew to Kagoshima's sweet potato dishes — has its own beloved grandmother's recipes."
+    }
+  ]
+}

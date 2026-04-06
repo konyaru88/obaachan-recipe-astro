@@ -1,0 +1,108 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import RecipeCard from '../../../components/RecipeCard.astro';
+import { getAllRecipes } from '../../../data/recipes';
+import regionsEnData from '../../../data/regions.en.json';
+import { t, localePath } from '../../../i18n/index';
+
+const lang = 'en';
+const regions = regionsEnData.areas;
+
+export function getStaticPaths() {
+  return regionsEnData.areas.map((r) => ({ params: { code: r.code } }));
+}
+
+const { code } = Astro.params;
+const base = import.meta.env.BASE_URL;
+const regionInfo = regions.find((r) => r.code === code);
+
+if (!regionInfo) {
+  return Astro.redirect('/en/');
+}
+
+const allRecipes = getAllRecipes();
+const recipes = allRecipes
+  .filter((r) => r.region?.area === code)
+  .sort((a, b) => b.meta.created_at.localeCompare(a.meta.created_at));
+
+const siteUrl = 'https://www.obaachan-recipe.com';
+const pageUrl = `${siteUrl}/en/region/${code}/`;
+const pageTitle = `${regionInfo.name} Recipes | Japanese Grandma Recipes`;
+const pageDescription = regionInfo.description.slice(0, 120) + '...';
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: siteUrl + '/en/' },
+    { '@type': 'ListItem', position: 2, name: 'By Region', item: `${siteUrl}/en/regions/` },
+    { '@type': 'ListItem', position: 3, name: regionInfo.name, item: pageUrl },
+  ],
+};
+
+const otherRegions = regions.filter((r) => r.code !== code);
+const regionIcon: Record<string, string> = {
+  hokkaido: '🐻', tohoku: '⛩', kanto: '🗼', hokuriku: '🦀',
+  koshinetsu: '🗻', tokai: '🏯', kinki: '🏯', chugoku: '⛩',
+  shikoku: '🍋', kyushu: '🌺',
+};
+---
+
+<BaseLayout title={pageTitle} description={pageDescription} lang="en">
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(breadcrumbLd)} />
+
+  <Header lang="en" />
+
+  <main id="main" class="region-page region-page--detail">
+
+    <div class="region-hero" style={`--region-color:#7D4E1E;`}>
+      <div class="region-hero__inner">
+        <span class="region-hero__icon" aria-hidden="true">{regionIcon[code] ?? '🗾'}</span>
+        <div class="region-hero__text">
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href={localePath(lang, base)} class="breadcrumb__link">Home</a>
+            <span class="breadcrumb__sep" aria-hidden="true">›</span>
+            <a href={localePath(lang, `${base}regions/`)} class="breadcrumb__link">By Region</a>
+            <span class="breadcrumb__sep" aria-hidden="true">›</span>
+            <span class="breadcrumb__current" aria-current="page">{regionInfo.name}</span>
+          </nav>
+          <h1 class="region-hero__title">{regionInfo.name}</h1>
+          {regionInfo.description && <p class="region-hero__description">{regionInfo.description}</p>}
+          <p class="region-hero__count">{recipes.length}{t(lang, 'regions.count.suffix')}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      {recipes.length > 0
+        ? (
+          <div class="recipe-grid recipe-grid--3">
+            {recipes.map((r) => <RecipeCard recipe={r} lang="en" />)}
+          </div>
+        ) : (
+          <div class="empty-state">
+            <p class="empty-state__icon" aria-hidden="true">🍳</p>
+            <p class="empty-state__msg">{t(lang, 'regions.empty')}</p>
+            <a href={localePath(lang, `${base}regions/`)} class="btn btn--outline">{t(lang, 'regions.back')}</a>
+          </div>
+        )
+      }
+
+      <nav class="region-nav" aria-label="Explore other regions">
+        <h2 class="region-nav__title">{t(lang, 'regions.other')}</h2>
+        <div class="region-nav__links">
+          {otherRegions.map((r) => (
+            <a href={localePath(lang, `${base}region/${r.code}/`)} class="region-nav-link">
+              {regionIcon[r.code] ?? '🗾'} {r.name}
+            </a>
+          ))}
+        </div>
+      </nav>
+    </div>
+
+  </main>
+
+  <Footer lang="en" />
+</BaseLayout>

@@ -1,0 +1,23 @@
+---
+import type { Lang } from '../i18n/index';
+import { alternatePath } from '../i18n/index';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const altUrl = alternatePath(lang, Astro.url.pathname);
+---
+
+<div class="lang-switch" aria-label="Language">
+  {lang === 'ja' ? (
+    <span class="lang-switch__current" aria-current="true">JP</span>
+    <span class="lang-switch__sep">/</span>
+    <a href={altUrl} class="lang-switch__link" hreflang="en">EN</a>
+  ) : (
+    <a href={altUrl} class="lang-switch__link" hreflang="ja">JP</a>
+    <span class="lang-switch__sep">/</span>
+    <span class="lang-switch__current" aria-current="true">EN</span>
+  )}
+</div>

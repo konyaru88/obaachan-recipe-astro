@@ -1,41 +1,54 @@
 ---
-import { getTotalTime, getDifficultyLabel } from '../data/recipes';
+import type { Lang } from '../i18n/index';
+import { formatTime, formatServings, localePath } from '../i18n/index';
+import { getDifficultyLabel } from '../data/recipes';
 import type { Recipe } from '../data/types';
 
 interface Props {
   recipe: Recipe;
+  lang?: Lang;
+  /** Override title (for EN translated title) */
+  titleOverride?: string;
+  /** Override tags (for EN translated tags) */
+  tagsOverride?: string[];
 }
 
 const base = import.meta.env.BASE_URL;
-const { recipe } = Astro.props;
+const { recipe, lang = 'ja', titleOverride, tagsOverride } = Astro.props;
+const displayTitle = titleOverride ?? recipe.title;
+const displayTags = tagsOverride ?? recipe.tags;
 const prefecture = recipe.grandmother.prefecture ?? recipe.region.prefecture ?? '';
-const timeStr = getTotalTime(recipe);
+const totalMinutes = recipe.prep_time_minutes + recipe.cook_time_minutes;
+const timeStr = formatTime(totalMinutes, lang);
 const stars = getDifficultyLabel(recipe.difficulty);
-const servingsStr = recipe.servings ? `${recipe.servings}人分` : '-';
+const servingsStr = recipe.servings ? formatServings(recipe.servings, lang) : '-';
 const imageUrl = recipe.photos?.main ?? recipe.photos?.thumbnail ?? '';
+const href = localePath(lang, `${base}recipes/${recipe.id}/`);
+const ariaLabel = lang === 'en' ? `View recipe: ${displayTitle}` : `${displayTitle}のレシピを見る`;
+const altPlaceholder = lang === 'en' ? 'Coming soon' : '準備中';
 ---
 
 <article class="recipe-card">
-  <a href={`${base}recipes/${recipe.id}/`} class="recipe-card__link" aria-label={`${recipe.title}のレシピを見る`} data-cta="recipe-view" data-recipe-name={recipe.title} data-recipe-id={recipe.id} data-region={prefecture}>
+  <a href={href} class="recipe-card__link" aria-label={ariaLabel} data-cta="recipe-view" data-recipe-name={recipe.title} data-recipe-id={recipe.id} data-region={prefecture}>
     <div class={`recipe-card__thumb${imageUrl ? '' : ' recipe-card__image-placeholder'}`}>
       {imageUrl
-        ? <img class="recipe-card__image" src={`${base}${imageUrl}`} alt={recipe.title} loading="lazy" />
-        : <img class="recipe-card__image recipe-card__image--placeholder" src={`${base}assets/images/sample-placeholder.png.jpg`} alt="準備中" loading="lazy" />
+        ? <img class="recipe-card__image" src={`${base}${imageUrl}`} alt={displayTitle} loading="lazy" />
+        : <img class="recipe-card__image recipe-card__image--placeholder" src={`${base}assets/images/sample-placeholder.png.jpg`} alt={altPlaceholder} loading="lazy" />
       }
       <div class="recipe-card__badges"></div>
       {prefecture && <span class="recipe-card__region-badge">{prefecture}</span>}
     </div>
     <div class="recipe-card__body">
-      <h3 class="recipe-card__title">{recipe.title}</h3>
+      <h3 class="recipe-card__title">{displayTitle}</h3>
       <div class="recipe-card__tags">
-        {recipe.tags.slice(0, 3).map((t) => (
+        {displayTags.slice(0, 3).map((t) => (
           <span class="recipe-card__tag">{t}</span>
         ))}
       </div>
       <ul class="recipe-card__meta">
         <li class="recipe-card__meta-item">⏱ {timeStr}</li>
         <li class="recipe-card__meta-item">👥 {servingsStr}</li>
-        <li class="recipe-card__meta-item" aria-label="難易度">{stars}</li>
+        <li class="recipe-card__meta-item" aria-label={lang === 'en' ? 'Difficulty' : '難易度'}>{stars}</li>
       </ul>
     </div>
   </a>

@@ -1,10 +1,16 @@
 ---
+import type { Lang } from '../i18n/index';
+import { t, alternatePath } from '../i18n/index';
+
 export interface Props {
   title: string;
   description: string;
   ogImage?: string;
   ogType?: string;
   canonicalUrl?: string;
+  lang?: Lang;
+  /** Set false to suppress hreflang alternate (e.g. pages without EN translation) */
+  hasAlternate?: boolean;
 }
 
 const {
@@ -13,16 +19,26 @@ const {
   ogImage = '/assets/images/ogp-default.jpg',
   ogType = 'website',
   canonicalUrl,
+  lang = 'ja',
+  hasAlternate = true,
 } = Astro.props;
 
 const base = import.meta.env.BASE_URL;
 const siteUrl = 'https://www.obaachan-recipe.com';
 const currentUrl = canonicalUrl ?? siteUrl + Astro.url.pathname;
 const ogImageAbsolute = ogImage.startsWith('http') ? ogImage : siteUrl + ogImage;
+
+const ogLocale = lang === 'en' ? 'en_US' : 'ja_JP';
+const ogLocaleAlt = lang === 'en' ? 'ja_JP' : 'en_US';
+const siteName = lang === 'en' ? "Grandma's Recipes" : 'おばあちゃんのレシピ';
+
+// hreflang
+const jaUrl = lang === 'ja' ? currentUrl : siteUrl + alternatePath('en', Astro.url.pathname);
+const enUrl = lang === 'en' ? currentUrl : siteUrl + alternatePath('ja', Astro.url.pathname);
 ---
 
 <!DOCTYPE html>
-<html lang="ja">
+<html lang={lang}>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -33,14 +49,23 @@ const ogImageAbsolute = ogImage.startsWith('http') ? ogImage : siteUrl + ogImage
   <link rel="canonical" href={currentUrl} />
   <link rel="icon" type="image/png" href={`${base}assets/images/grandma-icon.png`} />
 
+  {hasAlternate && (
+    <>
+      <link rel="alternate" hreflang="ja" href={jaUrl} />
+      <link rel="alternate" hreflang="en" href={enUrl} />
+      <link rel="alternate" hreflang="x-default" href={jaUrl} />
+    </>
+  )}
+
   <!-- OGP -->
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:type" content={ogType} />
   <meta property="og:url" content={currentUrl} />
   <meta property="og:image" content={ogImageAbsolute} />
-  <meta property="og:locale" content="ja_JP" />
-  <meta property="og:site_name" content="おばあちゃんのレシピ" />
+  <meta property="og:locale" content={ogLocale} />
+  <meta property="og:locale:alternate" content={ogLocaleAlt} />
+  <meta property="og:site_name" content={siteName} />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
@@ -118,7 +143,7 @@ const ogImageAbsolute = ogImage.startsWith('http') ? ogImage : siteUrl + ogImage
   <!-- Page-specific structured data slot -->
   <slot name="head" />
 </head>
-<body data-base={base}>
+<body data-base={base} data-lang={lang}>
   <slot />
 </body>
 </html>

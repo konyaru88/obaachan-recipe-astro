@@ -1,0 +1,261 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import articlesData from '../../../data/articles.json';
+import articlesEnData from '../../../data/articles.en.json';
+import { getRecipeById, getTotalTime, getDifficultyLabel } from '../../../data/recipes';
+import { t, localePath, formatServings } from '../../../i18n/index';
+
+const lang = 'en';
+
+export function getStaticPaths() {
+  return articlesData.map((a: any) => ({ params: { id: a.id } }));
+}
+
+const base = import.meta.env.BASE_URL;
+const { id } = Astro.params;
+const article = articlesData.find((a: any) => a.id === id) as any;
+const enArticle = (articlesEnData as any[]).find((a: any) => a.id === id);
+
+const REGION_MAP: Record<string, string> = {
+  '北海道': 'hokkaido', '東北': 'tohoku', '関東': 'kanto', '北陸': 'hokuriku',
+  '甲信越': 'koshinetsu', '東海': 'tokai', '近畿': 'kinki', '中国': 'chugoku',
+  '四国': 'shikoku', '九州': 'kyushu',
+};
+function tagToUrl(tag: string): string {
+  if (REGION_MAP[tag]) return localePath(lang, `${base}region/${REGION_MAP[tag]}/`);
+  return localePath(lang, `${base}recipes/?tag=${encodeURIComponent(tag)}`);
+}
+
+if (!article) {
+  return Astro.redirect('/en/');
+}
+
+const siteUrl = 'https://www.obaachan-recipe.com';
+const pageUrl = `${siteUrl}/en/articles/${article.id}/`;
+const date = article.published_at.replace(/-/g, '.').slice(2);
+
+const categoryNames: Record<string, string> = {
+  '暮らしのレシピ帖': t(lang, 'articles.cat.life'),
+  '季節の手仕事': t(lang, 'articles.cat.teshigoto'),
+  'おばあちゃんのストーリー': t(lang, 'articles.cat.story'),
+  '食文化コラム': t(lang, 'articles.cat.column'),
+};
+const catName = enArticle?.category_en ?? categoryNames[article.category] ?? article.category;
+const displayTitle = enArticle?.title_en ?? article.title;
+const displaySubtitle = enArticle?.subtitle_en ?? article.subtitle;
+const displayLead = enArticle?.lead_en ?? article.lead;
+const displayBody = enArticle?.body_en ?? article.body;
+const displayFaq = enArticle?.faq_en ?? article.faq;
+const displayTags = enArticle?.tags_en ?? article.tags;
+
+const pageTitle = `${displayTitle} | Japanese Grandma Recipes`;
+const pageDescription = enArticle?.meta_description_en ?? article.meta_description ?? (displayLead.slice(0, 120) + '...');
+
+function buildRecipeCardHtml(recipeId: string): string {
+  const recipe = getRecipeById(recipeId);
+  if (!recipe) return '';
+  const prefecture = recipe.grandmother?.prefecture ?? recipe.region?.prefecture ?? '';
+  const total = recipe.prep_time_minutes + recipe.cook_time_minutes;
+  const timeStr = total >= 60 ? `${Math.floor(total/60)}h ${total%60}min` : `${total}min`;
+  const stars = getDifficultyLabel(recipe.difficulty);
+  const servingsStr = recipe.servings ? `${recipe.servings} servings` : '-';
+  const imageUrl = recipe.photos?.main ?? recipe.photos?.thumbnail ?? '';
+  const tags = recipe.tags.slice(0, 3).map((t: string) => `<span class="recipe-card__tag">${t}</span>`).join('');
+  const imgHtml = imageUrl
+    ? `<img class="recipe-card__image" src="${base}${imageUrl}" alt="${recipe.title}" loading="lazy" />`
+    : `<img class="recipe-card__image recipe-card__image--placeholder" src="${base}assets/images/sample-placeholder.png.jpg" alt="Coming soon" loading="lazy" />`;
+  return `<div class="article-recipe-card">
+    <article class="recipe-card">
+      <a href="/en/recipes/${recipe.id}/" class="recipe-card__link" aria-label="View recipe: ${recipe.title}">
+        <div class="recipe-card__thumb${imageUrl ? '' : ' recipe-card__image-placeholder'}">
+          ${imgHtml}
+          ${prefecture ? `<span class="recipe-card__region-badge">${prefecture}</span>` : ''}
+        </div>
+        <div class="recipe-card__body">
+          <h3 class="recipe-card__title">${recipe.title}</h3>
+          <div class="recipe-card__tags">${tags}</div>
+          <ul class="recipe-card__meta">
+            <li class="recipe-card__meta-item">⏱ ${timeStr}</li>
+            <li class="recipe-card__meta-item">👥 ${servingsStr}</li>
+            <li class="recipe-card__meta-item" aria-label="Difficulty">${stars}</li>
+          </ul>
+        </div>
+      </a>
+    </article>
+  </div>`;
+}
+
+function formatInline(text: string): string {
+  return text
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\[([^\]]+)\]\((\/[^)]+)\)/g, (_: string, t: string, href: string) =>
+      `<a href="/en${href}" class="article-content__link">${t}</a>`)
+    .replace(/\[([^\]]+)\]\((https?:[^)]+)\)/g, (_: string, t: string, href: string) =>
+      `<a href="${href}" class="article-content__link" target="_blank" rel="noopener noreferrer">${t}</a>`);
+}
+
+function formatBody(body: string): string {
+  return body
+    .split('\n\n')
+    .flatMap((para: string) => {
+      const trimmed = para.trim();
+      if (trimmed === '---') return '<hr class="article-content__divider">';
+      const recipeMatch = trimmed.match(/^\{\{recipe:(.+?)\}\}$/);
+      if (recipeMatch) return buildRecipeCardHtml(recipeMatch[1]);
+      if (trimmed.startsWith('### ')) {
+        const lines = trimmed.split('\n');
+        const heading = `<h3 class="article-content__subheading">${formatInline(lines[0].slice(4))}</h3>`;
+        if (lines.length > 1) {
+          const rest = lines.slice(1).join('\n').trim().replace(/\n/g, '<br>');
+          return [heading, `<p>${formatInline(rest)}</p>`];
+        }
+        return [heading];
+      }
+      if (trimmed.startsWith('## ')) {
+        const lines = trimmed.split('\n');
+        const heading = `<h2 class="article-content__heading">${formatInline(lines[0].slice(3))}</h2>`;
+        if (lines.length > 1) {
+          const rest = lines.slice(1).join('\n').trim().replace(/\n/g, '<br>');
+          return [heading, `<p>${formatInline(rest)}</p>`];
+        }
+        return [heading];
+      }
+      const html = trimmed.replace(/\n/g, '<br>');
+      return [`<p>${formatInline(html)}</p>`];
+    })
+    .join('');
+}
+
+const bodyHtml = formatBody(displayBody);
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: siteUrl + '/en/' },
+    { '@type': 'ListItem', position: 2, name: 'Articles', item: `${siteUrl}/en/articles/` },
+    { '@type': 'ListItem', position: 3, name: displayTitle, item: pageUrl },
+  ],
+};
+
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: displayTitle,
+  description: pageDescription,
+  datePublished: article.published_at,
+  author: { '@type': 'Organization', name: "Grandma's Recipes" },
+  publisher: {
+    '@type': 'Organization',
+    name: "Grandma's Recipes",
+    logo: { '@type': 'ImageObject', url: `${siteUrl}/assets/images/grandma-icon.png` },
+  },
+  mainEntityOfPage: pageUrl,
+};
+
+const faqLd = displayFaq && displayFaq.length > 0 ? {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: displayFaq.map((item: any) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+} : null;
+
+const otherArticles = articlesData.filter((a: any) => a.id !== article.id);
+const sameCategory = otherArticles.filter((a: any) => a.category_slug === article.category_slug);
+const diffCategory = otherArticles.filter((a: any) => a.category_slug !== article.category_slug);
+const relatedArticles = [...sameCategory, ...diffCategory].slice(0, 3);
+---
+
+<BaseLayout title={pageTitle} description={pageDescription} ogType="article" lang="en">
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(breadcrumbLd)} />
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(articleLd)} />
+  {faqLd && <script type="application/ld+json" slot="head" set:html={JSON.stringify(faqLd)} />}
+
+  <Header lang="en" />
+
+  <main id="main" class="article-detail-page">
+    <div class="container container--narrow">
+
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href={localePath(lang, base)}>Home</a>
+        <span aria-hidden="true"> › </span>
+        <a href={localePath(lang, `${base}articles/`)}>Articles</a>
+        <span aria-hidden="true"> › </span>
+        <span aria-current="page">{displayTitle}</span>
+      </nav>
+
+      <article class="article-body">
+        <header class="article-header">
+          <span class="article-card__category">{catName}</span>
+          <h1 class="article-header__title" set:html={displayTitle.replace(/\n/g, '<br>')} />
+          {displaySubtitle && <p class="article-header__subtitle">{displaySubtitle}</p>}
+          <div class="article-header__meta">
+            <time datetime={article.published_at}>{date}</time>
+            <span>{t(lang, 'articles.reading.prefix')}{article.reading_time}{t(lang, 'articles.reading.suffix')}</span>
+          </div>
+          <div class="article-header__thumb" aria-hidden="true">{article.thumbnail_emoji}</div>
+          <p class="article-header__lead">{displayLead}</p>
+        </header>
+
+        <div class="article-content" set:html={bodyHtml} />
+
+        {article.references && article.references.length > 0 && (
+          <footer class="article-references">
+            <h3 class="article-references__title">{t(lang, 'articles.references')}</h3>
+            <ul class="article-references__list">
+              {article.references.map((ref: string) => <li>{ref}</li>)}
+            </ul>
+          </footer>
+        )}
+
+        {article.related_recipe_id && (
+          <div class="article-related">
+            <p class="article-related__label">{t(lang, 'articles.related.recipe')}</p>
+            <a href={localePath(lang, `${base}recipes/${article.related_recipe_id}/`)} class="btn btn--primary">{t(lang, 'articles.related.recipe.btn')}</a>
+          </div>
+        )}
+
+        <div class="article-tags">
+          {displayTags.map((tag: string) => (
+            <a href={tagToUrl(tag)} class="article-tag">{tag}</a>
+          ))}
+        </div>
+      </article>
+
+      {relatedArticles.length > 0 && (
+        <section class="related-articles">
+          <h2 class="related-articles__title">{t(lang, 'articles.related')}</h2>
+          <div class="related-articles__grid">
+            {relatedArticles.map((ra: any) => {
+              const raDate = ra.published_at.replace(/-/g, '.').slice(2);
+              const raCat = categoryNames[ra.category] ?? ra.category;
+              return (
+                <a href={localePath(lang, `${base}articles/${ra.id}/`)} class="related-article-card">
+                  <div class="related-article-card__emoji" aria-hidden="true">{ra.thumbnail_emoji}</div>
+                  <div class="related-article-card__body">
+                    <span class="related-article-card__category">{raCat}</span>
+                    <h3 class="related-article-card__title">{ra.title}</h3>
+                    <p class="related-article-card__lead">{ra.lead.slice(0, 60)}…</p>
+                    <time class="related-article-card__date" datetime={ra.published_at}>{raDate}</time>
+                  </div>
+                </a>
+              );
+            })}
+          </div>
+        </section>
+      )}
+
+      <div style="text-align:center; margin: var(--space-2xl) 0">
+        <a href={localePath(lang, `${base}articles/`)} class="btn btn--outline">{t(lang, 'articles.back')}</a>
+      </div>
+
+    </div>
+  </main>
+
+  <Footer lang="en" />
+</BaseLayout>

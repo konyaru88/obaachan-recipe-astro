@@ -1,0 +1,137 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import RecipeCard from '../../components/RecipeCard.astro';
+import { getAllRecipes } from '../../data/recipes';
+import { t } from '../../i18n/index';
+
+const lang = 'en';
+const allRecipes = getAllRecipes();
+
+const SUGGESTIONS = ['Simmered', 'Pickles', 'New Year', 'Preserved', 'Miso', 'Rice', 'Regional', 'Soup'];
+
+const searchData = allRecipes.map((r) => ({
+  id: r.id,
+  title: r.title,
+  tags: r.tags,
+  category: r.category,
+  prefecture: r.grandmother?.prefecture ?? r.region?.prefecture ?? '',
+  area: r.region?.area ?? '',
+  ingredients: r.ingredients.flatMap((g) => g.items.map((i) => i.name)),
+}));
+---
+
+<BaseLayout
+  title="Search Recipes | Japanese Grandma Recipes"
+  description="Search authentic Japanese grandma recipes by dish name, ingredient, or region."
+  lang="en"
+>
+  <Header lang="en" />
+
+  <main id="main" class="search-page">
+    <div class="container">
+      <div class="page-header">
+        <h1 class="page-title">{t(lang, 'search.title')}</h1>
+      </div>
+
+      <form class="search-page__form" id="search-form" role="search" aria-label="Search recipes">
+        <input
+          type="search"
+          id="search-input"
+          class="search-page__input"
+          placeholder={t(lang, 'search.placeholder.long')}
+          autocomplete="off"
+          aria-label="Search recipes"
+          autofocus
+        />
+        <button type="submit" class="btn btn--primary" aria-label="Search">
+          <span aria-hidden="true">🔍</span> {t(lang, 'search.button')}
+        </button>
+      </form>
+
+      <p class="result-count" id="result-count" aria-live="polite" style="display:none"></p>
+
+      <div class="recipe-grid recipe-grid--3" id="recipe-grid" style="display:none">
+        {allRecipes.map((recipe) => (
+          <div class="recipe-card-wrap" data-recipe-id={recipe.id} style="display:none">
+            <RecipeCard recipe={recipe} lang="en" />
+          </div>
+        ))}
+      </div>
+
+      <div class="empty-state" id="initial-state">
+        <p class="empty-state__icon" aria-hidden="true">🔍</p>
+        <p class="empty-state__msg">{t(lang, 'search.initial')}</p>
+      </div>
+
+      <div class="empty-state" id="no-results" style="display:none">
+        <p class="empty-state__icon" aria-hidden="true">😢</p>
+        <p class="empty-state__msg" id="no-results-msg"></p>
+        <p class="empty-state__sub">{t(lang, 'search.tryother')}</p>
+        <div class="suggestion-chips" aria-label="Suggested keywords">
+          {SUGGESTIONS.map((kw) => (
+            <button class="suggestion-chip" data-keyword={kw}>{kw}</button>
+          ))}
+        </div>
+        <a href="/en/recipes/" class="btn btn--outline" style="margin-top:1.5rem;">{t(lang, 'search.viewall')}</a>
+      </div>
+    </div>
+  </main>
+
+  <Footer lang="en" />
+
+  <script define:vars={{ searchData, base: '/en/' }}>
+    const input = document.getElementById('search-input');
+    const form = document.getElementById('search-form');
+    const grid = document.getElementById('recipe-grid');
+    const countEl = document.getElementById('result-count');
+    const initialEl = document.getElementById('initial-state');
+    const noResultsEl = document.getElementById('no-results');
+    const noResultsMsgEl = document.getElementById('no-results-msg');
+    const cards = document.querySelectorAll('.recipe-card-wrap');
+    const cardMap = {};
+    cards.forEach((c) => { cardMap[c.dataset.recipeId] = c; });
+
+    function doSearch(query) {
+      const q = query.trim().toLowerCase();
+      input.value = query.trim();
+
+      if (!q) {
+        grid.style.display = 'none';
+        countEl.style.display = 'none';
+        initialEl.style.display = '';
+        noResultsEl.style.display = 'none';
+        cards.forEach((c) => { c.style.display = 'none'; });
+        history.replaceState(null, '', base + 'search');
+        return;
+      }
+
+      initialEl.style.display = 'none';
+      const matchedIds = [];
+      searchData.forEach((r) => {
+        const haystack = [r.title, r.category, r.prefecture, r.area, ...r.tags, ...r.ingredients].join(' ').toLowerCase();
+        if (haystack.includes(q)) matchedIds.push(r.id);
+      });
+
+      cards.forEach((c) => { c.style.display = 'none'; });
+      matchedIds.forEach((id) => { if (cardMap[id]) cardMap[id].style.display = ''; });
+
+      countEl.innerHTML = `<strong>${matchedIds.length}</strong> results for "<strong>${query.trim()}</strong>"`;
+      countEl.style.display = '';
+      grid.style.display = matchedIds.length > 0 ? '' : 'none';
+      noResultsEl.style.display = matchedIds.length > 0 ? 'none' : '';
+      if (matchedIds.length === 0) {
+        noResultsMsgEl.textContent = `No recipes found for "${query.trim()}".`;
+      }
+      history.replaceState(null, '', `${base}search?q=${encodeURIComponent(query.trim())}`);
+    }
+
+    form.addEventListener('submit', (e) => { e.preventDefault(); doSearch(input.value); });
+    document.querySelectorAll('.suggestion-chip').forEach((chip) => {
+      chip.addEventListener('click', () => { doSearch(chip.dataset.keyword); });
+    });
+    const urlQ = new URLSearchParams(window.location.search).get('q');
+    if (urlQ) doSearch(urlQ);
+  </script>
+</BaseLayout>

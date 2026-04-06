@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import { getAllRecipes } from '../../../data/recipes';
+import regionsEnData from '../../../data/regions.en.json';
+import { t, localePath } from '../../../i18n/index';
+
+const lang = 'en';
+const allRecipes = getAllRecipes();
+const regions = regionsEnData.areas;
+const base = import.meta.env.BASE_URL;
+
+const countMap: Record<string, number> = {};
+allRecipes.forEach((r) => {
+  const key = r.region?.area ?? '';
+  if (key) countMap[key] = (countMap[key] ?? 0) + 1;
+});
+---
+
+<BaseLayout
+  title="Browse by Region | Japanese Grandma Recipes"
+  description="Explore traditional Japanese home cooking from 10 regions — from Hokkaido to Kyushu. Discover authentic grandma recipes unique to each area."
+  lang="en"
+>
+  <Header lang="en" />
+
+  <main id="main" class="region-page">
+    <div class="container">
+      <div class="page-header">
+        <h1 class="page-title">{t(lang, 'regions.title')}</h1>
+        <p class="page-subtitle">{t(lang, 'regions.subtitle')}</p>
+      </div>
+      <div class="region-card-grid">
+        {regions.map((r) => {
+          const count = countMap[r.code] ?? 0;
+          const icon = r.code === 'hokkaido' ? '🐻' : r.code === 'tohoku' ? '⛩' : r.code === 'kanto' ? '🗼' : r.code === 'hokuriku' ? '🦀' : r.code === 'koshinetsu' ? '🗻' : r.code === 'tokai' ? '🏯' : r.code === 'kinki' ? '🏯' : r.code === 'chugoku' ? '⛩' : r.code === 'shikoku' ? '🍋' : '🌺';
+          return (
+            <a href={localePath(lang, `${base}region/${r.code}/`)} class="region-card" style={`--region-color:#7D4E1E;`}>
+              <div class="region-card__header">
+                <span class="region-card__icon" aria-hidden="true">{icon}</span>
+                <h2 class="region-card__name">{r.name}</h2>
+              </div>
+              {r.tagline && <p class="region-card__catch">{r.tagline}</p>}
+              <p class="region-card__count">{count}{t(lang, 'regions.count.suffix')}</p>
+            </a>
+          );
+        })}
+      </div>
+    </div>
+  </main>
+
+  <Footer lang="en" />
+</BaseLayout>

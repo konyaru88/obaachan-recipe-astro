@@ -1,0 +1,386 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import RecipeCard from '../../../components/RecipeCard.astro';
+import { getAllRecipes, getRecipeById, getDifficultyLabel } from '../../../data/recipes';
+import { t, formatTime, formatServings, localePath, categoryLabel } from '../../../i18n/index';
+import type { Recipe } from '../../../data/types';
+import recipesEnData from '../../../data/recipes.en.json';
+
+const lang = 'en';
+
+export async function getStaticPaths() {
+  const recipes = getAllRecipes();
+  return recipes.map((r) => ({ params: { id: r.id } }));
+}
+
+const { id } = Astro.params;
+const recipe = getRecipeById(id!) as Recipe;
+
+if (!recipe) {
+  return Astro.redirect('/en/');
+}
+
+// Load English translation overlay
+const enData = (recipesEnData as any[]).find((r: any) => r.id === id);
+
+const allRecipes = getAllRecipes();
+const base = import.meta.env.BASE_URL;
+const siteUrl = 'https://www.obaachan-recipe.com';
+
+const grandmother = recipe.grandmother ?? {};
+const region = recipe.region ?? {};
+const meta = recipe.meta ?? {};
+const tags = enData?.tags_en ?? recipe.tags ?? [];
+const servings = recipe.servings ?? 2;
+const cookTime = recipe.cook_time_minutes;
+const prepTime = recipe.prep_time_minutes;
+const difficulty = recipe.difficulty;
+const isEndangered = meta.is_endangered ?? false;
+const imageUrl = recipe.photos?.main ?? recipe.photos?.thumbnail ?? '';
+const areaCode = region.area ?? '';
+const prefecture = grandmother.prefecture ?? region.prefecture ?? '';
+const seasonArr = Array.isArray(recipe.season) ? recipe.season : [];
+const story = enData?.story_en ?? recipe.story ?? '';
+const episode = enData?.episode_en ?? recipe.episode ?? '';
+const culturalBg = enData?.cultural_background_en ?? recipe.cultural_background ?? '';
+const source = recipe.source ?? { types: [], contributor: '' };
+const sourceTypes = enData?.source_types_en ?? source.types ?? [];
+const grandmaNotes = enData?.grandma_notes_en ?? recipe.grandma_notes ?? [];
+const displayTitle = enData?.title_en ?? recipe.title;
+const introEn = enData?.intro_en ?? '';
+const ingredientsEn = enData?.ingredients_en ?? null;
+const stepsEn = enData?.steps_en ?? null;
+const categoryEn = enData?.category_en ?? categoryLabel(recipe.category, lang);
+
+const totalTime = formatTime(prepTime + cookTime, lang);
+const difficultyLabel = getDifficultyLabel(difficulty);
+
+const seasonMap: Record<string, string> = { '春': 'Spring', '夏': 'Summer', '秋': 'Autumn', '冬': 'Winter', '通年': 'Year-round' };
+const seasonEmojiMap: Record<string, string> = { '春': '🌸', '夏': '🌻', '秋': '🍁', '冬': '⛄', '通年': '🗓' };
+const seasonEmoji = (s: string) => seasonEmojiMap[s] ?? '🗓';
+const seasonLabel = (s: string) => seasonMap[s] ?? s;
+
+const rawDesc = story.replace(/<[^>]+>/g, '');
+const description = enData?.meta_description_en
+  ?? (rawDesc ? rawDesc.slice(0, 120) + '...' : `${displayTitle} is a traditional Japanese home-cooked recipe from ${prefecture}. Authentic grandma recipe with step-by-step instructions.`);
+const pageTitle = `${displayTitle} | Japanese Grandma Recipes`;
+
+const trackRecipeName = recipe.title;
+const trackRecipeId = recipe.id;
+const trackRegion = prefecture;
+const trackArea = areaCode;
+const trackCategory = recipe.category ?? '';
+const ogImage = imageUrl
+  ? `${siteUrl}/${imageUrl}`
+  : `${siteUrl}/assets/images/grandma-icon.png`;
+const pageUrl = `${siteUrl}/en/recipes/${recipe.id}/`;
+
+// JSON-LD
+const allIngredients = recipe.ingredients.flatMap((g) =>
+  g.items.map((item) => {
+    const base = `${item.name} ${item.amount ?? ''}${item.unit}`.trim();
+    return item.approx_weight ? `${base} (approx. ${item.approx_weight})` : base;
+  })
+);
+
+const recipeImageUrl = imageUrl ? `${siteUrl}/${imageUrl}` : undefined;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Recipe',
+  name: displayTitle,
+  description,
+  ...(recipeImageUrl ? { image: [recipeImageUrl] } : {}),
+  url: pageUrl,
+  datePublished: meta.created_at,
+  author: { '@type': 'Organization', name: "Grandma's Recipes", url: siteUrl },
+  publisher: { '@type': 'Organization', name: "Grandma's Recipes", url: siteUrl, logo: { '@type': 'ImageObject', url: `${siteUrl}/assets/images/grandma-icon.png` } },
+  recipeCategory: categoryEn,
+  recipeYield: `${servings} servings`,
+  prepTime: `PT${prepTime}M`,
+  cookTime: `PT${cookTime}M`,
+  totalTime: `PT${prepTime + cookTime}M`,
+  recipeCategory: categoryLabel(recipe.category, lang),
+  recipeCuisine: 'Japanese',
+  keywords: tags.join(','),
+  recipeIngredient: allIngredients,
+  recipeInstructions: recipe.steps.map((s) => ({
+    '@type': 'HowToStep',
+    position: s.step,
+    text: s.text,
+    url: `${pageUrl}#step-${s.step}`,
+    ...(s.tip ? { name: s.tip } : {}),
+  })),
+};
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: siteUrl + '/en/' },
+    { '@type': 'ListItem', position: 2, name: 'Recipes', item: `${siteUrl}/en/recipes/` },
+    { '@type': 'ListItem', position: 3, name: displayTitle, item: pageUrl },
+  ],
+};
+
+const related = allRecipes
+  .filter((r) => (r.region?.area ?? '') === areaCode && r.id !== recipe.id)
+  .slice(0, 4);
+
+const bgHistory = typeof culturalBg === 'string' ? culturalBg : (culturalBg.history ?? story ?? '');
+const bgIngredients = typeof culturalBg === 'object' && culturalBg !== null ? (culturalBg.local_ingredients ?? []).join(', ') : '';
+const bgSimilar = typeof culturalBg === 'object' && culturalBg !== null ? (culturalBg.similar_dishes ?? []).join(', ') : '';
+const hasBackground = bgHistory || bgIngredients;
+---
+
+<BaseLayout title={pageTitle} description={description} ogImage={ogImage} ogType="article" lang="en">
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(breadcrumbLd)} />
+
+  <Header lang="en" />
+
+  <main id="main" class="detail-page">
+
+    <div class="detail__hero">
+      {imageUrl && (
+        <div class="detail__hero-img-wrap">
+          <img class="detail__hero-img" src={`${base}${imageUrl}`} alt={recipe.title} />
+          <span class="detail__hero-img-note">{t(lang, 'recipe.photo.note')}</span>
+        </div>
+      )}
+      <div class="detail__hero-overlay"></div>
+    </div>
+
+    <div class="container">
+
+      <section class="detail__info">
+        <div class="detail__badges">
+          {isEndangered && <span class="badge badge--endangered">{t(lang, 'recipe.endangered')}</span>}
+          {prefecture && <span class="badge badge--region">{prefecture}</span>}
+          {seasonArr.length > 0 && <span class="badge badge--season">{seasonEmoji(seasonArr[0])} {seasonArr.map(seasonLabel).join(' · ')}</span>}
+        </div>
+        <h1 class="detail__title">{displayTitle}</h1>
+        {introEn && <p class="detail__intro" style="font-family:var(--font-serif); font-size:0.95rem; color:var(--color-text-muted); line-height:1.9; margin-top:1rem;">{introEn}</p>}
+
+        <ul class="detail__meta">
+          {prepTime > 0 && (
+            <li class="detail__meta-item">
+              <span class="detail__meta-label">{t(lang, 'recipe.prep')}</span>
+              <span class="detail__meta-value">{formatTime(prepTime, lang)}</span>
+            </li>
+          )}
+          <li class="detail__meta-item">
+            <span class="detail__meta-label">{t(lang, 'recipe.cook')}</span>
+            <span class="detail__meta-value">{formatTime(cookTime, lang)}</span>
+          </li>
+          <li class="detail__meta-item">
+            <span class="detail__meta-label">{t(lang, 'recipe.servings')}</span>
+            <span class="detail__meta-value" id="current-servings">{formatServings(servings, lang)}</span>
+          </li>
+          <li class="detail__meta-item">
+            <span class="detail__meta-label">{t(lang, 'recipe.difficulty')}</span>
+            <span class="detail__meta-value">{difficultyLabel}</span>
+          </li>
+        </ul>
+
+        <div class="detail__tags">
+          {tags.map((tg) => (
+            <a href={localePath(lang, `${base}recipes/?tag=${encodeURIComponent(tg)}`)} class="tag-chip">{tg}</a>
+          ))}
+        </div>
+      </section>
+
+      <!-- Ingredients -->
+      <section class="detail__ingredients">
+        <div class="detail__ingredients-header">
+          <h2 class="detail__section-title">{t(lang, 'recipe.ingredients')}</h2>
+          <div class="servings-control">
+            <button class="servings-btn" id="servings-minus">−</button>
+            <span class="servings-display"><output id="servings-output">{servings}</output> servings</span>
+            <button class="servings-btn" id="servings-plus">＋</button>
+          </div>
+        </div>
+        <div class="measure-toggle">
+          <button class="measure-toggle__btn measure-toggle__btn--active" data-mode="grandma">
+            {t(lang, 'recipe.measure.grandma')}
+          </button>
+          <button class="measure-toggle__btn" data-mode="precise">
+            {t(lang, 'recipe.measure.precise')}
+          </button>
+        </div>
+        <p class="ingredient__approx-note">{t(lang, 'recipe.ingredients.note')}</p>
+        <table class="ingredient-table">
+          <tbody id="ingredient-tbody">
+            {(ingredientsEn ?? recipe.ingredients).map((group: any, gi: number) => {
+              const origGroup = recipe.ingredients[gi];
+              return (
+                <>
+                  {group.group && (
+                    <tr class="ingredient-group-header">
+                      <td colspan="2" class="ingredient__group">{group.group}</td>
+                    </tr>
+                  )}
+                  {group.items.map((ing: any, ii: number) => {
+                    const origIng = origGroup?.items?.[ii];
+                    const amount = origIng?.amount ?? ing.amount ?? null;
+                    const unit = origIng?.unit ?? ing.unit ?? '';
+                    const approxWeight = origIng?.approx_weight ?? '';
+                    const grandmaAmt = ingredientsEn ? ing.grandma_amount : origIng?.grandma_amount;
+                    const noteTxt = ing.note ?? origIng?.note ?? null;
+                    return (
+                      <tr class="ingredient-row" data-base-amount={String(amount ?? '')} data-unit={unit}>
+                        <td class="ingredient__name">{ing.name}</td>
+                        <td class="ingredient__amount">
+                          {grandmaAmt ? (
+                            <>
+                              <span class="ingredient__grandma">{grandmaAmt}</span>
+                              <span class="ingredient__precise" style="display:none">
+                                <span class="ingredient__qty">{String(amount ?? '')}</span>{unit}{approxWeight && <span class="ingredient__approx-weight"> (approx. {approxWeight})</span>}
+                              </span>
+                            </>
+                          ) : (
+                            <span class="ingredient__precise-always">
+                              <span class="ingredient__qty">{String(amount ?? '')}</span>{unit}{approxWeight && <span class="ingredient__approx-weight"> (approx. {approxWeight})</span>}
+                            </span>
+                          )}
+                          {noteTxt && <small class="ingredient__note">({noteTxt})</small>}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </>
+              );
+            })}
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Instructions -->
+      <section class="detail__steps">
+        <h2 class="detail__section-title">{t(lang, 'recipe.steps')}</h2>
+        <ol class="step-list">
+          {(stepsEn ?? recipe.steps).map((step: any, i: number) => (
+            <li class="step" id={`step-${step.step ?? (i + 1)}`}>
+              <div class="step__num">{step.step ?? (i + 1)}</div>
+              <div class="step__content">
+                <p class="step__text">{step.text}</p>
+                {step.tip && <p class="step__tip">💡 {step.tip}</p>}
+              </div>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <!-- Memories & Stories -->
+      {episode && (
+        <section class="detail__episode" aria-labelledby="episode-heading">
+          <h2 id="episode-heading" class="detail__section-title">{t(lang, 'recipe.episode')}</h2>
+          <div class="episode-block">
+            <p class="episode-block__text" set:html={episode} />
+            {source && (
+              <div class="episode-block__source">
+                <span class="episode-block__source-label">{t(lang, 'recipe.source')}</span>
+                {sourceTypes.map((tp: string) => <span class="episode-block__source-tag">{tp}</span>)}
+                {source.contributor && <span class="episode-block__contributor">({t(lang, 'recipe.contributor')}{source.contributor})</span>}
+              </div>
+            )}
+          </div>
+        </section>
+      )}
+
+      <!-- Cultural Background -->
+      {hasBackground && (
+        <section class="detail__background" aria-labelledby="background-heading">
+          <h2 id="background-heading" class="detail__section-title">{t(lang, 'recipe.background')}</h2>
+          <div class="background-block">
+            {bgHistory && <p class="background-block__text" set:html={bgHistory} />}
+            {bgIngredients && <p class="background-block__text"><strong>{t(lang, 'recipe.local.ingredients')}</strong>{bgIngredients}</p>}
+            {bgSimilar && <p class="background-block__text"><strong>{t(lang, 'recipe.similar')}</strong>{bgSimilar}</p>}
+          </div>
+        </section>
+      )}
+
+    </div>
+
+    <!-- Related recipes -->
+    {related.length > 0 && (
+      <section class="detail__related">
+        <div class="container">
+          <h2 class="detail__section-title">{t(lang, 'recipe.related')}</h2>
+          <div class="recipe-grid recipe-grid--4">
+            {related.map((r) => <RecipeCard recipe={r} lang="en" />)}
+          </div>
+        </div>
+      </section>
+    )}
+
+  </main>
+
+  <Footer lang="en" />
+
+  <!-- Servings & measure toggle -->
+  <script define:vars={{ servings }}>
+    let currentServings = Number(servings) || 2;
+    const baseServings = currentServings;
+    const output = document.getElementById('servings-output');
+    const tbody = document.getElementById('ingredient-tbody');
+    const currentServingsEl = document.getElementById('current-servings');
+
+    function updateServings(n) {
+      currentServings = Math.max(1, Math.min(20, n));
+      if (output) output.textContent = String(currentServings);
+      if (currentServingsEl) currentServingsEl.textContent = `${currentServings} servings`;
+      if (!tbody) return;
+      tbody.querySelectorAll('.ingredient-row').forEach((row) => {
+        const base = parseFloat(row.dataset.baseAmount);
+        const qtyEl = row.querySelector('.ingredient__qty');
+        if (!qtyEl || isNaN(base) || base === 0) return;
+        const scaled = (base / baseServings) * currentServings;
+        qtyEl.textContent = Number.isInteger(scaled) ? String(scaled) : scaled.toFixed(1);
+      });
+    }
+
+    document.getElementById('servings-minus')?.addEventListener('click', () => updateServings(currentServings - 1));
+    document.getElementById('servings-plus')?.addEventListener('click', () => updateServings(currentServings + 1));
+
+    const toggleBtns = document.querySelectorAll('.measure-toggle__btn');
+    toggleBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        toggleBtns.forEach((b) => b.classList.remove('measure-toggle__btn--active'));
+        btn.classList.add('measure-toggle__btn--active');
+        const mode = btn.dataset.mode;
+        if (!tbody) return;
+        const grandmaEls = tbody.querySelectorAll('.ingredient__grandma');
+        const preciseEls = tbody.querySelectorAll('.ingredient__precise');
+        if (mode === 'grandma') {
+          grandmaEls.forEach((el) => { if (el.textContent.trim()) el.style.display = ''; });
+          preciseEls.forEach((el) => { el.style.display = 'none'; });
+        } else {
+          grandmaEls.forEach((el) => { el.style.display = 'none'; });
+          preciseEls.forEach((el) => { el.style.display = ''; });
+        }
+      });
+    });
+  </script>
+
+  <!-- GA4: recipe_view -->
+  <script define:vars={{ trackRecipeName, trackRecipeId, trackRegion, trackArea, trackCategory }}>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof gtag === 'function') {
+        var isDev = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+        var params = {
+          recipe_name: trackRecipeName,
+          recipe_id: trackRecipeId,
+          region: trackRegion,
+          area: trackArea,
+          category: trackCategory,
+          page_location: location.href
+        };
+        if (isDev) console.log('[GA4] recipe_view', params);
+        gtag('event', 'recipe_view', params);
+      }
+    }, { once: true });
+  </script>
+</BaseLayout>

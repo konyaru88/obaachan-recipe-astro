@@ -1,0 +1,90 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout
+  title="Support This Project | Japanese Grandma Recipes"
+  description="Help preserve Japan's disappearing home cooking traditions. Support our mission to document authentic grandma recipes from across Japan."
+  lang="en"
+>
+  <Header lang="en" />
+
+  <main class="support-page">
+
+    <div class="support-page__hero">
+      <div class="support-page__deco" aria-hidden="true"><img src={`${base}assets/images/grandma-icon.png`} alt="" class="support-page__deco-img" /></div>
+      <h1 class="support-page__title">Help preserve grandma's recipes<br />for the next generation</h1>
+    </div>
+
+    <div class="support-page__body container">
+
+      <section class="support-page__section">
+        <h2 class="support-page__section-title">About This Project</h2>
+        <p>"Grandma's Recipes" is an independent media project documenting traditional Japanese home cooking before it disappears.</p>
+        <p>Across Japan, elderly women hold recipes that have never been written down — dishes perfected over decades, using intuition instead of measurements, passed on by watching rather than reading.</p>
+        <p>We travel across the country to meet these grandmothers, recording their recipes, stories, and the cultural wisdom behind every dish — preserving them in their own words for future generations.</p>
+      </section>
+
+      <section class="support-page__section">
+        <h2 class="support-page__section-title">How Your Support Helps</h2>
+        <ul class="support-page__list">
+          <li>Travel expenses to visit grandmothers across Japan</li>
+          <li>Website hosting and maintenance</li>
+          <li>Ingredients for recipe documentation</li>
+        </ul>
+      </section>
+
+      <section class="support-page__section">
+        <h2 class="support-page__section-title">Upcoming Projects</h2>
+        <ul class="support-page__list">
+          <li><strong>Kitchen Visits</strong> — Traveling across Japan to document grandmothers cooking in their own kitchens, capturing their tools, techniques, and stories on video.</li>
+          <li><strong>Podcast</strong> — A series exploring the food memories and regional food cultures behind each recipe.</li>
+          <li><strong>Recipe Books</strong> — Printed collections organized by region, bringing grandma's recipes into a format you can keep on your shelf.</li>
+          <li><strong>Recipe Recreation Project</strong> — Working with chefs and food historians to recreate dishes from grandmothers who are no longer with us.</li>
+        </ul>
+      </section>
+
+      <section class="support-page__cta">
+        <div class="support-page__cta-buttons">
+          <div class="support-page__cta-block">
+            <a
+              href="https://docs.google.com/forms/d/1xlsgyNJ-qCgp_r8-9MNJEMZJHEpXYm4wVgs6BnNG4Bg/viewform"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="support-page__btn"
+              data-cta="support-recipe"
+            >
+              Submit a recipe
+            </a>
+            <p class="support-page__cta-note">
+              Every recipe submitted becomes a story<br />
+              preserved on this site forever.
+            </p>
+          </div>
+          <div class="support-page__cta-block">
+            <a
+              href="https://buymeacoffee.com/obaachanrev"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="support-page__btn"
+              data-cta="support-donate"
+            >
+              Support us
+            </a>
+            <p class="support-page__cta-note">
+              Starting from $1.<br />
+              Credit card and PayPal accepted.
+            </p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <Footer lang="en" />
+</BaseLayout>

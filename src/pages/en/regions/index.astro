@@ -23,6 +23,28 @@ allRecipes.forEach((r) => {
   description="Explore traditional Japanese home cooking from 10 regions — from Hokkaido to Kyushu. Discover authentic grandma recipes unique to each area."
   lang="en"
 >
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "CollectionPage",
+          "name": "Browse by Region",
+          "description": "Explore traditional Japanese home cooking from 10 regions",
+          "url": "https://www.obaachan-recipe.com/en/regions/",
+          "inLanguage": "en",
+          "isPartOf": { "@id": "https://www.obaachan-recipe.com/#website" }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.obaachan-recipe.com/en/" },
+            { "@type": "ListItem", "position": 2, "name": "By Region" }
+          ]
+        }
+      ]
+    })} />
+  </Fragment>
   <Header lang="en" />
 
   <main id="main" class="region-page">

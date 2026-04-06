@@ -7,9 +7,19 @@ const base = import.meta.env.BASE_URL;
 ---
 
 <BaseLayout
-  title="お問い合わせ | おばあちゃんのレシピ"
+  title="お問い合わせ・取材依頼 | おばあちゃんのレシピ"
   description="「おばあちゃんのレシピ」へのお問い合わせはこちらから。ご質問・ご感想・取材依頼など、お気軽にご連絡ください。"
 >
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://www.obaachan-recipe.com/" },
+        { "@type": "ListItem", "position": 2, "name": "お問い合わせ" }
+      ]
+    })} />
+  </Fragment>
   <Header />
 
   <main class="contact-page">

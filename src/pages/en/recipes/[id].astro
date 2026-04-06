@@ -62,9 +62,12 @@ const seasonEmojiMap: Record<string, string> = { '春': '🌸', '夏': '🌻', '
 const seasonEmoji = (s: string) => seasonEmojiMap[s] ?? '🗓';
 const seasonLabel = (s: string) => seasonMap[s] ?? s;
 
-const rawDesc = story.replace(/<[^>]+>/g, '');
-const description = enData?.meta_description_en
-  ?? (rawDesc ? rawDesc.slice(0, 120) + '...' : `${displayTitle} is a traditional Japanese home-cooked recipe from ${prefecture}. Authentic grandma recipe with step-by-step instructions.`);
+const rawEp = (episode || story || '').replace(/<[^>]+>/g, '').replace(/\n/g, '');
+const enPrefix = `${displayTitle} (${prefecture})`;
+const enBody = rawEp
+  ? ` — ${rawEp}`.slice(0, 90 - enPrefix.length)
+  : ` — A traditional home-cooked recipe from ${prefecture}`;
+const description = enData?.meta_description_en ?? (enPrefix + enBody);
 const pageTitle = `${displayTitle} | Japanese Grandma Recipes`;
 
 const trackRecipeName = recipe.title;
@@ -125,9 +128,11 @@ const breadcrumbLd = {
   ],
 };
 
-const related = allRecipes
-  .filter((r) => (r.region?.area ?? '') === areaCode && r.id !== recipe.id)
-  .slice(0, 4);
+const related = areaCode
+  ? allRecipes
+      .filter((r) => r.region?.area === areaCode && r.id !== recipe.id)
+      .slice(0, 4)
+  : [];
 
 const bgHistory = typeof culturalBg === 'string' ? culturalBg : (culturalBg.history ?? story ?? '');
 const bgIngredients = typeof culturalBg === 'object' && culturalBg !== null ? (culturalBg.local_ingredients ?? []).join(', ') : '';

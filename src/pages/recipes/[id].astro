@@ -49,11 +49,13 @@ const difficultyLabel = getDifficultyLabel(difficulty);
 const seasonEmojiMap: Record<string, string> = { '春': '🌸', '夏': '🌻', '秋': '🍁', '冬': '⛄', '通年': '🗓' };
 const seasonEmoji = (s: string) => seasonEmojiMap[s] ?? '🗓';
 
-// SEO
-const rawDesc = story.replace(/<[^>]+>/g, '');
-const description = rawDesc
-  ? rawDesc.slice(0, 120) + '…'
-  : `「${recipe.title}」は${prefecture}のおばあちゃんから届いた${recipe.category ?? 'おばあちゃん'}のレシピです。`;
+// SEO: 70〜90字で「料理名（県名）── エピソード/ストーリー要約」
+const rawEpisode = (episode || story || '').replace(/<[^>]+>/g, '').replace(/\n/g, '');
+const descPrefix = `${recipe.title}（${prefecture}）`;
+const descBody = rawEpisode
+  ? `── ${rawEpisode}`.slice(0, 85 - descPrefix.length)
+  : `── ${prefecture}のおばあちゃんから届いた手料理`;
+const description = descPrefix + descBody;
 const pageTitle = `${recipe.title}（${prefecture}）| おばあちゃんのレシピ`;
 
 // GA4 tracking vars
@@ -115,10 +117,12 @@ const breadcrumbLd = {
   ],
 };
 
-// 関連レシピ
-const related = allRecipes
-  .filter((r) => (r.region?.area ?? '') === areaCode && r.id !== recipe.id)
-  .slice(0, 4);
+// 関連レシピ（areaCodeが空の場合は表示しない）
+const related = areaCode
+  ? allRecipes
+      .filter((r) => r.region?.area === areaCode && r.id !== recipe.id)
+      .slice(0, 4)
+  : [];
 
 // 食文化背景（文字列 or オブジェクト対応）
 const bgHistory = typeof culturalBg === 'string' ? culturalBg : (culturalBg.history ?? story ?? '');
@@ -155,7 +159,7 @@ function difficultyStars(d: number): string {
     <div class="detail__hero">
       {imageUrl && (
         <div class="detail__hero-img-wrap">
-          <img class="detail__hero-img" src={`${base}${imageUrl}`} alt={recipe.title} />
+          <img class="detail__hero-img" src={`${base}${imageUrl}`} alt={recipe.title} style={recipe.photos?.position ? `object-position: ${recipe.photos.position}` : ''} />
           <span class="detail__hero-img-note">※写真はイメージです</span>
         </div>
       )}
@@ -230,19 +234,19 @@ function difficultyStars(d: number): string {
                   </tr>
                 )}
                 {group.items.map((ing) => (
-                  <tr class="ingredient-row" data-base-amount={String(ing.amount ?? '')} data-unit={ing.unit ?? ''}>
+                  <tr class="ingredient-row" data-base-amount={String(ing.amount ?? '')} data-unit={ing.unit ?? ''} data-base-unit={ing.unit ?? ''}>
                     <td class="ingredient__name">{ing.name}</td>
                     <td class="ingredient__amount">
                       {ing.grandma_amount ? (
                         <>
                           <span class="ingredient__grandma">{ing.grandma_amount}</span>
                           <span class="ingredient__precise" style="display:none">
-                            <span class="ingredient__qty">{String(ing.amount ?? '')}</span>{ing.unit ?? ''}{ing.approx_weight && <span class="ingredient__approx-weight">（約{ing.approx_weight}）</span>}
+                            <span class="ingredient__qty">{String(ing.amount ?? '')}</span><span class="ingredient__unit-text">{ing.unit ?? ''}</span>{ing.approx_weight && <span class="ingredient__approx-weight">（約{ing.approx_weight}）</span>}
                           </span>
                         </>
                       ) : (
                         <span class="ingredient__precise-always">
-                          <span class="ingredient__qty">{String(ing.amount ?? '')}</span>{ing.unit ?? ''}{ing.approx_weight && <span class="ingredient__approx-weight">（約{ing.approx_weight}）</span>}
+                          <span class="ingredient__qty">{String(ing.amount ?? '')}</span><span class="ingredient__unit-text">{ing.unit ?? ''}</span>{ing.approx_weight && <span class="ingredient__approx-weight">（約{ing.approx_weight}）</span>}
                         </span>
                       )}
                       {ing.note && <small class="ingredient__note">（{ing.note}）</small>}
@@ -327,17 +331,38 @@ function difficultyStars(d: number): string {
     const tbody = document.getElementById('ingredient-tbody');
     const currentServingsEl = document.getElementById('current-servings');
 
+    function formatScaled(val) {
+      return Number.isInteger(val) ? String(val) : val.toFixed(1);
+    }
+
     function updateServings(n) {
       currentServings = Math.max(1, Math.min(20, n));
       if (output) output.textContent = String(currentServings);
       if (currentServingsEl) currentServingsEl.textContent = `${currentServings}人分`;
       if (!tbody) return;
+      const ratio = currentServings / baseServings;
       tbody.querySelectorAll('.ingredient-row').forEach((row) => {
         const base = parseFloat(row.dataset.baseAmount);
+        const unit = row.dataset.unit || '';
         const qtyEl = row.querySelector('.ingredient__qty');
-        if (!qtyEl || isNaN(base) || base === 0) return;
-        const scaled = (base / baseServings) * currentServings;
-        qtyEl.textContent = Number.isInteger(scaled) ? String(scaled) : scaled.toFixed(1);
+        // amount が数値の場合はそのままスケーリング
+        if (qtyEl && !isNaN(base) && base !== 0) {
+          const scaled = base * ratio;
+          qtyEl.textContent = formatScaled(scaled);
+        }
+        // unit に数値が含まれる場合（例：大さじ2、小さじ1）もスケーリング
+        const baseUnit = row.dataset.baseUnit;
+        if (baseUnit) {
+          // precise 側の unit 表示を更新
+          row.querySelectorAll('.ingredient__precise .ingredient__unit-text, .ingredient__precise-always .ingredient__unit-text').forEach((el) => {
+            const m = baseUnit.match(/^(.+?)(\d+(?:\.\d+)?(?:\/\d+)?)(.*)$/);
+            if (m) {
+              const num = parseFloat(m[2]);
+              const scaled = num * ratio;
+              el.textContent = m[1] + formatScaled(scaled) + m[3];
+            }
+          });
+        }
       });
     }
 

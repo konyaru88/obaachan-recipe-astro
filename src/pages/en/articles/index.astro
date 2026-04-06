@@ -22,10 +22,33 @@ const categoryNames: Record<string, string> = {
 ---
 
 <BaseLayout
-  title="Articles | Japanese Grandma Recipes"
-  description="Stories, seasonal cooking wisdom, and cultural insights from Japan's grandmothers. Explore the food culture behind traditional Japanese home cooking."
+  title="Japanese Food Culture & Grandma Stories | Grandma's Recipes"
+  description="Stories, seasonal cooking wisdom, and cultural insights from Japan's grandmothers. Explore the food culture behind traditional home cooking."
   lang="en"
 >
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "CollectionPage",
+          "name": "Articles",
+          "description": "Stories, seasonal cooking wisdom, and cultural insights from Japan's grandmothers",
+          "url": "https://www.obaachan-recipe.com/en/articles/",
+          "inLanguage": "en",
+          "isPartOf": { "@id": "https://www.obaachan-recipe.com/#website" },
+          "numberOfItems": articles.length
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.obaachan-recipe.com/en/" },
+            { "@type": "ListItem", "position": 2, "name": "Articles" }
+          ]
+        }
+      ]
+    })} />
+  </Fragment>
   <Header lang="en" />
 
   <main id="main" class="articles-page">

@@ -18,9 +18,30 @@ allRecipes.forEach((r) => {
 ---
 
 <BaseLayout
-  title="地域で探す | おばあちゃんのレシピ"
-  description="日本全国、10地方のおばあちゃんの味をお届けします。北海道から九州・沖縄まで、ふるさとの味を探してみませんか。"
+  title="地域別のおばあちゃんの手料理 | おばあちゃんのレシピ"
+  description="北海道から九州・沖縄まで、全国10地方のおばあちゃんの手料理を地域別に探せます。"
 >
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "CollectionPage",
+          "name": "地域で探す",
+          "description": "日本全国、10地方のおばあちゃんの味をお届けします",
+          "url": "https://www.obaachan-recipe.com/regions/",
+          "isPartOf": { "@id": "https://www.obaachan-recipe.com/#website" }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://www.obaachan-recipe.com/" },
+            { "@type": "ListItem", "position": 2, "name": "地域で探す" }
+          ]
+        }
+      ]
+    })} />
+  </Fragment>
   <Header />
 
   <main id="main" class="region-page">

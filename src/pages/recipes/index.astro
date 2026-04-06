@@ -28,9 +28,31 @@ const total = allRecipes.length;
 ---
 
 <BaseLayout
-  title="レシピ一覧 | おばあちゃんのレシピ"
-  description={`全国のおばあちゃんから集めた ${total} 件のレシピ一覧。地域・タグで絞り込みできます。`}
+  title="おばあちゃんの手料理レシピ一覧（全${total}件）| おばあちゃんのレシピ"
+  description={`全国のおばあちゃんから届いた ${total} 件の家庭料理レシピ。地域・カテゴリ・タグで絞り込めます。`}
 >
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "CollectionPage",
+          "name": "レシピ一覧",
+          "description": `全国のおばあちゃんから集めた ${total} 件のレシピ一覧`,
+          "url": "https://www.obaachan-recipe.com/recipes/",
+          "isPartOf": { "@id": "https://www.obaachan-recipe.com/#website" },
+          "numberOfItems": total
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://www.obaachan-recipe.com/" },
+            { "@type": "ListItem", "position": 2, "name": "レシピ一覧" }
+          ]
+        }
+      ]
+    })} />
+  </Fragment>
   <Header />
 
   <main id="main" class="list-page">
@@ -42,7 +64,7 @@ const total = allRecipes.length;
       <!-- フィルターバー -->
       <aside class="filter-bar" aria-label="絞り込み">
         <div class="filter-bar__section">
-          <p class="filter-bar__label">地方で絞り込む</p>
+          <h2 class="filter-bar__label">地方で絞り込む</h2>
           <div class="filter-bar__buttons" id="region-buttons">
             {AREA_CODES.map(({ code, label }) => (
               <button class="filter-btn" data-filter-type="region" data-filter-value={code}>{label}</button>
@@ -50,7 +72,7 @@ const total = allRecipes.length;
           </div>
         </div>
         <div class="filter-bar__section">
-          <p class="filter-bar__label">タグで絞り込む</p>
+          <h2 class="filter-bar__label">タグで絞り込む</h2>
           <div class="filter-bar__buttons" id="tag-buttons">
             {COMMON_TAGS.map((t) => (
               <button class="filter-btn filter-btn--tag" data-filter-type="tag" data-filter-value={t}>{t}</button>

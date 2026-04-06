@@ -11,9 +11,31 @@ const articles = [...articlesData].sort((a: any, b: any) =>
 ---
 
 <BaseLayout
-  title="読み物 | おばあちゃんのレシピ"
-  description="おばあちゃんのストーリーと食文化コラム。日本の伝統的な食文化を深く知る読み物をお届けします。"
+  title="食文化・暮らしの知恵の読み物一覧 | おばあちゃんのレシピ"
+  description="おばあちゃんの暮らしの知恵、季節の手仕事、郷土の食文化を深く知る読み物をお届けします。"
 >
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "CollectionPage",
+          "name": "読み物",
+          "description": "おばあちゃんのストーリーと食文化コラム",
+          "url": "https://www.obaachan-recipe.com/articles/",
+          "isPartOf": { "@id": "https://www.obaachan-recipe.com/#website" },
+          "numberOfItems": articles.length
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://www.obaachan-recipe.com/" },
+            { "@type": "ListItem", "position": 2, "name": "読み物" }
+          ]
+        }
+      ]
+    })} />
+  </Fragment>
   <Header />
 
   <main id="main" class="articles-page">

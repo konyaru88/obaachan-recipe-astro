@@ -33,10 +33,33 @@ const total = allRecipes.length;
 ---
 
 <BaseLayout
-  title="All Recipes | Japanese Grandma Recipes"
-  description={`Browse ${total} authentic Japanese grandma recipes. Filter by region, tag, or category. Traditional home cooking from across Japan.`}
+  title="Traditional Japanese Home Cooking Recipes (${total}) | Grandma's Recipes"
+  description={`Browse ${total} authentic Japanese grandma recipes by region, tag, or category. Traditional home cooking from across Japan.`}
   lang="en"
 >
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "CollectionPage",
+          "name": "All Recipes",
+          "description": `Browse ${total} authentic Japanese grandma recipes`,
+          "url": "https://www.obaachan-recipe.com/en/recipes/",
+          "inLanguage": "en",
+          "isPartOf": { "@id": "https://www.obaachan-recipe.com/#website" },
+          "numberOfItems": total
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.obaachan-recipe.com/en/" },
+            { "@type": "ListItem", "position": 2, "name": "Recipes" }
+          ]
+        }
+      ]
+    })} />
+  </Fragment>
   <Header lang="en" />
 
   <main id="main" class="list-page">
@@ -48,7 +71,7 @@ const total = allRecipes.length;
       <!-- Filter bar -->
       <aside class="filter-bar" aria-label="Filters">
         <div class="filter-bar__section">
-          <p class="filter-bar__label">{t(lang, 'recipes.filter.region')}</p>
+          <h2 class="filter-bar__label">{t(lang, 'recipes.filter.region')}</h2>
           <div class="filter-bar__buttons" id="region-buttons">
             {AREA_CODES.map(({ code, label }) => (
               <button class="filter-btn" data-filter-type="region" data-filter-value={code}>{label}</button>
@@ -56,7 +79,7 @@ const total = allRecipes.length;
           </div>
         </div>
         <div class="filter-bar__section">
-          <p class="filter-bar__label">{t(lang, 'recipes.filter.tag')}</p>
+          <h2 class="filter-bar__label">{t(lang, 'recipes.filter.tag')}</h2>
           <div class="filter-bar__buttons" id="tag-buttons">
             {COMMON_TAGS.map(({ ja, en }) => (
               <button class="filter-btn filter-btn--tag" data-filter-type="tag" data-filter-value={ja}>{en}</button>

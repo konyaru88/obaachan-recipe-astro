@@ -50,7 +50,7 @@ const displayBody = enArticle?.body_en ?? article.body;
 const displayFaq = enArticle?.faq_en ?? article.faq;
 const displayTags = enArticle?.tags_en ?? article.tags;
 
-const pageTitle = `${displayTitle} | Japanese Grandma Recipes`;
+const pageTitle = `${displayTitle.replace(/\n/g, '')} | Japanese Grandma Recipes`;
 const pageDescription = enArticle?.meta_description_en ?? article.meta_description ?? (displayLead.slice(0, 120) + '...');
 
 function buildRecipeCardHtml(recipeId: string): string {
@@ -136,14 +136,14 @@ const breadcrumbLd = {
   itemListElement: [
     { '@type': 'ListItem', position: 1, name: 'Home', item: siteUrl + '/en/' },
     { '@type': 'ListItem', position: 2, name: 'Articles', item: `${siteUrl}/en/articles/` },
-    { '@type': 'ListItem', position: 3, name: displayTitle, item: pageUrl },
+    { '@type': 'ListItem', position: 3, name: displayTitle.replace(/\n/g, ''), item: pageUrl },
   ],
 };
 
 const articleLd = {
   '@context': 'https://schema.org',
   '@type': 'Article',
-  headline: displayTitle,
+  headline: displayTitle.replace(/\n/g, ''),
   description: pageDescription,
   datePublished: article.published_at,
   author: { '@type': 'Organization', name: "Grandma's Recipes" },

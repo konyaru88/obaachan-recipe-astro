@@ -1,0 +1,111 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout
+  title="プライバシーポリシー | おばあちゃんのレシピ"
+  description="「おばあちゃんのレシピ」のプライバシーポリシー。個人情報の取り扱いについてご説明します。"
+>
+  <Header />
+
+  <main class="privacy-page">
+    <div class="privacy-page__hero">
+      <h1 class="privacy-page__title">プライバシーポリシー</h1>
+    </div>
+
+    <div class="privacy-page__body container">
+
+      <p class="privacy-page__updated">最終更新日：2026年4月7日</p>
+
+      <p>「おばあちゃんのレシピ」（以下「当サイト」）は、ユーザーの個人情報保護を重視し、以下のとおりプライバシーポリシーを定めます。</p>
+
+      <section class="privacy-page__section">
+        <h2>1. 収集する情報</h2>
+        <p>当サイトでは、以下の情報を収集することがあります。</p>
+        <ul>
+          <li><strong>お問い合わせフォーム</strong>：お名前、メールアドレス、お問い合わせ内容</li>
+          <li><strong>レシピ投稿フォーム</strong>：投稿者名（ニックネーム可）、レシピ内容</li>
+          <li><strong>アクセス解析</strong>：IPアドレス、ブラウザ情報、閲覧ページ、アクセス日時（Google Analyticsを使用）</li>
+        </ul>
+      </section>
+
+      <section class="privacy-page__section">
+        <h2>2. 情報の利用目的</h2>
+        <ul>
+          <li>お問い合わせへの回答</li>
+          <li>サイトの改善・コンテンツの充実</li>
+          <li>アクセス傾向の分析</li>
+        </ul>
+      </section>
+
+      <section class="privacy-page__section">
+        <h2>3. 第三者への提供</h2>
+        <p>収集した個人情報は、法令に基づく場合を除き、ご本人の同意なく第三者に提供することはありません。</p>
+      </section>
+
+      <section class="privacy-page__section">
+        <h2>4. Google Analytics について</h2>
+        <p>当サイトでは、Googleが提供するアクセス解析ツール「Google Analytics」を使用しています。Google Analyticsはトラフィックデータの収集のためにCookieを使用しています。このデータは匿名で収集されており、個人を特定するものではありません。</p>
+        <p>詳細は<a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener noreferrer">Googleのポリシーと規約</a>をご確認ください。</p>
+      </section>
+
+      <section class="privacy-page__section">
+        <h2>5. お問い合わせ</h2>
+        <p>プライバシーポリシーに関するお問い合わせは、<a href="/contact/">お問い合わせフォーム</a>よりご連絡ください。</p>
+      </section>
+
+      <section class="privacy-page__section">
+        <h2>6. ポリシーの変更</h2>
+        <p>当サイトは、必要に応じてプライバシーポリシーを変更することがあります。変更後のポリシーは、本ページに掲載した時点で効力を生じます。</p>
+      </section>
+
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .privacy-page__hero {
+    text-align: center;
+    padding: 3rem 1rem 1.5rem;
+  }
+  .privacy-page__title {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+  }
+  .privacy-page__body {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 1rem 4rem;
+    line-height: 1.9;
+  }
+  .privacy-page__updated {
+    color: #888;
+    font-size: 0.85rem;
+    margin-bottom: 2rem;
+  }
+  .privacy-page__section {
+    margin-top: 2rem;
+  }
+  .privacy-page__section h2 {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  .privacy-page__section ul {
+    padding-left: 1.5em;
+    margin-top: 0.5rem;
+  }
+  .privacy-page__section li {
+    margin-bottom: 0.3rem;
+  }
+  .privacy-page__section a {
+    color: #7D4E1E;
+    text-decoration: underline;
+  }
+</style>

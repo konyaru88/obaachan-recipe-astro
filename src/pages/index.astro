@@ -398,7 +398,7 @@ const regionLabels: Record<string, string> = {
         overlay.className = 'tm-overlay';
         overlay.innerHTML = `
           <div class="tm-overlay__bg"></div>
-          ${imgSrc ? `<div class="tm-overlay__food"><img src="${imgSrc}" alt="" /></div>` : ''}
+          ${imgSrc ? `<div class="tm-overlay__food" aria-hidden="true"><img src="${imgSrc}" alt="" /></div>` : ''}
           <div class="tm-overlay__flash"></div>
         `;
         document.body.appendChild(overlay);

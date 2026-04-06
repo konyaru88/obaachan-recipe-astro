@@ -11,6 +11,16 @@ const base = import.meta.env.BASE_URL;
   description="Help preserve Japan's disappearing home cooking traditions. Support our mission to document authentic grandma recipes from across Japan."
   lang="en"
 >
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.obaachan-recipe.com/en/" },
+        { "@type": "ListItem", "position": 2, "name": "Support This Project" }
+      ]
+    })} />
+  </Fragment>
   <Header lang="en" />
 
   <main class="support-page">

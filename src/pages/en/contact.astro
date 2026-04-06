@@ -1,0 +1,108 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout
+  title="Contact | Japanese Grandma Recipes"
+  description="Get in touch with the Japanese Grandma Recipes team. Questions, feedback, media inquiries — we'd love to hear from you."
+  lang="en"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.obaachan-recipe.com/en/" },
+        { "@type": "ListItem", "position": 2, "name": "Contact" }
+      ]
+    })} />
+  </Fragment>
+  <Header lang="en" />
+
+  <main class="contact-page">
+
+    <div class="contact-page__hero">
+      <div class="contact-page__deco" aria-hidden="true"><img src={`${base}assets/images/grandma-icon.png`} alt="" class="contact-page__deco-img" /></div>
+      <h1 class="contact-page__title">Contact</h1>
+    </div>
+
+    <div class="contact-page__body container">
+
+      <p class="contact-page__intro">
+        Questions, feedback, or media inquiries about "Grandma's Recipes"?<br />
+        We'd love to hear from you.
+      </p>
+      <p class="contact-page__intro contact-page__intro--note">
+        To submit a recipe or support our project, please visit <a href="/en/support/">this page</a>.
+      </p>
+
+      <form
+        class="contact-page__form"
+        action="https://formspree.io/f/mzdkkjoo"
+        method="POST"
+      >
+        <div class="contact-page__field">
+          <label for="contact-name" class="contact-page__label">Name</label>
+          <input
+            type="text"
+            id="contact-name"
+            name="name"
+            class="contact-page__input"
+            placeholder="Your name"
+          />
+        </div>
+
+        <div class="contact-page__field">
+          <label for="contact-email" class="contact-page__label">Email <span class="contact-page__required">Required</span></label>
+          <input
+            type="email"
+            id="contact-email"
+            name="email"
+            class="contact-page__input"
+            placeholder="example@mail.com"
+            required
+          />
+        </div>
+
+        <div class="contact-page__field">
+          <label for="contact-category" class="contact-page__label">Category</label>
+          <select id="contact-category" name="category" class="contact-page__select">
+            <option value="Question">Question</option>
+            <option value="Feedback">Feedback</option>
+            <option value="Media / Press">Media / Press</option>
+            <option value="Collaboration">Collaboration</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="contact-page__field">
+          <label for="contact-message" class="contact-page__label">Message <span class="contact-page__required">Required</span></label>
+          <textarea
+            id="contact-message"
+            name="message"
+            class="contact-page__textarea"
+            rows="8"
+            placeholder="How can we help?"
+            required
+          ></textarea>
+        </div>
+
+        <div class="contact-page__submit-wrap">
+          <button type="submit" class="contact-page__submit">Send</button>
+        </div>
+      </form>
+
+      <p class="contact-page__note">
+        We typically respond within 3 business days.<br />
+        For urgent matters, feel free to reach out via our social media.
+      </p>
+
+    </div>
+  </main>
+
+  <Footer lang="en" />
+</BaseLayout>

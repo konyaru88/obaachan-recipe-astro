@@ -410,7 +410,7 @@
         },
         {
           "step": 3,
-          "text": "味噌大さじ2・酢大さじ1・砂糖大さじ2・めんつゆ小さじ1の割合で混ぜてタレを作る。",
+          "text": "味噌・酢・砂糖・めんつゆを混ぜ合わせてタレを作る。",
           "tip": "砂糖の甘さと酢の酸っぱさのバランスがポイント"
         },
         {
@@ -420,7 +420,7 @@
         }
       ],
       "grandma_notes": null,
-      "cultural_background": "関西ではタコは「多幸」という当て字で縁起の良い食材として親しまれているとも言われています。誕生日や節目のお祝いにタコ料理が食卓に並ぶ家庭も多かったとされており、酢味噌和えはさっぱりとした口当たりで老若男女に好まれてきた家庭料理のひとつとも言えます。",
+      "cultural_background": "大阪湾では古くからタコ漁が盛んで、明石や泉州のタコは全国的にも有名です。関西ではタコは「多幸」という当て字で縁起の良い食材として親しまれてきたとも言われています。酢味噌和えは保存がきく調味料を使った和え物として、普段の食卓からお祝いの席まで幅広く食べられてきたようです。",
       "photos": {
         "main": "assets/images/recipes/tako-sumiso-osaka-001.jpg",
         "thumbnail": "assets/images/recipes/tako-sumiso-osaka-001.jpg"
@@ -1274,7 +1274,7 @@
       "grandma_notes": [
         "片栗粉、砂糖、生クリームは気持ち片栗粉多めにしつつ大体それぞれ大さじ1杯くらい。サツマイモ1本分に対する分量の目安よ。"
       ],
-      "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E5%B7%9D%E8%B6%8A%E5%B8%82\" target=\"_blank\" rel=\"noopener\">川越</a>は江戸時代からサツマイモの産地として知られ、「栗よりうまい十三里」という言葉でも親しまれてきたとも言われています。川越のおばあちゃんたちはサツマイモを使ったおやつを数多く伝えてきたようです。",
+      "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E5%B7%9D%E8%B6%8A%E5%B8%82\" target=\"_blank\" rel=\"noopener\">川越</a>は江戸時代からサツマイモの産地として知られ、「栗よりうまい十三里」という言葉でも親しまれてきたとも言われています。サツマイモを使ったおやつは川越の家庭で古くから作られてきたようです。",
       "photos": {
         "main": "assets/images/recipes/imomochi-saitama-001.jpg",
         "thumbnail": "assets/images/recipes/imomochi-saitama-001.jpg"
@@ -1609,7 +1609,7 @@
       "grandma_notes": [
         "栗の甘露煮はシロップごと全部入れるのがポイントよ。だから砂糖は少なめでいいの。"
       ],
-      "cultural_background": "「とりくり」はおばあちゃんのオリジナルレシピで、鶏肉（とり）と栗（くり）を組み合わせた名前がそのまま料理名になっています。一般的な料理ではなく、その家庭だけに伝わる味のようです。",
+      "cultural_background": "北海道では秋になると栗が出回り、煮物や甘露煮として食卓に登場することが多いとされています。鶏肉と栗の組み合わせは日本各地で見られる秋の定番料理のひとつで、栗の甘みと鶏肉の旨みが醤油ベースの煮汁によく合うとも言われています。",
       "photos": {
         "main": "assets/images/recipes/torikuri-hokkaido-003.jpg",
         "thumbnail": "assets/images/recipes/torikuri-hokkaido-003.jpg"
@@ -1745,7 +1745,7 @@
         "醤油にかなり大量の砂糖を入れるのがポイント。醤油5、酒1、みりん1くらいの割合よ。",
         "煮ている間は絶対に混ぜたり揺すったりしたらあかんよ。最後に鍋を振るだけ。"
       ],
-      "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E3%81%84%E3%81%8B%E3%81%AA%E3%81%94%E3%81%AE%E3%81%8F%E3%81%8E%E7%85%AE\" target=\"_blank\" rel=\"noopener\">いかなごのくぎ煮</a>は兵庫県の<a href=\"https://ja.wikipedia.org/wiki/%E6%92%AD%E7%A3%A8%E5%9C%B0%E6%96%B9\" target=\"_blank\" rel=\"noopener\">播磨</a>・<a href=\"https://ja.wikipedia.org/wiki/%E6%B7%A1%E8%B7%AF%E5%B3%B6\" target=\"_blank\" rel=\"noopener\">淡路</a>・<a href=\"https://ja.wikipedia.org/wiki/%E7%A5%9E%E6%88%B8%E5%B8%82\" target=\"_blank\" rel=\"noopener\">神戸</a>周辺で春の風物詩として親しまれている佃煮です。好きな人は大量に炊いて近所に配る文化もあるとも言われています。仕上がりが古釘に似ていることから「くぎ煮」と呼ばれるようになったとも言われています。",
+      "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E3%81%84%E3%81%8B%E3%81%AA%E3%81%94%E3%81%AE%E3%81%8F%E3%81%8E%E7%85%AE\" target=\"_blank\" rel=\"noopener\">いかなごのくぎ煮</a>は兵庫県の<a href=\"https://ja.wikipedia.org/wiki/%E6%92%AD%E7%A3%A8%E5%9C%B0%E6%96%B9\" target=\"_blank\" rel=\"noopener\">播磨</a>・<a href=\"https://ja.wikipedia.org/wiki/%E6%B7%A1%E8%B7%AF%E5%B3%B6\" target=\"_blank\" rel=\"noopener\">淡路</a>・<a href=\"https://ja.wikipedia.org/wiki/%E7%A5%9E%E6%88%B8%E5%B8%82\" target=\"_blank\" rel=\"noopener\">神戸</a>周辺で春の風物詩として親しまれている佃煮です。3月頃にいかなごの新子が獲れると、各家庭で一斉に炊き始めるのが春の訪れを告げる風景とも言われています。仕上がりが古釘に似ていることから「くぎ煮」と呼ばれるようになったとされています。",
       "photos": {
         "main": "assets/images/recipes/ikanago-kugini-hyogo-001.jpg",
         "thumbnail": "assets/images/recipes/ikanago-kugini-hyogo-001.jpg"
@@ -2075,7 +2075,7 @@
       "grandma_notes": [
         "味噌と砂糖とお酢は1対1対1。簡単でしょう。"
       ],
-      "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E3%83%8E%E3%83%93%E3%83%AB\" target=\"_blank\" rel=\"noopener\">野蒜</a>は日本各地の野原や道端に自生する野草で、古事記にも登場するほど古くから食べられてきたとも言われています。春先に摘んで酢味噌であえるのは、全国的に見られる素朴な食べ方のひとつです。",
+      "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E3%83%8E%E3%83%93%E3%83%AB\" target=\"_blank\" rel=\"noopener\">野蒜</a>は日本各地の野原や道端に自生する野草で、古事記にも登場するほど古くから食べられてきたとも言われています。春先に摘んで酢味噌であえるのは、全国的に見られる昔ながらの食べ方のひとつです。",
       "photos": {
         "main": "assets/images/recipes/nobiru-sumiso-tokyo-001.jpg",
         "thumbnail": "assets/images/recipes/nobiru-sumiso-tokyo-001.jpg"
@@ -3075,7 +3075,7 @@
         "しらたきだとお腹にたまらないから、ボリューム感があってお腹にたまりやすい厚揚げの方が肉じゃがには理想なんだよ。",
         "オイスターソースとバターを隠し味に入れることで厚揚げの味をさらに引き出してくれるんだよ。"
       ],
-      "cultural_background": "肉じゃがは明治時代に西洋のビーフシチューをもとに日本風にアレンジされた料理とも言われています。家庭ごとに具材や味付けにこだわりがあり、この<a href=\"https://ja.wikipedia.org/wiki/%E5%8D%83%E8%91%89%E7%9C%8C\" target=\"_blank\" rel=\"noopener\">千葉県</a>のお家では代々しらたきではなく厚揚げを使うのが特徴です。",
+      "cultural_background": "肉じゃがは明治時代に西洋のビーフシチューをもとに日本風にアレンジされた料理とも言われています。家庭ごとに具材や味付けにこだわりがあり、<a href=\"https://ja.wikipedia.org/wiki/%E5%8D%83%E8%91%89%E7%9C%8C\" target=\"_blank\" rel=\"noopener\">千葉県</a>をはじめ関東では豚肉を使うのが一般的とされていますが、地域や家庭によって独自のアレンジが受け継がれてきたようです。",
       "photos": {
         "main": "assets/images/recipes/nikujaga-chiba-001.jpg",
         "thumbnail": "assets/images/recipes/nikujaga-chiba-001.jpg"
@@ -3391,7 +3391,7 @@
         "古漬けのたくあんは塩気が強いから、水にさらして味見しながら塩抜きするのが大事だよ。",
         "鷹の爪はピリッとした辛みがアクセントになるから、最後に入れるのがポイント。"
       ],
-      "cultural_background": "古漬けのたくあんを煮物にする料理は、漬物文化が根づいた北陸地方で見られる家庭料理のひとつとも言われています。酸味が出てしまった古漬けを捨てずに煮て食べるのは、食材を無駄にしない昔ながらの知恵かもしれません。来年の冬は<a href=\"/articles/teshigoto-takuan-tsukuri-001/\">昔ながらのたくあんを自分で漬けてみる</a>のも一興です。塩が強くなりすぎたときは<a href=\"/articles/teshigoto-takuan-shionuki-001/\">しょっぱいたくあんの塩抜きとアレンジ</a>で無駄なく食べきれます。",
+      "cultural_background": "古漬けのたくあんを煮物にする料理は、漬物文化が根づいた北陸地方で見られる家庭料理のひとつとも言われています。酸味が出てしまった古漬けを捨てずに煮て食べるのは、食材を無駄にしない昔ながらの知恵かもしれません。",
       "photos": {
         "main": "assets/images/recipes/takuan-ni-ishikawa-001.jpg",
         "thumbnail": "assets/images/recipes/takuan-ni-ishikawa-001.jpg"
@@ -3976,7 +3976,7 @@
         "調味料は甘いものから先に入れるのが決まり。",
         "完成したものより、少し時間が経ってからの方が美味しいといつも言っていた。"
       ],
-      "cultural_background": "肉じゃがは明治時代に考案されたとも言われる、日本を代表する家庭料理のひとつです。西日本では牛肉を使うことが多いとされ、島根県でも牛肉の肉じゃがが一般的のようです。調味料を入れる順番や一度冷まして味を染み込ませるなど、家庭ごとに受け継がれた工夫があるのかもしれません。",
+      "cultural_background": "肉じゃがは明治時代に考案されたとも言われる、日本を代表する家庭料理のひとつです。西日本では牛肉を使うことが多いとされ、島根県でも牛肉の肉じゃがが一般的のようです。",
       "photos": {
         "main": "assets/images/recipes/nikujaga-shimane-001.jpg",
         "thumbnail": "assets/images/recipes/nikujaga-shimane-001.jpg"
@@ -5298,7 +5298,7 @@
         }
       ],
       "grandma_notes": null,
-      "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E3%82%A6%E3%83%AB%E3%83%A1%E3%82%A4%E3%83%AF%E3%82%B7\" target=\"_blank\" rel=\"noopener\">ウルメイワシ</a>は目が潤んで見えることから「潤目」の名がついたとされ、<a href=\"https://ja.wikipedia.org/wiki/%E4%B8%89%E9%87%8D%E7%9C%8C\" target=\"_blank\" rel=\"noopener\">三重県</a>をはじめ太平洋沿岸で水揚げされる青魚です。鮮度が落ちやすいため、塩と酢で締めて保存性を高める調理法は沿岸部の漁師町で古くから行われてきたとも言われています。お正月の祝い膳に魚の寿司を並べるのは、海の恵みへの感謝が込められた風習かもしれません。",
+      "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E3%82%A6%E3%83%AB%E3%83%A1%E3%82%A4%E3%83%AF%E3%82%B7\" target=\"_blank\" rel=\"noopener\">ウルメイワシ</a>は目が潤んで見えることから「潤目」の名がついたとされ、<a href=\"https://ja.wikipedia.org/wiki/%E4%B8%89%E9%87%8D%E7%9C%8C\" target=\"_blank\" rel=\"noopener\">三重県</a>をはじめ太平洋沿岸で水揚げされる青魚です。鮮度が落ちやすいため、塩と酢で締めて保存性を高める調理法は沿岸部の漁師町で古くから行われてきたとも言われています。",
       "photos": {
         "main": "assets/images/recipes/urume-sushi-mie-001.jpg",
         "thumbnail": "assets/images/recipes/urume-sushi-mie-001.jpg"
@@ -5618,7 +5618,7 @@
         }
       ],
       "grandma_notes": [],
-      "cultural_background": "大阪では出汁文化が根付いており、乾物を使った含め煮は日常的な家庭料理のひとつ。高野豆腐と干し椎茸という保存食を組み合わせた、滋味深い一品。",
+      "cultural_background": "大阪では出汁文化が根付いており、乾物を使った含め煮は日常的な家庭料理のひとつです。高野豆腐と干し椎茸はどちらも長期保存が可能な乾物で、常備食材として多くの家庭に欠かせないものだったとも言われています。",
       "photos": {
         "main": "assets/images/recipes/koya-dofu-fukumeni-osaka-001.jpg",
         "thumbnail": "assets/images/recipes/koya-dofu-fukumeni-osaka-001.jpg"
@@ -7080,7 +7080,7 @@
       "steps": [
         {
           "step": 1,
-          "text": "お米を研いでザルにあげ、30分ほど置いておく。",
+          "text": "お米を研いで水に浸け、30分ほど置いておく。",
           "tip": "おばあちゃんは「お米にしっかり水を吸わせるのが、ふっくら炊くコツだよ」と言っていた"
         },
         {
@@ -7103,7 +7103,8 @@
       "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E4%B8%83%E8%8D%89%E3%81%8C%E3%82%86\" target=\"_blank\">七草粥</a>は、1月7日の「人日の節句」に食べる日本の伝統的な行事食。正月のご馳走やお酒で疲れた胃を休め、一年の無病息災を願って食べられてきたとされています。<a href=\"https://ja.wikipedia.org/wiki/%E6%98%A5%E3%81%AE%E4%B8%83%E8%8D%89\" target=\"_blank\">春の七草</a>（セリ・ナズナ・ゴギョウ・ハコベラ・ホトケノザ・スズナ・スズシロ）を刻んで入れるのが習わしです。",
       "photos": {
         "main": "assets/images/recipes/nanakusagayu-chiba-001.jpg",
-        "thumbnail": "assets/images/recipes/nanakusagayu-chiba-001.jpg"
+        "thumbnail": "assets/images/recipes/nanakusagayu-chiba-001.jpg",
+        "position": "center 70%"
       },
       "related_recipe_ids": [
         "nikujaga-chiba-001"
@@ -7244,7 +7245,8 @@
       "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E3%81%B9%E3%81%A3%E3%81%93%E3%81%86\" target=\"_blank\">べっこう</a>は富山県の郷土料理で、寒天に卵と醤油を加えて固めた料理。琥珀色の見た目が「鼈甲（べっこう）」に似ていることからその名がついたとされています。お正月やお祭りなど、ハレの日の食卓に欠かせない一品として親しまれてきたとも言われています。",
       "photos": {
         "main": "assets/images/recipes/kohaku-bekko-toyama-001.jpg",
-        "thumbnail": "assets/images/recipes/kohaku-bekko-toyama-001.jpg"
+        "thumbnail": "assets/images/recipes/kohaku-bekko-toyama-001.jpg",
+        "position": "center 70%"
       },
       "related_recipe_ids": [
         "konbu-gottani-toyama-001"
@@ -7411,7 +7413,7 @@
         }
       ],
       "grandma_notes": [],
-      "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E3%81%99%E3%81%84%E3%81%A8%E3%82%93\" target=\"_blank\">すいとん</a>は、小麦粉を水で練った生地を汁に入れて煮た素朴な料理。戦時中の代用食としても知られていますが、各地でそれぞれの家庭の味として受け継がれてきたとも言われています。白米が足りない時のおかず兼主食として、おばあちゃんの知恵が詰まった一品かもしれません。",
+      "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E3%81%99%E3%81%84%E3%81%A8%E3%82%93\" target=\"_blank\">すいとん</a>は、小麦粉を水で練った生地を汁に入れて煮た素朴な料理。戦時中の代用食としても知られていますが、各地でそれぞれの家庭の味として受け継がれてきたとも言われています。",
       "photos": {
         "main": "assets/images/recipes/suiton-jiru-tochigi-001.jpg",
         "thumbnail": "assets/images/recipes/suiton-jiru-tochigi-001.jpg"
@@ -7542,7 +7544,7 @@
         }
       ],
       "grandma_notes": [],
-      "cultural_background": "夏が旬の<a href=\"https://ja.wikipedia.org/wiki/%E3%83%8A%E3%82%B9\" target=\"_blank\">なす</a>は油との相性が抜群で、炒め物にするとトロッとした食感になるのが特徴。ポン酢で仕上げることでさっぱりと食べられ、暑い日のお昼にぴったりの一品かもしれません。",
+      "cultural_background": "夏が旬の<a href=\"https://ja.wikipedia.org/wiki/%E3%83%8A%E3%82%B9\" target=\"_blank\">なす</a>は油との相性が抜群で、炒め物にするとトロッとした食感になるのが特徴。埼玉県は関東有数のなすの産地としても知られており、夏場の食卓になすの炒め物が頻繁に登場する家庭も多かったとされています。",
       "photos": {
         "main": "assets/images/recipes/nasumiso-don-saitama-001.jpg",
         "thumbnail": "assets/images/recipes/nasumiso-don-saitama-001.jpg"
@@ -7653,7 +7655,7 @@
         }
       ],
       "grandma_notes": [],
-      "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E3%81%8A%E3%81%8B%E3%81%8B\" target=\"_blank\">おかか</a>は鰹節の別名で、日本の伝統的なご飯のお供。炊きたてのご飯に醤油と鰹節を層にして詰めるお弁当は、時間が経つほどに出汁が染み渡り、冷めても美味しく食べられる先人の知恵かもしれません。",
+      "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E3%81%8A%E3%81%8B%E3%81%8B\" target=\"_blank\">おかか</a>は鰹節の別名で、日本の伝統的なご飯のお供。和歌山県は古くから鰹漁が盛んな地域で、鰹節を使った料理が日常的に食卓に並んでいたとも言われています。ご飯に醤油と鰹節を合わせる食べ方は、漁師町を中心に各地で受け継がれてきたようです。",
       "photos": {
         "main": "assets/images/recipes/okaka-gohan-wakayama-001.jpg",
         "thumbnail": "assets/images/recipes/okaka-gohan-wakayama-001.jpg"

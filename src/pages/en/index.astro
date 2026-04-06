@@ -315,10 +315,9 @@ const categories = [
         .catch(err => console.warn('Japan map SVG load failed:', err));
     }
 
-    // Scroll animation
+    // Scroll animation (Progressive Enhancement)
     const animatedEls = document.querySelectorAll('.animate-on-scroll');
     if (animatedEls.length > 0 && 'IntersectionObserver' in window) {
-      document.documentElement.classList.add('js-scroll-ready');
       const observer = new IntersectionObserver((entries) => {
         for (const entry of entries) {
           if (entry.isIntersecting) {

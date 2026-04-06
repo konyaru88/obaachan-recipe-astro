@@ -87,6 +87,7 @@ const regionLabels: Record<string, string> = {
           <span class="hero__line" style="--line-i:7">「あの日の食卓」を次世代へつなぐ、</span><br />
           <span class="hero__line" style="--line-i:8">最も温かいタイムマシン。</span>
         </p>
+        <p class="hero__site-name"><span class="hero__line" style="--line-i:9">── おばあちゃんのレシピ</span></p>
         <!-- 検索はヘッダーに集約 -->
       </div>
     </section>
@@ -328,10 +329,9 @@ const regionLabels: Record<string, string> = {
         .catch(err => console.warn('Japan map SVG の読み込みに失敗しました:', err));
     }
 
-    // スクロールアニメーション
+    // スクロールアニメーション（Progressive Enhancement）
     const animatedEls = document.querySelectorAll('.animate-on-scroll');
     if (animatedEls.length > 0 && 'IntersectionObserver' in window) {
-      document.documentElement.classList.add('js-scroll-ready');
       const observer = new IntersectionObserver((entries) => {
         for (const entry of entries) {
           if (entry.isIntersecting) {

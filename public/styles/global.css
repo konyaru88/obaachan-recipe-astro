@@ -74,9 +74,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
-  word-break: auto-phrase;
-  overflow-wrap: anywhere;
-  text-wrap: pretty;
 }
 
 h1, h2, h3, h4 {
@@ -145,6 +142,12 @@ input, textarea, select {
 }
 
 @media (max-width: 768px) {
+  body {
+    word-break: auto-phrase;
+    overflow-wrap: anywhere;
+    text-wrap: pretty;
+  }
+
   .grid-2,
   .grid-3,
   .grid-4 {
@@ -446,7 +449,7 @@ input, textarea, select {
   font-size: clamp(2rem, 5vw, 3.2rem);
   font-weight: 400;
   color: var(--color-text-primary);
-  line-height: 1.6;
+  line-height: 1.8;
   margin-bottom: var(--space-lg);
   letter-spacing: 0.04em;
   text-shadow: none;

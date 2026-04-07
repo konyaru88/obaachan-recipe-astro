@@ -261,12 +261,27 @@ const categories = [
       shikoku: 'Shikoku', kyushu: 'Kyushu & Okinawa',
     };
 
+    // Seasonal color palettes
+    const seasonalPalettes = {
+      spring: ['#F5E6EC', '#E8B4C8', '#D4839E', '#C05A7A', '#A03060'], // Cherry blossom
+      summer: ['#E0EEF5', '#A8D4E6', '#6BB5D4', '#3A8FB7', '#1B6691'], // Ocean
+      autumn: ['#E8DCC8', '#D4B896', '#C49A6C', '#A0703C', '#7D4E1E'], // Fall foliage
+      winter: ['#F0F2F5', '#D1D9E0', '#B0BEC5', '#8A9AA5', '#607D8B'], // Snowscape
+    };
+    function getCurrentSeason() {
+      const m = new Date().getMonth() + 1;
+      if (m >= 3 && m <= 5) return 'spring';
+      if (m >= 6 && m <= 8) return 'summer';
+      if (m >= 9 && m <= 11) return 'autumn';
+      return 'winter';
+    }
     function getColorForCount(count) {
-      if (count === 0) return '#E8DCC8';
-      if (count <= 2) return '#D4B896';
-      if (count <= 5) return '#C49A6C';
-      if (count <= 10) return '#A0703C';
-      return '#7D4E1E';
+      const palette = seasonalPalettes[getCurrentSeason()];
+      if (count === 0) return palette[0];
+      if (count <= 2) return palette[1];
+      if (count <= 5) return palette[2];
+      if (count <= 10) return palette[3];
+      return palette[4];
     }
 
     const mapWrapper = document.getElementById('japan-map-wrapper');

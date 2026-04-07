@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /search/
+Disallow: /en/search/
 
 Sitemap: https://www.obaachan-recipe.com/sitemap.xml

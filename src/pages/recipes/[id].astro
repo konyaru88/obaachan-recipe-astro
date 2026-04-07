@@ -56,14 +56,14 @@ const difficultyLabel = getDifficultyLabel(difficulty);
 const seasonEmojiMap: Record<string, string> = { '春': '🌸', '夏': '🌻', '秋': '🍁', '冬': '⛄', '通年': '🗓' };
 const seasonEmoji = (s: string) => seasonEmojiMap[s] ?? '🗓';
 
-// SEO: 70〜90字で「料理名（県名）── エピソード/ストーリー要約」
+// SEO: meta_description があればそちらを優先、なければ自動生成
 const rawEpisode = (episode || story || '').replace(/<[^>]+>/g, '').replace(/\n/g, '');
 const descPrefix = `${recipe.title}（${prefecture}）`;
 const descBody = rawEpisode
   ? `── ${rawEpisode}`.slice(0, 85 - descPrefix.length)
   : `── ${prefecture}のおばあちゃんから届いた手料理`;
-const description = descPrefix + descBody;
-const pageTitle = `${recipe.title}（${prefecture}）| おばあちゃんのレシピ`;
+const description = (recipe as any).meta_description || (descPrefix + descBody);
+const pageTitle = (recipe as any).seo_title || `${recipe.title}（${prefecture}）| おばあちゃんのレシピ`;
 
 // GA4 tracking vars
 const trackRecipeName = recipe.title;

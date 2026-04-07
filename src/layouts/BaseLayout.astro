@@ -77,7 +77,17 @@ const enUrl = lang === 'en' ? currentUrl : siteUrl + alternatePath('ja', Astro.u
   <!-- Google Search Console -->
   <meta name="google-site-verification" content="o8CGRwi6p8d6FL8x-uHhxRCxZVuSK3pnas4yYmXAnJY" />
 
-  <!-- Google Analytics (GA4) -->
+  <!-- Google Analytics (GA4) — ?notrack=1 で自己アクセス除外 -->
+  <script is:inline>
+    (function(){
+      if (location.search.indexOf('notrack=1') !== -1) {
+        document.cookie = 'ga_notrack=1;path=/;max-age=31536000;SameSite=Lax';
+      }
+      if (document.cookie.indexOf('ga_notrack=1') !== -1) {
+        window['ga-disable-G-EVYD2MEX67'] = true;
+      }
+    })();
+  </script>
   <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-EVYD2MEX67"></script>
   <script is:inline>
     window.dataLayer = window.dataLayer || [];

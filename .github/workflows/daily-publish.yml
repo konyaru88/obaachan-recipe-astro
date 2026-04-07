@@ -46,6 +46,15 @@ jobs:
           git commit -m "📝 新記事公開: ${{ steps.publish.outputs.article_title }}"
           git push
 
+      - name: Commit queue cleanup (skip case)
+        if: steps.publish.outputs.queue_updated == 'true' && steps.publish.outputs.article_id == ''
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/data/article_queue.json
+          git diff --staged --quiet || git commit -m "🗑️ キューから公開済み記事を除去"
+          git push
+
   build:
     runs-on: ubuntu-latest
     needs: publish

@@ -51,6 +51,7 @@ def main():
             json.dump(queue, f, ensure_ascii=False, indent=2)
         set_output('article_id', '')
         set_output('article_title', '')
+        set_output('queue_updated', 'true')
         sys.exit(0)
 
     # articles.json の先頭に追加（新しい記事が上に来るように）

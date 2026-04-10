@@ -31,7 +31,7 @@ if (!article) {
 const siteUrl = 'https://www.obaachan-recipe.com';
 const pageUrl = `${siteUrl}/articles/${article.id}/`;
 const date = article.published_at.replace(/-/g, '.').slice(2);
-const pageTitle = `${article.title.replace(/\n/g, '')} | おばあちゃんのレシピ`;
+const pageTitle = (article as any).seo_title ?? `${article.title.replace(/\n/g, '')} | おばあちゃんのレシピ`;
 const pageDescription = article.meta_description ?? (article.lead.slice(0, 120) + '…');
 
 // レシピカードHTMLを生成

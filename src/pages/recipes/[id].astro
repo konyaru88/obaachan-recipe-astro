@@ -124,12 +124,21 @@ const breadcrumbLd = {
   ],
 };
 
-// 関連レシピ（areaCodeが空の場合は表示しない）
-const related = areaCode
-  ? allRecipes
-      .filter((r) => r.region?.area === areaCode && r.id !== recipe.id)
-      .slice(0, 4)
+// 関連レシピ（同地域 → 同カテゴリ → 新着の順でフォールバックして最大4件）
+const RELATED_MAX = 4;
+const sameArea = areaCode
+  ? allRecipes.filter((r) => r.region?.area === areaCode && r.id !== recipe.id)
   : [];
+const sameCategory = allRecipes.filter(
+  (r) => r.category === recipe.category && r.id !== recipe.id &&
+         !sameArea.some((s) => s.id === r.id)
+);
+const others = allRecipes.filter(
+  (r) => r.id !== recipe.id &&
+         !sameArea.some((s) => s.id === r.id) &&
+         !sameCategory.some((s) => s.id === r.id)
+);
+const related = [...sameArea, ...sameCategory, ...others].slice(0, RELATED_MAX);
 
 // 関連記事（地域タグ一致 → レシピタグ一致の優先順）
 const AREA_TO_REGION: Record<string, string> = {

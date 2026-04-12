@@ -7981,6 +7981,3255 @@
         ],
         "contributor": "ローズマリー"
       }
+    },
+    {
+      "id": "imoni-yamagata-001",
+      "title": "芋煮",
+      "grandmother": {
+        "name": null,
+        "age": null,
+        "prefecture": "山形県",
+        "city": null,
+        "village": null,
+        "message": null
+      },
+      "region": {
+        "area": "tohoku",
+        "prefecture_code": "06",
+        "prefecture": "山形県"
+      },
+      "meta": {
+        "created_at": "2026-04-12",
+        "is_featured": false,
+        "is_endangered": false
+      },
+      "category": "煮物",
+      "tags": [
+        "煮物",
+        "郷土料理",
+        "家庭料理"
+      ],
+      "season": [
+        "秋"
+      ],
+      "servings": 4,
+      "prep_time_minutes": 20,
+      "cook_time_minutes": 40,
+      "difficulty": 2,
+      "story": "<a href=\"https://ja.wikipedia.org/wiki/%E8%8A%8B%E7%85%AE%E4%BC%9A\" target=\"_blank\" rel=\"noopener\">芋煮</a>は山形県の秋を代表する郷土料理で、河川敷に集まって大鍋で煮る「芋煮会」は秋の風物詩として知られています。内陸部では牛肉＋醤油味、庄内地方では豚肉＋味噌味と、同じ山形でも地域によって味付けが異なるとも言われています。",
+      "ingredients": [
+        {
+          "group": "主材料",
+          "items": [
+            {
+              "name": "里芋",
+              "amount": null,
+              "unit": "500〜600g",
+              "note": "皮をむいたもの",
+              "grandma_amount": "両手で山盛りいっぱい。多いほうが喜ばれるよ",
+              "approx_weight": null
+            },
+            {
+              "name": "牛肉（バラかこま切れ）",
+              "amount": null,
+              "unit": "250〜300g",
+              "note": null,
+              "grandma_amount": "パックの中で一番いい色してるのを、贅沢に一掴み"
+            },
+            {
+              "name": "こんにゃく",
+              "amount": 1,
+              "unit": "枚",
+              "note": "手でちぎる",
+              "grandma_amount": "手でちぎって、里芋の間を埋めるくらい",
+              "approx_weight": "250g"
+            },
+            {
+              "name": "ねぎ",
+              "amount": 2,
+              "unit": "本",
+              "note": "斜め切り",
+              "grandma_amount": "太いところをドカドカっと2本分。白いところが美味しいんだ",
+              "approx_weight": "200g"
+            },
+            {
+              "name": "水",
+              "amount": null,
+              "unit": "1〜1.2L",
+              "note": null,
+              "grandma_amount": "お鍋の真ん中よりちょっと上、里芋が溺れるくらい"
+            }
+          ]
+        },
+        {
+          "group": "味付け",
+          "items": [
+            {
+              "name": "醤油",
+              "amount": null,
+              "unit": "大さじ6〜7",
+              "note": null,
+              "grandma_amount": "のの字を3回書いて、最後にちょっと『チョン』"
+            },
+            {
+              "name": "酒",
+              "amount": null,
+              "unit": "大さじ3",
+              "note": null,
+              "grandma_amount": "景気良くドボドボッとおまじない"
+            },
+            {
+              "name": "砂糖",
+              "amount": null,
+              "unit": "大さじ3〜4",
+              "note": null,
+              "grandma_amount": "手のひらに乗るだけガバッと。これがコクになるんだよ"
+            }
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "text": "里芋とこんにゃくを水から入れてじっくり煮る。こんにゃくは包丁を使わずに手でちぎる。",
+          "tip": "手でちぎると表面がギザギザになって味がよく染みる"
+        },
+        {
+          "step": 2,
+          "text": "浮いてきた茶色い泡だけ優しくすくってアクを取る。取りすぎないのがコツ。",
+          "tip": null
+        },
+        {
+          "step": 3,
+          "text": "里芋がやわらかくなったら、醤油・酒・砂糖を加える。最初に甘みを入れると味がなじみやすい。",
+          "tip": null
+        },
+        {
+          "step": 4,
+          "text": "お肉を広げるように入れる。最初から入れると硬くなるので、あとから入れるのがコツ。",
+          "tip": null
+        },
+        {
+          "step": 5,
+          "text": "ねぎを入れたら蓋をしてひと呼吸。シャキシャキが残ってるくらいが一番ごちそう。",
+          "tip": null
+        }
+      ],
+      "grandma_notes": null,
+      "cultural_background": "山形の芋煮は江戸時代の河川交易が起源とされ、最上川の船着き場で荷受けの人々が里芋を鍋で炊いたのが始まりとも言われています。毎年9月に開催される<a href=\"https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E4%B8%80%E3%81%AE%E8%8A%8B%E7%85%AE%E4%BC%9A%E3%83%95%E3%82%A7%E3%82%B9%E3%83%86%E3%82%A3%E3%83%90%E3%83%AB\" target=\"_blank\" rel=\"noopener\">日本一の芋煮会フェスティバル</a>では直径6メートルを超える大鍋が使われることでも有名です。",
+      "photos": [],
+      "related_recipe_ids": [],
+      "thumbnail_emoji": "🍲",
+      "episode": "あれは中学生くらいの頃、おばあちゃんに煮物の味付けを教わっていたときのこと。「おばあちゃん、お醤油はどれくらい入れるの？」と聞いたら、「そうねぇ、お鍋が『もういいよ』って顔をするまで入れなさい」と言われて、必死にお鍋の「顔」を観察したけれど、ステンレスの光沢が見えるだけで一向に表情がわからない。言葉を信じてドボドボ入れた結果、出来上がったのはイカの塩辛よりしょっぱい何か。家族全員が悶絶している横で、おばあちゃんだけは涼しい顔で「……今日はこのお鍋、ずいぶんと欲張りさんだったみたいねぇ」。お鍋のせいにしちゃうおばあちゃん、最強だと思った。",
+      "source": {
+        "types": [
+          "記憶を頼りに書いている"
+        ],
+        "contributor": "こあら"
+      },
+      "view_count": 0
+    },
+    {
+      "id": "katsuo-tataki-chiba-001",
+      "title": "カツオのたたき",
+      "grandmother": {
+        "name": null,
+        "age": null,
+        "prefecture": "千葉県",
+        "city": null,
+        "village": null,
+        "message": null
+      },
+      "region": {
+        "area": "kanto",
+        "prefecture_code": "12",
+        "prefecture": "千葉県"
+      },
+      "meta": {
+        "created_at": "2026-04-12",
+        "is_featured": false,
+        "is_endangered": false
+      },
+      "category": "主菜",
+      "tags": [
+        "日常のごはん",
+        "家庭料理"
+      ],
+      "season": [
+        "秋"
+      ],
+      "servings": 4,
+      "prep_time_minutes": 15,
+      "cook_time_minutes": 60,
+      "difficulty": 1,
+      "story": "カツオのたたきは<a href=\"https://ja.wikipedia.org/wiki/%E9%B0%B9%E3%81%AE%E3%81%9F%E3%81%9F%E3%81%8D\" target=\"_blank\" rel=\"noopener\">高知県が本場</a>として有名ですが、千葉県の<a href=\"https://ja.wikipedia.org/wiki/%E5%8B%9D%E6%B5%A6%E6%BC%81%E6%B8%AF\" target=\"_blank\" rel=\"noopener\">勝浦</a>もカツオの水揚げが盛んな地域。ポン酢で漬け込むスタイルは、薬味の香りがカツオの旨みを引き立て、ごはんのおかずとしても日本酒のお供としてもよく合います。",
+      "ingredients": [
+        {
+          "group": "材料",
+          "items": [
+            {
+              "name": "カツオ（たたき用）",
+              "amount": 1,
+              "unit": "さく",
+              "note": null,
+              "grandma_amount": null
+            },
+            {
+              "name": "味ぽん",
+              "amount": null,
+              "unit": "適量",
+              "note": "魚が浸かるくらい",
+              "grandma_amount": "魚が浸かるくらい"
+            },
+            {
+              "name": "玉ねぎ",
+              "amount": 1,
+              "unit": "個",
+              "note": "スライス",
+              "grandma_amount": null,
+              "approx_weight": "200g"
+            },
+            {
+              "name": "みょうが",
+              "amount": null,
+              "unit": "2〜3本",
+              "note": "スライス",
+              "grandma_amount": null
+            },
+            {
+              "name": "にんにく",
+              "amount": 1,
+              "unit": "かけ",
+              "note": "スライス",
+              "grandma_amount": null,
+              "approx_weight": "5〜8g"
+            },
+            {
+              "name": "小ねぎ",
+              "amount": null,
+              "unit": "適量",
+              "note": null,
+              "grandma_amount": null
+            },
+            {
+              "name": "しょうが",
+              "amount": 1,
+              "unit": "かけ",
+              "note": "すりおろし",
+              "grandma_amount": null,
+              "approx_weight": "10〜15g"
+            }
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "text": "カツオのたたきを食べやすい大きさに切る。",
+          "tip": null
+        },
+        {
+          "step": 2,
+          "text": "タッパにカツオを平に並べる。",
+          "tip": null
+        },
+        {
+          "step": 3,
+          "text": "玉ねぎをスライスしてカツオの上に広げ、生姜をすりおろして散らす。",
+          "tip": null
+        },
+        {
+          "step": 4,
+          "text": "にんにくをスライスして散らし、みょうがもスライスして広げる。",
+          "tip": null
+        },
+        {
+          "step": 5,
+          "text": "ポン酢をカツオが浸るくらい入れる。",
+          "tip": null
+        },
+        {
+          "step": 6,
+          "text": "蓋を閉めて1時間以上冷蔵庫で寝かせたら出来上がり。",
+          "tip": "寝かせる時間が長いほど味が染みる"
+        }
+      ],
+      "grandma_notes": null,
+      "cultural_background": "千葉県の外房地域は黒潮の恩恵を受けてカツオの好漁場が広がっており、勝浦漁港は全国有数のカツオの水揚げ量を誇ります。初鰹（はつがつお）は「目には青葉 山ほととぎす 初鰹」の句でも知られ、江戸時代には初物として珍重されていたとも言われています。",
+      "photos": [],
+      "related_recipe_ids": [],
+      "thumbnail_emoji": "🐟",
+      "episode": "おじいちゃんがこの料理をとても気に入っていて、知人が来るといつもおばあちゃんの料理を自慢していました。おばあちゃんがちゃちゃっと台所でタッパに仕込んでいる姿が目に浮かびます。",
+      "source": {
+        "types": [
+          "記憶を頼りに書いている"
+        ],
+        "contributor": "ひよりん"
+      },
+      "view_count": 0
+    },
+    {
+      "id": "jagaimo-amakara-ni-okayama-001",
+      "title": "じゃがいもの甘辛煮",
+      "grandmother": {
+        "name": null,
+        "age": null,
+        "prefecture": "岡山県",
+        "city": null,
+        "village": null,
+        "message": null
+      },
+      "region": {
+        "area": "chugoku",
+        "prefecture_code": "33",
+        "prefecture": "岡山県"
+      },
+      "meta": {
+        "created_at": "2026-04-12",
+        "is_featured": false,
+        "is_endangered": false
+      },
+      "category": "煮物",
+      "tags": [
+        "煮物",
+        "日常のごはん",
+        "家庭料理"
+      ],
+      "season": [
+        "秋",
+        "冬"
+      ],
+      "servings": 4,
+      "prep_time_minutes": 15,
+      "cook_time_minutes": 30,
+      "difficulty": 2,
+      "story": "岡山県の家庭では、こうしたじゃがいもの煮物が「あと一品」の定番として親しまれてきました。焼き魚や味噌汁のそばにちょこんと並ぶ素朴な一品で、冷めても味がしみておいしいのでお弁当にもよく入っていたそうです。",
+      "ingredients": [
+        {
+          "group": "材料",
+          "items": [
+            {
+              "name": "じゃがいも",
+              "amount": null,
+              "unit": "4〜5個",
+              "note": "中くらい",
+              "grandma_amount": "中くらいのをごろごろ入れる",
+              "approx_weight": "600〜750g"
+            },
+            {
+              "name": "玉ねぎ",
+              "amount": 1,
+              "unit": "個",
+              "note": "くし切り",
+              "grandma_amount": "半分でええよ",
+              "approx_weight": "200g"
+            },
+            {
+              "name": "にんじん",
+              "amount": null,
+              "unit": "1/2本",
+              "note": "乱切り",
+              "grandma_amount": "ちょっとだけ入れる",
+              "approx_weight": "75〜90g"
+            },
+            {
+              "name": "サラダ油",
+              "amount": null,
+              "unit": "大さじ1",
+              "note": null,
+              "grandma_amount": null
+            },
+            {
+              "name": "水",
+              "amount": null,
+              "unit": "300cc",
+              "note": null,
+              "grandma_amount": "具が半分ちょっとつかるくらい"
+            },
+            {
+              "name": "和風だし",
+              "amount": null,
+              "unit": "小さじ1",
+              "note": null,
+              "grandma_amount": "少し"
+            },
+            {
+              "name": "酒",
+              "amount": null,
+              "unit": "大さじ1",
+              "note": null,
+              "grandma_amount": "少しだけ入れる"
+            },
+            {
+              "name": "砂糖",
+              "amount": null,
+              "unit": "大さじ2",
+              "note": null,
+              "grandma_amount": "甘みが出るくらいにさらさらっと"
+            },
+            {
+              "name": "しょうゆ",
+              "amount": null,
+              "unit": "大さじ3",
+              "note": null,
+              "grandma_amount": "鍋にひとまわし半くらい"
+            },
+            {
+              "name": "みりん",
+              "amount": null,
+              "unit": "大さじ2",
+              "note": null,
+              "grandma_amount": "少したらす"
+            }
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "text": "じゃがいもは皮をむいて半分から4等分に切り、水に少しさらす。玉ねぎはくし切り、にんじんは乱切りにする。",
+          "tip": null
+        },
+        {
+          "step": 2,
+          "text": "鍋にサラダ油を入れて中火で熱し、玉ねぎとにんじんを軽く炒める。香りが出てきたらじゃがいもも加えて油をなじませる。",
+          "tip": null
+        },
+        {
+          "step": 3,
+          "text": "水300ccを入れて、和風だし・酒・砂糖を加える。",
+          "tip": "最初に甘みを入れると味がなじみやすい"
+        },
+        {
+          "step": 4,
+          "text": "煮立ったらアクを取り、落としぶたをして中火より少し弱めで10分ほど煮る。",
+          "tip": null
+        },
+        {
+          "step": 5,
+          "text": "しょうゆとみりんを加えてさらに10〜15分煮る。竹串がすっと通るくらいまで。",
+          "tip": null
+        },
+        {
+          "step": 6,
+          "text": "最後は少し火を強めて煮汁を軽く飛ばし、鍋をゆすりながら全体に照りを出して完成。",
+          "tip": "箸であまり触らず、鍋をゆすって混ぜるとじゃがいもが崩れない"
+        }
+      ],
+      "grandma_notes": null,
+      "cultural_background": "じゃがいもは江戸時代にオランダ船で日本に伝わったとされ、「ジャガタライモ（ジャカルタの芋）」が語源とも言われています。岡山県は温暖な気候で野菜の栽培が盛んな地域であり、家庭の煮物にはその時々の旬の根菜が使われることが多かったようです。",
+      "photos": [],
+      "related_recipe_ids": [],
+      "thumbnail_emoji": "🥔",
+      "episode": "祖母の家に行くとかなりの確率で食卓に並んでいた料理です。台所で大きめの鍋を火にかけながら、味見をしては「まだちょっと若いな、もう少し煮ようか」と言っていたのを覚えています。計量することはなく、調味料もだいたい鍋に直接入れていて、見ていて毎回よく同じ味になるなと感心していました。じゃがいもが少し崩れて煮汁にとろみがつく感じが家族みんな好きで、気づくと鍋が空に近くなっていました。「煮物は急がんことが一番」が口癖でした。",
+      "source": {
+        "types": [
+          "おばあちゃん本人から直接教わった",
+          "家族（親・きょうだいなど）から聞いた",
+          "記憶を頼りに書いている"
+        ],
+        "contributor": "吉見"
+      },
+      "view_count": 0
+    },
+    {
+      "id": "satoimo-shoyu-ni-hyogo-001",
+      "title": "里芋のしょうゆ煮",
+      "grandmother": {
+        "name": null,
+        "age": null,
+        "prefecture": "兵庫県",
+        "city": null,
+        "village": null,
+        "message": null
+      },
+      "region": {
+        "area": "kinki",
+        "prefecture_code": "28",
+        "prefecture": "兵庫県"
+      },
+      "meta": {
+        "created_at": "2026-04-12",
+        "is_featured": false,
+        "is_endangered": false
+      },
+      "category": "煮物",
+      "tags": [
+        "煮物",
+        "日常のごはん",
+        "家庭料理"
+      ],
+      "season": [
+        "秋"
+      ],
+      "servings": 4,
+      "prep_time_minutes": 15,
+      "cook_time_minutes": 25,
+      "difficulty": 2,
+      "story": "里芋のしょうゆ煮は、秋に新物の里芋が出回る時期の定番料理。「今のうちに炊いとこか」と夕方のうちに仕込んで、翌日のお弁当にも入れてくれる、兵庫の家庭の味です。",
+      "ingredients": [
+        {
+          "group": "材料",
+          "items": [
+            {
+              "name": "里芋",
+              "amount": null,
+              "unit": "500g",
+              "note": null,
+              "grandma_amount": "手のひらに乗るくらいを人数分や"
+            },
+            {
+              "name": "しょうゆ",
+              "amount": null,
+              "unit": "大さじ3",
+              "note": null,
+              "grandma_amount": "鍋の底が色づくくらい"
+            },
+            {
+              "name": "砂糖",
+              "amount": null,
+              "unit": "大さじ1.5",
+              "note": null,
+              "grandma_amount": "指3本でつまんだくらい"
+            },
+            {
+              "name": "みりん",
+              "amount": null,
+              "unit": "大さじ2",
+              "note": null,
+              "grandma_amount": "ちょっと照りつけるために"
+            },
+            {
+              "name": "だし汁",
+              "amount": null,
+              "unit": "300cc",
+              "note": null,
+              "grandma_amount": "里芋がちょっと顔出すくらい"
+            },
+            {
+              "name": "塩",
+              "amount": null,
+              "unit": "ひとつまみ",
+              "note": "仕上げ用",
+              "grandma_amount": "最後にひとつまみで味が締まる"
+            }
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "text": "里芋は皮をむき、ぬめりを取るために塩でもんでから水で洗う。",
+          "tip": null
+        },
+        {
+          "step": 2,
+          "text": "鍋に里芋とだし汁を入れ、中火で煮始める。",
+          "tip": null
+        },
+        {
+          "step": 3,
+          "text": "沸いてきたら砂糖・しょうゆ・みりんを加え、落とし蓋をして弱火にする。",
+          "tip": null
+        },
+        {
+          "step": 4,
+          "text": "15〜20分ほど、竹串がすっと通るまで煮る。",
+          "tip": null
+        },
+        {
+          "step": 5,
+          "text": "汁気が少なくなってきたら火を少し強め、鍋をゆっくり揺すりながら照りをつける。",
+          "tip": null
+        },
+        {
+          "step": 6,
+          "text": "塩をひとつまみ入れて味を締める。",
+          "tip": null
+        },
+        {
+          "step": 7,
+          "text": "火を止めてから10分ほど置くと味がしみてさらにおいしくなる。",
+          "tip": null
+        }
+      ],
+      "grandma_notes": null,
+      "cultural_background": "里芋は縄文時代に東南アジアから伝わったとされる日本最古級の作物のひとつで、稲作が普及する以前は主食的な役割を担っていたとも言われています。「衣被（きぬかつぎ）」や「煮っ転がし」など地域によって呼び名や調理法が異なるのも里芋料理の特徴です。",
+      "photos": [],
+      "related_recipe_ids": [],
+      "thumbnail_emoji": "🥔",
+      "episode": "おばあちゃんは里芋をむくのがすごく早くて、横で見ていると「ほら、指切るで！」と笑われながら手伝っていました。煮ている間、鍋を揺すりながら「里芋は焦らしたらあかんねん、ゆっくり味を入れるんや」とよく言っていました。夕方の薄暗い台所で、鍋の中の照りがポッと光るのがきれいで、子供ながらにおいしくなる瞬間を見ている気がして好きでした。翌日のお弁当に入っていると、冷めてもほっくりしていて、家の匂いを思い出して安心したのをよく覚えています。",
+      "source": {
+        "types": [
+          "おばあちゃん本人から直接教わった",
+          "記憶を頼りに書いている"
+        ],
+        "contributor": "ゆきの"
+      },
+      "view_count": 0
+    },
+    {
+      "id": "nikujaga-hyogo-001",
+      "title": "おばあちゃんの肉じゃが",
+      "grandmother": {
+        "name": null,
+        "age": null,
+        "prefecture": "兵庫県",
+        "city": null,
+        "village": null,
+        "message": null
+      },
+      "region": {
+        "area": "kinki",
+        "prefecture_code": "28",
+        "prefecture": "兵庫県"
+      },
+      "meta": {
+        "created_at": "2026-04-12",
+        "is_featured": false,
+        "is_endangered": false
+      },
+      "category": "煮物",
+      "tags": [
+        "煮物",
+        "家庭料理",
+        "日常のごはん"
+      ],
+      "season": [
+        "秋",
+        "冬"
+      ],
+      "servings": 4,
+      "prep_time_minutes": 15,
+      "cook_time_minutes": 30,
+      "difficulty": 2,
+      "story": "兵庫県の家庭で愛される定番の肉じゃが。寒くなり始める11月頃から食卓によく登場し、お正月やお祭りの日にも添えられる、いつでもそこにある安心の一品です。",
+      "ingredients": [
+        {
+          "group": "材料",
+          "items": [
+            {
+              "name": "じゃがいも",
+              "amount": null,
+              "unit": "500g",
+              "note": null,
+              "grandma_amount": "手のひらに乗るくらいの大きさをゴロゴロ入れる"
+            },
+            {
+              "name": "にんじん",
+              "amount": null,
+              "unit": "150g",
+              "note": null,
+              "grandma_amount": "細長く切って、鍋に半分くらい"
+            },
+            {
+              "name": "玉ねぎ",
+              "amount": null,
+              "unit": "200g",
+              "note": "ざく切り",
+              "grandma_amount": "大きめのを2個、皮をむいてざく切り"
+            },
+            {
+              "name": "牛肉",
+              "amount": null,
+              "unit": "200g",
+              "note": null,
+              "grandma_amount": "少し多めに、家族が喜ぶくらい"
+            },
+            {
+              "name": "しょうゆ",
+              "amount": null,
+              "unit": "50cc",
+              "note": null,
+              "grandma_amount": "鍋にひと回し"
+            },
+            {
+              "name": "砂糖",
+              "amount": null,
+              "unit": "15g",
+              "note": null,
+              "grandma_amount": "手でひとつまみずつ加える"
+            },
+            {
+              "name": "みりん",
+              "amount": null,
+              "unit": "50cc",
+              "note": null,
+              "grandma_amount": null
+            },
+            {
+              "name": "だし汁",
+              "amount": null,
+              "unit": "300cc",
+              "note": null,
+              "grandma_amount": "ひたひたになるくらい"
+            }
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "text": "じゃがいも・にんじん・玉ねぎは皮をむき、それぞれ適当な大きさに切る。牛肉は食べやすい大きさに。",
+          "tip": null
+        },
+        {
+          "step": 2,
+          "text": "鍋に油をひき、牛肉を炒める。色が変わったら玉ねぎを加えて透き通るまで炒める。",
+          "tip": null
+        },
+        {
+          "step": 3,
+          "text": "じゃがいもとにんじんを加えて軽く炒め、だし汁をひたひたに入れる。",
+          "tip": null
+        },
+        {
+          "step": 4,
+          "text": "砂糖・みりん・しょうゆを加え、中火で煮る。",
+          "tip": null
+        },
+        {
+          "step": 5,
+          "text": "沸騰したら弱火にして20〜25分煮込む。じゃがいもがやわらかくなるまで。",
+          "tip": null
+        },
+        {
+          "step": 6,
+          "text": "煮汁が少なくなったら味を調整し、鍋の端から軽く混ぜて完成。",
+          "tip": "煮る間はあまりかき混ぜすぎない。じゃがいもが崩れるので鍋をゆするくらいでよい"
+        }
+      ],
+      "grandma_notes": null,
+      "cultural_background": "肉じゃがは「おふくろの味」の代名詞として広く親しまれていますが、そのルーツには諸説あり、<a href=\"https://ja.wikipedia.org/wiki/%E8%82%89%E3%81%98%E3%82%83%E3%81%8C\" target=\"_blank\" rel=\"noopener\">舞鶴と呉が「発祥の地」</a>を争ったことでも知られています。関西では牛肉を使うことが多く、関東では豚肉が主流とも言われています。",
+      "photos": [],
+      "related_recipe_ids": [],
+      "thumbnail_emoji": "🥩",
+      "episode": "おばあちゃんはいつも「味は心で決めるんや」と言いながら料理していました。肉じゃがを煮ている間、甘い香りが家中に広がり、兄弟と「まだかな、まだかな」とキッチンをのぞいていたのを覚えています。煮込み終わったら家族みんなで「おいしい！」と声をそろえて食べるのが日常の幸せでした。煮汁を少し残しておくと翌日のお弁当の味もしっかりしみていて、2日目も楽しみでした。",
+      "source": {
+        "types": [
+          "おばあちゃん本人から直接教わった",
+          "記憶を頼りに書いている"
+        ],
+        "contributor": "みこ"
+      },
+      "view_count": 0
+    },
+    {
+      "id": "takenoko-tosani-fukuoka-001",
+      "title": "筍の土佐煮",
+      "grandmother": {
+        "name": null,
+        "age": null,
+        "prefecture": "福岡県",
+        "city": null,
+        "village": null,
+        "message": null
+      },
+      "region": {
+        "area": "kyushu",
+        "prefecture_code": "40",
+        "prefecture": "福岡県"
+      },
+      "meta": {
+        "created_at": "2026-04-12",
+        "is_featured": false,
+        "is_endangered": false
+      },
+      "category": "煮物",
+      "tags": [
+        "煮物",
+        "春の味覚",
+        "家庭料理"
+      ],
+      "season": [
+        "春"
+      ],
+      "servings": 4,
+      "prep_time_minutes": 10,
+      "cook_time_minutes": 25,
+      "difficulty": 2,
+      "story": "筍の土佐煮は、鰹節の旨みをまとわせた春の定番煮物。福岡県では春になると近所からたけのこをもらうことも多く、大きな鍋でたくさん煮て数日かけて食べるのがよくある光景だったそうです。",
+      "ingredients": [
+        {
+          "group": "材料",
+          "items": [
+            {
+              "name": "たけのこ（下茹で済み）",
+              "amount": null,
+              "unit": "500g",
+              "note": null,
+              "grandma_amount": "あるだけ使うとよ"
+            },
+            {
+              "name": "鰹節",
+              "amount": null,
+              "unit": "10g",
+              "note": null,
+              "grandma_amount": "ひとつかみパラッと"
+            },
+            {
+              "name": "だし汁",
+              "amount": null,
+              "unit": "400ml",
+              "note": null,
+              "grandma_amount": "ひたひたになるくらい"
+            },
+            {
+              "name": "醤油",
+              "amount": null,
+              "unit": "大さじ2〜3",
+              "note": null,
+              "grandma_amount": "ぐるっと2回しくらい"
+            },
+            {
+              "name": "みりん",
+              "amount": null,
+              "unit": "大さじ2",
+              "note": null,
+              "grandma_amount": "ちょっと甘みつける程度"
+            },
+            {
+              "name": "酒",
+              "amount": null,
+              "unit": "大さじ1",
+              "note": null,
+              "grandma_amount": null
+            },
+            {
+              "name": "砂糖",
+              "amount": null,
+              "unit": "大さじ1",
+              "note": null,
+              "grandma_amount": "好きなだけ"
+            }
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "text": "たけのこは食べやすい大きさに切る。",
+          "tip": null
+        },
+        {
+          "step": 2,
+          "text": "鍋にたけのこを入れ、だし汁を加えて中火にかける。",
+          "tip": null
+        },
+        {
+          "step": 3,
+          "text": "沸騰したら弱めの中火にし、砂糖・酒・みりんを入れて5分ほど煮る。",
+          "tip": "最初に甘い調味料を入れると味がしみやすい"
+        },
+        {
+          "step": 4,
+          "text": "醤油を加えてさらに10〜15分ほど煮る。",
+          "tip": null
+        },
+        {
+          "step": 5,
+          "text": "汁気が少し残るくらいまで煮詰めたら、鰹節を加えて全体に絡める。",
+          "tip": null
+        },
+        {
+          "step": 6,
+          "text": "火を止めてそのまま少し置いて味をなじませる。",
+          "tip": "一度冷ますとさらに味が入る"
+        }
+      ],
+      "grandma_notes": null,
+      "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E5%9C%9F%E4%BD%90%E7%85%AE\" target=\"_blank\" rel=\"noopener\">土佐煮</a>の「土佐」は鰹節の名産地・土佐（現在の高知県）に由来します。たけのこは掘ってから時間が経つとえぐみが増すため、「朝掘りたけのこ」が珍重されてきました。「筍」の字は竹冠に旬と書き、まさに旬の食材を表す漢字とも言われています。",
+      "photos": [],
+      "related_recipe_ids": [],
+      "thumbnail_emoji": "🎋",
+      "episode": "春になると、近所の人からもらったたけのこを新聞紙に包んで台所に置いていて、おばあちゃんが「早よせんとえぐみが出るけんね」と言いながらすぐに下処理していました。煮ている間、台所に鰹節と醤油のいい匂いが広がって、毎年この時期が楽しみでした。優しい味で、いつもたくさんおかわりしていました。",
+      "source": {
+        "types": [
+          "おばあちゃん本人から直接教わった",
+          "記憶を頼りに書いている"
+        ],
+        "contributor": "タカコ"
+      },
+      "view_count": 0
+    },
+    {
+      "id": "kiriboshi-aburage-hyogo-001",
+      "title": "甘辛だきのお揚げさんと切り干し大根",
+      "grandmother": {
+        "name": null,
+        "age": null,
+        "prefecture": "兵庫県",
+        "city": null,
+        "village": null,
+        "message": null
+      },
+      "region": {
+        "area": "kinki",
+        "prefecture_code": "28",
+        "prefecture": "兵庫県"
+      },
+      "meta": {
+        "created_at": "2026-04-12",
+        "is_featured": false,
+        "is_endangered": false
+      },
+      "category": "副菜",
+      "tags": [
+        "常備菜",
+        "日常のごはん",
+        "家庭料理"
+      ],
+      "season": [
+        "春",
+        "夏",
+        "秋",
+        "冬"
+      ],
+      "servings": 4,
+      "prep_time_minutes": 25,
+      "cook_time_minutes": 25,
+      "difficulty": 2,
+      "story": "神戸の家庭で「あと一品」として毎日のように食卓に並んでいた常備菜。朝ごはんにも晩ごはんにも、いつもそっとそばにある一品です。",
+      "ingredients": [
+        {
+          "group": "材料",
+          "items": [
+            {
+              "name": "切り干し大根（乾燥）",
+              "amount": null,
+              "unit": "60g",
+              "note": "戻し汁は捨てない",
+              "grandma_amount": "ザルに山盛りいっぱい分"
+            },
+            {
+              "name": "油揚げ（大判）",
+              "amount": 2,
+              "unit": "枚",
+              "note": "横半分に切ってから1cm幅",
+              "grandma_amount": "分厚いのおっきいの2枚",
+              "approx_weight": "60g"
+            },
+            {
+              "name": "にんじん",
+              "amount": null,
+              "unit": "1/3本",
+              "note": "細切り",
+              "grandma_amount": "彩りにちょっとだけ",
+              "approx_weight": "50〜60g"
+            },
+            {
+              "name": "戻し汁",
+              "amount": null,
+              "unit": "400〜500cc",
+              "note": "切り干し大根を浸した水",
+              "grandma_amount": "ひたひたになるまで"
+            },
+            {
+              "name": "醤油",
+              "amount": null,
+              "unit": "大さじ3",
+              "note": null,
+              "grandma_amount": "お玉に一杯弱くらい"
+            },
+            {
+              "name": "砂糖",
+              "amount": null,
+              "unit": "大さじ3〜4",
+              "note": null,
+              "grandma_amount": "甘めがええから、たっぷりひとつかみ"
+            },
+            {
+              "name": "酒",
+              "amount": null,
+              "unit": "50cc",
+              "note": null,
+              "grandma_amount": "ドボドボっと"
+            }
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "text": "切り干し大根を水でサッと洗い、たっぷりの水に浸して20分ほど戻す。戻し汁は絶対に捨てない。",
+          "tip": "戻し汁が旨みの素"
+        },
+        {
+          "step": 2,
+          "text": "戻した大根をギュッと絞り、食べやすい長さに切る。油揚げは横半分に切ってから1cm幅に、にんじんは細切りにする。",
+          "tip": null
+        },
+        {
+          "step": 3,
+          "text": "鍋に少し多めの油を引き、切り干し大根・にんじん・油揚げを順に入れて強火で炒める。",
+          "tip": "ここで油をなじませると、冷めてもツヤが出ておいしい"
+        },
+        {
+          "step": 4,
+          "text": "戻し汁と酒を加え、沸騰したら砂糖、醤油の順に入れる。",
+          "tip": null
+        },
+        {
+          "step": 5,
+          "text": "落とし蓋をして中火で15〜20分。煮汁が少し残るくらいまで煮詰める。",
+          "tip": null
+        },
+        {
+          "step": 6,
+          "text": "火を止めてそのまま冷ます。味は冷めていくときに中まで入る。",
+          "tip": "食べる数時間前に作っておくのがコツ"
+        }
+      ],
+      "grandma_notes": null,
+      "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E5%88%87%E3%82%8A%E5%B9%B2%E3%81%97%E5%A4%A7%E6%A0%B9\" target=\"_blank\" rel=\"noopener\">切り干し大根</a>は大根を細く切って天日干しにしたもので、乾燥させることで甘みと旨みが凝縮されます。戻し汁にも栄養と旨みがたっぷり含まれているため、そのまま煮汁として使うのが定番の知恵です。",
+      "photos": [],
+      "related_recipe_ids": [],
+      "thumbnail_emoji": "🥢",
+      "episode": "子供の頃、神戸の古い家で祖母が台所に立っていると、醤油と砂糖の焦げたような甘い香りが家中に漂ってきました。「お揚げさんは大根の旨味を吸って、大根はお揚げさんのコクをもらって仲良うなるんや」という不思議な例え話をしてくれました。思春期に反抗して黙って食べているときも、「今日はちょっと甘すぎたかなぁ？」と顔色を伺いながらお皿に山盛り継ぎ足してくれたものです。スーパーで切り干し大根を見ると、あの少し丸まった背中と温かい湯気の向こうの笑顔を思い出します。",
+      "source": {
+        "types": [
+          "おばあちゃん本人から直接教わった",
+          "記憶を頼りに書いている"
+        ],
+        "contributor": "六甲"
+      },
+      "view_count": 0
+    },
+    {
+      "id": "jagaimo-tori-amakara-osaka-001",
+      "title": "じゃがいもと鶏肉の甘辛煮",
+      "grandmother": {
+        "name": null,
+        "age": null,
+        "prefecture": "大阪府",
+        "city": null,
+        "village": null,
+        "message": null
+      },
+      "region": {
+        "area": "kinki",
+        "prefecture_code": "27",
+        "prefecture": "大阪府"
+      },
+      "meta": {
+        "created_at": "2026-04-12",
+        "is_featured": false,
+        "is_endangered": false
+      },
+      "category": "煮物",
+      "tags": [
+        "煮物",
+        "日常のごはん",
+        "家庭料理"
+      ],
+      "season": [
+        "秋",
+        "冬"
+      ],
+      "servings": 4,
+      "prep_time_minutes": 15,
+      "cook_time_minutes": 35,
+      "difficulty": 2,
+      "story": "大阪の家庭で夕飯の定番として愛された甘辛煮。鶏のコクとじゃがいものほっくり感が合わさって、ご飯が何杯でも進む一品です。",
+      "ingredients": [
+        {
+          "group": "材料",
+          "items": [
+            {
+              "name": "じゃがいも",
+              "amount": null,
+              "unit": "5〜6個",
+              "note": "中サイズ",
+              "grandma_amount": "握りこぶしより少し小さいのを人数分より少し多め",
+              "approx_weight": "600g"
+            },
+            {
+              "name": "鶏もも肉",
+              "amount": null,
+              "unit": "400g",
+              "note": null,
+              "grandma_amount": "鍋の底が隠れるくらい"
+            },
+            {
+              "name": "玉ねぎ",
+              "amount": 2,
+              "unit": "個",
+              "note": null,
+              "grandma_amount": "大きいのを2つ",
+              "approx_weight": "400g"
+            },
+            {
+              "name": "醤油",
+              "amount": null,
+              "unit": "60cc",
+              "note": null,
+              "grandma_amount": "鍋を一回ぐるっと回すくらい"
+            },
+            {
+              "name": "砂糖",
+              "amount": null,
+              "unit": "25g",
+              "note": null,
+              "grandma_amount": "大さじ山盛り2杯くらい"
+            },
+            {
+              "name": "みりん",
+              "amount": null,
+              "unit": "60cc",
+              "note": null,
+              "grandma_amount": "醤油と同じくらい"
+            },
+            {
+              "name": "酒",
+              "amount": null,
+              "unit": "50cc",
+              "note": null,
+              "grandma_amount": "ひと回し"
+            },
+            {
+              "name": "水",
+              "amount": null,
+              "unit": "400cc",
+              "note": null,
+              "grandma_amount": "具が半分くらい隠れるまで"
+            },
+            {
+              "name": "サラダ油",
+              "amount": null,
+              "unit": "大さじ1",
+              "note": null,
+              "grandma_amount": "鍋底にうすく広がる程度"
+            }
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "text": "じゃがいもは皮をむき、大きめの一口サイズに切って水にさらす。玉ねぎはくし形、鶏肉は食べやすい大きさに切る。",
+          "tip": null
+        },
+        {
+          "step": 2,
+          "text": "鍋にサラダ油を入れて中火で熱し、鶏肉を先に入れて表面の色が変わるくらいまで焼く。",
+          "tip": null
+        },
+        {
+          "step": 3,
+          "text": "玉ねぎを入れて軽く炒め、しんなりしたらじゃがいもを入れて全体を混ぜる。",
+          "tip": null
+        },
+        {
+          "step": 4,
+          "text": "水・酒・砂糖を入れて中火で煮る。沸いてきたらアクを取り、弱めの中火にする。",
+          "tip": null
+        },
+        {
+          "step": 5,
+          "text": "醤油とみりんを入れて落としぶたをする。",
+          "tip": "アルミホイルやお皿を使うとよい"
+        },
+        {
+          "step": 6,
+          "text": "15〜20分ほど煮る。途中で一度上下を軽く返す。",
+          "tip": null
+        },
+        {
+          "step": 7,
+          "text": "じゃがいもがやわらかくなったら落としぶたを外し、少し火を強めて煮汁を軽く煮詰める。火を止めて10分ほど置くと味がなじむ。",
+          "tip": "あまりかき混ぜすぎないこと。鍋をゆするようにして混ぜるのがコツ"
+        }
+      ],
+      "grandma_notes": null,
+      "cultural_background": "大阪では「肉」と言えば牛肉を指すことが一般的ですが、家庭の煮物では鶏もも肉もよく使われます。鶏肉は牛肉に比べて火が通りやすく、煮汁に旨みが出やすいため、煮物との相性がよいとされています。",
+      "photos": [],
+      "related_recipe_ids": [],
+      "thumbnail_emoji": "🐔",
+      "episode": "子どもの頃、学校から帰ると台所で大きな鍋を使って煮物を作っていることがよくありました。おばあちゃんは料理中に味見をして、「だいたいこんなもんやろ」と言いながら砂糖や醤油を少しずつ足していました。計量スプーンはほとんど使わず、目分量が当たり前でした。",
+      "source": {
+        "types": [
+          "おばあちゃん本人から直接教わった",
+          "記憶を頼りに書いている"
+        ],
+        "contributor": "みやひろ"
+      },
+      "view_count": 0
+    },
+    {
+      "id": "hoshiimo-amakara-ibaraki-001",
+      "title": "干し芋の甘辛煮",
+      "grandmother": {
+        "name": null,
+        "age": null,
+        "prefecture": "茨城県",
+        "city": null,
+        "village": null,
+        "message": null
+      },
+      "region": {
+        "area": "kanto",
+        "prefecture_code": "08",
+        "prefecture": "茨城県"
+      },
+      "meta": {
+        "created_at": "2026-04-12",
+        "is_featured": false,
+        "is_endangered": false
+      },
+      "category": "おやつ",
+      "tags": [
+        "家庭料理",
+        "保存食"
+      ],
+      "season": [
+        "冬"
+      ],
+      "servings": 3,
+      "prep_time_minutes": 5,
+      "cook_time_minutes": 15,
+      "difficulty": 1,
+      "story": "干し芋の産地として知られる<a href=\"https://ja.wikipedia.org/wiki/%E3%81%B2%E3%81%9F%E3%81%A1%E3%81%AA%E3%81%8B%E5%B8%82\" target=\"_blank\" rel=\"noopener\">茨城県ひたちなか市</a>周辺では、冬場に干し芋をまとめて作る家庭が多く、少し固くなったものを甘辛く煮てお茶請けにする知恵が受け継がれてきました。",
+      "ingredients": [
+        {
+          "group": "材料",
+          "items": [
+            {
+              "name": "干し芋",
+              "amount": null,
+              "unit": "200g",
+              "note": null,
+              "grandma_amount": "袋に残ってる分全部"
+            },
+            {
+              "name": "醤油",
+              "amount": null,
+              "unit": "大さじ1",
+              "note": null,
+              "grandma_amount": "ちょろっと回しかける"
+            },
+            {
+              "name": "砂糖",
+              "amount": null,
+              "unit": "大さじ1〜1.5",
+              "note": null,
+              "grandma_amount": "甘みが足りなければ足す"
+            },
+            {
+              "name": "みりん",
+              "amount": null,
+              "unit": "大さじ1",
+              "note": null,
+              "grandma_amount": "少しだけ"
+            },
+            {
+              "name": "水",
+              "amount": null,
+              "unit": "100ml",
+              "note": null,
+              "grandma_amount": "ひたひたにならない程度"
+            }
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "text": "干し芋を食べやすい大きさに切る。固い場合は少し厚めに。",
+          "tip": null
+        },
+        {
+          "step": 2,
+          "text": "鍋に干し芋を入れ、水を加えて弱めの中火にかける。",
+          "tip": null
+        },
+        {
+          "step": 3,
+          "text": "やわらかくなってきたら砂糖を入れて軽く混ぜる。",
+          "tip": null
+        },
+        {
+          "step": 4,
+          "text": "醤油とみりんを加え、焦げないように弱火で5〜10分ほど煮る。",
+          "tip": null
+        },
+        {
+          "step": 5,
+          "text": "水分が少なくなり、全体に照りが出てきたら火を止める。",
+          "tip": "火を強くしすぎるとすぐ焦げるので、必ず弱火でじっくり"
+        }
+      ],
+      "grandma_notes": null,
+      "cultural_background": "茨城県は干し芋の生産量が全国の9割以上を占めるとも言われており、特にひたちなか市や東海村あたりの海風と日照が干し芋づくりに適しているそうです。紅はるかやシルクスイートなどのねっとり系品種が主流になったのは比較的最近のことで、昔は玉豊（たまゆたか）という品種が定番だったとも言われています。",
+      "photos": [],
+      "related_recipe_ids": [],
+      "thumbnail_emoji": "🍠",
+      "episode": "干し芋はそのまま食べることが多かったけれど、固くなってくると「これもちゃんと食べられるようにするのがもったいなくない使い方だよ」と言って、この甘辛煮にしてくれました。煮ていると醤油と甘い匂いが混ざった独特の香りがして、こたつの部屋まで漂ってきたのを覚えています。おやつなのかおかずなのかわからない料理でしたが、冬になると自然と食べたくなる味でした。",
+      "source": {
+        "types": [
+          "家族（親・きょうだいなど）から聞いた",
+          "記憶を頼りに書いている"
+        ],
+        "contributor": "ゆう"
+      },
+      "view_count": 0
+    },
+    {
+      "id": "yaki-mezashi-wakayama-001",
+      "title": "焼きめざし",
+      "grandmother": {
+        "name": null,
+        "age": null,
+        "prefecture": "和歌山県",
+        "city": null,
+        "village": null,
+        "message": null
+      },
+      "region": {
+        "area": "kinki",
+        "prefecture_code": "30",
+        "prefecture": "和歌山県"
+      },
+      "meta": {
+        "created_at": "2026-04-12",
+        "is_featured": false,
+        "is_endangered": false
+      },
+      "category": "主菜",
+      "tags": [
+        "日常のごはん",
+        "家庭料理"
+      ],
+      "season": [
+        "春",
+        "夏",
+        "秋",
+        "冬"
+      ],
+      "servings": 1,
+      "prep_time_minutes": 1,
+      "cook_time_minutes": 5,
+      "difficulty": 1,
+      "story": "和歌山県は<a href=\"https://ja.wikipedia.org/wiki/%E8%8C%B6%E7%B2%A5\" target=\"_blank\" rel=\"noopener\">茶粥</a>の文化が根づいた地域。白ごはんや茶粥と一緒に焼きめざしをさっと食べる朝食は、漁師町の日常の風景です。",
+      "ingredients": [
+        {
+          "group": "材料",
+          "items": [
+            {
+              "name": "めざし",
+              "amount": 1,
+              "unit": "パック",
+              "note": null,
+              "grandma_amount": "好きなだけ"
+            }
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "text": "フライパンをコンロにかけてあたためる。",
+          "tip": null
+        },
+        {
+          "step": 2,
+          "text": "あたたまったフライパンに油はしかずに、めざしを並べて弱火から中火で焼く。",
+          "tip": null
+        },
+        {
+          "step": 3,
+          "text": "2分ほど片面を焼き、ひっくり返してもう片面も2分ほど焼く。小さいめざしなら合計4分くらい。",
+          "tip": null
+        },
+        {
+          "step": 4,
+          "text": "いい香りがして焼き目がついてきたら火を止め、皿にのせて完成。",
+          "tip": null
+        }
+      ],
+      "grandma_notes": null,
+      "cultural_background": "めざしは目刺しとも書き、イワシの稚魚を竹串や藁で目のあたりに刺して干したことが名前の由来とも言われています。和歌山県は紀伊水道に面して新鮮な小魚が手に入りやすく、干物文化が発達した地域でもあります。",
+      "photos": [],
+      "related_recipe_ids": [],
+      "thumbnail_emoji": "🐟",
+      "episode": "子供の頃からめざしが好きで、朝ごはんや昼ごはんのときに白ごはんや茶粥と一緒によく食卓に出てきました。祖母がちゃちゃっと台所で焼いている姿を今でも思い出します。みんなでワイワイ話しながら食卓を囲んでいました。",
+      "source": {
+        "types": [
+          "家族（親・きょうだいなど）から聞いた",
+          "記憶を頼りに書いている"
+        ],
+        "contributor": "ゆゆゆ"
+      },
+      "view_count": 0
+    },
+    {
+      "id": "wiener-scramble-egg-mie-001",
+      "title": "ウインナー入りスクランブルエッグ",
+      "grandmother": {
+        "name": null,
+        "age": null,
+        "prefecture": "三重県",
+        "city": null,
+        "village": null,
+        "message": null
+      },
+      "region": {
+        "area": "tokai",
+        "prefecture_code": "24",
+        "prefecture": "三重県"
+      },
+      "meta": {
+        "created_at": "2026-04-12",
+        "is_featured": false,
+        "is_endangered": false
+      },
+      "category": "主菜",
+      "tags": [
+        "日常のごはん",
+        "家庭料理"
+      ],
+      "season": [
+        "春",
+        "夏",
+        "秋",
+        "冬"
+      ],
+      "servings": 1,
+      "prep_time_minutes": 3,
+      "cook_time_minutes": 5,
+      "difficulty": 1,
+      "story": "三重県の家庭で、部活帰りや休みの日の昼ごはんにさっと作ってくれた一品。シンプルだけど白ごはんとの相性が抜群で、いくらでも食べられる味です。",
+      "ingredients": [
+        {
+          "group": "材料",
+          "items": [
+            {
+              "name": "あらびきウインナー",
+              "amount": null,
+              "unit": "5〜6本",
+              "note": "斜めに切れ目を入れる",
+              "grandma_amount": "1袋丸ごと"
+            },
+            {
+              "name": "卵",
+              "amount": 3,
+              "unit": "個",
+              "note": null,
+              "grandma_amount": "3つは最低でも入れてた"
+            },
+            {
+              "name": "塩胡椒",
+              "amount": null,
+              "unit": "小さじ2〜3",
+              "note": null,
+              "grandma_amount": "たっぷり振って入れてた"
+            },
+            {
+              "name": "ごま油",
+              "amount": null,
+              "unit": "少々",
+              "note": null,
+              "grandma_amount": "フライパンに軽く広がるくらい"
+            }
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "text": "フライパンを弱火から中火であたためる。",
+          "tip": null
+        },
+        {
+          "step": 2,
+          "text": "ごま油を少したらしてフライパンになじませる。",
+          "tip": null
+        },
+        {
+          "step": 3,
+          "text": "切れ目を入れたウインナーを投入し、ある程度火が通るまで炒める。",
+          "tip": null
+        },
+        {
+          "step": 4,
+          "text": "茶碗で溶いた卵をフライパンに流し入れ、ウインナーに絡めるようにかき混ぜる。",
+          "tip": null
+        },
+        {
+          "step": 5,
+          "text": "スクランブルエッグ状になったところで塩胡椒をかけて完成。",
+          "tip": null
+        }
+      ],
+      "grandma_notes": null,
+      "cultural_background": "スクランブルエッグは英語圏由来の料理ですが、日本の家庭では炒り卵に近い形でアレンジされることが多いようです。ごま油で炒めるのは中華風のアレンジで、香ばしさがプラスされてご飯のおかず向きになります。",
+      "photos": [],
+      "related_recipe_ids": [],
+      "thumbnail_emoji": "🥚",
+      "episode": "シンプルな食べ物でしたが一番記憶に残っていて、好きすぎて昼と夕食に食べて母に怒られたこともあります。祖母は何も言わずスーパーで材料を買ってきて、いつも笑顔で文句言わず作ってくれました。白ごはんと一緒に食べるのが最高でした。祖母は亡くなってしまいましたが、優しい味は今も覚えています。",
+      "source": {
+        "types": [
+          "おばあちゃん本人から直接教わった",
+          "記憶を頼りに書いている"
+        ],
+        "contributor": "かなた"
+      },
+      "view_count": 0
+    },
+    {
+      "id": "koori-dofu-tamago-toji-nagano-001",
+      "title": "凍り豆腐の卵とじ",
+      "grandmother": {
+        "name": null,
+        "age": null,
+        "prefecture": "長野県",
+        "city": null,
+        "village": null,
+        "message": null
+      },
+      "region": {
+        "area": "koshinetsu",
+        "prefecture_code": "20",
+        "prefecture": "長野県"
+      },
+      "meta": {
+        "created_at": "2026-04-12",
+        "is_featured": false,
+        "is_endangered": false
+      },
+      "category": "副菜",
+      "tags": [
+        "日常のごはん",
+        "家庭料理"
+      ],
+      "season": [
+        "春",
+        "夏",
+        "秋",
+        "冬"
+      ],
+      "servings": 4,
+      "prep_time_minutes": 15,
+      "cook_time_minutes": 15,
+      "difficulty": 1,
+      "story": "長野県は<a href=\"https://ja.wikipedia.org/wiki/%E5%87%8D%E3%82%8A%E8%B1%86%E8%85%90\" target=\"_blank\" rel=\"noopener\">凍り豆腐（高野豆腐）</a>の名産地。朝ごはんや夕食のあと一品として、一年中食卓に並ぶ定番のおかずです。",
+      "ingredients": [
+        {
+          "group": "材料",
+          "items": [
+            {
+              "name": "凍り豆腐（高野豆腐）",
+              "amount": 4,
+              "unit": "枚",
+              "note": "水でぷっくりするまで戻す",
+              "grandma_amount": "手のひらサイズのやつを4枚",
+              "approx_weight": "60〜80g"
+            },
+            {
+              "name": "卵",
+              "amount": 2,
+              "unit": "個",
+              "note": "白身が少し残るくらいに軽く混ぜる",
+              "grandma_amount": "元気なやつを2つ"
+            },
+            {
+              "name": "だし汁（昆布とカツオ）",
+              "amount": null,
+              "unit": "400cc",
+              "note": null,
+              "grandma_amount": "お鍋の底から指の第一関節くらいまで"
+            },
+            {
+              "name": "砂糖",
+              "amount": null,
+              "unit": "大さじ3",
+              "note": null,
+              "grandma_amount": "お豆腐に甘い味が染みるように、たっぷり"
+            },
+            {
+              "name": "醤油",
+              "amount": null,
+              "unit": "大さじ1.5",
+              "note": null,
+              "grandma_amount": "色のつく程度。お鍋の縁からぐるっと一回り"
+            },
+            {
+              "name": "みりん",
+              "amount": null,
+              "unit": "大さじ1",
+              "note": null,
+              "grandma_amount": "少しだけ。ツヤが出るよ"
+            }
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "text": "凍り豆腐を水で戻し、やさしく絞って一口大に切る。",
+          "tip": null
+        },
+        {
+          "step": 2,
+          "text": "鍋にだし汁を入れて火にかけ、砂糖・醤油・みりんを加える。",
+          "tip": null
+        },
+        {
+          "step": 3,
+          "text": "凍り豆腐を入れて落とし蓋をし、弱火で10分ほど煮含める。",
+          "tip": null
+        },
+        {
+          "step": 4,
+          "text": "溶き卵を回し入れ、蓋をして半熟になったら火を止める。",
+          "tip": "卵は混ぜすぎない。白身が少し残るくらいがちょうどいい"
+        },
+        {
+          "step": 5,
+          "text": "一度冷ますとお豆腐の奥まで甘みが届いてさらにおいしくなる。",
+          "tip": null
+        }
+      ],
+      "grandma_notes": null,
+      "cultural_background": "凍り豆腐は豆腐を凍結・乾燥させた保存食で、長野県や高野山（和歌山県）が産地として知られています。寒冷地の信州では冬の屋外で自然凍結させて作る製法が古くから伝わっており、タンパク質が豊富で保存性も高いことから、山間部の貴重な食材だったとも言われています。",
+      "photos": [],
+      "related_recipe_ids": [],
+      "thumbnail_emoji": "🥚",
+      "episode": "幼い頃、熱々のお豆腐を口に入れて中の熱い汁に驚いてハフハフしていると、「慌てんでも、お豆腐は逃げんよ」と笑いながら冷ましてくれたのを覚えています。",
+      "source": {
+        "types": [
+          "おばあちゃん本人から直接教わった"
+        ],
+        "contributor": "うど子"
+      },
+      "view_count": 0
+    },
+    {
+      "id": "yasai-tofu-ankake-shizuoka-001",
+      "title": "野菜たっぷり豆腐あんかけ",
+      "grandmother": {
+        "name": null,
+        "age": null,
+        "prefecture": "静岡県",
+        "city": null,
+        "village": null,
+        "message": null
+      },
+      "region": {
+        "area": "tokai",
+        "prefecture_code": "22",
+        "prefecture": "静岡県"
+      },
+      "meta": {
+        "created_at": "2026-04-12",
+        "is_featured": false,
+        "is_endangered": false
+      },
+      "category": "副菜",
+      "tags": [
+        "家庭料理",
+        "日常のごはん"
+      ],
+      "season": [
+        "冬"
+      ],
+      "servings": 5,
+      "prep_time_minutes": 15,
+      "cook_time_minutes": 20,
+      "difficulty": 2,
+      "story": "静岡県の家庭で、冬の寒い日や体調がすぐれない日に作ってくれた、身体をあたためるやさしいあんかけ。しょうがのピリッとしたアクセントが食欲をそそります。",
+      "ingredients": [
+        {
+          "group": "主材料",
+          "items": [
+            {
+              "name": "絹豆腐",
+              "amount": 2,
+              "unit": "パック",
+              "note": "食べやすい大きさに切る",
+              "grandma_amount": null
+            },
+            {
+              "name": "にんじん",
+              "amount": null,
+              "unit": "1/2本",
+              "note": "細めの短冊切り",
+              "grandma_amount": null,
+              "approx_weight": "75〜90g"
+            },
+            {
+              "name": "小松菜",
+              "amount": 1,
+              "unit": "束",
+              "note": "4〜5cmにカット。茎と葉を分ける",
+              "grandma_amount": null
+            },
+            {
+              "name": "長ねぎ",
+              "amount": 2,
+              "unit": "本",
+              "note": "斜め切り",
+              "grandma_amount": null,
+              "approx_weight": "200g"
+            },
+            {
+              "name": "コーン（缶詰）",
+              "amount": 1,
+              "unit": "缶",
+              "note": null,
+              "grandma_amount": null
+            },
+            {
+              "name": "しいたけ",
+              "amount": null,
+              "unit": "10個",
+              "note": "小ぶりのもの。石づきを取って半分かスライス",
+              "grandma_amount": "両手いっぱい",
+              "approx_weight": "150〜200g"
+            },
+            {
+              "name": "昆布",
+              "amount": null,
+              "unit": "5cm",
+              "note": null,
+              "grandma_amount": null
+            }
+          ]
+        },
+        {
+          "group": "調味料",
+          "items": [
+            {
+              "name": "しょうが",
+              "amount": null,
+              "unit": "30g",
+              "note": "千切り",
+              "grandma_amount": null
+            },
+            {
+              "name": "醤油",
+              "amount": null,
+              "unit": "大さじ3",
+              "note": null,
+              "grandma_amount": null
+            },
+            {
+              "name": "白だし",
+              "amount": null,
+              "unit": "50cc",
+              "note": null,
+              "grandma_amount": "お鍋一回り"
+            },
+            {
+              "name": "酒",
+              "amount": null,
+              "unit": "50cc",
+              "note": null,
+              "grandma_amount": "鍋一回り"
+            },
+            {
+              "name": "塩",
+              "amount": null,
+              "unit": "ひとつまみ",
+              "note": null,
+              "grandma_amount": "ひとつまみ"
+            },
+            {
+              "name": "片栗粉",
+              "amount": null,
+              "unit": "大さじ3",
+              "note": "水で溶く",
+              "grandma_amount": null
+            }
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "text": "にんじんは短冊切り、小松菜は4〜5cmにカット（茎と葉を分ける）、長ねぎは斜め切り、しいたけは半分かスライス、しょうがは千切り、豆腐は食べやすい大きさに切る。",
+          "tip": null
+        },
+        {
+          "step": 2,
+          "text": "鍋に水600〜700mlと昆布を入れて中火にかけ、沸騰直前で昆布を取り出す。",
+          "tip": "昆布を入れっぱなしにするとえぐみが出る"
+        },
+        {
+          "step": 3,
+          "text": "にんじんを入れて2〜3分、しいたけ・長ねぎをさらに2分、小松菜の茎を1分、葉をサッと。火の通りにくい順に入れる。",
+          "tip": null
+        },
+        {
+          "step": 4,
+          "text": "醤油・白だし・酒・塩・しょうがを入れ、軽く混ぜて1〜2分なじませる。",
+          "tip": null
+        },
+        {
+          "step": 5,
+          "text": "豆腐とコーンをやさしく入れて1〜2分あたためる。",
+          "tip": "豆腐は崩れないように注意"
+        },
+        {
+          "step": 6,
+          "text": "水溶き片栗粉を少しずつ回し入れ、混ぜながらとろみをつける。",
+          "tip": "一気に入れるとダマになるので少しずつ"
+        },
+        {
+          "step": 7,
+          "text": "弱火で30秒ほど加熱してとろみを安定させ、味見して足りなければ醤油を少し足す。",
+          "tip": null
+        }
+      ],
+      "grandma_notes": null,
+      "cultural_background": "とろみをつけた「あんかけ」は料理を冷めにくくする知恵で、寒い季節に重宝されてきました。静岡県は温暖なイメージがありますが、内陸部は冬の冷え込みが厳しい地域もあり、あたたかい汁物や煮物が食卓の中心になることも多いようです。",
+      "photos": [],
+      "related_recipe_ids": [],
+      "thumbnail_emoji": "🍲",
+      "episode": "冬の寒い時期に両親が仕事でいなくて、お腹を空かせていたときによく作ってくれました。熱が出た時にも、脂っこいものが食べられないときに肉も魚も入っていない優しい味付けで食べさせてくれました。「今日は寒いから、お腹も身体もあっためんとね」と言って、シワシワの小さな手でテキパキと大きな鍋に野菜を入れてグツグツ煮込んでくれた姿が目に浮かびます。しょうがのピリリとしたアクセントが加わって、寒い日も熱がある日もたくさん食べられました。",
+      "source": {
+        "types": [
+          "おばあちゃん本人から直接教わった"
+        ],
+        "contributor": "みーまま"
+      },
+      "view_count": 0
+    },
+    {
+      "id": "fruit-salad-iwate-001",
+      "title": "フルーツサラダ",
+      "grandmother": {
+        "name": null,
+        "age": null,
+        "prefecture": "岩手県",
+        "city": null,
+        "village": null,
+        "message": null
+      },
+      "region": {
+        "area": "tohoku",
+        "prefecture_code": "03",
+        "prefecture": "岩手県"
+      },
+      "meta": {
+        "created_at": "2026-04-12",
+        "is_featured": false,
+        "is_endangered": false
+      },
+      "category": "和え物・酢の物",
+      "tags": [
+        "家庭料理",
+        "日常のごはん"
+      ],
+      "season": [
+        "冬",
+        "春"
+      ],
+      "servings": 4,
+      "prep_time_minutes": 20,
+      "cook_time_minutes": 10,
+      "difficulty": 1,
+      "story": "岩手県の家庭で冬から春にかけて食卓に並んだフルーツサラダ。りんごとマカロニの組み合わせは昭和の家庭料理の定番で、子どもたちの大好物でした。",
+      "ingredients": [
+        {
+          "group": "材料",
+          "items": [
+            {
+              "name": "りんご",
+              "amount": 3,
+              "unit": "個",
+              "note": null,
+              "grandma_amount": null
+            },
+            {
+              "name": "みかん",
+              "amount": 2,
+              "unit": "個",
+              "note": null,
+              "grandma_amount": null
+            },
+            {
+              "name": "きゅうり",
+              "amount": 3,
+              "unit": "本",
+              "note": null,
+              "grandma_amount": null,
+              "approx_weight": "300g"
+            },
+            {
+              "name": "マカロニ",
+              "amount": null,
+              "unit": "1/2袋",
+              "note": null,
+              "grandma_amount": null
+            },
+            {
+              "name": "マヨネーズ",
+              "amount": null,
+              "unit": "適量",
+              "note": null,
+              "grandma_amount": "目分量"
+            },
+            {
+              "name": "塩こしょう",
+              "amount": null,
+              "unit": "適量",
+              "note": null,
+              "grandma_amount": "目分量"
+            },
+            {
+              "name": "オリーブオイル",
+              "amount": null,
+              "unit": "適量",
+              "note": null,
+              "grandma_amount": "目分量"
+            }
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "text": "マカロニを茹でて冷ましておく。",
+          "tip": null
+        },
+        {
+          "step": 2,
+          "text": "りんごは一口大に切り、みかんは房を分ける。きゅうりはスライスして少し塩もみする。",
+          "tip": null
+        },
+        {
+          "step": 3,
+          "text": "すべての材料をボウルに入れ、マヨネーズ・塩こしょう・オリーブオイルで和える。",
+          "tip": "きゅうりはやわらかめにするのがポイント"
+        }
+      ],
+      "grandma_notes": null,
+      "cultural_background": "マカロニサラダにフルーツを加えるスタイルは、昭和30〜40年代に全国で流行したとも言われています。岩手県はりんごの産地でもあり、冬場には新鮮なりんごが手に入りやすかったことから、こうした食べ方が定着したのかもしれません。",
+      "photos": [],
+      "related_recipe_ids": [],
+      "thumbnail_emoji": "🍎",
+      "episode": "子供の頃によく食べていて、この料理がない日はリクエストしていたくらい大好物でした。",
+      "source": {
+        "types": [
+          "記憶を頼りに書いている"
+        ],
+        "contributor": "すんすん"
+      },
+      "view_count": 0
+    },
+    {
+      "id": "shoga-tsukudani-chiba-001",
+      "title": "生姜の佃煮",
+      "grandmother": {
+        "name": null,
+        "age": null,
+        "prefecture": "千葉県",
+        "city": null,
+        "village": null,
+        "message": null
+      },
+      "region": {
+        "area": "kanto",
+        "prefecture_code": "12",
+        "prefecture": "千葉県"
+      },
+      "meta": {
+        "created_at": "2026-04-12",
+        "is_featured": false,
+        "is_endangered": false
+      },
+      "category": "佃煮・常備菜",
+      "tags": [
+        "常備菜",
+        "保存食",
+        "日常のごはん"
+      ],
+      "season": [
+        "春",
+        "夏",
+        "秋",
+        "冬"
+      ],
+      "servings": 2,
+      "prep_time_minutes": 10,
+      "cook_time_minutes": 20,
+      "difficulty": 1,
+      "story": "千葉県の家庭で年中作られていた朝ごはんのお供。白ごはんにのせるだけで何杯でも食べられる、シンプルだけどやみつきになる一品です。",
+      "ingredients": [
+        {
+          "group": "材料",
+          "items": [
+            {
+              "name": "生姜",
+              "amount": 1,
+              "unit": "個",
+              "note": "千切り",
+              "grandma_amount": null,
+              "approx_weight": "80〜100g"
+            },
+            {
+              "name": "水",
+              "amount": null,
+              "unit": "200g",
+              "note": null,
+              "grandma_amount": null
+            },
+            {
+              "name": "みりん",
+              "amount": null,
+              "unit": "大さじ1",
+              "note": null,
+              "grandma_amount": null
+            },
+            {
+              "name": "砂糖",
+              "amount": null,
+              "unit": "大さじ1",
+              "note": null,
+              "grandma_amount": null
+            },
+            {
+              "name": "醤油",
+              "amount": null,
+              "unit": "大さじ2",
+              "note": null,
+              "grandma_amount": null
+            },
+            {
+              "name": "お酒",
+              "amount": null,
+              "unit": "大さじ1",
+              "note": null,
+              "grandma_amount": "1秒くらい"
+            },
+            {
+              "name": "いりごま",
+              "amount": null,
+              "unit": "大さじ1",
+              "note": null,
+              "grandma_amount": "好きなだけ"
+            },
+            {
+              "name": "鰹節",
+              "amount": 1,
+              "unit": "パック",
+              "note": null,
+              "grandma_amount": "好きなだけ"
+            }
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "text": "生姜を千切りにして水にさらす。",
+          "tip": null
+        },
+        {
+          "step": 2,
+          "text": "鍋に水・みりん・砂糖・醤油・お酒を入れて熱する。",
+          "tip": null
+        },
+        {
+          "step": 3,
+          "text": "生姜を入れて15分くらい煮る。",
+          "tip": null
+        },
+        {
+          "step": 4,
+          "text": "水気がなくなったら、ごまと鰹節を入れて完成。",
+          "tip": null
+        }
+      ],
+      "grandma_notes": null,
+      "cultural_background": "佃煮は東京・佃島が発祥とも言われる日本の伝統的な保存食で、醤油と砂糖で甘辛く煮詰めることで日持ちがよくなります。生姜の佃煮は食欲増進効果もあり、夏バテ防止としても重宝されてきたようです。",
+      "photos": [],
+      "related_recipe_ids": [],
+      "thumbnail_emoji": "🫚",
+      "episode": "おばあちゃんの家にお泊まりに行くと、毎朝出してくれるメニューです。これを食べると白ごはんがいくらでも食べられるくらいおいしくて、「おいしいおいしい」と言っていたらレシピを教えてくれました。",
+      "source": {
+        "types": [
+          "おばあちゃん本人から直接教わった",
+          "家族や親戚の間で自然と受け継がれてきた"
+        ],
+        "contributor": "まめ"
+      },
+      "view_count": 0
+    },
+    {
+      "id": "nasu-dorogame-ni-ishikawa-001",
+      "title": "なすの泥亀煮",
+      "grandmother": {
+        "name": null,
+        "age": null,
+        "prefecture": "石川県",
+        "city": null,
+        "village": null,
+        "message": null
+      },
+      "region": {
+        "area": "hokuriku",
+        "prefecture_code": "17",
+        "prefecture": "石川県"
+      },
+      "meta": {
+        "created_at": "2026-04-12",
+        "is_featured": false,
+        "is_endangered": false
+      },
+      "category": "煮物",
+      "tags": [
+        "煮物",
+        "郷土料理",
+        "家庭料理"
+      ],
+      "season": [
+        "夏",
+        "秋"
+      ],
+      "servings": 4,
+      "prep_time_minutes": 15,
+      "cook_time_minutes": 20,
+      "difficulty": 2,
+      "story": "石川県に伝わる<a href=\"https://ja.wikipedia.org/wiki/%E6%B3%A5%E4%BA%80%E7%85%AE\" target=\"_blank\" rel=\"noopener\">泥亀煮</a>は、ごまをたっぷり使った煮物。なすにごまと味噌がまとわりついた見た目が泥をかぶった亀に見えることからこの名がついたとも言われています。",
+      "ingredients": [
+        {
+          "group": "材料",
+          "items": [
+            {
+              "name": "なす",
+              "amount": null,
+              "unit": "5〜6本",
+              "note": null,
+              "grandma_amount": "ザルに山盛り、食べたいだけ",
+              "approx_weight": "500g"
+            },
+            {
+              "name": "白ごま",
+              "amount": null,
+              "unit": "大さじ4〜5",
+              "note": "すり鉢でしっかりする",
+              "grandma_amount": "すり鉢の底が見えなくなるまでたっぷり"
+            },
+            {
+              "name": "味噌（あれば田舎味噌）",
+              "amount": null,
+              "unit": "大さじ3",
+              "note": null,
+              "grandma_amount": "お玉の半分くらい"
+            },
+            {
+              "name": "砂糖",
+              "amount": null,
+              "unit": "大さじ2",
+              "note": null,
+              "grandma_amount": "甘いほうが美味しいから指で3回つまんで入れる"
+            },
+            {
+              "name": "だし汁（昆布と煮干し）",
+              "amount": null,
+              "unit": "300cc",
+              "note": null,
+              "grandma_amount": "なすがひたひたに隠れるくらい"
+            },
+            {
+              "name": "サラダ油",
+              "amount": null,
+              "unit": "大さじ2",
+              "note": null,
+              "grandma_amount": "鍋の底が光るくらい"
+            }
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "text": "すり鉢で白ごまをしっかりする。香りが立つまでしっかりと。",
+          "tip": "ごまはケチらないこと。たっぷり使うのがおいしさの秘訣"
+        },
+        {
+          "step": 2,
+          "text": "なすを食べやすい大きさに切り、油で炒める。",
+          "tip": null
+        },
+        {
+          "step": 3,
+          "text": "だし汁を加え、味噌・砂糖を入れて煮込む。",
+          "tip": null
+        },
+        {
+          "step": 4,
+          "text": "すったごまを加えて全体になじませる。",
+          "tip": null
+        },
+        {
+          "step": 5,
+          "text": "なすの形が崩れるくらいまでじっくり煮る。",
+          "tip": "煮崩れるくらいが味が染みておいしい"
+        }
+      ],
+      "grandma_notes": null,
+      "cultural_background": "泥亀煮（どろがめに）は石川県の加賀地方に伝わる郷土料理で、精進料理の流れを汲むとも言われています。加賀藩の時代から受け継がれてきた料理で、ごまを惜しみなく使うのが特徴。すり鉢でしっかりごまをするひと手間が味の決め手になるとされています。",
+      "photos": [],
+      "related_recipe_ids": [],
+      "thumbnail_emoji": "🍆",
+      "episode": "おばあちゃんはいつも大きなすり鉢を膝に抱えて、ゴリゴリと力強くごまをすっていました。手伝おうとすると、「あんたのすり方じゃ、まだごまが泣いとる（香りが立っていない）」と笑って、最後はいつもおばあちゃんが仕上げてくれました。",
+      "source": {
+        "types": [
+          "おばあちゃん本人から直接教わった",
+          "家族や親戚の間で自然と受け継がれてきた"
+        ],
+        "contributor": "ゆー"
+      },
+      "view_count": 0
+    },
+    {
+      "id": "komatsuna-itame-shizuoka-001",
+      "title": "小松菜ぱぱっと炒め",
+      "grandmother": {
+        "name": null,
+        "age": null,
+        "prefecture": "静岡県",
+        "city": null,
+        "village": null,
+        "message": null
+      },
+      "region": {
+        "area": "tokai",
+        "prefecture_code": "22",
+        "prefecture": "静岡県"
+      },
+      "meta": {
+        "created_at": "2026-04-12",
+        "is_featured": false,
+        "is_endangered": false
+      },
+      "category": "副菜",
+      "tags": [
+        "日常のごはん",
+        "家庭料理"
+      ],
+      "season": [
+        "春",
+        "夏",
+        "秋",
+        "冬"
+      ],
+      "servings": 3,
+      "prep_time_minutes": 5,
+      "cook_time_minutes": 5,
+      "difficulty": 1,
+      "story": "静岡県の家庭で、夕方にお腹を空かせた子どもにさっと作ってくれた一品。強火でざっと手早く仕上げるのがおばあちゃん流です。",
+      "ingredients": [
+        {
+          "group": "材料",
+          "items": [
+            {
+              "name": "小松菜",
+              "amount": 1,
+              "unit": "袋",
+              "note": null,
+              "grandma_amount": null
+            },
+            {
+              "name": "卵",
+              "amount": 2,
+              "unit": "個",
+              "note": null,
+              "grandma_amount": null
+            },
+            {
+              "name": "醤油",
+              "amount": null,
+              "unit": "小さじ1",
+              "note": null,
+              "grandma_amount": "少し"
+            },
+            {
+              "name": "料理酒",
+              "amount": null,
+              "unit": "大さじ1",
+              "note": null,
+              "grandma_amount": "少し"
+            },
+            {
+              "name": "鶏ガラスープの素",
+              "amount": null,
+              "unit": "小さじ1",
+              "note": null,
+              "grandma_amount": "少し"
+            },
+            {
+              "name": "ごま油",
+              "amount": null,
+              "unit": "小さじ1",
+              "note": null,
+              "grandma_amount": "少し"
+            }
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "text": "小松菜を食べやすい大きさに切る。卵を溶いておく。",
+          "tip": null
+        },
+        {
+          "step": 2,
+          "text": "卵を炒めて、別皿に取り出しておく。",
+          "tip": null
+        },
+        {
+          "step": 3,
+          "text": "小松菜をごま油でさっと強火で炒め、料理酒をかける。つやつやして少しやわらかくなるくらいまで。",
+          "tip": null
+        },
+        {
+          "step": 4,
+          "text": "醤油と鶏ガラスープの素を回しかけて炒める。",
+          "tip": null
+        },
+        {
+          "step": 5,
+          "text": "匂いが立ってきたら卵を戻して全体を混ぜ合わせて完成。",
+          "tip": "全工程10分以内。強火でざっとが基本"
+        }
+      ],
+      "grandma_notes": null,
+      "cultural_background": "小松菜は東京・小松川が名前の由来とされ、江戸時代から栽培されてきた歴史の古い葉野菜です。カルシウムや鉄分が豊富で、アクが少ないため下茹でなしで調理できるのが手軽さの秘訣とも言われています。",
+      "photos": [],
+      "related_recipe_ids": [],
+      "thumbnail_emoji": "🥬",
+      "episode": "両親共働きだったので、夕方にお腹がすいたときにさっと作ってくれたのを覚えています。これに味噌汁を作ってくれました。簡単で栄養のあるおかずでした。なんでも強火が好きなおばあちゃんでした！",
+      "source": {
+        "types": [
+          "おばあちゃん本人から直接教わった",
+          "記憶を頼りに書いている"
+        ],
+        "contributor": "みみ"
+      },
+      "view_count": 0
+    },
+    {
+      "id": "nikujaga-fukuoka-001",
+      "title": "肉じゃが",
+      "grandmother": {
+        "name": null,
+        "age": null,
+        "prefecture": "福岡県",
+        "city": null,
+        "village": null,
+        "message": null
+      },
+      "region": {
+        "area": "kyushu",
+        "prefecture_code": "40",
+        "prefecture": "福岡県"
+      },
+      "meta": {
+        "created_at": "2026-04-12",
+        "is_featured": false,
+        "is_endangered": false
+      },
+      "category": "煮物",
+      "tags": [
+        "煮物",
+        "日常のごはん",
+        "家庭料理"
+      ],
+      "season": [
+        "秋",
+        "冬"
+      ],
+      "servings": 4,
+      "prep_time_minutes": 15,
+      "cook_time_minutes": 30,
+      "difficulty": 2,
+      "story": "福岡県の家庭で一年中愛された定番の肉じゃが。特に寒い時期には「今日は肉じゃがだよ」の一言がいちばんの楽しみだったそうです。",
+      "ingredients": [
+        {
+          "group": "材料",
+          "items": [
+            {
+              "name": "じゃがいも",
+              "amount": null,
+              "unit": "4個",
+              "note": "中サイズ・大きめの一口大",
+              "grandma_amount": "鍋いっぱいになるくらいゴロゴロ入れる",
+              "approx_weight": "500g"
+            },
+            {
+              "name": "玉ねぎ",
+              "amount": 2,
+              "unit": "個",
+              "note": "くし切り",
+              "grandma_amount": "大きいのを2つくらい",
+              "approx_weight": "400g"
+            },
+            {
+              "name": "牛こま肉",
+              "amount": null,
+              "unit": "300g",
+              "note": null,
+              "grandma_amount": "家族の人数分よりちょっと多め"
+            },
+            {
+              "name": "にんじん",
+              "amount": 1,
+              "unit": "本",
+              "note": "乱切り",
+              "grandma_amount": "彩りに1本",
+              "approx_weight": "150〜180g"
+            },
+            {
+              "name": "醤油",
+              "amount": null,
+              "unit": "60cc",
+              "note": null,
+              "grandma_amount": "鍋をぐるっと2回くらい回す"
+            },
+            {
+              "name": "みりん",
+              "amount": null,
+              "unit": "60cc",
+              "note": null,
+              "grandma_amount": "醤油と同じくらい"
+            },
+            {
+              "name": "砂糖",
+              "amount": null,
+              "unit": "大さじ2",
+              "note": null,
+              "grandma_amount": "甘くなるまで少しずつ"
+            },
+            {
+              "name": "水",
+              "amount": null,
+              "unit": "400cc",
+              "note": null,
+              "grandma_amount": "具材が半分くらい浸かるくらい"
+            }
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "text": "じゃがいもは皮をむき大きめの一口大に切り、水に少しさらす。玉ねぎはくし切り、にんじんは乱切り。",
+          "tip": null
+        },
+        {
+          "step": 2,
+          "text": "鍋に油を入れ、中火で牛こま肉を軽く炒める。",
+          "tip": null
+        },
+        {
+          "step": 3,
+          "text": "玉ねぎ・にんじん・じゃがいもを加えて軽く炒める。",
+          "tip": null
+        },
+        {
+          "step": 4,
+          "text": "水を入れ、沸騰したらアクを取る。",
+          "tip": null
+        },
+        {
+          "step": 5,
+          "text": "砂糖を入れて少し煮たあと、みりんと醤油を入れる。",
+          "tip": null
+        },
+        {
+          "step": 6,
+          "text": "落とし蓋をして弱めの中火で15〜20分煮る。",
+          "tip": null
+        },
+        {
+          "step": 7,
+          "text": "じゃがいもがやわらかくなったら火を止め、少し置いて味をなじませる。",
+          "tip": null
+        }
+      ],
+      "grandma_notes": null,
+      "cultural_background": "福岡県は九州の玄関口として多様な食文化が交差する地域。肉じゃがは全国どこの家庭でも作られますが、九州では甘めの醤油を使うことが多く、自然と味付けも甘めに仕上がる傾向があるとも言われています。",
+      "photos": [],
+      "related_recipe_ids": [],
+      "thumbnail_emoji": "🥩",
+      "episode": "学校から帰ると台所から甘い醤油の匂いがして、「今日は肉じゃがだよ」と言われるととても嬉しかったのを覚えています。おばあちゃんはいつも分量を量らず、「このくらいかな」と言いながら味見をして少しずつ味を整えていました。じゃがいもがやわらかくなるまでゆっくり煮て、最後に少し置いて味を染み込ませるのがこだわりだったそうです。",
+      "source": {
+        "types": [
+          "家族や親戚の間で自然と受け継がれてきた"
+        ],
+        "contributor": "もか"
+      },
+      "view_count": 0
+    },
+    {
+      "id": "misodo-yamagata-001",
+      "title": "味噌ど",
+      "grandmother": {
+        "name": null,
+        "age": null,
+        "prefecture": "山形県",
+        "city": null,
+        "village": null,
+        "message": null
+      },
+      "region": {
+        "area": "tohoku",
+        "prefecture_code": "06",
+        "prefecture": "山形県"
+      },
+      "meta": {
+        "created_at": "2026-04-12",
+        "is_featured": false,
+        "is_endangered": false
+      },
+      "category": "ご飯もの",
+      "tags": [
+        "郷土料理",
+        "家庭料理"
+      ],
+      "season": [
+        "春",
+        "夏",
+        "秋",
+        "冬"
+      ],
+      "servings": 1,
+      "prep_time_minutes": 3,
+      "cook_time_minutes": 15,
+      "difficulty": 1,
+      "story": "山形県に伝わる「味噌ど」は、味噌味のおかゆのような料理。風邪をひいたときや体調がすぐれないときに作ってもらう、やさしい記憶の味です。",
+      "ingredients": [
+        {
+          "group": "材料",
+          "items": [
+            {
+              "name": "ごはん",
+              "amount": null,
+              "unit": "茶碗一杯程度",
+              "note": null,
+              "grandma_amount": null
+            },
+            {
+              "name": "水",
+              "amount": null,
+              "unit": "適量",
+              "note": "ごはんより1.2cmくらい上まで",
+              "grandma_amount": "ごはんより1.2センチ上くらいまで"
+            },
+            {
+              "name": "味噌",
+              "amount": null,
+              "unit": "適量",
+              "note": "少し濃いめ",
+              "grandma_amount": "少し濃いめに"
+            },
+            {
+              "name": "卵",
+              "amount": 1,
+              "unit": "個",
+              "note": null,
+              "grandma_amount": null
+            },
+            {
+              "name": "鰹節",
+              "amount": null,
+              "unit": "ひとつまみ",
+              "note": null,
+              "grandma_amount": null
+            }
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "text": "鍋にごはんと水を入れ、蓋をして強火で煮る。",
+          "tip": null
+        },
+        {
+          "step": 2,
+          "text": "湧いたら弱火にし、蓋をずらしてさらに10分。",
+          "tip": null
+        },
+        {
+          "step": 3,
+          "text": "味噌を入れる。",
+          "tip": null
+        },
+        {
+          "step": 4,
+          "text": "卵を溶いて回し入れる。あまり混ぜないで蓋をして卵に少し火が通ったら軽く混ぜる。",
+          "tip": null
+        },
+        {
+          "step": 5,
+          "text": "最後に鰹節を入れて完成。",
+          "tip": null
+        }
+      ],
+      "grandma_notes": null,
+      "cultural_background": "「味噌ど」の「ど」は「雑炊」の方言とも言われており、山形県の内陸部で古くから食べられてきた家庭料理です。味噌と卵という身近な材料で作れる滋養食で、東北地方の寒い冬には身体を芯からあたためてくれる一品とされています。",
+      "photos": [],
+      "related_recipe_ids": [],
+      "thumbnail_emoji": "🍚",
+      "episode": "小さい頃、風邪をひいた時にいつもおばあちゃんが作ってくれました。風邪をひいてなくても、たまに食べたくなると「味噌と卵のおかゆ作ってー」と言って作ってもらうこともありました。今では旦那や子どもが風邪をひいた時に作ってあげています。",
+      "source": {
+        "types": [
+          "おばあちゃん本人から直接教わった"
+        ],
+        "contributor": null
+      },
+      "view_count": 0
+    },
+    {
+      "id": "kenchinjiru-saitama-001",
+      "title": "けんちん汁",
+      "grandmother": {
+        "name": null,
+        "age": null,
+        "prefecture": "埼玉県",
+        "city": null,
+        "village": null,
+        "message": null
+      },
+      "region": {
+        "area": "kanto",
+        "prefecture_code": "11",
+        "prefecture": "埼玉県"
+      },
+      "meta": {
+        "created_at": "2026-04-12",
+        "is_featured": false,
+        "is_endangered": false
+      },
+      "category": "汁物",
+      "tags": [
+        "郷土料理",
+        "日常のごはん",
+        "家庭料理"
+      ],
+      "season": [
+        "秋",
+        "冬"
+      ],
+      "servings": 5,
+      "prep_time_minutes": 20,
+      "cook_time_minutes": 30,
+      "difficulty": 2,
+      "story": "埼玉県の家庭で秋から冬にかけてよく作られるけんちん汁。根菜たっぷりで身体があたたまる、普段の夕食の定番汁物です。",
+      "ingredients": [
+        {
+          "group": "材料",
+          "items": [
+            {
+              "name": "大根",
+              "amount": null,
+              "unit": "1/2本",
+              "note": "いちょう切り",
+              "grandma_amount": "半分くらい、好きなだけ",
+              "approx_weight": "500g"
+            },
+            {
+              "name": "にんじん",
+              "amount": 1,
+              "unit": "本",
+              "note": "いちょう切り",
+              "grandma_amount": "1本そのまま入れちゃいな",
+              "approx_weight": "150〜180g"
+            },
+            {
+              "name": "ごぼう",
+              "amount": 1,
+              "unit": "本",
+              "note": "ささがき",
+              "grandma_amount": "土の香りがするくらい入れる",
+              "approx_weight": "150〜180g"
+            },
+            {
+              "name": "里芋",
+              "amount": null,
+              "unit": "5〜6個",
+              "note": "皮をむいて一口大",
+              "grandma_amount": "手のひらに乗るくらい",
+              "approx_weight": "300g"
+            },
+            {
+              "name": "こんにゃく",
+              "amount": 1,
+              "unit": "枚",
+              "note": "手でちぎる",
+              "grandma_amount": "1枚ちぎって入れる",
+              "approx_weight": "250g"
+            },
+            {
+              "name": "木綿豆腐",
+              "amount": 1,
+              "unit": "丁",
+              "note": "手で崩しながら入れる",
+              "grandma_amount": "1丁丸ごと",
+              "approx_weight": "300〜400g"
+            },
+            {
+              "name": "長ねぎ",
+              "amount": 1,
+              "unit": "本",
+              "note": "刻む。最後に入れる",
+              "grandma_amount": "最後にパラっと",
+              "approx_weight": "100g"
+            }
+          ]
+        },
+        {
+          "group": "調味料",
+          "items": [
+            {
+              "name": "だし（かつお＋昆布）",
+              "amount": null,
+              "unit": "1200cc",
+              "note": null,
+              "grandma_amount": "鍋いっぱいにひたひた"
+            },
+            {
+              "name": "しょうゆ",
+              "amount": null,
+              "unit": "大さじ2",
+              "note": null,
+              "grandma_amount": "ぐるっと2回し"
+            },
+            {
+              "name": "酒",
+              "amount": null,
+              "unit": "大さじ1",
+              "note": null,
+              "grandma_amount": "ちょろっと"
+            },
+            {
+              "name": "塩",
+              "amount": null,
+              "unit": "ひとつまみ",
+              "note": "味見して調整",
+              "grandma_amount": "味見して足りなきゃひとつまみ"
+            },
+            {
+              "name": "ごま油",
+              "amount": null,
+              "unit": "小さじ1",
+              "note": "香りづけ",
+              "grandma_amount": "香りづけにひとたらし"
+            }
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "text": "大根・にんじんはいちょう切り、ごぼうはささがきにして水にさらす。里芋は皮をむいて一口大に切る。こんにゃくは手でちぎる。",
+          "tip": null
+        },
+        {
+          "step": 2,
+          "text": "鍋にごま油を少し入れて中火で熱し、ごぼうとにんじんを先に炒める。",
+          "tip": "最初にごぼうを炒めると香りが出る"
+        },
+        {
+          "step": 3,
+          "text": "大根・里芋・こんにゃくを加えて軽く炒める。",
+          "tip": null
+        },
+        {
+          "step": 4,
+          "text": "だしを入れて強火にし、沸騰したらアクを取る。",
+          "tip": null
+        },
+        {
+          "step": 5,
+          "text": "中火〜弱火にして15〜20分ほど煮る。里芋がやわらかくなるまで。",
+          "tip": null
+        },
+        {
+          "step": 6,
+          "text": "豆腐を手で崩しながら入れ、しょうゆと酒を加える。",
+          "tip": null
+        },
+        {
+          "step": 7,
+          "text": "さらに5分ほど煮て、味見をして塩で調整。",
+          "tip": null
+        },
+        {
+          "step": 8,
+          "text": "刻んだ長ねぎを入れて火を止める。",
+          "tip": "翌日のほうが味がしみておいしい"
+        }
+      ],
+      "grandma_notes": null,
+      "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E3%81%91%E3%82%93%E3%81%A1%E3%82%93%E6%B1%81\" target=\"_blank\" rel=\"noopener\">けんちん汁</a>の名前は鎌倉の建長寺（けんちょうじ）が由来とも言われており、もともとは精進料理だったという説があります。肉を使わず、豆腐と根菜を中心にした素朴な汁物で、関東地方を中心に広く親しまれています。",
+      "photos": [],
+      "related_recipe_ids": [],
+      "thumbnail_emoji": "🥣",
+      "episode": "ごぼうの皮をむかずに使うのがこだわりで、「土の味がうまいんだよ」とよく言っていたのを思い出します。翌日になるとさらに味がしみていて、それを朝ごはんに食べるのも楽しみのひとつでした。",
+      "source": {
+        "types": [
+          "おばあちゃん本人から直接教わった",
+          "記憶を頼りに書いている"
+        ],
+        "contributor": "さとP"
+      },
+      "view_count": 0
+    },
+    {
+      "id": "jingisukan-tare-osaka-001",
+      "title": "ジンギスカンの焼肉と手作りのタレ",
+      "grandmother": {
+        "name": null,
+        "age": null,
+        "prefecture": "大阪府",
+        "city": null,
+        "village": null,
+        "message": null
+      },
+      "region": {
+        "area": "kinki",
+        "prefecture_code": "27",
+        "prefecture": "大阪府"
+      },
+      "meta": {
+        "created_at": "2026-04-12",
+        "is_featured": false,
+        "is_endangered": false
+      },
+      "category": "主菜",
+      "tags": [
+        "家庭料理",
+        "日常のごはん"
+      ],
+      "season": [
+        "春",
+        "夏",
+        "秋",
+        "冬"
+      ],
+      "servings": 4,
+      "prep_time_minutes": 15,
+      "cook_time_minutes": 5,
+      "difficulty": 1,
+      "story": "大阪の家庭で親戚が集まるたびに登場した手作りタレのジンギスカン。北海道の親戚が送ってくれたラム肉を、自家製タレで食べるのが最高のごちそうでした。",
+      "ingredients": [
+        {
+          "group": "タレの材料",
+          "items": [
+            {
+              "name": "玉ねぎ",
+              "amount": 1,
+              "unit": "個",
+              "note": "すりおろし",
+              "grandma_amount": null,
+              "approx_weight": "200g"
+            },
+            {
+              "name": "りんご",
+              "amount": 1,
+              "unit": "個",
+              "note": "すりおろし",
+              "grandma_amount": null
+            },
+            {
+              "name": "にんにく",
+              "amount": 1,
+              "unit": "かけ",
+              "note": "すりおろし",
+              "grandma_amount": null,
+              "approx_weight": "5〜8g"
+            },
+            {
+              "name": "醤油",
+              "amount": null,
+              "unit": "150ml",
+              "note": null,
+              "grandma_amount": null
+            },
+            {
+              "name": "みりん",
+              "amount": null,
+              "unit": "150ml",
+              "note": null,
+              "grandma_amount": null
+            },
+            {
+              "name": "酒",
+              "amount": null,
+              "unit": "150ml",
+              "note": null,
+              "grandma_amount": null
+            },
+            {
+              "name": "砂糖",
+              "amount": null,
+              "unit": "小さじ2",
+              "note": null,
+              "grandma_amount": null
+            }
+          ]
+        },
+        {
+          "group": "焼肉",
+          "items": [
+            {
+              "name": "ジンギスカン（ラム肉）",
+              "amount": null,
+              "unit": "適量",
+              "note": null,
+              "grandma_amount": null
+            }
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "text": "玉ねぎ・りんご・にんにくをすりおろす。",
+          "tip": "新鮮なおろしにんにくや生姜をたっぷり入れると風味アップ"
+        },
+        {
+          "step": 2,
+          "text": "すりおろしたものと醤油・みりん・酒・砂糖を混ぜ合わせる。",
+          "tip": null
+        },
+        {
+          "step": 3,
+          "text": "一晩冷蔵庫で寝かせると味がまとまってとろみも増す。",
+          "tip": null
+        },
+        {
+          "step": 4,
+          "text": "ジンギスカンを焼いてタレにつけて食べる。",
+          "tip": null
+        }
+      ],
+      "grandma_notes": null,
+      "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E3%82%B8%E3%83%B3%E3%82%AE%E3%82%B9%E3%82%AB%E3%83%B3_(%E6%96%99%E7%90%86)\" target=\"_blank\" rel=\"noopener\">ジンギスカン</a>は北海道を代表する料理として知られていますが、北海道に親戚や縁者がいる家庭では全国各地で食べられています。りんごや玉ねぎのすりおろしを使った手作りタレは市販品にはない深みがあり、一晩寝かせることで素材の旨みが溶け合います。",
+      "photos": [],
+      "related_recipe_ids": [],
+      "thumbnail_emoji": "🥩",
+      "episode": "北海道の親戚が送ってくれたジンギスカンを、おばあちゃんの手作りのタレで食べるのが最高においしかったです。",
+      "source": {
+        "types": [
+          "おばあちゃん本人から直接教わった"
+        ],
+        "contributor": "あきっぺ"
+      },
+      "view_count": 0
+    },
+    {
+      "id": "bacon-hakusai-kara-udon-fukushima-001",
+      "title": "ベーコンと白菜の辛焼きうどん",
+      "grandmother": {
+        "name": null,
+        "age": null,
+        "prefecture": "福島県",
+        "city": null,
+        "village": null,
+        "message": null
+      },
+      "region": {
+        "area": "tohoku",
+        "prefecture_code": "07",
+        "prefecture": "福島県"
+      },
+      "meta": {
+        "created_at": "2026-04-12",
+        "is_featured": false,
+        "is_endangered": false
+      },
+      "category": "ご飯もの",
+      "tags": [
+        "家庭料理",
+        "日常のごはん"
+      ],
+      "season": [
+        "冬"
+      ],
+      "servings": 4,
+      "prep_time_minutes": 10,
+      "cook_time_minutes": 15,
+      "difficulty": 2,
+      "story": "福島県の家庭で冬休みの晩ごはんに登場した焼きうどん。ホットプレートで豪快に炒めるのがおばあちゃん流で、ラー油の隠し味がご飯にもよく合う不思議な一品です。",
+      "ingredients": [
+        {
+          "group": "材料",
+          "items": [
+            {
+              "name": "白菜",
+              "amount": null,
+              "unit": "350g",
+              "note": "ざく切り",
+              "grandma_amount": "葉を3枚分"
+            },
+            {
+              "name": "ベーコン",
+              "amount": null,
+              "unit": "120g",
+              "note": "5mm幅に切る",
+              "grandma_amount": "適当な長さのベーコンを5枚"
+            },
+            {
+              "name": "うどん（生麺）",
+              "amount": null,
+              "unit": "450g",
+              "note": null,
+              "grandma_amount": null
+            },
+            {
+              "name": "バター",
+              "amount": null,
+              "unit": "10g",
+              "note": null,
+              "grandma_amount": null
+            },
+            {
+              "name": "ラー油",
+              "amount": null,
+              "unit": "大さじ1",
+              "note": null,
+              "grandma_amount": "10滴ほどを炒めているときにかける"
+            },
+            {
+              "name": "鶏がらスープの素",
+              "amount": null,
+              "unit": "大さじ2",
+              "note": null,
+              "grandma_amount": "瓶5振りほど回しかける"
+            },
+            {
+              "name": "塩",
+              "amount": null,
+              "unit": "適量",
+              "note": null,
+              "grandma_amount": null
+            },
+            {
+              "name": "鰹節",
+              "amount": null,
+              "unit": "適量",
+              "note": null,
+              "grandma_amount": null
+            },
+            {
+              "name": "青のり",
+              "amount": null,
+              "unit": "適量",
+              "note": null,
+              "grandma_amount": null
+            }
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "text": "ベーコンは5mm幅に切る。白菜はざく切り。",
+          "tip": null
+        },
+        {
+          "step": 2,
+          "text": "大きめのホットプレートを温め、バターを引いてベーコンをカリカリになるまで炒める。",
+          "tip": null
+        },
+        {
+          "step": 3,
+          "text": "白菜を投入し、バターとベーコンの香りがなじんだらうどんを入れる。",
+          "tip": null
+        },
+        {
+          "step": 4,
+          "text": "菜箸でうどんを炒めて塩で味付け。",
+          "tip": null
+        },
+        {
+          "step": 5,
+          "text": "鶏がらスープの素を全体に回しかける。",
+          "tip": null
+        },
+        {
+          "step": 6,
+          "text": "ラー油を入れてうどん全体になじませる。",
+          "tip": null
+        },
+        {
+          "step": 7,
+          "text": "鰹節と青のりをふりかけて完成。",
+          "tip": null
+        }
+      ],
+      "grandma_notes": null,
+      "cultural_background": "焼きうどんは<a href=\"https://ja.wikipedia.org/wiki/%E7%84%BC%E3%81%8D%E3%81%86%E3%81%A9%E3%82%93\" target=\"_blank\" rel=\"noopener\">北九州市小倉が発祥</a>とも言われていますが、各家庭でさまざまなアレンジが生まれています。ホットプレートを使った調理は昭和の食卓の風景で、家族みんなで囲んで食べるスタイルは団らんの象徴でもありました。",
+      "photos": [],
+      "related_recipe_ids": [],
+      "thumbnail_emoji": "🍜",
+      "episode": "おばあちゃんはホットプレートを使うのが大好きで、よく茶の間にホットプレートを出していろんなものを作ってくれました。このうどんはうどんという炭水化物なのに、なぜかめちゃくちゃ米が進むのが不思議です。ラー油を隠し味に入れるところが注目ポイントで、これによりうどんの美味しさがレベルアップします。毎回「これ絶対、美味いべ」と何度も言っていたのがツボでした。",
+      "source": {
+        "types": [
+          "おばあちゃん本人から直接教わった",
+          "記憶を頼りに書いている"
+        ],
+        "contributor": "吉田ひろし"
+      },
+      "view_count": 0
+    },
+    {
+      "id": "sobameshi-wakayama-001",
+      "title": "そばめし",
+      "grandmother": {
+        "name": null,
+        "age": null,
+        "prefecture": "和歌山県",
+        "city": null,
+        "village": null,
+        "message": null
+      },
+      "region": {
+        "area": "kinki",
+        "prefecture_code": "30",
+        "prefecture": "和歌山県"
+      },
+      "meta": {
+        "created_at": "2026-04-12",
+        "is_featured": false,
+        "is_endangered": false
+      },
+      "category": "ご飯もの",
+      "tags": [
+        "日常のごはん",
+        "家庭料理"
+      ],
+      "season": [
+        "夏"
+      ],
+      "servings": 1,
+      "prep_time_minutes": 5,
+      "cook_time_minutes": 10,
+      "difficulty": 1,
+      "story": "和歌山県の家庭で夏休みのお昼ごはんに作ってくれたそばめし。焼きそばが1玉しかないときに、ごはんでかさ増しして大食漢の孫のお腹を満たしてくれた知恵の一品です。",
+      "ingredients": [
+        {
+          "group": "材料",
+          "items": [
+            {
+              "name": "焼きそば",
+              "amount": 1,
+              "unit": "玉",
+              "note": "1〜2cmに切る",
+              "grandma_amount": null
+            },
+            {
+              "name": "焼きそば付属の粉ソース",
+              "amount": 1,
+              "unit": "袋",
+              "note": null,
+              "grandma_amount": null
+            },
+            {
+              "name": "ごはん",
+              "amount": null,
+              "unit": "1合",
+              "note": null,
+              "grandma_amount": null
+            },
+            {
+              "name": "卵",
+              "amount": 1,
+              "unit": "個",
+              "note": null,
+              "grandma_amount": null
+            },
+            {
+              "name": "キャベツ",
+              "amount": null,
+              "unit": "1/8玉",
+              "note": "千切りを短く切る",
+              "grandma_amount": "少し",
+              "approx_weight": "125〜150g"
+            },
+            {
+              "name": "ウスターソース",
+              "amount": null,
+              "unit": "大さじ2",
+              "note": null,
+              "grandma_amount": "ちょっと"
+            },
+            {
+              "name": "料理酒",
+              "amount": null,
+              "unit": "大さじ1",
+              "note": null,
+              "grandma_amount": "ひとかけ"
+            },
+            {
+              "name": "紅しょうが",
+              "amount": null,
+              "unit": "小袋1つ",
+              "note": null,
+              "grandma_amount": "少し"
+            },
+            {
+              "name": "サラダ油",
+              "amount": null,
+              "unit": "適量",
+              "note": null,
+              "grandma_amount": null
+            }
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "text": "フライパンに油をしいて、細かく切ったキャベツを炒める。",
+          "tip": null
+        },
+        {
+          "step": 2,
+          "text": "キャベツに火が通ったら、細かく切った焼きそばを入れて混ぜながら炒める。",
+          "tip": null
+        },
+        {
+          "step": 3,
+          "text": "ごはんを入れ、料理酒を混ぜ入れてから炒める。",
+          "tip": null
+        },
+        {
+          "step": 4,
+          "text": "粉ソースとウスターソースを混ぜながら炒める。",
+          "tip": null
+        },
+        {
+          "step": 5,
+          "text": "フライパンの端に寄せ、空いたスペースに油をしいて卵を割り入れる。",
+          "tip": null
+        },
+        {
+          "step": 6,
+          "text": "卵の上にそばめしをのせて40秒ほど加熱したらひっくり返す。お皿に盛り付けて紅しょうがを添えたら完成。",
+          "tip": null
+        }
+      ],
+      "grandma_notes": null,
+      "cultural_background": "<a href=\"https://ja.wikipedia.org/wiki/%E3%81%9D%E3%81%B0%E3%82%81%E3%81%97\" target=\"_blank\" rel=\"noopener\">そばめし</a>は神戸市長田区が発祥とも言われ、お好み焼き屋さんで焼きそばとごはんを鉄板の上で一緒に炒めたのが始まりとされています。関西を中心に広まり、家庭でも手軽に作れるB級グルメとして親しまれています。",
+      "photos": [],
+      "related_recipe_ids": [],
+      "thumbnail_emoji": "🍳",
+      "episode": "おばあちゃんの家はテーブルからキッチンが見える距離だったので、レシピは見て覚えました（4歳の時から両親がいなかったので、基本的におばあちゃんのご飯で育っています）。そばめしを出してくれる時は申し訳なさそうに出してくれたのを覚えています。いつも焼きそば3袋分作ってもらって食べていたのに、焼きそばが1袋しかなかった時の救済措置として作ってくれていて、「こんなんしかないけど」と言って申し訳なさそうな顔をしながら出してくれたのを昨日のことのように覚えています。",
+      "source": {
+        "types": [
+          "記憶を頼りに書いている"
+        ],
+        "contributor": "こーじー"
+      },
+      "view_count": 0
     }
   ]
 }

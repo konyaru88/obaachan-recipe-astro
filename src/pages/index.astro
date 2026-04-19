@@ -25,6 +25,31 @@ const recipesWithImages = allRecipes
   .filter((r: any) => r.photos?.main)
   .map((r: any) => ({ id: r.id, img: r.photos.main }));
 
+// ヒーロースライダー用：画像ありの最新3件
+const sliderRecipes = allRecipes
+  .filter((r: any) => r.photos?.main)
+  .sort((a: any, b: any) => b.meta.created_at.localeCompare(a.meta.created_at))
+  .slice(0, 3)
+  .map((r: any, idx: number) => {
+    const prefecture = r.grandmother?.prefecture || r.region?.prefecture || '';
+    const seasonArr = Array.isArray(r.season) ? r.season : [];
+    const season = seasonArr[0] ?? '';
+    const grandmaName = r.grandmother?.name || '';
+    const caption = prefecture
+      ? `${prefecture}${season ? '・' + season : ''}。${grandmaName ? grandmaName + 'さん' : '誰か'}の食卓から。`
+      : `${r.title}`;
+    const num = String(idx + 1).padStart(2, '0');
+    return {
+      id: r.id,
+      title: r.title,
+      img: r.photos.main,
+      prefecture,
+      num: `#${num}`,
+      tag: `#${num} — ${prefecture}`,
+      caption,
+    };
+  });
+
 const grandmaTags = [
   { label: 'コトコト煮物おばあちゃん', tag: '煮物' },
   { label: '毎日ごはんおばあちゃん', tag: '日常のごはん' },
@@ -113,133 +138,142 @@ const regionLabels: Record<string, string> = {
 
   <main id="main" class="home">
 
-    <!-- ヒーローセクション -->
-    <section class="hero" aria-label="キャッチコピーと検索">
-      <div class="hero__bg" aria-hidden="true"></div>
-      <div class="hero__ripple" aria-hidden="true"></div>
-      <div class="hero__ripple" aria-hidden="true"></div>
-      <div class="hero__ripple" aria-hidden="true"></div>
-      <div class="hero__ripple" aria-hidden="true"></div>
-      <div class="hero__content">
-        <h1 class="hero__title">
-          <span class="hero__line" style="--line-i:0">その一口で、</span><br />
-          <span class="hero__line" style="--line-i:1">私たちは過去へ旅をする。</span>
-        </h1>
-        <p class="hero__lead">
-          <span class="hero__line" style="--line-i:2">レシピは単なる作り方じゃない。</span><br />
-          <span class="hero__line" style="--line-i:3">誰かの暮らしと愛情の記録だ。</span><br />
-          <span class="hero__line" style="--line-i:4">使い込まれた鍋の音、</span><br />
-          <span class="hero__line" style="--line-i:5">まな板の傷、台所の匂い。</span><br />
-          <span class="hero__line" style="--line-i:6">これは、日本中の</span><br />
-          <span class="hero__line" style="--line-i:7">「あの日の食卓」を次世代へつなぐ、</span><br />
-          <span class="hero__line" style="--line-i:8">最も温かいタイムマシン。</span>
-        </p>
-        <p class="hero__site-name"><span class="hero__line" style="--line-i:9">── おばあちゃんのレシピ</span></p>
-        <!-- 検索はヘッダーに集約 -->
-      </div>
+    <!-- ヒーロー（pattern-c 風：巨大装飾＋中央フォトスライダー） -->
+    <section class="home-hero" aria-label="ヒーロー">
+      <div class="home-hero__giant-left" aria-hidden="true">食<br />卓</div>
+      <div class="home-hero__giant-right" aria-hidden="true">お<br />ば<br />あ<br />ち<br />ゃ<br />ん<br />の</div>
+
+      {sliderRecipes.length > 0 && (
+        <div class="home-hero__photo">
+          <div class="home-hero__slider" id="hero-slider" aria-roledescription="carousel" aria-label="最近届いたレシピ">
+            <div class="home-hero__slides" id="hero-slides">
+              {sliderRecipes.map((s, i) => (
+                <a
+                  href={`${base}recipes/${s.id}/`}
+                  class="home-hero__slide"
+                  data-num={s.tag}
+                  data-title={s.caption}
+                  data-index={i}
+                  data-cta="hero-slider"
+                  data-recipe-id={s.id}
+                  aria-label={`${s.title}のレシピを見る（${s.prefecture}）`}
+                  role="group"
+                  aria-roledescription="slide"
+                >
+                  <img src={`${base}${s.img}`} alt={s.title} loading={i === 0 ? 'eager' : 'lazy'} width="640" height="854" />
+                </a>
+              ))}
+            </div>
+          </div>
+          <div class="home-hero__dots" role="tablist" aria-label="スライダーナビゲーション">
+            {sliderRecipes.map((_, i) => (
+              <button
+                class={`home-hero__dot${i === 0 ? ' is-active' : ''}`}
+                data-index={i}
+                aria-label={`${i + 1}番目のスライドへ`}
+                aria-selected={i === 0 ? 'true' : 'false'}
+                role="tab"
+              ></button>
+            ))}
+          </div>
+          <div class="home-hero__info" id="hero-info">
+            <span class="home-hero__info-num">{sliderRecipes[0].tag}</span>
+            <p class="home-hero__info-title">{sliderRecipes[0].caption}</p>
+          </div>
+        </div>
+      )}
+
+      <!-- おばあちゃん言葉（装飾） -->
+      <span class="home-hero__kotoba" style="top:8%;left:2%;font-size:clamp(1.2rem,2.5vw,2rem);transform:rotate(-3deg)" aria-hidden="true">はよ食べ</span>
+      <span class="home-hero__kotoba" style="top:22%;right:18%;font-size:clamp(0.9rem,1.8vw,1.4rem);transform:rotate(2deg)" aria-hidden="true">気持ち程度でええで</span>
+      <span class="home-hero__kotoba" style="bottom:30%;left:1%;font-size:clamp(1rem,2vw,1.6rem);transform:rotate(-1deg)" aria-hidden="true">ひたひたになるまで</span>
+      <span class="home-hero__kotoba" style="bottom:8%;right:3%;font-size:clamp(1.1rem,2.2vw,1.8rem);transform:rotate(3deg)" aria-hidden="true">適当でええんよ</span>
+      <span class="home-hero__kotoba" style="top:55%;right:4%;font-size:clamp(1rem,1.8vw,1.4rem);transform:rotate(-4deg)" aria-hidden="true">目分量でよろし</span>
+      <span class="home-hero__kotoba" style="top:15%;left:25%;font-size:clamp(0.85rem,1.5vw,1.2rem);transform:rotate(3deg)" aria-hidden="true">塩はひとつまみな</span>
+      <span class="home-hero__kotoba" style="bottom:45%;left:12%;font-size:clamp(0.75rem,1.3vw,1rem);transform:rotate(-3deg)" aria-hidden="true">ぐるっと3周な</span>
+      <span class="home-hero__kotoba" style="top:82%;right:15%;font-size:clamp(0.9rem,1.5vw,1.2rem);transform:rotate(1deg)" aria-hidden="true">手のひらくらい</span>
     </section>
 
-    <div class="hero__divider" aria-hidden="true"><div class="hero__divider-line"></div></div>
-
-    <!-- 新着レシピ -->
+    <!-- 新着レシピ：届いたばかりの味 -->
     <section class="home__latest" aria-labelledby="latest-heading">
-      <div class="container">
-        <div class="section-header">
-          <h2 id="latest-heading" class="section-title">届いたばかりの味</h2>
-        </div>
-        <div class="recipe-grid recipe-grid--3">
-          {latest.map((recipe) => <RecipeCard recipe={recipe} />)}
-        </div>
-        <div class="section-footer">
-          <a href={`${base}recipes/`} class="btn btn--outline" data-cta="view-all-recipes">すべてのレシピを見る</a>
-        </div>
+      <header class="home__section-header">
+        <p class="home__section-en">New arrivals</p>
+        <h2 id="latest-heading" class="home__section-title">届いたばかりの味</h2>
+      </header>
+      <div class="home__latest-grid">
+        {latest.map((recipe) => <RecipeCard recipe={recipe} />)}
+      </div>
+      <div class="home__section-footer">
+        <a href={`${base}recipes/`} class="home__btn" data-cta="view-all-recipes">すべてのレシピを見る →</a>
       </div>
     </section>
 
-    <!-- wave -->
-    <div class="wave-divider wave-divider--cream-to-green">
-      <svg viewBox="0 0 1440 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0,20 C240,40 480,0 720,20 C960,40 1200,0 1440,20 L1440,40 L0,40 Z" fill="#F5F3EF"/>
-      </svg>
-    </div>
-
-    <!-- おばあちゃんから探す / レシピから探す -->
+    <!-- おばあちゃんから探す / カテゴリーから探す -->
     <section class="home__explore" aria-labelledby="explore-heading">
-      <div class="container">
-        <div class="explore-tabs">
-          <button class="explore-tab explore-tab--active" data-tab="grandma">
-            おばあちゃんから探す
-          </button>
-          <button class="explore-tab" data-tab="recipe">
-            カテゴリーから探す
-          </button>
-        </div>
+      <header class="home__section-header">
+        <p class="home__section-en">Ways to explore</p>
+        <h2 id="explore-heading" class="home__section-title">探し方</h2>
+      </header>
+      <div class="home__explore-tabs">
+        <button class="home__explore-tab explore-tab explore-tab--active" data-tab="grandma">
+          おばあちゃんから探す
+        </button>
+        <button class="home__explore-tab explore-tab" data-tab="recipe">
+          カテゴリーから探す
+        </button>
+      </div>
 
-        <div class="explore-panel" id="panel-grandma">
-          <div class="hashtag-cloud">
-            {grandmaTags.map(({ label, tag }) => (
-              <a href={`${base}recipes/?tag=${encodeURIComponent(tag)}`} class="hashtag-btn" data-cta="hashtag-filter">{label}</a>
-            ))}
-          </div>
+      <div class="home__explore-panel explore-panel" id="panel-grandma">
+        <div class="home__hashtag-cloud">
+          {grandmaTags.map(({ label, tag }) => (
+            <a href={`${base}recipes/?tag=${encodeURIComponent(tag)}`} class="home__hashtag-btn hashtag-btn" data-cta="hashtag-filter">{label}</a>
+          ))}
         </div>
+      </div>
 
-        <div class="explore-panel" id="panel-recipe" style="display:none">
-          <div class="category-grid">
-            {categories.map((c) => (
-              <a href={`${base}recipes/?category=${encodeURIComponent(c.label)}`} class="category-btn" data-cta="category-filter">
-                <img class="category-btn__img" src={c.img} alt={c.label} loading="lazy" />
-                <span class="category-btn__label">{c.label}</span>
-              </a>
-            ))}
-          </div>
+      <div class="home__explore-panel explore-panel" id="panel-recipe" style="display:none">
+        <div class="home__category-grid">
+          {categories.map((c) => (
+            <a href={`${base}recipes/?category=${encodeURIComponent(c.label)}`} class="home__category-btn category-btn" data-cta="category-filter">
+              <img class="home__category-btn-img category-btn__img" src={c.img} alt={c.label} loading="lazy" />
+              <span class="home__category-btn-label category-btn__label">{c.label}</span>
+            </a>
+          ))}
         </div>
       </div>
     </section>
 
-    <!-- wave -->
-    <div class="wave-divider wave-divider--green-to-blue">
-      <svg viewBox="0 0 1440 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0,20 C240,0 480,40 720,20 C960,0 1200,40 1440,20 L1440,40 L0,40 Z" fill="#FAFAF8"/>
-      </svg>
-    </div>
-
-    <!-- 地域で探す（マップ風） -->
+    <!-- 土地の記憶をたどる（日本地図ヒートマップ） -->
     <section class="home__regions-map" aria-labelledby="regions-heading">
-      <div class="container">
-        <div class="section-header">
-          <h2 id="regions-heading" class="section-title">土地の記憶をたどる</h2>
+      <header class="home__section-header">
+        <p class="home__section-en">From each land</p>
+        <h2 id="regions-heading" class="home__section-title">土地の記憶をたどる</h2>
+      </header>
+      <div class="home__map-container japan-map-container">
+        <div class="home__map-wrapper japan-map-wrapper" id="japan-map-wrapper">
+          <!-- SVG will be loaded here via fetch -->
         </div>
-        <div class="japan-map-container">
-          <div class="japan-map-wrapper" id="japan-map-wrapper">
-            <!-- SVG will be loaded here via fetch -->
-          </div>
-          <div class="japan-map-tooltip" id="map-tooltip" style="display:none"></div>
-        </div>
-        <div class="section-footer">
-          <a href={`${base}regions/`} class="btn btn--outline" data-cta="view-all-regions">地域一覧をすべて見る</a>
-        </div>
+        <div class="home__map-tooltip japan-map-tooltip" id="map-tooltip" style="display:none"></div>
+      </div>
+      <div class="home__section-footer">
+        <a href={`${base}regions/`} class="home__btn" data-cta="view-all-regions">地域一覧をすべて見る →</a>
       </div>
     </section>
 
-    <!-- wave -->
-    <div class="wave-divider wave-divider--blue-to-warm">
-      <svg viewBox="0 0 1440 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0,20 C240,40 480,0 720,20 C960,40 1200,0 1440,20 L1440,40 L0,40 Z" fill="#F5F3EF"/>
-      </svg>
-    </div>
-
-    <!-- タイムマシンセクション -->
+    <!-- タイムマシン -->
     <section class="home__timemachine" aria-labelledby="timemachine-heading">
-      <div class="container" style="text-align:center; padding: 5rem 1rem;">
-        <h2 id="timemachine-heading" style="font-family:var(--font-serif); font-size:clamp(1.5rem,3vw,2rem); font-weight:400; color:var(--color-text-primary); margin-bottom:1.5rem; letter-spacing:0.05em;">どこかの食卓へ</h2>
-        <p style="font-family:var(--font-serif); font-size:0.95rem; color:var(--color-text-muted); line-height:2; margin-bottom:2.5rem;">
+      <span class="home__timemachine-bg" aria-hidden="true">時</span>
+      <div class="home__timemachine-inner">
+        <p class="home__section-en" style="text-align:center">Time machine</p>
+        <h2 id="timemachine-heading" class="home__timemachine-title">どこかの食卓へ</h2>
+        <p class="home__timemachine-lead">
           何が出てくるかはわからない。<br />
           ランダムに、誰かの記憶の味に出会う。
         </p>
         <div class="tm-btn-wrapper">
-          <a href="#" id="timemachine-btn" class="btn btn--outline tm-btn-combined" data-cta="timemachine" style="padding:1rem 3.5rem; font-family:var(--font-sans); font-size:0.8rem; letter-spacing:0.15em;">
+          <a href="#" id="timemachine-btn" class="home__timemachine-btn btn btn--outline tm-btn-combined" data-cta="timemachine">
             <span class="tm-clock-icon" aria-hidden="true"></span>
-            タイムマシンに乗る
+            タイムマシンに乗る →
           </a>
           <span class="tm-gogogo tm-gogogo--1" aria-hidden="true">ゴゴゴゴ…</span>
           <span class="tm-gogogo tm-gogogo--2" aria-hidden="true">ゴゴゴ…</span>
@@ -248,32 +282,32 @@ const regionLabels: Record<string, string> = {
       </div>
     </section>
 
-    <!-- サービスの想い -->
+    <!-- この活動について -->
     <section class="home__about" aria-labelledby="about-heading">
-      <div class="container">
-        <div class="about-block">
-          <div class="about-block__deco" aria-hidden="true"><img src={`${base}assets/images/grandma-icon.png`} alt="" class="about-block__deco-img" /></div>
-          <h2 id="about-heading" class="about-block__title">この活動について</h2>
-          <p class="about-block__text">
-            計量カップは使わない。<br />
-            タイマーも使わない。
-          </p>
-          <p class="about-block__text">
-            「だいたいこのくらい」と<br />
-            手のひらで量り、<br />
-            「昔からこうやってきた」と<br />
-            火加減を調整する。
-          </p>
-          <p class="about-block__text">
-            その曖昧さの中に、<br />
-            何十年もかけて磨かれた知恵がある。
-          </p>
-          <p class="about-block__text">
-            残したいのはレシピじゃない。<br />
-            一緒に食卓を囲んだ、あの時間。
-          </p>
-          <a href={base + 'support/'} class="about-block__btn" data-cta="about">about</a>
+      <div class="home__about-inner">
+        <div class="home__about-deco" aria-hidden="true">
+          <img src={`${base}assets/images/grandma-icon.png`} alt="" class="home__about-deco-img" />
         </div>
+        <h2 id="about-heading" class="home__about-title">この活動について</h2>
+        <p class="home__about-text">
+          計量カップは使わない。<br />
+          タイマーも使わない。
+        </p>
+        <p class="home__about-text">
+          「だいたいこのくらい」と<br />
+          手のひらで量り、<br />
+          「昔からこうやってきた」と<br />
+          火加減を調整する。
+        </p>
+        <p class="home__about-text">
+          その曖昧さの中に、<br />
+          何十年もかけて磨かれた知恵がある。
+        </p>
+        <p class="home__about-text">
+          残したいのはレシピじゃない。<br />
+          一緒に食卓を囲んだ、あの時間。
+        </p>
+        <a href={`${base}about/`} class="home__about-btn" data-cta="about">このサイトについて →</a>
       </div>
     </section>
 
@@ -317,13 +351,13 @@ const regionLabels: Record<string, string> = {
 
     // 春夏秋冬カラーパレット
     const seasonalPalettes = {
-      spring: ['#F5E6EC', '#E8B4C8', '#D4839E', '#C05A7A', '#A03060'], // 桜
-      summer: ['#E0EEF5', '#A8D4E6', '#6BB5D4', '#3A8FB7', '#1B6691'], // 海
-      autumn: ['#E8DCC8', '#D4B896', '#C49A6C', '#A0703C', '#7D4E1E'], // 紅葉
-      winter: ['#F0F2F5', '#D1D9E0', '#B0BEC5', '#8A9AA5', '#607D8B'], // 雪景色
+      spring: ['#F5E6EC', '#E8B4C8', '#D4839E', '#C05A7A', '#A03060'],
+      summer: ['#E0EEF5', '#A8D4E6', '#6BB5D4', '#3A8FB7', '#1B6691'],
+      autumn: ['#E8DCC8', '#D4B896', '#C49A6C', '#A0703C', '#7D4E1E'],
+      winter: ['#F0F2F5', '#D1D9E0', '#B0BEC5', '#8A9AA5', '#607D8B'],
     };
     function getCurrentSeason() {
-      const m = new Date().getMonth() + 1; // 1-12
+      const m = new Date().getMonth() + 1;
       if (m >= 3 && m <= 5) return 'spring';
       if (m >= 6 && m <= 8) return 'summer';
       if (m >= 9 && m <= 11) return 'autumn';
@@ -391,6 +425,67 @@ const regionLabels: Record<string, string> = {
         .catch(err => console.warn('Japan map SVG の読み込みに失敗しました:', err));
     }
 
+    // ヒーロースライダー（auto advance + dots nav + click-through preserve）
+    (function() {
+      const slider = document.getElementById('hero-slider');
+      const slidesEl = document.getElementById('hero-slides');
+      const info = document.getElementById('hero-info');
+      if (!slider || !slidesEl) return;
+
+      const slides = slidesEl.querySelectorAll('.home-hero__slide');
+      const dots = document.querySelectorAll('.home-hero__dot');
+      if (slides.length <= 1) return;
+
+      let current = 0;
+      let timerId = null;
+      const INTERVAL = 5000;
+
+      function goTo(i) {
+        current = (i + slides.length) % slides.length;
+        slidesEl.style.transform = `translateX(-${current * 100}%)`;
+        dots.forEach((d, j) => {
+          d.classList.toggle('is-active', j === current);
+          d.setAttribute('aria-selected', j === current ? 'true' : 'false');
+        });
+        const slide = slides[current];
+        const numEl = info?.querySelector('.home-hero__info-num');
+        const titleEl = info?.querySelector('.home-hero__info-title');
+        if (numEl) numEl.textContent = slide.dataset.num || '';
+        if (titleEl) titleEl.textContent = slide.dataset.title || '';
+      }
+
+      function start() {
+        stop();
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        timerId = setInterval(() => goTo(current + 1), INTERVAL);
+      }
+      function stop() {
+        if (timerId) { clearInterval(timerId); timerId = null; }
+      }
+
+      dots.forEach((d) => {
+        d.addEventListener('click', () => {
+          goTo(parseInt(d.dataset.index || '0', 10));
+          start();
+        });
+      });
+
+      slider.addEventListener('mouseenter', stop);
+      slider.addEventListener('mouseleave', start);
+
+      // Pause when out of view / tab hidden
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) stop(); else start();
+      });
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((e) => e.isIntersecting ? start() : stop());
+        }, { threshold: 0.25 });
+        io.observe(slider);
+      } else {
+        start();
+      }
+    })();
 
     // タイムマシンボタン: 料理フラッシュ → ランダムレシピへ遷移
     const recipesWithImgs = JSON.parse(document.getElementById('recipe-images-data')?.textContent || '[]');
@@ -398,17 +493,14 @@ const regionLabels: Record<string, string> = {
     if (tmBtn) {
       tmBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        // 画像ありレシピがあればそこから選ぶ、なければ全レシピから選ぶ
         const pool = recipesWithImgs.length > 0 ? recipesWithImgs : recipeIds.map(id => ({ id, img: null }));
         const pick = pool[Math.floor(Math.random() * pool.length)];
         const randomId = pick.id;
 
-        // 画像パスを決定
         const imgSrc = pick.img
           ? base + pick.img
           : null;
 
-        // オーバーレイを生成
         const overlay = document.createElement('div');
         overlay.className = 'tm-overlay';
         overlay.innerHTML = `
@@ -420,7 +512,6 @@ const regionLabels: Record<string, string> = {
         overlay.offsetHeight;
         overlay.classList.add('is-active');
 
-        // フラッシュが白く覆ったタイミングでページ遷移
         setTimeout(() => {
           const flash = overlay.querySelector('.tm-overlay__flash');
           if (flash) { flash.style.animation = 'none'; flash.style.opacity = '1'; }
@@ -430,3 +521,606 @@ const regionLabels: Record<string, string> = {
     }
   </script>
 </BaseLayout>
+
+<style>
+  /* Home page (pattern-c scoped) */
+  .home {
+    font-family: 'Noto Sans JP', sans-serif;
+    color: #222;
+    background: #f0ece4;
+  }
+
+  /* === Hero === */
+  .home-hero {
+    position: relative;
+    min-height: min(720px, calc(100vh - 60px));
+    padding: 3rem 5% 3rem;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .home-hero__giant-left,
+  .home-hero__giant-right {
+    position: absolute;
+    top: 50%;
+    font-family: 'Shippori Mincho', serif;
+    font-weight: 800;
+    color: #222;
+    line-height: 1.05;
+    text-align: center;
+    z-index: 3;
+    pointer-events: none;
+    user-select: none;
+  }
+  .home-hero__giant-left {
+    right: calc(50% + 18vw + 10px);
+    transform: translateY(-55%);
+    font-size: clamp(5rem, 14vw, 12rem);
+    letter-spacing: -0.05em;
+  }
+  .home-hero__giant-right {
+    left: calc(50% + 18vw + 10px);
+    transform: translateY(-50%);
+    font-size: clamp(3rem, 7vw, 6rem);
+    letter-spacing: -0.02em;
+  }
+
+  /* Photo slider */
+  .home-hero__photo {
+    position: relative;
+    width: 40vw;
+    max-width: 560px;
+    min-width: 280px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+  }
+  .home-hero__slider {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border: 3px solid #222;
+    box-shadow: 6px 6px 0 #222;
+    background: #fff;
+  }
+  .home-hero__slides {
+    display: flex;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+  }
+  .home-hero__slide {
+    min-width: 100%;
+    display: block;
+    text-decoration: none;
+  }
+  .home-hero__slide img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    display: block;
+  }
+  .home-hero__dots {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-top: 0.8rem;
+  }
+  .home-hero__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #ccc;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.3s ease, transform 0.3s ease;
+  }
+  .home-hero__dot:hover {
+    background: #888;
+  }
+  .home-hero__dot.is-active {
+    background: #222;
+    transform: scale(1.2);
+  }
+  .home-hero__info {
+    margin-top: 0.8rem;
+    text-align: right;
+  }
+  .home-hero__info-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: #888;
+  }
+  .home-hero__info-title {
+    margin: 0.2rem 0 0;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: #333;
+  }
+
+  /* おばあちゃん言葉（薄い装飾） */
+  .home-hero__kotoba {
+    position: absolute;
+    font-family: 'Shippori Mincho', serif;
+    color: rgba(0, 0, 0, 0.05);
+    font-weight: 700;
+    white-space: nowrap;
+    pointer-events: none;
+    user-select: none;
+    z-index: 1;
+    line-height: 1;
+  }
+
+  /* === Section common === */
+  .home__section-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+  .home__section-en {
+    margin: 0 0 0.4rem;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    color: #aaa;
+  }
+  .home__section-title {
+    margin: 0;
+    font-family: 'Shippori Mincho', serif;
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: #222;
+  }
+  .home__section-footer {
+    text-align: center;
+    margin-top: 2.5rem;
+  }
+  .home__btn {
+    display: inline-block;
+    padding: 0.85rem 2.2rem;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: #222;
+    background: transparent;
+    border: 1.5px solid #222;
+    text-decoration: none;
+    transition: background 0.25s ease, color 0.25s ease;
+  }
+  .home__btn:hover {
+    background: #222;
+    color: #f0ece4;
+  }
+
+  /* === Latest section === */
+  .home__latest {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 5%;
+  }
+  .home__latest-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.8rem;
+  }
+
+  /* RecipeCard overrides (matching /recipes/ list aesthetic) */
+  .home__latest-grid :global(.recipe-card) {
+    height: 100%;
+    background: #fff;
+    border: 1.5px solid #222;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .home__latest-grid :global(.recipe-card:hover) {
+    transform: translateY(-4px);
+    box-shadow: 6px 6px 0 #222;
+  }
+  .home__latest-grid :global(.recipe-card__link) {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    color: inherit;
+    text-decoration: none;
+  }
+  .home__latest-grid :global(.recipe-card__thumb) {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: #f5f2ec;
+  }
+  .home__latest-grid :global(.recipe-card__image) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .home__latest-grid :global(.recipe-card__region-badge) {
+    position: absolute;
+    bottom: 0.5rem;
+    left: 0.5rem;
+    padding: 0.22em 0.7em;
+    background: rgba(34, 34, 34, 0.88);
+    color: #f0ece4;
+    font-size: 0.62rem;
+    font-family: 'Shippori Mincho', serif;
+    letter-spacing: 0.08em;
+  }
+  .home__latest-grid :global(.recipe-card__body) {
+    padding: 1rem 1rem 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 1 1 auto;
+  }
+  .home__latest-grid :global(.recipe-card__title) {
+    margin: 0;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.55;
+    letter-spacing: 0.03em;
+    color: #222;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .home__latest-grid :global(.recipe-card__tags) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    min-height: 1.35rem;
+  }
+  .home__latest-grid :global(.recipe-card__tag) {
+    font-size: 0.6rem;
+    color: #888;
+    border: 1px solid #d0ccc4;
+    padding: 0.15em 0.65em;
+    letter-spacing: 0.04em;
+  }
+  .home__latest-grid :global(.recipe-card__meta) {
+    list-style: none;
+    margin: auto 0 0;
+    padding: 0.5rem 0 0;
+    border-top: 1px dashed #e0dcd4;
+    display: flex;
+    gap: 0.85rem;
+    font-size: 0.68rem;
+    color: #777;
+  }
+
+  /* === Explore === */
+  .home__explore {
+    background: #fff;
+    padding: 4rem 5%;
+  }
+  .home__explore-tabs {
+    max-width: 1100px;
+    margin: 0 auto 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    border: 1.5px solid #222;
+    max-width: 420px;
+  }
+  .home__explore-tab {
+    flex: 1 1 0;
+    padding: 0.8rem 1rem;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: #444;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: background 0.25s ease, color 0.25s ease;
+  }
+  .home__explore-tab + .home__explore-tab {
+    border-left: 1px solid #222;
+  }
+  .home__explore-tab:hover {
+    background: rgba(34, 34, 34, 0.06);
+  }
+  .home__explore-tab:global(.explore-tab--active) {
+    background: #222;
+    color: #f0ece4;
+  }
+  .home__explore-tab:global(.explore-tab--active):hover {
+    background: #222;
+  }
+
+  .home__explore-panel {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .home__hashtag-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    justify-content: center;
+  }
+  .home__hashtag-btn {
+    padding: 0.55rem 1.2rem;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.06em;
+    color: #222;
+    background: transparent;
+    border: 1.5px solid #222;
+    border-radius: 999px;
+    text-decoration: none;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  .home__hashtag-btn:hover {
+    background: #222;
+    color: #f0ece4;
+  }
+
+  .home__category-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 1rem;
+  }
+  .home__category-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 0.5rem;
+    background: transparent;
+    border: 1px solid #e0dcd4;
+    text-decoration: none;
+    color: #222;
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  }
+  .home__category-btn:hover {
+    background: #faf9f6;
+    border-color: #222;
+    transform: translateY(-2px);
+  }
+  .home__category-btn-img {
+    width: 60%;
+    max-width: 72px;
+    aspect-ratio: 1;
+    object-fit: contain;
+  }
+  .home__category-btn-label {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+  }
+
+  /* === Regions map === */
+  .home__regions-map {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 5%;
+  }
+  .home__map-container {
+    max-width: 700px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .home__map-wrapper :global(svg) {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .home__map-tooltip {
+    position: fixed;
+    z-index: 100;
+    padding: 0.5rem 0.9rem;
+    background: #222;
+    color: #f0ece4;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    pointer-events: none;
+    white-space: nowrap;
+    max-width: calc(100vw - 1rem);
+  }
+  .home__map-tooltip :global(strong) {
+    display: block;
+    font-weight: 700;
+    font-size: 0.82rem;
+    margin-bottom: 0.15rem;
+  }
+
+  /* === Time machine === */
+  .home__timemachine {
+    position: relative;
+    overflow: hidden;
+    background: #222;
+    color: #fff;
+    padding: 5rem 5%;
+    text-align: center;
+  }
+  .home__timemachine-bg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Shippori Mincho', serif;
+    font-size: clamp(10rem, 28vw, 22rem);
+    font-weight: 800;
+    color: rgba(255, 255, 255, 0.03);
+    pointer-events: none;
+    user-select: none;
+    line-height: 1;
+    z-index: 0;
+  }
+  .home__timemachine-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+  .home__timemachine .home__section-en {
+    color: #6a6560;
+  }
+  .home__timemachine-title {
+    margin: 0.3rem 0 1.2rem;
+    font-family: 'Shippori Mincho', serif;
+    font-size: clamp(1.5rem, 3vw, 2.1rem);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: #f0ece4;
+  }
+  .home__timemachine-lead {
+    margin: 0 0 2.2rem;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.88rem;
+    line-height: 2.2;
+    color: rgba(240, 236, 228, 0.75);
+  }
+  .home__timemachine-btn {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    background: transparent;
+    color: #f0ece4;
+    border: 1.5px solid #f0ece4;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.84rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-decoration: none;
+    transition: background 0.25s ease, color 0.25s ease;
+  }
+  .home__timemachine-btn:hover {
+    background: #f0ece4;
+    color: #222;
+  }
+
+  /* === About === */
+  .home__about {
+    padding: 5rem 5%;
+    background: #f5f0e6;
+    text-align: center;
+  }
+  .home__about-inner {
+    max-width: 560px;
+    margin: 0 auto;
+  }
+  .home__about-deco {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .home__about-deco-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    opacity: 0.8;
+  }
+  .home__about-title {
+    margin: 0 0 1.5rem;
+    font-family: 'Shippori Mincho', serif;
+    font-size: clamp(1.3rem, 2.6vw, 1.8rem);
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: #222;
+  }
+  .home__about-text {
+    margin: 0 0 1.4rem;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.92rem;
+    line-height: 2.2;
+    color: #555;
+  }
+  .home__about-btn {
+    display: inline-block;
+    margin-top: 1.2rem;
+    padding: 0.85rem 2.2rem;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: #222;
+    background: transparent;
+    border: 1.5px solid #222;
+    text-decoration: none;
+    transition: background 0.25s ease, color 0.25s ease;
+  }
+  .home__about-btn:hover {
+    background: #222;
+    color: #f0ece4;
+  }
+
+  /* === Responsive === */
+  @media (max-width: 900px) {
+    .home-hero {
+      min-height: auto;
+      padding: 2rem 5%;
+    }
+    .home-hero__giant-left,
+    .home-hero__giant-right {
+      display: none;
+    }
+    .home-hero__photo {
+      width: 80vw;
+      max-width: 420px;
+    }
+    .home-hero__kotoba {
+      display: none;
+    }
+
+    .home__latest-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.2rem;
+    }
+    .home__category-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 540px) {
+    .home-hero {
+      padding: 1.5rem 5%;
+    }
+    .home-hero__photo {
+      width: 90vw;
+    }
+    .home-hero__slider {
+      border-width: 2px;
+      box-shadow: 4px 4px 0 #222;
+    }
+    .home-hero__info-title {
+      font-size: 0.78rem;
+    }
+
+    .home__latest {
+      padding: 3rem 5%;
+    }
+    .home__latest-grid {
+      grid-template-columns: 1fr;
+      max-width: 360px;
+      margin: 0 auto;
+      gap: 1rem;
+    }
+    .home__explore,
+    .home__regions-map,
+    .home__timemachine,
+    .home__about {
+      padding: 3.5rem 5%;
+    }
+    .home__category-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .home__hashtag-btn {
+      font-size: 0.7rem;
+      padding: 0.5rem 1rem;
+    }
+  }
+</style>

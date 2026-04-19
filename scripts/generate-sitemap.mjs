@@ -45,6 +45,7 @@ addUrl('/recipes/', '/en/recipes/', '0.9', 'daily');
 addUrl('/regions/', '/en/regions/', '0.7', 'weekly');
 addUrl('/articles/', '/en/articles/', '0.7', 'weekly');
 addUrl('/support/', '/en/support/', '0.5', 'monthly');
+addUrl('/about/', null, '0.6', 'monthly');
 addUrl('/contact/', null, '0.3', 'yearly');
 
 // Individual recipe pages

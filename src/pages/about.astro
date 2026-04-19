@@ -1,0 +1,478 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import recipesData from '../data/recipes.json';
+
+const base = import.meta.env.BASE_URL;
+const recipes = recipesData.recipes;
+
+// Build-time stats
+const recipeCount = recipes.length;
+
+const prefSet = new Set<string>();
+recipes.forEach((r: any) => {
+  const pref = r.grandmother?.prefecture || r.region?.prefecture || '';
+  if (pref) prefSet.add(pref);
+});
+const prefCount = prefSet.size;
+
+const grandmaSet = new Set<string>();
+recipes.forEach((r: any) => {
+  const name = r.grandmother?.name;
+  const pref = r.grandmother?.prefecture || '';
+  if (name) grandmaSet.add(name);
+  else if (pref) grandmaSet.add(pref + 'のおばあちゃん');
+});
+const grandmaCount = grandmaSet.size;
+
+const pageTitle = 'このサイトについて｜忘れたくない、ごはん。 | おばあちゃんのレシピ';
+const pageDescription = '「おばあちゃんのレシピ」は、全国の家庭に受け継がれてきた"あの味"を一つずつ集めていく記録の場所です。グラムも分数も測れないけれど、確かにあった味を次の世代へ。サイトの思想と運営について。';
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  ogType="website"
+  hasAlternate={false}
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://www.obaachan-recipe.com/" },
+        { "@type": "ListItem", "position": 2, "name": "このサイトについて" }
+      ]
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "AboutPage",
+      "name": "このサイトについて｜おばあちゃんのレシピ",
+      "description": pageDescription,
+      "url": "https://www.obaachan-recipe.com/about/",
+      "inLanguage": "ja"
+    })} />
+  </Fragment>
+  <Header />
+
+  <main class="about-page">
+    <!-- Hero (dark) -->
+    <section class="about-page__hero" aria-labelledby="about-title">
+      <span class="about-page__hero-bg" aria-hidden="true">食卓</span>
+      <h1 class="about-page__title" id="about-title">忘れたくない、ごはん。</h1>
+    </section>
+
+    <!-- Body -->
+    <article class="about-page__body">
+      <p>
+        台所に立つ背中を、<br />
+        ただ眺めていた頃がありました。
+      </p>
+
+      <p>
+        「ちょっと味見してごらん」と<br />
+        差し出された小皿のあの味。<br />
+        分量は「このくらい」、<br />
+        火加減は「いい匂いがしてきたら」。
+      </p>
+
+      <p>
+        書き留めておけばよかったと、<br />
+        気づいたのはずいぶん後のことでした。
+      </p>
+
+      <hr />
+
+      <p>
+        おばあちゃんのレシピには、<br />
+        グラムも、分数も、タイマーもありません。
+      </p>
+
+      <p>
+        「ひとつまみ」がどれくらいかは、<br />
+        その手の大きさで変わる。<br />
+        「ちょうどいい」の基準は、<br />
+        何十年もの食卓の中で作られたもの。
+      </p>
+
+      <p>
+        だからこそ、同じ料理でも<br />
+        家ごとに味が違う。<br />
+        <strong>それが「おばあちゃんの味」です。</strong>
+      </p>
+
+      <hr />
+
+      <h2>このサイトについて</h2>
+
+      <p>
+        このサイトは、<br />
+        誰かの台所に確かにあった味を<br />
+        ひとつずつ集めていく場所です。
+      </p>
+
+      <p>
+        レシピとして正確かどうかより、<br />
+        「あの味を残したい」という気持ちを<br />
+        大切にしています。
+      </p>
+
+      <p>
+        だから材料欄には、<br />
+        「ぐるっと3周」とか「ごろっと5つ」とか、<br />
+        おばあちゃんの言葉がそのまま残っています。
+      </p>
+
+      <p>
+        横に目安のグラム数を添えているのは、<br />
+        はじめて作る人が迷わないように。<br />
+        でも本当は、<br />
+        <strong>自分の「このくらい」があっていい</strong>と<br />
+        思っています。
+      </p>
+
+      <hr />
+
+      <h2>忘れられない味のこと</h2>
+
+      <p>
+        なかには、もう再現できない味もあります。
+      </p>
+
+      <p>
+        おばあちゃんはもういない。<br />
+        レシピは聞けなかった。<br />
+        写真も残っていない。
+      </p>
+
+      <p>
+        でも、あの味だけは覚えている。<br />
+        冬の台所の匂いとか、<br />
+        小さな茶碗に盛られた煮物の色とか、<br />
+        「おかわりは？」と聞かれた声とか。
+      </p>
+
+      <p>
+        そういう記憶を、<br />
+        手がかりだけでも残しておける場所にしたい。<br />
+        同じような味を知っている誰かが、<br />
+        いつかこのサイトで出会えたらうれしいです。
+      </p>
+    </article>
+
+    <!-- Numbers -->
+    <section class="about-page__numbers" aria-label="これまでに集まったもの">
+      <div class="about-page__numbers-inner">
+        <div class="about-page__number">
+          <p class="about-page__number-value">{recipeCount}</p>
+          <p class="about-page__number-label">集まったレシピ</p>
+        </div>
+        <div class="about-page__number">
+          <p class="about-page__number-value">{prefCount}</p>
+          <p class="about-page__number-label">つながった土地</p>
+        </div>
+        <div class="about-page__number">
+          <p class="about-page__number-value">{grandmaCount}</p>
+          <p class="about-page__number-label">出会ったおばあちゃん</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Message (dark) -->
+    <section class="about-page__message" aria-label="このサイトの思い">
+      <span class="about-page__message-bg" aria-hidden="true">味</span>
+      <p class="about-page__message-text">
+        おばあちゃんの味は、<br />
+        レシピだけでは伝わらない。<br /><br />
+        でも、<strong>残そうとすること</strong>に<br />
+        意味があると思っています。<br /><br />
+        残すことは、つなぐこと。<br /><br />
+        <strong>あの日の食卓が<br />
+        これからも続いていきますように。</strong>
+      </p>
+    </section>
+
+    <!-- CTA -->
+    <section class="about-page__cta" aria-labelledby="about-cta-title">
+      <h2 class="about-page__cta-title" id="about-cta-title">あなたの食卓の味も、残しませんか。</h2>
+      <p class="about-page__cta-lead">
+        レシピでも、ひとことでも、断片的な記憶でも。<br />
+        どんな形でも構いません。
+      </p>
+      <div class="about-page__cta-buttons">
+        <a
+          href={`${base}support/`}
+          class="about-page__cta-btn about-page__cta-btn--primary"
+          data-cta="about-to-support"
+        >レシピを投稿する →</a>
+        <a
+          href={`${base}recipes/`}
+          class="about-page__cta-btn about-page__cta-btn--secondary"
+          data-cta="about-to-recipes"
+        >レシピを見る →</a>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  /* Pattern-c about page (scoped) */
+  .about-page {
+    font-family: 'Noto Sans JP', sans-serif;
+    color: #222;
+    background: #f0ece4;
+  }
+
+  /* Hero (dark) */
+  .about-page__hero {
+    position: relative;
+    overflow: hidden;
+    background: #222;
+    color: #fff;
+    padding: 8rem 5%;
+    text-align: center;
+  }
+  .about-page__hero-bg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Shippori Mincho', serif;
+    font-size: clamp(6rem, 18vw, 16rem);
+    font-weight: 800;
+    color: rgba(255, 255, 255, 0.03);
+    white-space: nowrap;
+    pointer-events: none;
+    user-select: none;
+    line-height: 1;
+    z-index: 0;
+  }
+  .about-page__title {
+    position: relative;
+    z-index: 1;
+    margin: 0;
+    font-family: 'Shippori Mincho', serif;
+    font-size: clamp(2rem, 5vw, 3.6rem);
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    line-height: 1.6;
+  }
+
+  /* Body */
+  .about-page__body {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 5rem 5%;
+  }
+  .about-page__body p {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.95rem;
+    line-height: 2.4;
+    color: #555;
+    margin: 0 0 2.2rem;
+    text-wrap: pretty;
+  }
+  .about-page__body p:last-of-type { margin-bottom: 0; }
+  .about-page__body p strong {
+    font-weight: 600;
+    color: #222;
+  }
+  .about-page__body hr {
+    border: none;
+    height: 1px;
+    background: #ddd;
+    margin: 3rem 0;
+  }
+  .about-page__body h2 {
+    margin: 0 0 1.8rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 2px solid #222;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: #222;
+  }
+
+  /* Numbers */
+  .about-page__numbers {
+    background: #fff;
+    padding: 4.5rem 5%;
+  }
+  .about-page__numbers-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    text-align: center;
+  }
+  .about-page__number {
+    padding: 2rem 1rem;
+    border: 1px solid #e0dcd4;
+    background: #faf9f6;
+  }
+  .about-page__number-value {
+    margin: 0 0 0.6rem;
+    font-family: 'Shippori Mincho', serif;
+    font-size: clamp(2.5rem, 5vw, 3.4rem);
+    font-weight: 800;
+    color: #222;
+    line-height: 1;
+  }
+  .about-page__number-label {
+    margin: 0;
+    font-size: 0.76rem;
+    color: #888;
+    letter-spacing: 0.08em;
+  }
+
+  /* Message (dark) */
+  .about-page__message {
+    position: relative;
+    overflow: hidden;
+    background: #222;
+    color: #fff;
+    padding: 5rem 5%;
+    text-align: center;
+  }
+  .about-page__message-bg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Shippori Mincho', serif;
+    font-size: clamp(8rem, 20vw, 16rem);
+    font-weight: 800;
+    color: rgba(255, 255, 255, 0.03);
+    pointer-events: none;
+    user-select: none;
+    line-height: 1;
+    z-index: 0;
+  }
+  .about-page__message-text {
+    position: relative;
+    z-index: 1;
+    max-width: 600px;
+    margin: 0 auto;
+    font-family: 'Shippori Mincho', serif;
+    font-size: clamp(1.1rem, 2vw, 1.6rem);
+    font-weight: 400;
+    line-height: 2.2;
+    color: rgba(255, 255, 255, 0.82);
+  }
+  .about-page__message-text strong {
+    color: #fff;
+    font-weight: 600;
+  }
+
+  /* CTA */
+  .about-page__cta {
+    padding: 4.5rem 5% 5.5rem;
+    text-align: center;
+  }
+  .about-page__cta-title {
+    margin: 0 0 1.4rem;
+    font-family: 'Shippori Mincho', serif;
+    font-size: clamp(1.3rem, 3vw, 1.9rem);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: #222;
+  }
+  .about-page__cta-lead {
+    margin: 0 auto 2.2rem;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.88rem;
+    color: #777;
+    line-height: 2;
+    max-width: 28em;
+  }
+  .about-page__cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .about-page__cta-btn {
+    display: inline-block;
+    padding: 0.9rem 2.3rem;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    border: 1.5px solid #222;
+    text-decoration: none;
+    transition: opacity 0.25s ease, background 0.25s ease, color 0.25s ease;
+  }
+  .about-page__cta-btn--primary {
+    background: #222;
+    color: #f0ece4;
+  }
+  .about-page__cta-btn--primary:hover { opacity: 0.82; }
+  .about-page__cta-btn--primary:focus-visible {
+    outline: 2px solid #222;
+    outline-offset: 3px;
+  }
+  .about-page__cta-btn--secondary {
+    background: transparent;
+    color: #222;
+  }
+  .about-page__cta-btn--secondary:hover {
+    background: #222;
+    color: #f0ece4;
+  }
+  .about-page__cta-btn--secondary:focus-visible {
+    outline: 2px solid #222;
+    outline-offset: 3px;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .about-page__hero { padding: 5rem 5%; }
+    .about-page__title { line-height: 1.8; }
+    .about-page__body { padding: 3.5rem 5%; }
+    .about-page__body p {
+      font-size: 0.92rem;
+      line-height: 2.1;
+      margin-bottom: 1.8rem;
+    }
+    .about-page__body hr { margin: 2.4rem 0; }
+    .about-page__body h2 {
+      font-size: 1.15rem;
+      margin-bottom: 1.4rem;
+    }
+    .about-page__numbers { padding: 3.5rem 5%; }
+    .about-page__numbers-inner {
+      grid-template-columns: 1fr;
+      max-width: 320px;
+      gap: 1rem;
+    }
+    .about-page__number { padding: 1.6rem 1rem; }
+    .about-page__message { padding: 4rem 5%; }
+    .about-page__message-text {
+      font-size: 1.05rem;
+      line-height: 2;
+    }
+    .about-page__cta { padding: 3.5rem 5% 4.5rem; }
+    .about-page__cta-buttons {
+      flex-direction: column;
+      align-items: stretch;
+      max-width: 280px;
+      margin: 0 auto;
+    }
+    .about-page__cta-btn {
+      text-align: center;
+      padding: 0.95rem 1.8rem;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .about-page__body p br,
+    .about-page__cta-lead br {
+      /* keep as is; these are intentional poetic breaks */
+    }
+  }
+</style>

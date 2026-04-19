@@ -47,6 +47,7 @@ addUrl('/articles/', '/en/articles/', '0.7', 'weekly');
 addUrl('/support/', '/en/support/', '0.5', 'monthly');
 addUrl('/about/', null, '0.6', 'monthly');
 addUrl('/board/', null, '0.4', 'weekly');
+addUrl('/timemachine/', null, '0.5', 'weekly');
 addUrl('/contact/', null, '0.3', 'yearly');
 
 // Individual recipe pages

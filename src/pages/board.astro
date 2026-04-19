@@ -1,0 +1,1018 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const base = import.meta.env.BASE_URL;
+
+// サンプル投稿（HTML 初期描画用、SEO用にもサーバーサイドで埋め込み）
+const samplePosts = [
+  {
+    id: 'sample_1', type: 'recipe', nickname: 'よしこの孫', region: '関東', time: '3時間前',
+    title: 'おばあちゃんの肉じゃが', kanban: '肉じゃが',
+    text: 'うちのおばあちゃんの肉じゃがは、牛肉じゃなくて豚バラで作るのが特徴。「牛は硬くなるけん」が口癖でした。',
+    img: 'assets/images/recipes/nikujaga-chiba-001.jpg', likes: 8,
+  },
+  {
+    id: 'sample_2', type: 'quick', nickname: 'さちこの孫', region: '近畿', time: '5時間前',
+    text: 'お彼岸に作ったおはぎ。おばあちゃんのレシピ見ながら初めて挑戦しました。粒あんの硬さがわからなくて3回作り直した…でもなんとかそれっぽくなった！',
+    img: 'assets/images/recipes/ohagi-kyoto-001.jpg', likes: 15,
+  },
+  {
+    id: 'sample_3', type: 'quick', nickname: 'まことの孫', region: '東北', time: '昨日',
+    text: 'おばあちゃんが作ってくれた「なんか甘いやつ」の正体がいまだにわからない。さつまいもと何かを蒸したやつだった気がする…。誰かわかる人いませんか？',
+    likes: 22,
+  },
+  {
+    id: 'sample_4', type: 'recipe', nickname: 'たかしの孫', region: '九州', time: '2日前',
+    title: '実家のがめ煮（福岡流）', kanban: 'がめ煮',
+    text: '正月はいつもこれ。うちのおばあちゃんは砂糖多めが好きだったので、レシピより気持ち多めに入れてます。',
+    img: 'assets/images/recipes/gameni-fukuoka-001.jpg', likes: 31,
+  },
+  {
+    id: 'sample_5', type: 'memory', nickname: 'ゆうきの孫', region: '四国', time: '1日前',
+    title: '「あの甘いやつ」',
+    text: '夏に田舎に行くと必ず出てきた、冷たくて甘いやつ。さつまいもっぽいけどさつまいもじゃない。黄色くて、ちょっとシャリシャリしてた。青い小鉢に入ってた。誰かわかりませんか…？',
+    likes: 42,
+  },
+  {
+    id: 'sample_6', type: 'quick', nickname: 'けいこの孫', region: '九州', time: '3日前',
+    text: '春になると思い出す、ふきの煮物。皮を剥くのが面倒で手伝わされてたけど、今は自分からやりたくなる。不思議なもんだ。',
+    img: 'assets/images/recipes/fuki-nimono-saga-001.jpg', likes: 19,
+  },
+  {
+    id: 'sample_7', type: 'memory', nickname: 'あきこの孫', region: '東北', time: '4日前',
+    title: 'おばあちゃんの味噌汁',
+    text: '同じ味噌を使っても、同じ具材にしても、絶対に同じ味にならない。出汁の取り方なのか、味噌の溶き方なのか。もう聞けない。',
+    likes: 87,
+  },
+];
+
+const regions = ['北海道','東北','関東','北陸','甲信越','東海','近畿','中国','四国','九州'];
+
+const typeLabels: Record<string, string> = { recipe: 'レシピ', quick: 'ひとこと', memory: '再現したい味' };
+---
+
+<BaseLayout
+  title="みんなの食卓（β）| おばあちゃんのレシピ"
+  description="みんなのおばあちゃんの味・再現したい味・ひとことを、ブラウザにそっと残しておく場所。体験検証用のβ版ボード。"
+  hasAlternate={false}
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://www.obaachan-recipe.com/" },
+        { "@type": "ListItem", "position": 2, "name": "みんなの食卓" }
+      ]
+    })} />
+  </Fragment>
+  <Header />
+
+  <main class="board-page">
+    <!-- Hero -->
+    <section class="board-page__hero" aria-labelledby="board-title">
+      <span class="board-page__hero-bg" aria-hidden="true">食卓</span>
+      <h1 class="board-page__title" id="board-title">みんなの食卓</h1>
+      <p class="board-page__lead">
+        みんなのおばあちゃんの味、再現したい味、<br />
+        今日のひとことを、ここに残しておきませんか。
+      </p>
+      <p class="board-page__count">
+        現在 <strong id="postCount">{samplePosts.length}</strong> 件の投稿
+      </p>
+      <p class="board-page__note" role="note">
+        β版：この投稿は<strong>お使いのブラウザにのみ</strong>保存されます。共有・他端末での閲覧はできません。
+      </p>
+    </section>
+
+    <!-- Post form -->
+    <div class="board-page__form-wrap">
+      <div class="post-form" id="post-form-root">
+        <div class="post-form__tabs" role="tablist" aria-label="投稿タイプ">
+          <button type="button" class="post-form__tab is-active" data-tab="quick" role="tab" aria-selected="true">ひとこと</button>
+          <button type="button" class="post-form__tab" data-tab="recipe" role="tab" aria-selected="false">レシピ</button>
+          <button type="button" class="post-form__tab" data-tab="memory" role="tab" aria-selected="false">再現したい味</button>
+        </div>
+
+        <div class="post-form__body">
+          <!-- Quick -->
+          <form class="post-form__panel is-active" id="panelQuick" data-panel="quick">
+            <div class="post-form__group">
+              <label class="post-form__label" for="qNickname">ニックネーム</label>
+              <input type="text" class="post-form__input" placeholder="例：みかの孫" id="qNickname" required />
+            </div>
+            <div class="post-form__group">
+              <label class="post-form__label" for="qRegion">地域 <small>任意</small></label>
+              <select class="post-form__select" id="qRegion">
+                <option value="">選択してください</option>
+                {regions.map((r) => <option>{r}</option>)}
+              </select>
+            </div>
+            <div class="post-form__group">
+              <label class="post-form__label" for="qText">ひとこと</label>
+              <textarea class="post-form__textarea" placeholder="今日の一皿について、おばあちゃんの口癖、思い出など" id="qText" required></textarea>
+            </div>
+            <div class="post-form__group">
+              <label class="post-form__label">写真 <small>任意</small></label>
+              <div class="post-form__file-area">
+                <div class="post-form__file-icon" aria-hidden="true">📷</div>
+                <p class="post-form__file-text">クリックで写真を追加（2MB以下）</p>
+                <input type="file" accept="image/*" id="qFile" />
+              </div>
+              <div class="post-form__preview" id="qPreview"><img id="qPreviewImg" alt="プレビュー" /></div>
+            </div>
+            <button type="submit" class="post-form__submit" data-cta="board-post-quick">投稿する</button>
+          </form>
+
+          <!-- Recipe -->
+          <form class="post-form__panel" id="panelRecipe" data-panel="recipe">
+            <div class="post-form__group">
+              <label class="post-form__label" for="rNickname">ニックネーム</label>
+              <input type="text" class="post-form__input" placeholder="例：よしこの孫" id="rNickname" required />
+            </div>
+            <div class="post-form__group">
+              <label class="post-form__label" for="rName">料理名</label>
+              <input type="text" class="post-form__input" placeholder="例：おばあちゃんの肉じゃが" id="rName" required />
+            </div>
+            <div class="post-form__group">
+              <label class="post-form__label" for="rRegion">地域 <small>任意</small></label>
+              <select class="post-form__select" id="rRegion">
+                <option value="">選択してください</option>
+                {regions.map((r) => <option>{r}</option>)}
+              </select>
+            </div>
+            <div class="post-form__group">
+              <label class="post-form__label">写真 <small>任意</small></label>
+              <div class="post-form__file-area">
+                <div class="post-form__file-icon" aria-hidden="true">📷</div>
+                <p class="post-form__file-text">クリックで写真を追加（2MB以下）</p>
+                <input type="file" accept="image/*" id="rFile" />
+              </div>
+              <div class="post-form__preview" id="rPreview"><img id="rPreviewImg" alt="プレビュー" /></div>
+            </div>
+            <div class="post-form__group">
+              <label class="post-form__label" for="rIngredients">材料</label>
+              <textarea class="post-form__textarea" placeholder={'例：\n鶏もも肉 … 「手のひらくらい」\n里芋 … 「ごろっと5つ」\n醤油 … 「ぐるっと3周」'} id="rIngredients"></textarea>
+            </div>
+            <div class="post-form__group">
+              <label class="post-form__label" for="rSteps">作り方</label>
+              <textarea class="post-form__textarea post-form__textarea--tall" placeholder={'例：\n1. 鍋に油を熱して鶏肉を炒める\n2. 野菜を加えて…'} id="rSteps"></textarea>
+            </div>
+            <div class="post-form__group">
+              <label class="post-form__label" for="rEpisode">おばあちゃんのエピソード <small>任意</small></label>
+              <textarea class="post-form__textarea" placeholder="例：お正月に必ず作ってくれた一品。いつも「味見してみり」って…" id="rEpisode"></textarea>
+            </div>
+            <button type="submit" class="post-form__submit" data-cta="board-post-recipe">レシピを投稿する</button>
+          </form>
+
+          <!-- Memory -->
+          <form class="post-form__panel" id="panelMemory" data-panel="memory">
+            <p class="post-form__memory-intro">
+              レシピは残ってない。でも、あの味だけは忘れられない。<br />
+              手がかりを書いて、ここに残しておきませんか。
+            </p>
+            <div class="post-form__group">
+              <label class="post-form__label" for="mNickname">ニックネーム</label>
+              <input type="text" class="post-form__input" placeholder="例：ひろしの孫" id="mNickname" required />
+            </div>
+            <div class="post-form__group">
+              <label class="post-form__label" for="mName">その料理、なんて呼んでた？</label>
+              <input type="text" class="post-form__input" placeholder={'例：「あの甘いやつ」「名前はなかった」'} id="mName" required />
+            </div>
+            <div class="post-form__group">
+              <label class="post-form__label" for="mRegion">地域 <small>任意</small></label>
+              <select class="post-form__select" id="mRegion">
+                <option value="">選択してください</option>
+                {regions.map((r) => <option>{r}</option>)}
+              </select>
+            </div>
+            <div class="post-form__group">
+              <label class="post-form__label" for="mMemory">覚えていること</label>
+              <textarea class="post-form__textarea post-form__textarea--tall" placeholder={'例：\n夏に遊びに行くと必ず出てきた。\n冷たくて、甘くて、ちょっとシャリシャリしてた。'} id="mMemory"></textarea>
+            </div>
+            <div class="post-form__group">
+              <label class="post-form__label" for="mClue">味の手がかり <small>わかる範囲で</small></label>
+              <textarea class="post-form__textarea" placeholder="例：甘かった / 温かかった / 茶色っぽかった / さつまいもっぽい？" id="mClue"></textarea>
+            </div>
+            <div class="post-form__group">
+              <label class="post-form__label">写真 <small>もしあれば</small></label>
+              <div class="post-form__file-area">
+                <div class="post-form__file-icon" aria-hidden="true">📷</div>
+                <p class="post-form__file-text">クリックで写真を追加（2MB以下）</p>
+                <input type="file" accept="image/*" id="mFile" />
+              </div>
+              <div class="post-form__preview" id="mPreview"><img id="mPreviewImg" alt="プレビュー" /></div>
+            </div>
+            <button type="submit" class="post-form__submit post-form__submit--memory" data-cta="board-post-memory">思い出を投稿する</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Post list -->
+    <section class="posts-section" aria-labelledby="posts-heading">
+      <header class="posts-section__header">
+        <h2 class="posts-section__title" id="posts-heading">みんなの投稿</h2>
+      </header>
+
+      <div id="postsList">
+        <!-- ユーザー投稿（JS が先頭に挿入） -->
+        <div id="userPosts"></div>
+
+        <!-- サンプル投稿（SSR） -->
+        {samplePosts.map((p) => {
+          const typeClass = p.type;
+          const typeLabel = typeLabels[p.type] ?? '';
+          const hasImg = !!p.img;
+          const classes = [
+            'post-card',
+            hasImg ? 'post-card--has-img' : '',
+            p.type === 'recipe' ? 'post-card--recipe' : ''
+          ].filter(Boolean).join(' ');
+          return (
+            <div class={classes} data-post-id={p.id}>
+              {p.kanban && <span class="post-card__kanban">{p.kanban}</span>}
+              {hasImg && <img src={`${base}${p.img}`} alt="" class="post-card__img" loading="lazy" />}
+              <div class="post-card__body">
+                <span class={`post-card__type post-card__type--${typeClass}`}>{typeLabel}</span>
+                {p.title && <h3 class="post-card__title">{p.title}</h3>}
+                <p class="post-card__text">{p.text}</p>
+                <div class="post-card__meta">
+                  <span class="post-card__nickname">{p.nickname}</span>
+                  {p.region && <span>{p.region}</span>}
+                  <span>{p.time}</span>
+                  <div class="post-card__actions">
+                    <button type="button" class="post-card__action" data-like>❤ <span>{p.likes}</span></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+
+    <!-- Toast -->
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </main>
+
+  <Footer />
+
+  <script is:inline define:vars={{ base, sampleCount: samplePosts.length }}>
+    (function() {
+      const STORAGE_KEY = 'obaachan_board_posts';
+      const UID_KEY = 'obaachan_board_uid';
+
+      function getMyId() {
+        let id = localStorage.getItem(UID_KEY);
+        if (!id) {
+          id = 'u_' + Math.random().toString(36).slice(2) + Date.now().toString(36);
+          localStorage.setItem(UID_KEY, id);
+        }
+        return id;
+      }
+      const MY_ID = getMyId();
+
+      function getPosts() {
+        try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
+        catch { return []; }
+      }
+      function savePosts(posts) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(posts));
+      }
+
+      function timeAgo(dateStr) {
+        const diff = Date.now() - new Date(dateStr).getTime();
+        const m = Math.floor(diff / 60000);
+        if (m < 1) return 'たった今';
+        if (m < 60) return m + '分前';
+        const h = Math.floor(m / 60);
+        if (h < 24) return h + '時間前';
+        const d = Math.floor(h / 24);
+        if (d < 30) return d + '日前';
+        return new Date(dateStr).toLocaleDateString('ja-JP');
+      }
+
+      function esc(str) {
+        const d = document.createElement('div');
+        d.textContent = String(str ?? '');
+        return d.innerHTML;
+      }
+
+      function renderPostCard(post) {
+        const isRecipe = post.type === 'recipe';
+        const isMemory = post.type === 'memory';
+        const hasImg = !!post.image;
+        const typeLabel = isRecipe ? 'レシピ' : isMemory ? '再現したい味' : 'ひとこと';
+        const typeClass = isRecipe ? 'recipe' : isMemory ? 'memory' : 'quick';
+
+        let title = '', text = '';
+        if (isRecipe) {
+          title = esc(post.recipeName || '');
+          const parts = [];
+          if (post.ingredients) parts.push(post.ingredients);
+          if (post.steps) parts.push(post.steps);
+          if (post.episode) parts.push(post.episode);
+          text = esc(parts.join(' / '));
+        } else if (isMemory) {
+          title = esc(post.memoryName || '');
+          const parts = [];
+          if (post.memory) parts.push(post.memory);
+          if (post.clue) parts.push('手がかり: ' + post.clue);
+          text = esc(parts.join(' '));
+        } else {
+          text = esc(post.text || '');
+        }
+
+        const kanban = isRecipe && post.recipeName
+          ? `<span class="post-card__kanban">${esc(post.recipeName.slice(0, 6))}</span>` : '';
+        const imgHtml = hasImg ? `<img src="${post.image}" alt="" class="post-card__img" />` : '';
+        const classes = [
+          'post-card',
+          hasImg ? 'post-card--has-img' : '',
+          isRecipe ? 'post-card--recipe' : ''
+        ].filter(Boolean).join(' ');
+        const regionHtml = post.region ? `<span>${esc(post.region)}</span>` : '';
+        const manageHtml = post.uid === MY_ID
+          ? `<div class="post-card__manage">
+              <button type="button" class="post-card__manage-btn" data-edit="${post.id}">編集</button>
+              <button type="button" class="post-card__manage-btn post-card__manage-btn--delete" data-delete="${post.id}">削除</button>
+            </div>` : '';
+
+        return `
+          <div class="${classes}" data-post-id="${post.id}">
+            ${kanban}
+            ${imgHtml}
+            <div class="post-card__body">
+              <span class="post-card__type post-card__type--${typeClass}">${typeLabel}</span>
+              ${title ? `<h3 class="post-card__title">${title}</h3>` : ''}
+              <p class="post-card__text">${text}</p>
+              <div class="post-card__meta">
+                <span class="post-card__nickname">${esc(post.nickname)}</span>
+                ${regionHtml}
+                <span>${timeAgo(post.createdAt)}</span>
+                <div class="post-card__actions">
+                  <button type="button" class="post-card__action" data-like>❤ <span>0</span></button>
+                  ${manageHtml}
+                </div>
+              </div>
+            </div>
+          </div>`;
+      }
+
+      function renderPosts() {
+        const posts = getPosts();
+        const userPostsEl = document.getElementById('userPosts');
+        if (!userPostsEl) return;
+        userPostsEl.innerHTML = posts.map(renderPostCard).join('');
+        const countEl = document.getElementById('postCount');
+        if (countEl) countEl.textContent = String(sampleCount + posts.length);
+      }
+
+      function readFileAsDataURL(input) {
+        return new Promise((resolve) => {
+          const file = input.files?.[0];
+          if (!file) return resolve(null);
+          if (file.size > 2 * 1024 * 1024) {
+            showToast('写真は2MB以下にしてください');
+            return resolve(null);
+          }
+          const reader = new FileReader();
+          reader.onload = (e) => resolve(e.target?.result);
+          reader.readAsDataURL(file);
+        });
+      }
+
+      function showToast(msg) {
+        const t = document.getElementById('toast');
+        if (!t) return;
+        t.textContent = msg;
+        t.classList.add('is-visible');
+        setTimeout(() => t.classList.remove('is-visible'), 2500);
+      }
+
+      // Tabs
+      document.querySelectorAll('.post-form__tab').forEach((tab) => {
+        tab.addEventListener('click', () => {
+          document.querySelectorAll('.post-form__tab').forEach((t) => {
+            t.classList.remove('is-active');
+            t.setAttribute('aria-selected', 'false');
+          });
+          tab.classList.add('is-active');
+          tab.setAttribute('aria-selected', 'true');
+          const target = tab.dataset.tab;
+          document.querySelectorAll('.post-form__panel').forEach((p) => {
+            p.classList.toggle('is-active', p.dataset.panel === target);
+          });
+        });
+      });
+
+      // File previews
+      function wirePreview(fileId, previewId, imgId) {
+        const input = document.getElementById(fileId);
+        const preview = document.getElementById(previewId);
+        const img = document.getElementById(imgId);
+        if (!input) return;
+        input.addEventListener('change', () => {
+          const file = input.files?.[0];
+          if (!file) { preview.style.display = 'none'; return; }
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            img.src = e.target?.result || '';
+            preview.style.display = 'block';
+          };
+          reader.readAsDataURL(file);
+        });
+      }
+      wirePreview('qFile', 'qPreview', 'qPreviewImg');
+      wirePreview('rFile', 'rPreview', 'rPreviewImg');
+      wirePreview('mFile', 'mPreview', 'mPreviewImg');
+
+      // Form submit: quick
+      document.getElementById('panelQuick')?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const nickname = document.getElementById('qNickname').value.trim();
+        const text = document.getElementById('qText').value.trim();
+        if (!nickname || !text) { showToast('ニックネームとひとことを入力してください'); return; }
+        const image = await readFileAsDataURL(document.getElementById('qFile'));
+        const post = {
+          id: 'post_' + Date.now(),
+          uid: MY_ID, type: 'quick', nickname,
+          region: document.getElementById('qRegion').value, text, image,
+          createdAt: new Date().toISOString(),
+        };
+        const posts = getPosts();
+        posts.unshift(post);
+        savePosts(posts);
+        renderPosts();
+        e.target.reset();
+        const p = document.getElementById('qPreview'); if (p) p.style.display = 'none';
+        showToast('投稿しました！');
+      });
+
+      // Form submit: recipe
+      document.getElementById('panelRecipe')?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const nickname = document.getElementById('rNickname').value.trim();
+        const recipeName = document.getElementById('rName').value.trim();
+        if (!nickname || !recipeName) { showToast('ニックネームと料理名を入力してください'); return; }
+        const image = await readFileAsDataURL(document.getElementById('rFile'));
+        const post = {
+          id: 'post_' + Date.now(),
+          uid: MY_ID, type: 'recipe', nickname, recipeName,
+          region: document.getElementById('rRegion').value,
+          ingredients: document.getElementById('rIngredients').value.trim(),
+          steps: document.getElementById('rSteps').value.trim(),
+          episode: document.getElementById('rEpisode').value.trim(),
+          image,
+          createdAt: new Date().toISOString(),
+        };
+        const posts = getPosts();
+        posts.unshift(post);
+        savePosts(posts);
+        renderPosts();
+        e.target.reset();
+        const p = document.getElementById('rPreview'); if (p) p.style.display = 'none';
+        showToast('レシピを投稿しました！');
+      });
+
+      // Form submit: memory
+      document.getElementById('panelMemory')?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const nickname = document.getElementById('mNickname').value.trim();
+        const memoryName = document.getElementById('mName').value.trim();
+        if (!nickname || !memoryName) { showToast('ニックネームと料理名を入力してください'); return; }
+        const image = await readFileAsDataURL(document.getElementById('mFile'));
+        const post = {
+          id: 'post_' + Date.now(),
+          uid: MY_ID, type: 'memory', nickname, memoryName,
+          region: document.getElementById('mRegion').value,
+          memory: document.getElementById('mMemory').value.trim(),
+          clue: document.getElementById('mClue').value.trim(),
+          image,
+          createdAt: new Date().toISOString(),
+        };
+        const posts = getPosts();
+        posts.unshift(post);
+        savePosts(posts);
+        renderPosts();
+        e.target.reset();
+        const p = document.getElementById('mPreview'); if (p) p.style.display = 'none';
+        showToast('思い出を投稿しました！');
+      });
+
+      // Delegate like / edit / delete
+      document.getElementById('postsList')?.addEventListener('click', (e) => {
+        const target = e.target.closest('button');
+        if (!target) return;
+        if (target.hasAttribute('data-like')) {
+          const span = target.querySelector('span');
+          let n = parseInt(span?.textContent || '0', 10);
+          if (target.classList.toggle('is-liked')) {
+            span.textContent = String(n + 1);
+          } else {
+            span.textContent = String(Math.max(0, n - 1));
+          }
+          return;
+        }
+        const delId = target.getAttribute('data-delete');
+        if (delId) {
+          if (!confirm('この投稿を削除しますか？')) return;
+          savePosts(getPosts().filter((p) => p.id !== delId));
+          renderPosts();
+          showToast('投稿を削除しました');
+          return;
+        }
+        const editId = target.getAttribute('data-edit');
+        if (editId) {
+          const posts = getPosts();
+          const post = posts.find((p) => p.id === editId);
+          if (!post) return;
+          const tabName = post.type in { quick:1, recipe:1, memory:1 } ? post.type : 'quick';
+          document.querySelectorAll('.post-form__tab').forEach((t) => {
+            const isThis = t.dataset.tab === tabName;
+            t.classList.toggle('is-active', isThis);
+            t.setAttribute('aria-selected', isThis ? 'true' : 'false');
+          });
+          document.querySelectorAll('.post-form__panel').forEach((p) => {
+            p.classList.toggle('is-active', p.dataset.panel === tabName);
+          });
+
+          if (tabName === 'quick') {
+            document.getElementById('qNickname').value = post.nickname || '';
+            document.getElementById('qRegion').value = post.region || '';
+            document.getElementById('qText').value = post.text || '';
+          } else if (tabName === 'recipe') {
+            document.getElementById('rNickname').value = post.nickname || '';
+            document.getElementById('rName').value = post.recipeName || '';
+            document.getElementById('rRegion').value = post.region || '';
+            document.getElementById('rIngredients').value = post.ingredients || '';
+            document.getElementById('rSteps').value = post.steps || '';
+            document.getElementById('rEpisode').value = post.episode || '';
+          } else if (tabName === 'memory') {
+            document.getElementById('mNickname').value = post.nickname || '';
+            document.getElementById('mName').value = post.memoryName || '';
+            document.getElementById('mRegion').value = post.region || '';
+            document.getElementById('mMemory').value = post.memory || '';
+            document.getElementById('mClue').value = post.clue || '';
+          }
+          // Remove original and re-render
+          savePosts(posts.filter((p) => p.id !== editId));
+          renderPosts();
+          document.querySelector('.post-form')?.scrollIntoView({ behavior: 'smooth' });
+          showToast('編集中 — 修正して再投稿してください');
+          return;
+        }
+      });
+
+      // Initial render
+      renderPosts();
+    })();
+  </script>
+</BaseLayout>
+
+<style>
+  .board-page {
+    font-family: 'Noto Sans JP', sans-serif;
+    color: #222;
+    background: #f0ece4;
+    padding-bottom: 3rem;
+  }
+
+  /* Hero */
+  .board-page__hero {
+    position: relative;
+    overflow: hidden;
+    padding: 4rem 5% 2rem;
+    text-align: center;
+  }
+  .board-page__hero-bg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Shippori Mincho', serif;
+    font-size: clamp(7rem, 22vw, 17rem);
+    font-weight: 800;
+    color: rgba(0, 0, 0, 0.035);
+    pointer-events: none;
+    user-select: none;
+    line-height: 1;
+    z-index: 0;
+    white-space: nowrap;
+  }
+  .board-page__title {
+    position: relative;
+    z-index: 1;
+    margin: 0;
+    font-family: 'Shippori Mincho', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    letter-spacing: 0.08em;
+  }
+  .board-page__lead {
+    position: relative;
+    z-index: 1;
+    margin: 1rem auto 0;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.88rem;
+    line-height: 2;
+    color: #777;
+    max-width: 540px;
+  }
+  .board-page__count {
+    position: relative;
+    z-index: 1;
+    margin: 1.2rem 0 0.6rem;
+    font-size: 0.72rem;
+    color: #aaa;
+    letter-spacing: 0.1em;
+  }
+  .board-page__count strong {
+    margin: 0 0.15em;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #222;
+  }
+  .board-page__note {
+    position: relative;
+    z-index: 1;
+    max-width: 560px;
+    margin: 0.8rem auto 0;
+    padding: 0.7rem 1rem;
+    font-size: 0.72rem;
+    line-height: 1.7;
+    color: #8a847a;
+    background: rgba(201, 168, 76, 0.08);
+    border: 1px solid rgba(201, 168, 76, 0.3);
+    letter-spacing: 0.02em;
+  }
+  .board-page__note strong {
+    color: #8b6914;
+    font-weight: 700;
+  }
+
+  /* Form */
+  .board-page__form-wrap {
+    max-width: 700px;
+    margin: 2rem auto 3rem;
+    padding: 0 5%;
+  }
+  .post-form__tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 2px solid #222;
+  }
+  .post-form__tab {
+    flex: 1 1 0;
+    padding: 0.85rem 0.5rem;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: #888;
+    background: #e8e4dc;
+    border: 2px solid #222;
+    border-bottom: none;
+    border-right: none;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+    text-align: center;
+  }
+  .post-form__tab:last-child { border-right: 2px solid #222; }
+  .post-form__tab.is-active {
+    background: #fff;
+    color: #222;
+  }
+
+  .post-form__body {
+    background: #fff;
+    border: 2px solid #222;
+    border-top: none;
+    padding: 1.8rem;
+  }
+  .post-form__panel { display: none; }
+  .post-form__panel.is-active { display: block; }
+
+  .post-form__memory-intro {
+    margin: 0 0 1.3rem;
+    padding: 0.3rem 0 0.3rem 1rem;
+    border-left: 2px solid #c9a84c;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.82rem;
+    line-height: 1.9;
+    color: #888;
+  }
+
+  .post-form__group { margin-bottom: 1.1rem; }
+  .post-form__label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: #555;
+  }
+  .post-form__label small {
+    margin-left: 0.35em;
+    font-size: 0.68rem;
+    font-weight: 400;
+    color: #aaa;
+  }
+  .post-form__input,
+  .post-form__textarea,
+  .post-form__select {
+    width: 100%;
+    padding: 0.7rem 0.9rem;
+    font-size: 0.86rem;
+    font-family: 'Noto Sans JP', sans-serif;
+    color: #222;
+    background: #faf9f6;
+    border: 1px solid #d0ccc4;
+    border-radius: 0;
+    outline: none;
+    transition: border-color 0.2s ease, background 0.2s ease;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  .post-form__input:focus,
+  .post-form__textarea:focus,
+  .post-form__select:focus {
+    border-color: #222;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(34, 34, 34, 0.06);
+  }
+  .post-form__textarea {
+    min-height: 100px;
+    line-height: 1.8;
+    resize: vertical;
+  }
+  .post-form__textarea--tall { min-height: 160px; }
+  .post-form__select {
+    padding-right: 2.2rem;
+    cursor: pointer;
+    background-image: linear-gradient(45deg, transparent 50%, #666 50%), linear-gradient(135deg, #666 50%, transparent 50%);
+    background-position: calc(100% - 1.2rem) 50%, calc(100% - 0.8rem) 50%;
+    background-size: 6px 6px;
+    background-repeat: no-repeat;
+  }
+
+  .post-form__file-area {
+    position: relative;
+    padding: 1.4rem;
+    text-align: center;
+    border: 2px dashed #d0ccc4;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+  }
+  .post-form__file-area:hover { border-color: #888; }
+  .post-form__file-area input {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+  .post-form__file-icon {
+    font-size: 1.7rem;
+    margin-bottom: 0.3rem;
+    opacity: 0.35;
+  }
+  .post-form__file-text {
+    margin: 0;
+    font-size: 0.72rem;
+    color: #aaa;
+    letter-spacing: 0.04em;
+  }
+  .post-form__preview {
+    margin-top: 0.8rem;
+    display: none;
+  }
+  .post-form__preview img {
+    max-width: 200px;
+    max-height: 150px;
+    object-fit: cover;
+    border: 1px solid #e0dcd4;
+  }
+
+  .post-form__submit {
+    display: block;
+    width: 100%;
+    padding: 0.95rem;
+    margin-top: 1.5rem;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: #f0ece4;
+    background: #222;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.25s ease;
+  }
+  .post-form__submit:hover { opacity: 0.85; }
+  .post-form__submit--memory { background: #8b6914; }
+
+  /* Posts */
+  .posts-section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 5% 3rem;
+  }
+  .posts-section__header {
+    margin-bottom: 1.6rem;
+    padding-bottom: 0.7rem;
+    border-bottom: 1px solid #e0dcd4;
+  }
+  .posts-section__title {
+    margin: 0;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+  }
+
+  /* Post card — :global() so JS-rendered cards also get styles */
+  .board-page :global(.post-card) {
+    display: grid;
+    grid-template-columns: 1fr;
+    margin-bottom: 1.4rem;
+    background: #fff;
+    border: 1.5px solid #e0dcd4;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    position: relative;
+  }
+  .board-page :global(.post-card:hover) {
+    transform: translateY(-3px);
+    border-color: #222;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+  }
+  .board-page :global(.post-card--has-img) {
+    grid-template-columns: 180px 1fr;
+  }
+  .board-page :global(.post-card--recipe) { border-color: #222; }
+
+  .board-page :global(.post-card__kanban) {
+    position: absolute;
+    top: -6px;
+    left: -0.6rem;
+    z-index: 2;
+    padding: 0.3em 0.5em;
+    background: #f5f0e6;
+    border: 2px solid #222;
+    writing-mode: vertical-rl;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    line-height: 1;
+    white-space: nowrap;
+    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
+  }
+  .board-page :global(.post-card__img) {
+    width: 100%;
+    min-height: 160px;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .board-page :global(.post-card__body) { padding: 1.4rem; }
+
+  .board-page :global(.post-card__type) {
+    display: inline-block;
+    padding: 0.2em 0.7em;
+    margin-bottom: 0.55rem;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+  }
+  .board-page :global(.post-card__type--quick) {
+    color: #888;
+    background: #f0ece4;
+    border: 1px solid #d0ccc4;
+  }
+  .board-page :global(.post-card__type--recipe) {
+    color: #f0ece4;
+    background: #222;
+  }
+  .board-page :global(.post-card__type--memory) {
+    color: #8b6914;
+    background: transparent;
+    border: 1px solid #c9a84c;
+  }
+
+  .board-page :global(.post-card__title) {
+    margin: 0 0 0.5rem;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.55;
+    letter-spacing: 0.03em;
+    color: #222;
+  }
+  .board-page :global(.post-card__text) {
+    margin: 0;
+    font-size: 0.84rem;
+    line-height: 1.85;
+    color: #666;
+  }
+  .board-page :global(.post-card__meta) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.8rem;
+    margin-top: 0.9rem;
+    font-size: 0.66rem;
+    color: #aaa;
+  }
+  .board-page :global(.post-card__nickname) {
+    font-weight: 500;
+    color: #888;
+  }
+  .board-page :global(.post-card__actions) {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-left: auto;
+  }
+  .board-page :global(.post-card__action) {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0;
+    font-size: 0.7rem;
+    color: #bbb;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.25s ease;
+  }
+  .board-page :global(.post-card__action:hover) { color: #e74c3c; }
+  .board-page :global(.post-card__action.is-liked) { color: #e74c3c; }
+  .board-page :global(.post-card__manage) {
+    display: flex;
+    gap: 0.5rem;
+    padding-left: 0.7rem;
+    margin-left: 0.3rem;
+    border-left: 1px solid #e8e4dc;
+  }
+  .board-page :global(.post-card__manage-btn) {
+    padding: 0;
+    font-size: 0.66rem;
+    color: #aaa;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.25s ease;
+  }
+  .board-page :global(.post-card__manage-btn:hover) { color: #222; }
+  .board-page :global(.post-card__manage-btn--delete:hover) { color: #c0392b; }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    padding: 0.8rem 1.8rem;
+    background: #222;
+    color: #f0ece4;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 2000;
+  }
+  .toast.is-visible {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  @media (max-width: 640px) {
+    .board-page__hero { padding: 2.5rem 5% 1rem; }
+    .board-page__lead { font-size: 0.82rem; }
+    .board-page__lead br { display: none; }
+    .post-form__body { padding: 1.2rem; }
+    .post-form__tab { font-size: 0.74rem; padding: 0.7rem 0.3rem; }
+    .board-page :global(.post-card--has-img) {
+      grid-template-columns: 100px 1fr;
+    }
+    .board-page :global(.post-card__img) { min-height: 110px; }
+    .board-page :global(.post-card__body) { padding: 1rem; }
+    .board-page :global(.post-card__title) { font-size: 0.94rem; }
+    .board-page :global(.post-card__text) { font-size: 0.78rem; }
+    .board-page :global(.post-card__meta) {
+      gap: 0.5rem;
+      font-size: 0.6rem;
+    }
+    .board-page :global(.post-card__actions) { margin-left: 0; width: 100%; justify-content: flex-end; }
+    .board-page :global(.post-card__kanban) {
+      font-size: 0.68rem;
+      left: -0.4rem;
+    }
+  }
+</style>

@@ -776,13 +776,14 @@ const relatedArticles = [...sameCategory, ...diffCategory].slice(0, 3);
       margin: 2.2rem 0;
     }
 
-    /* Embedded recipe card: vertical on mobile */
+    /* Embedded recipe card: stack vertically on mobile so image is full-width */
     .article-detail-page__article :global(.article-recipe-card .recipe-card__link) {
-      grid-template-columns: 100px 1fr;
+      grid-template-columns: 1fr;
       gap: 0.9rem;
     }
     .article-detail-page__article :global(.article-recipe-card .recipe-card__thumb) {
-      width: 100px;
+      width: 100%;
+      aspect-ratio: 16 / 9;
     }
     .article-detail-page__article :global(.article-recipe-card .recipe-card__title) {
       font-size: 0.95rem;

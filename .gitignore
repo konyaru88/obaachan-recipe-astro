@@ -2,3 +2,9 @@ node_modules/
 dist/
 .env
 .DS_Store
+
+# Prototype/scratch work — not part of production build
+prototype/
+
+# Astro build cache
+.astro/

@@ -11,21 +11,9 @@ interface Props {
 const { lang = 'ja' } = Astro.props;
 
 const base = import.meta.env.BASE_URL;
-const pathname = Astro.url.pathname;
-const isActive = (path: string) => {
-  const fullPath = lang === 'en' ? `/en${path === '/' ? '/' : path}` : base + path.replace(/^\//, '');
-  if (path === '/') {
-    if (lang === 'en') return pathname === '/en/' || pathname === '/en';
-    return pathname === base || pathname === base.replace(/\/$/, '');
-  }
-  return pathname.startsWith(fullPath);
-};
-const navClass = (path: string) =>
-  isActive(path) ? 'nav__link nav__link--active is-active' : 'nav__link';
 
-// Ticker data (build-time)
+// Ticker data
 const recipeCount = recipes.length;
-
 const prefSet = new Set<string>();
 recipes.forEach((r: any) => {
   const pref = r.grandmother?.prefecture || r.region?.prefecture || '';
@@ -33,134 +21,320 @@ recipes.forEach((r: any) => {
 });
 const prefCount = prefSet.size;
 
-const grandmaSet = new Set<string>();
-recipes.forEach((r: any) => {
-  const name = r.grandmother?.name;
-  const pref = r.grandmother?.prefecture || '';
-  if (name) {
-    grandmaSet.add(name);
-  } else if (pref) {
-    grandmaSet.add(pref + 'のおばあちゃん');
-  }
-});
-const grandmaCount = grandmaSet.size;
-
-const sorted = [...recipes].sort(
-  (a: any, b: any) => new Date(b.meta?.created_at ?? 0).getTime() - new Date(a.meta?.created_at ?? 0).getTime()
-);
-const latest = sorted[0];
-const latestPref = (latest?.grandmother?.prefecture || latest?.region?.prefecture || '').replace(/[都府県]$/, '');
-const latestGrandma = latest?.grandmother?.name || '';
-const latestTitle = latest?.title || '';
-const latestLabel = lang === 'en'
-  ? `New: ${latestTitle}`
-  : latestGrandma
-    ? `${latestPref}・${latestGrandma}さんの${latestTitle}`
-    : `${latestPref}の${latestTitle}`;
-const latestHref = localePath(lang, `${base}recipes/${latest?.id || ''}/`);
-
 const homePath = localePath(lang, base);
 const recipesPath = localePath(lang, `${base}recipes/`);
-const regionsPath = localePath(lang, `${base}regions/`);
+const boardPath = localePath(lang, `${base}board/`);
 const articlesPath = localePath(lang, `${base}articles/`);
 const searchPath = localePath(lang, `${base}search/`);
+
+const navRecipesLabel = lang === 'en' ? 'Recipes' : '食卓一覧';
+const navBoardLabel = lang === 'en' ? 'Community' : 'みんなの食卓';
+const navArticlesLabel = lang === 'en' ? 'Reads' : '読み物';
 ---
 
-<!-- β版ティッカーバー -->
-<div class="beta-bar" role="banner" aria-label={lang === 'en' ? 'Announcements' : 'お知らせ'}>
-  <span class="beta-bar__badge">{t(lang, 'ticker.badge')}</span>
-  <span class="beta-bar__sep">－</span>
-  <div class="beta-bar__ticker">
-    <div class="beta-bar__ticker-track" id="ticker-track">
-      <span class="ticker__item is-active">{t(lang, 'ticker.recipes')}<strong>{recipeCount}</strong>{t(lang, 'ticker.recipes.unit')}</span>
-      <span class="ticker__item">{t(lang, 'ticker.prefectures')}<strong>{prefCount}</strong>{t(lang, 'ticker.prefectures.unit')}</span>
-      <span class="ticker__item">{t(lang, 'ticker.grandmas')}<strong>{grandmaCount}</strong>{t(lang, 'ticker.grandmas.unit')}</span>
-      <span class="ticker__item">{t(lang, 'ticker.latest')}<a href={latestHref} class="ticker__link" data-cta="ticker-recipe">{latestLabel}</a></span>
+<header class="pc-header" role="banner">
+  <a class="pc-header__announce" href={homePath} aria-label={lang === 'en' ? 'Home' : 'ホームへ戻る'} data-cta="ticker-home">
+    <div class="pc-header__announce-inner">
+      <span><em>β</em>{lang === 'en' ? `Beta — Tables: ` : '版公開中 — 残された食卓：'}<strong>{recipeCount}</strong>{lang === 'en' ? '' : '件'}</span>
+      <span>{lang === 'en' ? 'Carrying grandma\u2019s taste to the next generation.' : 'おばあちゃんの味を、次の世代へ。'}</span>
+      <span><em>OBAACHAN</em> Collection</span>
     </div>
-  </div>
-</div>
+  </a>
 
-<header class="site-header">
-  <div class="container site-header__inner">
-    <a class="site-header__logo" href={homePath}>
-      <img src={`${base}assets/images/grandma-icon.png`} alt="" class="site-header__logo-img" aria-hidden="true" />
-      {t(lang, 'site.name')}
-    </a>
+  <nav class="pc-header__nav" aria-label={lang === 'en' ? 'Main navigation' : 'メインナビゲーション'}>
+    <a href={recipesPath} class="pc-header__nav-link" data-cta="nav-recipes">{navRecipesLabel}</a>
+    <a href={boardPath} class="pc-header__nav-link" data-cta="nav-board">{navBoardLabel}</a>
+    <a href={articlesPath} class="pc-header__nav-link" data-cta="nav-articles">{navArticlesLabel}</a>
+  </nav>
 
-    <nav class="site-header__nav" aria-label={lang === 'en' ? 'Main navigation' : 'メインナビゲーション'}>
-      <a href={homePath} class={navClass('/')}>{t(lang, 'nav.home')}</a>
-      <a href={recipesPath} class={navClass('/recipes')}>{t(lang, 'nav.recipes')}</a>
-      <a href={regionsPath} class={navClass('/regions')}>{t(lang, 'nav.regions')}</a>
-      <a href={articlesPath} class={navClass('/articles')}>{t(lang, 'nav.articles')}</a>
-    </nav>
-
-    <div class="site-header__actions">
-      <form class="site-header__search" action={searchPath} method="get" role="search" aria-label={t(lang, 'search.placeholder')}>
-        <input
-          type="search"
-          name="q"
-          class="site-header__search-input"
-          placeholder={t(lang, 'search.placeholder')}
-          aria-label={t(lang, 'search.placeholder')}
-          autocomplete="off"
-        />
-        <button type="submit" class="header__search-btn" aria-label={t(lang, 'search.button')}>🔍</button>
-      </form>
-      <LanguageSwitcher lang={lang} />
+  <div class="pc-header__actions">
+    <div class="pc-header__sns">
+      <a href="https://www.instagram.com/obaachan_recipe" target="_blank" rel="noopener noreferrer" data-outbound="instagram" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5A4.25 4.25 0 0 0 7.75 20.5h8.5A4.25 4.25 0 0 0 20.5 16.25v-8.5A4.25 4.25 0 0 0 16.25 3.5zm4.25 3.25a5.25 5.25 0 1 1 0 10.5 5.25 5.25 0 0 1 0-10.5zm0 1.5a3.75 3.75 0 1 0 0 7.5 3.75 3.75 0 0 0 0-7.5zm5.5-.75a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
+      </a>
     </div>
-
-    <button class="mobile-menu-btn" aria-label={lang === 'en' ? 'Open menu' : 'メニューを開く'} aria-expanded="false">
-      <span class="mobile-menu-btn__line"></span>
-      <span class="mobile-menu-btn__line"></span>
-      <span class="mobile-menu-btn__line"></span>
+    <button class="pc-header__mobile-btn" aria-label={lang === 'en' ? 'Open menu' : 'メニューを開く'} aria-expanded="false" aria-controls="pc-mobile-panel" data-cta="hamburger">
+      <span></span><span></span><span></span>
     </button>
   </div>
 
-  <div class="mobile-menu" aria-hidden="true">
-    <nav class="mobile-menu__nav" aria-label={lang === 'en' ? 'Mobile navigation' : 'モバイルナビゲー��ョン'}>
-      <a href={homePath} class={navClass('/')}>{t(lang, 'nav.home')}</a>
-      <a href={recipesPath} class={navClass('/recipes')}>{t(lang, 'nav.recipes')}</a>
-      <a href={regionsPath} class={navClass('/regions')}>{t(lang, 'nav.regions')}</a>
-      <a href={articlesPath} class={navClass('/articles')}>{t(lang, 'nav.articles')}</a>
-    </nav>
-    <div class="mobile-menu__lang">
-      <LanguageSwitcher lang={lang} />
-    </div>
-    <form class="mobile-menu__search" action={searchPath} method="get" role="search" aria-label={t(lang, 'search.placeholder')}>
+  <div class="pc-header__mobile-panel" id="pc-mobile-panel" aria-hidden="true">
+    <form class="pc-header__mobile-search" action={searchPath} method="get" role="search" aria-label={t(lang, 'search.placeholder')}>
       <input
         type="search"
         name="q"
-        class="mobile-menu__search-input"
+        class="pc-header__search-input pc-header__search-input--mobile"
         placeholder={t(lang, 'search.placeholder.long')}
         aria-label={t(lang, 'search.placeholder')}
         autocomplete="off"
       />
-      <button type="submit" class="mobile-menu__search-btn" aria-label={t(lang, 'search.button')}>🔍 {t(lang, 'search.button')}</button>
+      <button type="submit" class="pc-header__search-btn pc-header__search-btn--mobile" aria-label={t(lang, 'search.button')} data-cta="search-submit">🔍 {t(lang, 'search.button')}</button>
     </form>
+
+    <nav class="pc-header__mobile-nav" aria-label={lang === 'en' ? 'Mobile navigation' : 'モバイルナビゲーション'}>
+      <a href={homePath} class="pc-header__nav-link" data-cta="nav-home">{t(lang, 'nav.home')}</a>
+      <a href={recipesPath} class="pc-header__nav-link" data-cta="nav-recipes">{navRecipesLabel}</a>
+      <a href={boardPath} class="pc-header__nav-link" data-cta="nav-board">{navBoardLabel}</a>
+      <a href={articlesPath} class="pc-header__nav-link" data-cta="nav-articles">{navArticlesLabel}</a>
+    </nav>
+
+    <div class="pc-header__mobile-utils">
+      <LanguageSwitcher lang={lang} />
+      <div class="pc-header__mobile-sns">
+        <a href="https://www.instagram.com/obaachan_recipe" target="_blank" rel="noopener noreferrer" data-outbound="instagram" aria-label="Instagram">Instagram</a>
+        <a href="https://www.threads.net/@obaachan_recipe" target="_blank" rel="noopener noreferrer" data-outbound="threads" aria-label="Threads">Threads</a>
+        <a href="https://note.com/obaachan_recipe" target="_blank" rel="noopener noreferrer" data-outbound="note" aria-label="note">note</a>
+      </div>
+    </div>
   </div>
 </header>
 
 <script>
-  // Mobile menu toggle
-  const btn = document.querySelector('.mobile-menu-btn');
-  const menu = document.querySelector('.mobile-menu');
+  const btn = document.querySelector<HTMLButtonElement>('.pc-header__mobile-btn');
+  const panel = document.querySelector<HTMLDivElement>('.pc-header__mobile-panel');
   btn?.addEventListener('click', () => {
     const expanded = btn.getAttribute('aria-expanded') === 'true';
     btn.setAttribute('aria-expanded', String(!expanded));
-    menu?.setAttribute('aria-hidden', String(expanded));
-    menu?.classList.toggle('is-open');
+    panel?.setAttribute('aria-hidden', String(expanded));
+    btn.classList.toggle('is-open');
+    panel?.classList.toggle('is-open');
   });
 
-  // Ticker rotation (4s interval)
-  const track = document.getElementById('ticker-track');
-  if (track) {
-    let current = 0;
-    setInterval(() => {
-      const allItems = track.querySelectorAll('.ticker__item');
-      if (allItems.length === 0) return;
-      allItems[current].classList.remove('is-active');
-      current = (current + 1) % allItems.length;
-      allItems[current].classList.add('is-active');
-    }, 4000);
-  }
+  // Pause ticker animation when tab is hidden
+  document.addEventListener('visibilitychange', () => {
+    const inner = document.querySelector<HTMLElement>('.pc-header__announce-inner');
+    if (!inner) return;
+    inner.style.animationPlayState = document.hidden ? 'paused' : 'running';
+  });
 </script>
+
+<style>
+  /* === Header (pattern-c pure) === */
+  .pc-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 3%;
+    height: 40px;
+    background: #F0ECE4;
+    font-size: 0.7rem;
+    font-family: 'Noto Sans JP', sans-serif;
+    color: #222;
+  }
+
+  /* Ticker as left brand (also clickable → home) */
+  .pc-header__announce {
+    flex: 0 0 auto;
+    max-width: 38%;
+    height: 1.4em;
+    overflow: hidden;
+    position: relative;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: #666;
+    font-family: 'Shippori Mincho', serif;
+    padding-left: 0.8em;
+    border-left: 2px solid #aaa;
+    text-decoration: none;
+    transition: opacity 0.3s;
+  }
+  .pc-header__announce:hover { opacity: 0.7; }
+  .pc-header__announce em {
+    font-style: italic;
+    font-family: 'Playfair Display', serif;
+    color: #555;
+  }
+  .pc-header__announce strong {
+    font-weight: 700;
+    color: #444;
+  }
+  .pc-header__announce-inner {
+    display: flex;
+    flex-direction: column;
+    animation: pc-announce-scroll 9s ease-in-out infinite;
+    will-change: transform;
+  }
+  .pc-header__announce-inner > span {
+    height: 1.4em;
+    line-height: 1.4em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex-shrink: 0;
+  }
+  @keyframes pc-announce-scroll {
+    0%, 30% { transform: translateY(0); }
+    35%, 65% { transform: translateY(-33.33%); }
+    70%, 95% { transform: translateY(-66.66%); }
+    100% { transform: translateY(0); }
+  }
+
+  /* Nav (center, absolute so ticker/actions stay on edges) */
+  .pc-header__nav {
+    display: flex;
+    gap: 1.4rem;
+    padding: 0.35rem 1.2rem;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .pc-header__nav-link {
+    color: inherit;
+    text-decoration: none;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    transition: opacity 0.3s;
+  }
+  .pc-header__nav-link:hover { opacity: 0.4; }
+
+  /* Right actions */
+  .pc-header__actions {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .pc-header__sns {
+    display: flex;
+    gap: 0.55rem;
+    align-items: center;
+  }
+  .pc-header__sns a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    color: #888;
+    transition: opacity 0.3s;
+  }
+  .pc-header__sns a:hover { opacity: 0.55; }
+  .pc-header__sns svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+  }
+
+  /* Hamburger — visible on desktop too (pattern-c純) */
+  .pc-header__mobile-btn {
+    display: flex;
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 26px;
+    height: 26px;
+    padding: 4px;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .pc-header__mobile-btn span {
+    display: block;
+    height: 1.5px;
+    width: 100%;
+    background: #666;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+  .pc-header__mobile-btn.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .pc-header__mobile-btn.is-open span:nth-child(2) { opacity: 0; }
+  .pc-header__mobile-btn.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* Mobile panel (used on both desktop hamburger and mobile) */
+  .pc-header__mobile-panel {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: rgba(240, 236, 228, 0.98);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+    padding: 1.2rem 1.25rem 1.5rem;
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
+    transform: translateY(-110%);
+    transition: transform 0.3s ease;
+    pointer-events: none;
+  }
+  .pc-header__mobile-panel.is-open {
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  .pc-header__mobile-search {
+    display: flex;
+    gap: 0.4rem;
+    margin-bottom: 1rem;
+    max-width: 600px;
+  }
+  .pc-header__search-input--mobile {
+    flex: 1 1 auto;
+    width: auto;
+    max-width: 100%;
+    padding: 0.45rem 0.8rem;
+    font-size: 0.8rem;
+    border: 1px solid rgba(0,0,0,0.18);
+    background: #fff;
+    border-radius: 999px;
+    outline: none;
+    color: #222;
+  }
+  .pc-header__search-btn--mobile {
+    padding: 0.45rem 0.9rem;
+    border: 1px solid rgba(0,0,0,0.18);
+    background: #fff;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    cursor: pointer;
+  }
+  .pc-header__mobile-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    margin-bottom: 1rem;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.95rem;
+    max-width: 600px;
+  }
+  .pc-header__mobile-nav .pc-header__nav-link {
+    padding: 0.3rem 0;
+  }
+  .pc-header__mobile-utils {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    padding-top: 0.8rem;
+    border-top: 1px solid rgba(0,0,0,0.08);
+    max-width: 600px;
+  }
+  .pc-header__mobile-sns {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+  }
+  .pc-header__mobile-sns a {
+    color: #555;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+  }
+  .pc-header__mobile-sns a:hover { border-bottom-color: #555; }
+
+  /* === Responsive === */
+  @media (max-width: 768px) {
+    .pc-header { padding: 0 1rem; }
+    .pc-header__nav { display: none; }
+    .pc-header__sns { display: none; }
+    .pc-header__announce {
+      max-width: 60%;
+      font-size: 0.6rem;
+      letter-spacing: 0.02em;
+    }
+  }
+
+  /* Reduce motion */
+  @media (prefers-reduced-motion: reduce) {
+    .pc-header__announce-inner { animation: none; }
+  }
+</style>

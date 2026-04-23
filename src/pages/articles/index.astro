@@ -8,6 +8,19 @@ const base = import.meta.env.BASE_URL;
 const articles = [...articlesData].sort((a: any, b: any) =>
   b.published_at.localeCompare(a.published_at)
 );
+
+// Category meta (order matters — display order for "すべて")
+const CATEGORIES = [
+  { slug: 'life',       name: '暮らしのレシピ帖',       en: 'Life Recipe' },
+  { slug: 'teshigoto',  name: '季節の手仕事',           en: 'Seasonal Craft' },
+  { slug: 'story',      name: 'おばあちゃんのストーリー', en: 'Grandma\'s Story' },
+  { slug: 'column',     name: '食文化コラム',           en: 'Food Culture' },
+] as const;
+
+const countBySlug = new Map<string, number>();
+for (const a of articles) {
+  countBySlug.set(a.category_slug, (countBySlug.get(a.category_slug) ?? 0) + 1);
+}
 ---
 
 <BaseLayout
@@ -39,50 +52,400 @@ const articles = [...articlesData].sort((a: any, b: any) =>
   <Header />
 
   <main id="main" class="articles-page">
-    <div class="container">
-      <div class="page-header">
-        <h1 class="page-title">読み物</h1>
-        <p class="page-subtitle">おばあちゃんの知恵と暮らしを、読み物でお届けします</p>
-      </div>
+    <!-- Hero -->
+    <section class="articles-page__hero" aria-labelledby="articles-title">
+      <span class="articles-page__hero-bg" aria-hidden="true">読</span>
+      <h1 class="articles-page__title" id="articles-title">読み物</h1>
+      <p class="articles-page__lead">おばあちゃんの知恵と暮らしを、読み物でお届けします</p>
+    </section>
 
-      <!-- カテゴリータブ -->
-      <div class="article-tabs" role="tablist" aria-label="カテゴリー">
-        <button class="article-tab article-tab--active" data-category="">すべて</button>
-        <a href={`${base}articles/life/`} class="article-tab" data-category="life">暮らしのレシピ帖</a>
-        <a href={`${base}articles/teshigoto/`} class="article-tab" data-category="teshigoto">季節の手仕事</a>
-        <a href={`${base}articles/story/`} class="article-tab" data-category="story">おばあちゃんのストーリー</a>
-        <a href={`${base}articles/column/`} class="article-tab" data-category="column">食文化コラム</a>
-      </div>
+    <!-- Filter tabs (client-side) -->
+    <div class="articles-page__filter" role="tablist" aria-label="カテゴリー">
+      <button
+        class="articles-page__filter-btn is-active"
+        role="tab"
+        aria-selected="true"
+        data-cat="all"
+        data-cta="articles-filter"
+      >すべて</button>
+      {CATEGORIES.map((cat) => (
+        <button
+          class="articles-page__filter-btn"
+          role="tab"
+          aria-selected="false"
+          data-cat={cat.slug}
+          data-cta="articles-filter"
+        >{cat.name}</button>
+      ))}
+    </div>
 
-      <!-- 記事一覧（全記事出力、JSで表示制御） -->
-      <div class="article-list" id="article-list">
-        {articles.map((article: any) => {
-          const date = article.published_at.replace(/-/g, '.').slice(2);
-          return (
-            <a href={`${import.meta.env.BASE_URL}articles/${article.id}/`} class="article-card" data-category-slug={article.category_slug}>
-              <div class="article-card__thumb" aria-hidden="true">{article.thumbnail_emoji}</div>
-              <div class="article-card__body">
-                <div class="article-card__header-row">
-                  <span class="article-card__category">{article.category}</span>
-                </div>
-                <h2 class="article-card__title">{article.title}</h2>
-                <p class="article-card__lead">{article.lead}</p>
-                <div class="article-card__meta">
-                  <time datetime={article.published_at}>{date}</time>
-                  <span class="article-card__read">約{article.reading_time}分で読める</span>
-                </div>
-              </div>
-            </a>
-          );
-        })}
-      </div>
+    <!-- Article list (all articles rendered, visibility toggled by JS) -->
+    <div class="articles-page__list" id="articles-list">
+      {CATEGORIES.map((cat) => {
+        const items = articles.filter((a: any) => a.category_slug === cat.slug);
+        if (items.length === 0) return null;
+        return (
+          <section class="articles-page__cat-group" data-cat-group={cat.slug}>
+            <div class="articles-page__cat-header">
+              <h2 class="articles-page__cat-title">{cat.name}</h2>
+              <span class="articles-page__cat-en">{cat.en}</span>
+              <span class="articles-page__cat-count">{items.length}記事</span>
+              <a
+                href={`${base}articles/${cat.slug}/`}
+                class="articles-page__cat-link"
+                data-cta="articles-category-link"
+                aria-label={`${cat.name}の一覧へ`}
+              >一覧へ →</a>
+            </div>
 
+            {items.map((article: any) => {
+              const date = article.published_at.replace(/-/g, '.').slice(2);
+              return (
+                <a
+                  href={`${base}articles/${article.id}/`}
+                  class="articles-page__card"
+                  data-category-slug={article.category_slug}
+                >
+                  <div class="articles-page__card-thumb" aria-hidden="true">
+                    <span class="articles-page__card-emoji">{article.thumbnail_emoji}</span>
+                  </div>
+                  <div class="articles-page__card-body">
+                    <span class="articles-page__card-cat">{article.category}</span>
+                    <h3 class="articles-page__card-title" set:html={article.title.replace(/\n/g, '<br />')} />
+                    <p class="articles-page__card-desc">{article.lead}</p>
+                    <div class="articles-page__card-meta">
+                      <time datetime={article.published_at}>{date}</time>
+                      <span>約{article.reading_time}分で読める</span>
+                    </div>
+                  </div>
+                  <span class="articles-page__card-arrow" aria-hidden="true">→</span>
+                </a>
+              );
+            })}
+          </section>
+        );
+      })}
     </div>
   </main>
 
   <Footer />
 
   <script>
-    // 「すべて」ボタンはアクティブ状態を維持（他タブはリンクで遷移）
+    const buttons = document.querySelectorAll<HTMLButtonElement>('.articles-page__filter-btn');
+    const groups = document.querySelectorAll<HTMLElement>('.articles-page__cat-group');
+
+    function applyFilter(cat: string) {
+      groups.forEach((g) => {
+        const slug = g.dataset.catGroup || '';
+        g.hidden = !(cat === 'all' || cat === slug);
+      });
+      buttons.forEach((b) => {
+        const isActive = (b.dataset.cat || '') === cat;
+        b.classList.toggle('is-active', isActive);
+        b.setAttribute('aria-selected', String(isActive));
+      });
+    }
+
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const cat = btn.dataset.cat || 'all';
+        applyFilter(cat);
+      });
+    });
+
+    // Deep-link support: /articles/?cat=life etc. (optional, non-breaking)
+    const params = new URLSearchParams(location.search);
+    const initialCat = params.get('cat');
+    if (initialCat && document.querySelector(`[data-cat="${initialCat}"]`)) {
+      applyFilter(initialCat);
+    }
   </script>
 </BaseLayout>
+
+<style>
+  /* Articles index page (pattern-c scoped) */
+  .articles-page {
+    font-family: 'Noto Sans JP', sans-serif;
+    color: #222;
+    background: #f0ece4;
+    padding-bottom: 3rem;
+  }
+
+  /* Hero */
+  .articles-page__hero {
+    position: relative;
+    overflow: hidden;
+    padding: 4rem 5% 2rem;
+    text-align: left;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  .articles-page__hero-bg {
+    position: absolute;
+    top: 50%;
+    right: 5%;
+    transform: translateY(-50%);
+    font-family: 'Shippori Mincho', serif;
+    font-size: clamp(7rem, 20vw, 15rem);
+    font-weight: 800;
+    color: rgba(0, 0, 0, 0.04);
+    pointer-events: none;
+    user-select: none;
+    line-height: 1;
+    z-index: 0;
+  }
+  .articles-page__title {
+    position: relative;
+    z-index: 1;
+    margin: 0;
+    font-family: 'Shippori Mincho', serif;
+    font-size: clamp(1.9rem, 4vw, 2.8rem);
+    font-weight: 800;
+    letter-spacing: 0.08em;
+  }
+  .articles-page__lead {
+    position: relative;
+    z-index: 1;
+    margin: 0.6rem 0 0;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.86rem;
+    line-height: 2;
+    color: #777;
+  }
+
+  /* Filter */
+  .articles-page__filter {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0.5rem 5% 2rem;
+    display: flex;
+    gap: 0.55rem;
+    flex-wrap: wrap;
+  }
+  .articles-page__filter-btn {
+    padding: 0.5rem 1.3rem;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: #222;
+    background: transparent;
+    border: 1.5px solid #222;
+    border-radius: 0;
+    cursor: pointer;
+    transition: background 0.25s ease, color 0.25s ease, opacity 0.25s ease;
+  }
+  .articles-page__filter-btn:hover {
+    background: #222;
+    color: #f0ece4;
+  }
+  .articles-page__filter-btn.is-active {
+    background: #222;
+    color: #f0ece4;
+  }
+  .articles-page__filter-btn:focus-visible {
+    outline: 2px solid #222;
+    outline-offset: 3px;
+  }
+
+  /* List */
+  .articles-page__list {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 5%;
+  }
+
+  /* Category header */
+  .articles-page__cat-group {
+    margin-top: 2.5rem;
+  }
+  .articles-page__cat-group:first-of-type {
+    margin-top: 0;
+  }
+  .articles-page__cat-header {
+    display: flex;
+    align-items: baseline;
+    gap: 0.8rem;
+    padding-bottom: 0.55rem;
+    margin-bottom: 0.6rem;
+    border-bottom: 2px solid #222;
+  }
+  .articles-page__cat-title {
+    margin: 0;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+  .articles-page__cat-en {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 0.68rem;
+    color: #aaa;
+    letter-spacing: 0.1em;
+  }
+  .articles-page__cat-count {
+    font-size: 0.66rem;
+    color: #999;
+    letter-spacing: 0.05em;
+    margin-left: auto;
+  }
+  .articles-page__cat-link {
+    font-size: 0.7rem;
+    color: #555;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: color 0.2s ease, border-color 0.2s ease;
+    white-space: nowrap;
+  }
+  .articles-page__cat-link:hover {
+    color: #222;
+    border-bottom-color: #222;
+  }
+
+  /* Article card (row layout, pattern-c style) */
+  .articles-page__card {
+    display: flex;
+    align-items: stretch;
+    gap: 1.4rem;
+    padding: 1.4rem 0;
+    border-bottom: 1px solid #e0dcd4;
+    text-decoration: none;
+    color: inherit;
+    transition: opacity 0.25s ease;
+  }
+  .articles-page__card:hover {
+    opacity: 0.72;
+  }
+  .articles-page__card:hover .articles-page__card-arrow {
+    color: #222;
+    transform: translateX(4px);
+  }
+  .articles-page__card:focus-visible {
+    outline: 2px solid #222;
+    outline-offset: 4px;
+    opacity: 1;
+  }
+
+  .articles-page__card-thumb {
+    flex-shrink: 0;
+    width: 110px;
+    height: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    border: 1px solid #e0dcd4;
+  }
+  .articles-page__card-emoji {
+    font-size: 2.4rem;
+    line-height: 1;
+  }
+
+  .articles-page__card-body {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+  .articles-page__card-cat {
+    font-size: 0.62rem;
+    color: #999;
+    letter-spacing: 0.12em;
+  }
+  .articles-page__card-title {
+    margin: 0;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 1.02rem;
+    font-weight: 700;
+    line-height: 1.55;
+    letter-spacing: 0.03em;
+    color: #222;
+  }
+  .articles-page__card-desc {
+    margin: 0;
+    font-size: 0.78rem;
+    color: #777;
+    line-height: 1.7;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .articles-page__card-meta {
+    margin-top: auto;
+    display: flex;
+    gap: 0.8rem;
+    font-size: 0.68rem;
+    color: #999;
+    letter-spacing: 0.05em;
+  }
+
+  .articles-page__card-arrow {
+    align-self: center;
+    flex-shrink: 0;
+    font-size: 0.9rem;
+    color: #ccc;
+    transition: color 0.25s ease, transform 0.25s ease;
+  }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .articles-page__hero {
+      padding: 2.5rem 5% 1.5rem;
+    }
+    .articles-page__lead {
+      font-size: 0.8rem;
+    }
+    .articles-page__filter {
+      padding: 0.5rem 5% 1.5rem;
+      gap: 0.45rem;
+    }
+    .articles-page__filter-btn {
+      font-size: 0.7rem;
+      padding: 0.5rem 1rem;
+    }
+
+    .articles-page__cat-header {
+      flex-wrap: wrap;
+      gap: 0.5rem 0.7rem;
+    }
+    .articles-page__cat-title { font-size: 1rem; }
+    .articles-page__cat-en { font-size: 0.62rem; }
+    .articles-page__cat-count { font-size: 0.6rem; }
+    .articles-page__cat-link {
+      flex-basis: 100%;
+      text-align: right;
+      padding-top: 0.1rem;
+    }
+
+    .articles-page__card {
+      gap: 1rem;
+      padding: 1.1rem 0;
+    }
+    .articles-page__card-thumb {
+      width: 80px;
+      height: 80px;
+    }
+    .articles-page__card-emoji {
+      font-size: 1.8rem;
+    }
+    .articles-page__card-title {
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+    .articles-page__card-desc {
+      font-size: 0.74rem;
+      -webkit-line-clamp: 2;
+    }
+    .articles-page__card-meta {
+      font-size: 0.64rem;
+      gap: 0.6rem;
+    }
+    .articles-page__card-arrow {
+      display: none;
+    }
+  }
+</style>

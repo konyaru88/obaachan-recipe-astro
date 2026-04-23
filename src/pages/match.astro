@@ -1,0 +1,587 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { getAllRecipes } from '../data/recipes';
+
+const base = import.meta.env.BASE_URL;
+
+// スコアリング用データ（画像ありを優先、なければ全件）
+const all = getAllRecipes();
+const withImg = all.filter((r: any) => r.photos?.main);
+const pool = withImg.length > 0 ? withImg : all;
+
+const matchPool = pool.map((r: any) => {
+  const prefecture = r.region?.prefecture || r.grandmother?.prefecture || '';
+  const seasonArr = Array.isArray(r.season) ? r.season : [];
+  const season = seasonArr[0] ?? '';
+  const grandma = r.grandmother?.name || '';
+  const family = grandma || (prefecture ? prefecture.replace(/[都府県]$/, '') + 'のおばあちゃん' : '誰か');
+  return {
+    id: r.id,
+    name: r.title,
+    prefecture,
+    season,
+    family,
+    img: r.photos?.main ? `${base}${r.photos.main}` : '',
+    tags: Array.isArray(r.tags) ? r.tags : [],
+    category: r.category || '',
+  };
+});
+
+const hasData = matchPool.length > 0;
+
+// 質問定義（選択肢のタグは COMMON_TAGS + category 値に合わせる）
+const questions = [
+  {
+    q: '今日の気分は？',
+    options: [
+      { label: 'ほっこり', tags: ['煮物', '汁物'] },
+      { label: 'さっぱり', tags: ['和え物', '和え物・酢の物'] },
+      { label: 'がっつり', tags: ['主菜', '揚げ物', 'ご飯もの'] },
+      { label: '懐かしい', tags: ['郷土料理', '家庭料理'] },
+    ],
+  },
+  {
+    q: 'どんなシーン？',
+    options: [
+      { label: 'ひとりごはん', tags: ['日常のごはん', '常備菜'] },
+      { label: '家族と', tags: ['家庭料理', '煮物'] },
+      { label: 'お客さんが来る', tags: ['郷土料理', 'ご飯もの', 'お正月'] },
+      { label: '体をいたわる', tags: ['汁物', '保存食'] },
+    ],
+  },
+  {
+    q: '気になる食材は？',
+    options: [
+      { label: '根菜', tags: ['煮物', '郷土料理'] },
+      { label: '山菜・春の味覚', tags: ['山菜', '春の味覚'] },
+      { label: '保存食', tags: ['保存食', '常備菜', '漬物'] },
+      { label: 'なんでも', tags: [] },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="今日の食卓｜あなたにぴったりの食卓診断 | おばあちゃんのレシピ"
+  description="3つの質問で、今の気分にぴったりのおばあちゃんの食卓を提案します。"
+  hasAlternate={false}
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://www.obaachan-recipe.com/" },
+        { "@type": "ListItem", "position": 2, "name": "今日の食卓" }
+      ]
+    })} />
+  </Fragment>
+  <Header />
+
+  <main class="match-page">
+    <div class="match-page__progress" aria-hidden="true">
+      <div class="match-page__progress-bar" id="match-progress"></div>
+    </div>
+
+    <div class="match-page__viewport">
+      <div class="match-page__slides" id="match-slides">
+        <!-- 0: Start -->
+        <section class="match-page__slide" data-slide="start">
+          <p class="match-page__subtitle">今日の食卓</p>
+          <h1 class="match-page__title">
+            あなたにぴったりの<br />
+            おばあちゃんの食卓は？
+          </h1>
+          <p class="match-page__lead">
+            3つの質問に答えるだけ。<br />
+            今の気分にぴったりの食卓を見つけます。
+          </p>
+          {hasData ? (
+            <button type="button" class="match-page__btn" data-go="1" data-cta="match-start">はじめる</button>
+          ) : (
+            <p class="match-page__empty" role="status">
+              レシピデータがまだ揃っていません。<br />
+              <a href={`${base}recipes/`}>食卓一覧へ</a>
+            </p>
+          )}
+        </section>
+
+        <!-- 1-3: Questions -->
+        {questions.map((q, qi) => (
+          <section class="match-page__slide" data-slide={`q${qi + 1}`}>
+            <span class="match-page__q-num">質問 {qi + 1} / 3</span>
+            <h2 class="match-page__q-text">{q.q}</h2>
+            <div class="match-page__q-options">
+              {q.options.map((opt) => (
+                <button
+                  type="button"
+                  class="match-page__q-option"
+                  data-q-idx={qi}
+                  data-tags={opt.tags.join(',')}
+                  data-cta={`match-answer-q${qi + 1}`}
+                >{opt.label}</button>
+              ))}
+            </div>
+          </section>
+        ))}
+
+        <!-- 4: Result -->
+        <section class="match-page__slide" data-slide="result">
+          <p class="match-page__subtitle">診断結果</p>
+          <h2 class="match-page__result-title">あなたにぴったりの食卓</h2>
+          <div class="match-page__result-cards" id="match-result-cards"></div>
+          <div class="match-page__result-fallback" id="match-result-fallback" style="display:none">
+            <p>ぴったりの食卓が見つかりませんでした。</p>
+            <a href={`${base}recipes/`} class="match-page__btn match-page__btn--secondary">食卓一覧を見る →</a>
+          </div>
+          <div class="match-page__result-actions">
+            <button type="button" class="match-page__btn match-page__btn--secondary" id="match-retry" data-cta="match-retry">もう一度診断する</button>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+
+  <script type="application/json" id="match-pool-data" set:html={JSON.stringify(matchPool)}></script>
+  <script is:inline define:vars={{ base, hasData }}>
+    (function() {
+      if (!hasData) return;
+
+      const POOL = JSON.parse(document.getElementById('match-pool-data')?.textContent || '[]');
+      if (POOL.length === 0) return;
+
+      const slidesEl = document.getElementById('match-slides');
+      const progressBar = document.getElementById('match-progress');
+      const resultContainer = document.getElementById('match-result-cards');
+      const resultFallback = document.getElementById('match-result-fallback');
+      const retryBtn = document.getElementById('match-retry');
+      const totalSlides = slidesEl.children.length; // 5
+      const lastIndex = totalSlides - 1; // 4 (result)
+
+      let current = 0;
+      let answers = [];
+
+      function goTo(n) {
+        current = Math.max(0, Math.min(totalSlides - 1, n));
+        // Each slide takes exactly 1/totalSlides of the flex container width
+        const percentPerSlide = 100 / totalSlides;
+        slidesEl.style.transform = `translateX(-${current * percentPerSlide}%)`;
+        progressBar.style.width = `${(current / lastIndex) * 100}%`;
+      }
+
+      function showResult() {
+        const allTags = answers.flat().filter(Boolean);
+
+        const scored = POOL.map((r) => {
+          let score = 0;
+          allTags.forEach((tag) => {
+            if (r.tags.includes(tag)) score++;
+            if (r.category === tag) score++;
+          });
+          return { ...r, score };
+        });
+
+        // フィルタ：score > 0 のみを抽出
+        const matched = scored.filter((r) => r.score > 0);
+        matched.sort((a, b) => b.score - a.score || Math.random() - 0.5);
+
+        // トップ3。ただし同率の中からはランダムに揺らす
+        let top = matched.slice(0, 3);
+
+        // 完全0マッチ時：ランダム3件で埋めるが、fallback メッセージも表示
+        let usingFallback = false;
+        if (top.length === 0) {
+          usingFallback = true;
+          const shuffled = [...POOL].sort(() => Math.random() - 0.5);
+          top = shuffled.slice(0, 3);
+        }
+
+        resultContainer.innerHTML = '';
+        top.forEach((r) => {
+          // 家族表記: 「○○のおばあちゃん」で終わる汎用名には「さん」を重ねない
+          const familyHonor = /おばあちゃん$/.test(r.family) ? r.family : r.family + 'さん';
+          const a = document.createElement('a');
+          a.href = `${base}recipes/${r.id}/`;
+          a.className = 'match-page__result-card';
+          a.setAttribute('data-cta', 'match-result');
+          a.setAttribute('data-recipe-id', r.id);
+          a.innerHTML = `
+            <div class="match-page__result-card-img-wrap">
+              <span class="match-page__result-card-kanban">${escHtml(r.name)}</span>
+              ${r.img
+                ? `<img src="${r.img}" alt="${escHtml(r.name)}" class="match-page__result-card-img" loading="lazy" />`
+                : `<div class="match-page__result-card-img match-page__result-card-img--empty"></div>`}
+            </div>
+            <div class="match-page__result-card-caption">
+              <span class="match-page__result-card-region">${escHtml(r.prefecture)}${r.season ? '・' + escHtml(r.season) : ''}</span>
+              <p class="match-page__result-card-title">${escHtml(r.prefecture || '')}${r.season ? '・' + escHtml(r.season) + '。' : '。'}${escHtml(familyHonor)}の食卓から。</p>
+            </div>
+          `;
+          resultContainer.appendChild(a);
+        });
+
+        resultFallback.style.display = usingFallback ? '' : 'none';
+      }
+
+      function escHtml(s) {
+        const d = document.createElement('div');
+        d.textContent = String(s ?? '');
+        return d.innerHTML;
+      }
+
+      // Start button
+      document.querySelectorAll('[data-go]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const n = parseInt(btn.getAttribute('data-go') || '0', 10);
+          goTo(n);
+        });
+      });
+
+      // Question options
+      slidesEl.querySelectorAll('.match-page__q-option').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const qIdx = parseInt(btn.getAttribute('data-q-idx') || '0', 10);
+          const tagsStr = btn.getAttribute('data-tags') || '';
+          const tags = tagsStr ? tagsStr.split(',').filter(Boolean) : [];
+
+          // Highlight the picked one, clear siblings
+          const slide = btn.closest('.match-page__slide');
+          slide?.querySelectorAll('.match-page__q-option').forEach((b) => b.classList.remove('is-selected'));
+          btn.classList.add('is-selected');
+
+          answers[qIdx] = tags;
+
+          // Advance after a short beat for feedback
+          setTimeout(() => {
+            if (qIdx < 2) {
+              goTo(qIdx + 2); // Q2 = slide 2, Q3 = slide 3
+            } else {
+              showResult();
+              goTo(lastIndex);
+            }
+          }, 320);
+        });
+      });
+
+      // Retry
+      retryBtn?.addEventListener('click', () => {
+        answers = [];
+        slidesEl.querySelectorAll('.match-page__q-option').forEach((b) => b.classList.remove('is-selected'));
+        resultContainer.innerHTML = '';
+        resultFallback.style.display = 'none';
+        goTo(0);
+      });
+
+      // Initial state
+      goTo(0);
+
+      // Keyboard: allow Left/Right arrow to navigate between question slides only
+      document.addEventListener('keydown', (e) => {
+        if (current === 0 || current === lastIndex) return;
+        if (e.key === 'ArrowLeft' && current > 1) goTo(current - 1);
+      });
+    })();
+  </script>
+</BaseLayout>
+
+<style>
+  .match-page {
+    font-family: 'Noto Sans JP', sans-serif;
+    color: #222;
+    background: #f0ece4;
+    min-height: calc(100vh - 56px);
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  .match-page__progress {
+    position: sticky;
+    top: 56px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: #e0dcd4;
+    z-index: 5;
+  }
+  .match-page__progress-bar {
+    height: 100%;
+    width: 0%;
+    background: #222;
+    transition: width 0.5s ease;
+  }
+
+  .match-page__viewport {
+    overflow: hidden;
+    position: relative;
+  }
+  .match-page__slides {
+    display: flex;
+    width: 500%;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .match-page__slide {
+    flex: 0 0 20%;
+    min-height: calc(100vh - 120px);
+    padding: 2rem 5% 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  /* Start */
+  .match-page__subtitle {
+    margin: 0 0 0.8rem;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.8rem;
+    color: #aaa;
+    letter-spacing: 0.2em;
+  }
+  .match-page__title {
+    margin: 0 0 1rem;
+    font-family: 'Shippori Mincho', serif;
+    font-size: clamp(1.8rem, 5vw, 3.2rem);
+    font-weight: 800;
+    line-height: 1.4;
+    letter-spacing: 0.06em;
+  }
+  .match-page__lead {
+    margin: 0 0 2.4rem;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.92rem;
+    line-height: 2;
+    color: #777;
+  }
+  .match-page__btn {
+    display: inline-block;
+    padding: 1rem 3rem;
+    background: #222;
+    color: #f0ece4;
+    border: none;
+    border-radius: 0;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-decoration: none;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+  }
+  .match-page__btn:hover { opacity: 0.85; }
+  .match-page__btn:focus-visible {
+    outline: 2px solid #222;
+    outline-offset: 3px;
+  }
+  .match-page__btn--secondary {
+    background: transparent;
+    color: #222;
+    border: 1.5px solid #222;
+  }
+  .match-page__btn--secondary:hover {
+    background: #222;
+    color: #f0ece4;
+    opacity: 1;
+  }
+  .match-page__empty {
+    margin: 0;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.88rem;
+    color: #888;
+    line-height: 2;
+  }
+  .match-page__empty a {
+    color: #222;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  /* Question */
+  .match-page__q-num {
+    margin-bottom: 1rem;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.72rem;
+    color: #bbb;
+    letter-spacing: 0.18em;
+  }
+  .match-page__q-text {
+    margin: 0 0 2.2rem;
+    font-family: 'Shippori Mincho', serif;
+    font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    line-height: 1.5;
+  }
+  .match-page__q-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.9rem;
+    width: 100%;
+    max-width: 520px;
+  }
+  .match-page__q-option {
+    padding: 1rem 0.7rem;
+    min-height: 56px;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.94rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: #222;
+    background: transparent;
+    border: 1.5px solid #222;
+    border-radius: 0;
+    cursor: pointer;
+    transition: background 0.25s ease, color 0.25s ease, transform 0.15s ease;
+  }
+  .match-page__q-option:hover {
+    background: #222;
+    color: #f0ece4;
+  }
+  .match-page__q-option:active {
+    transform: translateY(1px);
+  }
+  .match-page__q-option.is-selected {
+    background: #222;
+    color: #f0ece4;
+  }
+  .match-page__q-option:focus-visible {
+    outline: 2px solid #222;
+    outline-offset: 3px;
+  }
+
+  /* Result */
+  .match-page__result-title {
+    margin: 0 0 2rem;
+    font-family: 'Shippori Mincho', serif;
+    font-size: clamp(1.3rem, 3vw, 2rem);
+    font-weight: 800;
+    letter-spacing: 0.06em;
+  }
+  .match-page__result-cards {
+    display: flex;
+    gap: 1.4rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 900px;
+  }
+  /* JS-rendered result cards need :global() so they receive styles */
+  .match-page :global(.match-page__result-card) {
+    width: 220px;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.35s ease;
+  }
+  .match-page :global(.match-page__result-card:hover) { transform: translateY(-5px); }
+  .match-page :global(.match-page__result-card-img-wrap) {
+    position: relative;
+    overflow: visible;
+  }
+  .match-page :global(.match-page__result-card-img) {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    display: block;
+    border: 1.5px solid #222;
+    background: #f5f2ec;
+  }
+  .match-page :global(.match-page__result-card-img--empty) {
+    background: linear-gradient(135deg, #f5f2ec, #e8e4dc);
+  }
+  .match-page :global(.match-page__result-card-kanban) {
+    position: absolute;
+    top: -6px;
+    left: -0.7rem;
+    z-index: 3;
+    padding: 0.45em 0.38em;
+    background: #f5f0e6;
+    border: 2px solid #222;
+    writing-mode: vertical-rl;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.86rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    line-height: 1;
+    white-space: nowrap;
+    box-shadow: 2px 3px 0 rgba(0, 0, 0, 0.1);
+    max-height: 70%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .match-page :global(.match-page__result-card-caption) {
+    padding: 0.6rem 0 0 1rem;
+    text-align: left;
+  }
+  .match-page :global(.match-page__result-card-region) {
+    font-size: 0.6rem;
+    color: #aaa;
+    letter-spacing: 0.1em;
+  }
+  .match-page :global(.match-page__result-card-title) {
+    margin: 0.25rem 0 0;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    line-height: 1.6;
+    letter-spacing: 0.03em;
+    color: #222;
+  }
+
+  .match-page__result-fallback {
+    margin-top: 1rem;
+    padding: 1.5rem;
+    background: #fff;
+    border: 1px solid #e0dcd4;
+    text-align: center;
+  }
+  .match-page__result-fallback p {
+    margin: 0 0 0.8rem;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.88rem;
+    color: #777;
+  }
+  .match-page__result-actions {
+    margin-top: 2.4rem;
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .match-page__slides,
+    .match-page__progress-bar {
+      transition: none !important;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .match-page__slide {
+      padding: 2rem 5% 2.5rem;
+      min-height: calc(100vh - 100px);
+    }
+    .match-page__title {
+      line-height: 1.5;
+    }
+    .match-page__q-options {
+      grid-template-columns: 1fr;
+      max-width: 320px;
+    }
+    .match-page__q-option {
+      padding: 0.95rem 0.7rem;
+      min-height: 52px;
+    }
+    .match-page__result-cards {
+      flex-direction: column;
+      align-items: center;
+    }
+    .match-page :global(.match-page__result-card) {
+      width: 260px;
+    }
+  }
+</style>

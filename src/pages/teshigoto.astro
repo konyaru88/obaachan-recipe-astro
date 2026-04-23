@@ -1,0 +1,489 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { getAllRecipes } from '../data/recipes';
+
+const base = import.meta.env.BASE_URL;
+const all = getAllRecipes();
+
+function pickByCategory(cats: string[], n: number) {
+  return all
+    .filter((r: any) => cats.includes(r.category))
+    .sort((a: any, b: any) => (b.meta?.created_at ?? '').localeCompare(a.meta?.created_at ?? ''))
+    .slice(0, n);
+}
+function pickByTag(tag: string, n: number) {
+  return all
+    .filter((r: any) => Array.isArray(r.tags) && r.tags.includes(tag))
+    .sort((a: any, b: any) => (b.meta?.created_at ?? '').localeCompare(a.meta?.created_at ?? ''))
+    .slice(0, n);
+}
+function pickByTitleKeywords(regex: RegExp, n: number) {
+  return all
+    .filter((r: any) => regex.test(r.title))
+    .sort((a: any, b: any) => (b.meta?.created_at ?? '').localeCompare(a.meta?.created_at ?? ''))
+    .slice(0, n);
+}
+function pickRandom(n: number) {
+  return [...all].sort(() => Math.random() - 0.5).slice(0, n);
+}
+
+type Method = {
+  id: string;
+  kanji: string;
+  name: string;
+  desc: string;
+  wisdom: string[];
+  recipes: any[];
+};
+
+const ni = pickByCategory(['煮物'], 3);
+const yaki = pickByTitleKeywords(/焼|ヤキ|炙|グリル|ソテー/, 3);
+const itame = pickByTitleKeywords(/炒|いため|チャーハン|ちゃーはん|スクランブル/, 3);
+const age = pickByTitleKeywords(/揚|フライ|から揚|唐揚|天ぷら|天婦羅|コロッケ/, 3);
+const ae = pickByTag('和え物', 3);
+const tsuke = pickByCategory(['漬物', '佃煮・常備菜'], 3);
+
+const methods: Method[] = [
+  {
+    id: 'ni',
+    kanji: '煮',
+    name: 'ことこと、煮る',
+    desc: 'おばあちゃんの煮物には時計がいらない。\n蓋の音と湯気の匂いが、頃合いを教えてくれる。\n\n鍋の前でじっと待つ時間が、味を深くする。\n冷めるときに味が染み込むことを、\nおばあちゃんたちは経験で知っていた。',
+    wisdom: [
+      '「落し蓋がなかったらアルミホイルでいいのよ」',
+      '「煮物は冷めるときに味が入るけん、慌てんでいい」',
+      '「鍋底が焦げそうになったら水を足すんじゃなくて火を弱める」',
+    ],
+    recipes: ni.length > 0 ? ni : pickRandom(3),
+  },
+  {
+    id: 'yaki',
+    kanji: '焼',
+    name: 'じっくり、焼く',
+    desc: '何度もひっくり返さない。\nじっと待つことが、おいしい焦げ目をつくる。\n\nおばあちゃんは焼き加減を音で判断していた。\nパチパチという音が変わったら、ひっくり返す合図。',
+    wisdom: [
+      '「触りすぎたらあかんよ、魚が怒るから」',
+      '「フライパンは煙が出るくらい熱してから」',
+      '「焦げるのが怖かったら火を弱めればいいだけよ」',
+    ],
+    recipes: yaki.length > 0 ? yaki : pickRandom(3),
+  },
+  {
+    id: 'itame',
+    kanji: '炒',
+    name: 'さっと、炒める',
+    desc: '強火で一気に。鍋を振る音が\n台所に響くと、晩ごはんの合図。\n\nおばあちゃんの炒め物はいつも手早かった。\n野菜はシャキッと、肉はふわっと。\nその手際の良さは、何千回もの繰り返しから生まれたもの。',
+    wisdom: [
+      '「野菜は火の通りにくいもんから入れるんよ」',
+      '「味つけは最後の最後。先に入れたら水が出る」',
+      '「中華鍋がなくても大きいフライパンでいいのよ」',
+    ],
+    recipes: itame.length > 0 ? itame : pickRandom(3),
+  },
+  {
+    id: 'age',
+    kanji: '揚',
+    name: 'からりと、揚げる',
+    desc: '菜箸で泡を見て、音を聞く。\n温度計のない時代から変わらない見極め。\n\nおばあちゃんの揚げ物はいつもからっとしていた。\n油の温度は衣を一滴落とせばわかると言っていた。',
+    wisdom: [
+      '「衣を落として、すぐ浮いてきたら揚げごろ」',
+      '「一度にたくさん入れたらあかん。油の温度が下がるから」',
+      '「揚げたてに塩をちょっと振るのがいちばんうまい」',
+    ],
+    recipes: age.length > 0 ? age : pickRandom(3),
+  },
+  {
+    id: 'ae',
+    kanji: '和',
+    name: 'やさしく、和える',
+    desc: '崩さないように、でもしっかり馴染むように。\n指先の加減が、味の決め手。\n\n和え物はおばあちゃんの得意料理だった。\n箸ではなく手で和えることもあった。\n「手のほうが加減がわかるでしょ」と。',
+    wisdom: [
+      '「和え物は食べる直前に和えるんよ。早すぎたら水が出る」',
+      '「ほうれん草はぎゅっと絞って。水気は味の敵やから」',
+      '「味噌と酢と砂糖、この3つがあれば何でも和えられる」',
+    ],
+    recipes: ae.length > 0 ? ae : pickRandom(3),
+  },
+  {
+    id: 'tsuke',
+    kanji: '漬',
+    name: 'じっくり、漬ける',
+    desc: '塩をして、重石をして、あとは待つだけ。\n時間がいちばんの調味料。\n\nおばあちゃんの漬物は、季節そのものだった。\n夏のきゅうり、秋のなす、冬の大根。\n台所の片隅で、静かに味が育っていく。',
+    wisdom: [
+      '「塩は気持ち多めに。足りんかったら後から足せんから」',
+      '「ぬか床は毎日かき混ぜるんよ。留守にするときは冷蔵庫に」',
+      '「漬けすぎたら塩辛くなるけど、お茶漬けにしたらちょうどいい」',
+    ],
+    recipes: tsuke.length > 0 ? tsuke : pickRandom(3),
+  },
+];
+---
+
+<BaseLayout
+  title="手仕事｜台所の六つの知恵 | おばあちゃんのレシピ"
+  description="煮る・焼く・炒める・揚げる・和える・漬ける。おばあちゃんの台所仕事に宿る知恵を、実際のレシピとともに。"
+  hasAlternate={false}
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://www.obaachan-recipe.com/" },
+        { "@type": "ListItem", "position": 2, "name": "手仕事" }
+      ]
+    })} />
+  </Fragment>
+  <Header />
+
+  <main class="teshi-page">
+    <!-- Hero -->
+    <section class="teshi-hero" aria-labelledby="teshi-title">
+      <span class="teshi-hero__bg" aria-hidden="true">煮焼炒揚和漬</span>
+      <h1 class="teshi-hero__title" id="teshi-title">手仕事</h1>
+      <p class="teshi-hero__lead">
+        手で覚えた、台所の知恵。<br />
+        六つの台所仕事が、食卓をつくる。
+      </p>
+    </section>
+
+    <!-- Kanji nav -->
+    <nav class="teshi-nav" aria-label="調理法ナビ">
+      {methods.map((m, i) => (
+        <a href={`#${m.id}`} class={`teshi-nav__item${i === 0 ? ' is-active' : ''}`} data-cta={`teshi-nav-${m.id}`}>{m.kanji}</a>
+      ))}
+    </nav>
+
+    <!-- Methods -->
+    {methods.map((m, mi) => (
+      <>
+        <section class="method" id={m.id} aria-labelledby={`${m.id}-heading`}>
+          <div class="method__header">
+            <span class="method__kanji" aria-hidden="true">{m.kanji}</span>
+            <div class="method__info">
+              <h2 class="method__name" id={`${m.id}-heading`}>{m.name}</h2>
+              <p class="method__desc" set:html={m.desc.replace(/\n/g, '<br />')} />
+            </div>
+          </div>
+
+          <div class="method__wisdom">
+            <p class="method__wisdom-title">おばあちゃんの知恵</p>
+            <p class="method__wisdom-text" set:html={m.wisdom.join('<br />')} />
+          </div>
+
+          {m.recipes.length > 0 && (
+            <>
+              <p class="method__recipes-title">「{m.name.replace(/^.+、/, '')}」レシピ</p>
+              <div class="method__recipes">
+                {m.recipes.map((r: any) => {
+                  const prefecture = r.region?.prefecture || r.grandmother?.prefecture || '';
+                  const grandma = r.grandmother?.name || '';
+                  const family = grandma || (prefecture ? prefecture.replace(/[都府県]$/, '') + 'のおばあちゃん' : '誰か');
+                  const familyLabel = /おばあちゃん$/.test(family) ? family : family + 'さん';
+                  const imgUrl = r.photos?.main ? `${base}${r.photos.main}` : '';
+                  return (
+                    <a
+                      href={`${base}recipes/${r.id}/`}
+                      class="method-card"
+                      data-cta="teshi-card"
+                      data-recipe-id={r.id}
+                      data-recipe-name={r.title}
+                      data-region={prefecture}
+                      data-method-id={m.id}
+                    >
+                      <div class="method-card__img-wrap">
+                        <span class="method-card__kanban">{r.title}</span>
+                        {imgUrl ? (
+                          <img src={imgUrl} alt={r.title} class="method-card__img" loading="lazy" width="400" height="300" />
+                        ) : (
+                          <img src={`${base}assets/images/sample-placeholder.png.jpg`} alt="準備中" class="method-card__img method-card__img--empty" loading="lazy" width="400" height="300" />
+                        )}
+                      </div>
+                      <div class="method-card__caption">
+                        <span class="method-card__region">{prefecture}</span>
+                        <p class="method-card__title">{familyLabel}の食卓から</p>
+                      </div>
+                    </a>
+                  );
+                })}
+              </div>
+            </>
+          )}
+        </section>
+        {mi < methods.length - 1 && <div class="method-divider" aria-hidden="true"></div>}
+      </>
+    ))}
+  </main>
+
+  <Footer />
+
+  <script>
+    (function(){
+      const navItems = document.querySelectorAll<HTMLAnchorElement>('.teshi-nav__item');
+      const sections = document.querySelectorAll<HTMLElement>('.method');
+      if (!('IntersectionObserver' in window)) return;
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            navItems.forEach((n) => n.classList.remove('is-active'));
+            const target = document.querySelector<HTMLAnchorElement>(`.teshi-nav__item[href="#${entry.target.id}"]`);
+            if (target) target.classList.add('is-active');
+          }
+        });
+      }, { rootMargin: '-40% 0px -50% 0px' });
+
+      sections.forEach((s) => observer.observe(s));
+
+      navItems.forEach((item) => {
+        item.addEventListener('click', (e) => {
+          e.preventDefault();
+          const hash = item.getAttribute('href') || '';
+          const target = document.querySelector(hash);
+          if (target) target.scrollIntoView({ behavior: 'smooth' });
+        });
+      });
+    })();
+  </script>
+</BaseLayout>
+
+<style>
+  .teshi-page {
+    font-family: 'Noto Sans JP', sans-serif;
+    color: #222;
+    background: #f0ece4;
+    padding-bottom: 3rem;
+  }
+
+  /* Hero */
+  .teshi-hero {
+    background: #fff;
+    padding: 6rem 5% 4rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .teshi-hero__bg {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Shippori Mincho', serif;
+    font-size: clamp(10rem, 25vw, 20rem);
+    font-weight: 800;
+    color: rgba(0,0,0,0.02);
+    white-space: nowrap;
+    pointer-events: none;
+    letter-spacing: 0.3em;
+    user-select: none;
+  }
+  .teshi-hero__title {
+    font-family: 'Shippori Mincho', serif;
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    position: relative;
+    margin: 0 0 1rem;
+  }
+  .teshi-hero__lead {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.92rem;
+    color: #888;
+    line-height: 2.2;
+    position: relative;
+    margin: 0;
+  }
+
+  /* Kanji nav */
+  .teshi-nav {
+    position: sticky;
+    top: 52px;
+    z-index: 50;
+    background: rgba(255,255,255,0.95);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid #e0dcd4;
+    display: flex;
+    justify-content: center;
+    gap: 0;
+  }
+  .teshi-nav__item {
+    padding: 1rem 2rem;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #bbb;
+    letter-spacing: 0.1em;
+    transition: color 0.3s ease, border-color 0.3s ease;
+    border-bottom: 3px solid transparent;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .teshi-nav__item:hover { color: #222; }
+  .teshi-nav__item.is-active {
+    color: #222;
+    border-bottom-color: #222;
+  }
+
+  /* Method section */
+  .method {
+    padding: 5rem 5%;
+    max-width: 1100px;
+    margin: 0 auto;
+    scroll-margin-top: 120px;
+  }
+  .method__header {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 3rem;
+    align-items: center;
+    margin-bottom: 3rem;
+  }
+  .method__kanji {
+    font-family: 'Shippori Mincho', serif;
+    font-size: clamp(5rem, 12vw, 9rem);
+    font-weight: 800;
+    color: #222;
+    line-height: 1;
+  }
+  .method__name {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    margin: 0 0 0.8rem;
+  }
+  .method__desc {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.88rem;
+    color: #666;
+    line-height: 2.2;
+    margin: 0;
+  }
+
+  /* Wisdom */
+  .method__wisdom {
+    background: #fff;
+    border-left: 3px solid #222;
+    padding: 1.5rem 2rem;
+    margin-bottom: 3rem;
+  }
+  .method__wisdom-title {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    margin: 0 0 0.8rem;
+    color: #888;
+  }
+  .method__wisdom-text {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.88rem;
+    color: #555;
+    line-height: 2.2;
+    margin: 0;
+  }
+
+  /* Related recipes */
+  .method__recipes-title {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: #aaa;
+    margin: 0 0 1.2rem;
+  }
+  .method__recipes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .method-card {
+    transition: transform 0.4s;
+    color: inherit;
+    text-decoration: none;
+    display: block;
+  }
+  .method-card:hover { transform: translateY(-4px); }
+  .method-card__img-wrap {
+    position: relative;
+    overflow: visible;
+  }
+  .method-card__img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    display: block;
+    border: 1.5px solid #222;
+    background: #d9d4ca;
+  }
+  .method-card__img--empty {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    background: repeating-linear-gradient(45deg, #d9d4ca, #d9d4ca 6px, #c9c4ba 6px, #c9c4ba 12px);
+    border: 1.5px solid #222;
+  }
+  .method-card__kanban {
+    position: absolute;
+    top: -6px;
+    left: -0.8rem;
+    z-index: 3;
+    background: #f5f0e6;
+    border: 2px solid #222;
+    padding: 0.4em 0.4em;
+    writing-mode: vertical-rl;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #222;
+    letter-spacing: 0.12em;
+    line-height: 1;
+    white-space: nowrap;
+    box-shadow: 2px 3px 0 rgba(0,0,0,0.1);
+    max-height: 80%;
+    overflow: hidden;
+  }
+  .method-card__caption {
+    padding: 0.6rem 0 0 1rem;
+  }
+  .method-card__region {
+    font-size: 0.58rem;
+    color: #bbb;
+    letter-spacing: 0.1em;
+  }
+  .method-card__title {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    margin: 0.15rem 0 0;
+    letter-spacing: 0.03em;
+    line-height: 1.6;
+  }
+
+  /* Divider */
+  .method-divider {
+    max-width: 1100px;
+    margin: 0 auto;
+    height: 1px;
+    background: #ddd;
+  }
+
+  @media (max-width: 768px) {
+    .method__header {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      text-align: center;
+    }
+    .method__kanji { font-size: 5rem; }
+    .method__recipes {
+      grid-template-columns: 1fr;
+      max-width: 350px;
+      margin: 0 auto;
+    }
+    .teshi-nav__item {
+      padding: 0.8rem 1rem;
+      font-size: 1rem;
+    }
+  }
+</style>

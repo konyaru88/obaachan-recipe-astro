@@ -1,0 +1,620 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { getAllRecipes } from '../data/recipes';
+
+const base = import.meta.env.BASE_URL;
+
+// タイムマシン用レシピデータ：画像ありを優先、なければ全件
+const all = getAllRecipes();
+const withImg = all.filter((r: any) => r.photos?.main);
+const pool = withImg.length > 0 ? withImg : all;
+
+const tmRecipes = pool.map((r: any) => {
+  const region = r.region?.prefecture || r.grandmother?.prefecture || '';
+  const seasonArr = Array.isArray(r.season) ? r.season : [];
+  const season = seasonArr[0] ?? '';
+  const grandma = r.grandmother?.name || '';
+  const family = grandma || (region ? region.replace(/[都府県]$/, '') + 'のおばあちゃん' : '誰か');
+  const desc = (r as any).meta_description
+    || (r.story ? String(r.story).replace(/<[^>]+>/g, '').replace(/\n/g, '').slice(0, 60)
+    : `${region}から届いた家庭の味`);
+  return {
+    id: r.id,
+    name: r.title,
+    region,
+    season,
+    family,
+    img: r.photos?.main ? `${base}${r.photos.main}` : '',
+    desc,
+  };
+});
+
+const hasData = tmRecipes.length > 0;
+---
+
+<BaseLayout
+  title="タイムマシン | おばあちゃんのレシピ"
+  description="日本のどこかの食卓に、ランダムで飛ぶ。スロットを回して、おばあちゃんの手料理に出会う体験。"
+  hasAlternate={false}
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://www.obaachan-recipe.com/" },
+        { "@type": "ListItem", "position": 2, "name": "タイムマシン" }
+      ]
+    })} />
+  </Fragment>
+  <Header />
+
+  <main class="tm-page">
+    <div class="tm-page__stage">
+      <!-- 待機画面 -->
+      <section class="tm-page__idle" id="tm-idle" aria-labelledby="tm-title">
+        <p class="tm-page__subtitle">タイムマシン</p>
+        <h1 class="tm-page__title" id="tm-title">どこかの食卓へ</h1>
+        <p class="tm-page__lead">
+          ボタンを押すと、<br />
+          日本のどこかのおばあちゃんの食卓に飛びます。
+        </p>
+        {hasData ? (
+          <button type="button" class="tm-page__btn" id="tm-start-btn" data-cta="timemachine-start">飛ぶ</button>
+        ) : (
+          <p class="tm-page__empty" role="status">
+            レシピデータがまだ揃っていません。<br />
+            まずは<a href={`${base}recipes/`}>食卓一覧</a>からご覧ください。
+          </p>
+        )}
+
+        <!-- 装飾 -->
+        <div class="tm-page__doodle" style="left:8%;top:18%;width:76px;height:74px;transform:rotate(-8deg)" aria-hidden="true">
+          <svg viewBox="0 0 60 55"><ellipse cx="28" cy="32" rx="16" ry="13"/><path d="M12 28 Q4 24 6 18"/><ellipse cx="28" cy="20" rx="10" ry="3"/><path d="M26 17 Q28 10 30 17"/></svg>
+        </div>
+        <div class="tm-page__doodle" style="right:10%;top:22%;width:58px;height:62px;transform:rotate(10deg)" aria-hidden="true">
+          <svg viewBox="0 0 50 50"><path d="M25 6 Q8 28 12 36 Q18 44 25 44 Q32 44 38 36 Q42 28 25 6Z"/><rect x="18" y="30" width="14" height="8" rx="1" fill="#444" stroke="none"/></svg>
+        </div>
+        <div class="tm-page__doodle" style="left:15%;bottom:15%;width:70px;height:52px;transform:rotate(5deg)" aria-hidden="true">
+          <svg viewBox="0 0 80 65"><rect x="10" y="8" width="60" height="8" rx="2"/><rect x="5" y="16" width="70" height="25" rx="3"/><line x1="15" y1="41" x2="12" y2="55"/><line x1="65" y1="41" x2="68" y2="55"/></svg>
+        </div>
+        <div class="tm-page__doodle" style="right:12%;bottom:20%;width:55px;height:66px;transform:rotate(-5deg)" aria-hidden="true">
+          <svg viewBox="0 0 60 70"><path d="M20 8 Q30 5 40 8"/><path d="M20 8 Q15 12 12 20 L10 35"/><path d="M40 8 Q45 12 48 20 L50 35"/><path d="M10 35 Q10 55 15 65 Q30 68 45 65 Q50 55 50 35"/></svg>
+        </div>
+      </section>
+    </div>
+
+    <!-- スロット演出オーバーレイ -->
+    <div class="tm-page__slot" id="tm-slot" aria-hidden="true">
+      <span class="tm-page__slot-label">食卓を探しています…</span>
+      <div class="tm-page__slot-window">
+        <div class="tm-page__slot-reel" id="tm-slot-reel"></div>
+      </div>
+      <div class="tm-page__slot-sub" id="tm-slot-sub"></div>
+    </div>
+
+    <!-- 結果画面 -->
+    <div class="tm-page__result" id="tm-result" aria-hidden="true">
+      <span class="tm-page__result-region" id="tm-result-region"></span>
+      <div class="tm-page__result-img-wrap">
+        <span class="tm-page__result-kanban" id="tm-result-kanban"></span>
+        <img id="tm-result-img" class="tm-page__result-img" alt="" />
+      </div>
+      <h2 class="tm-page__result-title" id="tm-result-title"></h2>
+      <p class="tm-page__result-desc" id="tm-result-desc"></p>
+      <div class="tm-page__result-actions">
+        <a href="#" class="tm-page__result-btn tm-page__result-btn--primary" id="tm-result-link" data-cta="timemachine-result">この食卓を見る →</a>
+        <button type="button" class="tm-page__result-btn tm-page__result-btn--secondary" id="tm-retry-btn" data-cta="timemachine-retry">もう一度飛ぶ</button>
+      </div>
+    </div>
+
+  </main>
+
+  <Footer />
+
+  <script type="application/json" id="tm-data" set:html={JSON.stringify(tmRecipes)}></script>
+  <script is:inline define:vars={{ base, hasData }}>
+    (function() {
+      if (!hasData) return;
+
+      const RECIPES = JSON.parse(document.getElementById('tm-data')?.textContent || '[]');
+      if (RECIPES.length === 0) return;
+
+      const idle = document.getElementById('tm-idle');
+      const slotOverlay = document.getElementById('tm-slot');
+      const slotReel = document.getElementById('tm-slot-reel');
+      const slotSub = document.getElementById('tm-slot-sub');
+      const result = document.getElementById('tm-result');
+      const startBtn = document.getElementById('tm-start-btn');
+      const retryBtn = document.getElementById('tm-retry-btn');
+
+      const reducedMotion = typeof window.matchMedia === 'function'
+        && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // Simple mobile detection for perf: smaller viewport → lighter effect
+      const smallViewport = window.innerWidth < 640;
+
+      let chosen = null;
+
+      function pickRandom() {
+        return RECIPES[Math.floor(Math.random() * RECIPES.length)];
+      }
+
+      function shuffle(arr) {
+        const a = arr.slice();
+        for (let i = a.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+      }
+
+      function buildReel() {
+        slotReel.innerHTML = '';
+        chosen = pickRandom();
+        if (!chosen) return 0;
+
+        // Reel: fewer repeats on mobile / reduced motion
+        const repeats = reducedMotion ? 1 : (smallViewport ? 2 : 3);
+        const items = [];
+        for (let i = 0; i < repeats; i++) {
+          shuffle(RECIPES).forEach((r) => items.push(r));
+        }
+        items.push(chosen);
+
+        const frag = document.createDocumentFragment();
+        items.forEach((r) => {
+          const el = document.createElement('div');
+          el.className = 'tm-page__slot-item';
+          el.textContent = r.region || '───';
+          frag.appendChild(el);
+        });
+        slotReel.appendChild(frag);
+        return items.length;
+      }
+
+      function startWarp() {
+        idle.classList.add('is-hidden');
+
+        const totalItems = buildReel();
+        if (totalItems === 0) {
+          idle.classList.remove('is-hidden');
+          return;
+        }
+
+        const itemH = smallViewport ? 64 : 80;
+        const finalOffset = -(totalItems - 1) * itemH;
+        const totalDuration = reducedMotion ? 300 : (smallViewport ? 2200 : 2800);
+
+        // Reset reel position
+        slotReel.style.transition = 'none';
+        slotReel.style.transform = 'translateY(0px)';
+        // Force reflow so the next transition fires
+        void slotReel.offsetHeight;
+
+        setTimeout(() => {
+          slotOverlay.classList.add('is-active');
+          slotOverlay.setAttribute('aria-hidden', 'false');
+          slotSub.textContent = '';
+
+          if (reducedMotion) {
+            slotReel.style.transition = 'none';
+            slotReel.style.transform = `translateY(${finalOffset}px)`;
+            slotSub.textContent = `${chosen.region}・${chosen.season}。${chosen.family}さんの食卓。`;
+            setTimeout(() => {
+              slotOverlay.classList.remove('is-active');
+              slotOverlay.setAttribute('aria-hidden', 'true');
+              showResult();
+            }, 300);
+            return;
+          }
+
+          // Single CSS transition — easing mimics a slowing spin
+          slotReel.style.transition = `transform ${totalDuration}ms cubic-bezier(0.15, 0.75, 0.2, 1)`;
+          slotReel.style.transform = `translateY(${finalOffset}px)`;
+
+          // After transition ends, show caption then result
+          setTimeout(() => {
+            slotSub.textContent = `${chosen.region}・${chosen.season}。${chosen.family}さんの食卓。`;
+            setTimeout(() => {
+              slotOverlay.classList.remove('is-active');
+              slotOverlay.setAttribute('aria-hidden', 'true');
+              showResult();
+            }, smallViewport ? 500 : 800);
+          }, totalDuration + 50);
+        }, reducedMotion ? 0 : 400);
+      }
+
+      function showResult() {
+        document.getElementById('tm-result-region').textContent =
+          `${chosen.region}${chosen.season ? '・' + chosen.season : ''}。${chosen.family}さんの食卓から。`;
+        const kanban = document.getElementById('tm-result-kanban');
+        kanban.textContent = chosen.name;
+        const img = document.getElementById('tm-result-img');
+        if (chosen.img) {
+          img.src = chosen.img;
+          img.alt = chosen.name;
+          img.style.display = '';
+        } else {
+          img.style.display = 'none';
+        }
+        document.getElementById('tm-result-title').textContent = chosen.name;
+        document.getElementById('tm-result-desc').textContent = chosen.desc || '';
+        const link = document.getElementById('tm-result-link');
+        // 必ず /recipes/[id]/ へ遷移
+        link.setAttribute('href', `${base}recipes/${chosen.id}/`);
+
+        setTimeout(() => {
+          result.classList.add('is-active');
+          result.setAttribute('aria-hidden', 'false');
+        }, 80);
+      }
+
+      startBtn?.addEventListener('click', startWarp);
+      retryBtn?.addEventListener('click', () => {
+        result.classList.remove('is-active');
+        result.setAttribute('aria-hidden', 'true');
+        setTimeout(() => {
+          idle.classList.remove('is-hidden');
+          startWarp();
+        }, 300);
+      });
+    })();
+  </script>
+</BaseLayout>
+
+<style>
+  .tm-page {
+    font-family: 'Noto Sans JP', sans-serif;
+    color: #222;
+    background: #f0ece4;
+    min-height: calc(100vh - 56px);
+    position: relative;
+  }
+
+  .tm-page__stage {
+    position: relative;
+    min-height: calc(100vh - 120px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 3rem 5%;
+  }
+
+  /* Idle */
+  .tm-page__idle {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 560px;
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .tm-page__idle.is-hidden {
+    opacity: 0;
+    transform: scale(0.95);
+    pointer-events: none;
+  }
+  .tm-page__subtitle {
+    margin: 0 0 0.8rem;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.8rem;
+    color: #aaa;
+    letter-spacing: 0.2em;
+  }
+  .tm-page__title {
+    margin: 0 0 1.2rem;
+    font-family: 'Shippori Mincho', serif;
+    font-size: clamp(2rem, 5vw, 3.8rem);
+    font-weight: 800;
+    line-height: 1.3;
+    letter-spacing: 0.1em;
+  }
+  .tm-page__lead {
+    margin: 0 0 2.8rem;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.9rem;
+    line-height: 2;
+    color: #777;
+  }
+  .tm-page__btn {
+    display: inline-block;
+    padding: 1.1rem 3.5rem;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    color: #f0ece4;
+    background: #222;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.3s ease, transform 0.15s ease;
+  }
+  .tm-page__btn:hover { opacity: 0.85; }
+  .tm-page__btn:active { transform: translateY(1px); }
+  .tm-page__btn:focus-visible {
+    outline: 2px solid #222;
+    outline-offset: 3px;
+  }
+
+  .tm-page__empty {
+    margin: 0;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.88rem;
+    color: #888;
+    line-height: 2;
+  }
+  .tm-page__empty a {
+    color: #222;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .tm-page__doodle {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0.18;
+  }
+  .tm-page__doodle svg {
+    width: 100%;
+    height: 100%;
+    fill: none;
+    stroke: #444;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* Slot overlay */
+  .tm-page__slot {
+    position: fixed;
+    inset: 0;
+    z-index: 500;
+    background: #222;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+  }
+  .tm-page__slot.is-active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .tm-page__slot-label {
+    margin-bottom: 1rem;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.75rem;
+    color: #888;
+    letter-spacing: 0.2em;
+  }
+  .tm-page__slot-window {
+    width: 320px;
+    height: 80px;
+    margin-bottom: 0.8rem;
+    overflow: hidden;
+    position: relative;
+    border: 2px solid rgba(255, 255, 255, 0.12);
+  }
+  .tm-page__slot-reel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    will-change: transform;
+  }
+  .tm-page__slot-item {
+    height: 80px;
+    flex: 0 0 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+  }
+  .tm-page__slot-sub {
+    min-height: 1.4em;
+    font-size: 0.72rem;
+    color: #aaa;
+    letter-spacing: 0.14em;
+    font-family: 'Shippori Mincho', serif;
+  }
+
+  /* Result */
+  .tm-page__result {
+    position: fixed;
+    inset: 0;
+    z-index: 600;
+    background: #f0ece4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 5rem 5% 2rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.7s ease;
+    overflow-y: auto;
+  }
+  .tm-page__result.is-active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .tm-page__result-region {
+    margin-bottom: 0.9rem;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.76rem;
+    color: #888;
+    letter-spacing: 0.18em;
+    text-align: center;
+  }
+  .tm-page__result-img-wrap {
+    position: relative;
+    width: 90%;
+    max-width: 480px;
+    margin-bottom: 1.4rem;
+  }
+  .tm-page__result-img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    display: block;
+    border: 2px solid #222;
+    opacity: 0;
+    transition: opacity 0.8s ease 0.2s;
+  }
+  .tm-page__result.is-active .tm-page__result-img { opacity: 1; }
+  .tm-page__result-kanban {
+    position: absolute;
+    top: 1rem;
+    left: -0.8rem;
+    z-index: 3;
+    padding: 0.55em 0.5em;
+    background: #f5f0e6;
+    border: 2px solid #222;
+    writing-mode: vertical-rl;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    line-height: 1;
+    white-space: nowrap;
+    box-shadow: 2px 3px 0 rgba(0, 0, 0, 0.12);
+    max-height: 75%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    opacity: 0;
+    transition: opacity 0.6s ease 0.6s;
+  }
+  .tm-page__result.is-active .tm-page__result-kanban { opacity: 1; }
+  .tm-page__result-title {
+    margin: 0 0 0.5rem;
+    font-family: 'Shippori Mincho', serif;
+    font-size: clamp(1.3rem, 3vw, 2rem);
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    text-align: center;
+    color: #222;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.6s ease 0.8s, transform 0.6s ease 0.8s;
+  }
+  .tm-page__result.is-active .tm-page__result-title {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .tm-page__result-desc {
+    margin: 0 auto 1.8rem;
+    max-width: 460px;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.88rem;
+    line-height: 1.9;
+    color: #777;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.6s ease 1s;
+  }
+  .tm-page__result.is-active .tm-page__result-desc { opacity: 1; }
+  .tm-page__result-actions {
+    display: flex;
+    gap: 0.9rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.6s ease 1.2s;
+  }
+  .tm-page__result.is-active .tm-page__result-actions { opacity: 1; }
+  .tm-page__result-btn {
+    display: inline-block;
+    padding: 0.85rem 2.2rem;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.84rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.25s ease, color 0.25s ease, opacity 0.25s ease;
+  }
+  .tm-page__result-btn--primary {
+    background: #222;
+    color: #f0ece4;
+    border: 1.5px solid #222;
+  }
+  .tm-page__result-btn--primary:hover { opacity: 0.85; }
+  .tm-page__result-btn--secondary {
+    background: transparent;
+    color: #222;
+    border: 1.5px solid #222;
+  }
+  .tm-page__result-btn--secondary:hover {
+    background: #222;
+    color: #f0ece4;
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .tm-page__idle,
+    .tm-page__slot,
+    .tm-page__result,
+    .tm-page__result-img,
+    .tm-page__result-kanban,
+    .tm-page__result-title,
+    .tm-page__result-desc,
+    .tm-page__result-actions {
+      transition: opacity 0.2s ease !important;
+      transform: none !important;
+    }
+    .tm-page__slot-reel {
+      transition: none !important;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .tm-page__stage {
+      padding: 2rem 5%;
+      min-height: calc(100vh - 100px);
+    }
+    .tm-page__doodle {
+      opacity: 0.12;
+      transform: scale(0.7) !important;
+    }
+    .tm-page__title { line-height: 1.5; }
+    .tm-page__btn {
+      padding: 1rem 2.5rem;
+      font-size: 0.9rem;
+    }
+
+    .tm-page__slot-window {
+      width: 260px;
+      height: 64px;
+    }
+    .tm-page__slot-item {
+      height: 64px;
+      flex: 0 0 64px;
+      font-size: 1.3rem;
+    }
+
+    .tm-page__result {
+      padding: 4rem 5% 2rem;
+    }
+    .tm-page__result-kanban {
+      font-size: 0.9rem;
+      left: -0.6rem;
+    }
+    .tm-page__result-btn {
+      padding: 0.8rem 1.6rem;
+      font-size: 0.78rem;
+    }
+  }
+</style>

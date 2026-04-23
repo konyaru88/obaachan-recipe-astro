@@ -2,60 +2,97 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import RecipeCard from '../components/RecipeCard.astro';
 import { getAllRecipes } from '../data/recipes';
 
 const base = import.meta.env.BASE_URL;
 const allRecipes = getAllRecipes();
-const latest = [...allRecipes]
-  .sort((a, b) => b.meta.created_at.localeCompare(a.meta.created_at))
-  .slice(0, 6);
 
-// 地域ごとのレシピ数を集計（ヒートマップ用）
-const regionRecipeCount: Record<string, number> = {};
-for (const r of allRecipes) {
-  const area = r.region?.area ?? '';
-  if (area) regionRecipeCount[area] = (regionRecipeCount[area] ?? 0) + 1;
-}
-
-// タイムマシン用：全レシピIDの配列
-const recipeIds = allRecipes.map((r: any) => r.id);
-// タイムマシン用：画像ありレシピのみ（フラッシュ演出用）
-const recipesWithImages = allRecipes
+const withPhotos = allRecipes
   .filter((r: any) => r.photos?.main)
-  .map((r: any) => ({ id: r.id, img: r.photos.main }));
+  .sort((a: any, b: any) => b.meta.created_at.localeCompare(a.meta.created_at));
 
-const grandmaTags = [
-  { label: 'コトコト煮物おばあちゃん', tag: '煮物' },
-  { label: '毎日ごはんおばあちゃん', tag: '日常のごはん' },
-  { label: '山菜採りおばあちゃん', tag: '山菜' },
-  { label: 'お正月おばあちゃん', tag: 'お正月' },
-  { label: '郷土料理おばあちゃん', tag: '郷土料理' },
-  { label: 'お惣菜名人', tag: '家庭料理' },
-  { label: '常備菜の達人', tag: '常備菜' },
-  { label: '保存食おばあちゃん', tag: '保存食' },
-  { label: '春の味覚おばあちゃん', tag: '春の味覚' },
-];
+const latest = withPhotos.slice(0, 6);
 
-const categories = [
-  { img: `${base}assets/images/categories/shirumono.png`, label: '汁物' },
-  { img: `${base}assets/images/categories/shusai.png`,   label: '主菜' },
-  { img: `${base}assets/images/categories/fukusai.png`,   label: '副菜' },
-  { img: `${base}assets/images/categories/tsukemono.png`, label: '漬物' },
-  { img: `${base}assets/images/categories/gohanmono.png`, label: 'ご飯もの' },
-  { img: `${base}assets/images/categories/oyatsu.png`,    label: 'おやつ' },
-];
+// ヒーロースライダー用：画像ありの最新3件
+const sliderRecipes = withPhotos.slice(0, 3).map((r: any, idx: number) => {
+  const prefecture = r.grandmother?.prefecture || r.region?.prefecture || '';
+  const seasonArr = Array.isArray(r.season) ? r.season : [];
+  const season = seasonArr[0] ?? '';
+  const grandmaName = r.grandmother?.name || '';
+  const caption = prefecture
+    ? `${prefecture}${season ? '・' + season : ''}。${grandmaName ? grandmaName + 'さん' : '誰か'}の食卓から。`
+    : `${r.title}`;
+  const num = String(idx + 1).padStart(2, '0');
+  return {
+    id: r.id,
+    title: r.title,
+    img: r.photos.main,
+    prefecture,
+    num: `#${num}`,
+    tag: `#${num} — ${prefecture}`,
+    caption,
+  };
+});
 
-const regionEmoji: Record<string, string> = {
-  hokkaido: '🦀', tohoku: '🍎', kanto: '🍜', hokuriku: '🦀',
-  koshinetsu: '⛰️', tokai: '🏯', kinki: '🦌', chugoku: '🐙',
-  shikoku: '🍊', kyushu: '🌋',
+// 食卓カード（table-grid）：最新6件を「あの◯の、◯◯」形式で
+const seasonLabel = (s: string): string => {
+  if (!s) return 'ある日';
+  if (s.includes('春')) return '春';
+  if (s.includes('夏')) return '夏';
+  if (s.includes('秋')) return '秋';
+  if (s.includes('冬')) return '冬';
+  return 'ある日';
 };
-const regionLabels: Record<string, string> = {
-  hokkaido: '北海道', tohoku: '東北', kanto: '関東', hokuriku: '北陸',
-  koshinetsu: '甲信越', tokai: '東海', kinki: '近畿', chugoku: '中国',
-  shikoku: '四国', kyushu: '九州・沖縄',
-};
+const tableCards = latest.map((r: any, i: number) => {
+  const prefecture = r.region?.prefecture || r.grandmother?.prefecture || '';
+  const grandmaName = r.grandmother?.name || '';
+  const seasonArr = Array.isArray(r.season) ? r.season : [];
+  const season = seasonLabel(seasonArr[0] || '');
+  const num = String(i + 2).padStart(2, '0');
+  return {
+    id: r.id,
+    title: r.title,
+    kanban: `あの${season}の、${r.title}`,
+    num: `#${num}`,
+    tag: `#${num} — ${prefecture}`,
+    caption: prefecture
+      ? `${prefecture}・${season}。${grandmaName ? grandmaName + 'さん' : '誰か'}の食卓から。`
+      : r.title,
+    img: r.photos.main,
+    prefecture,
+  };
+});
+
+// 手仕事 6漢字：調理法ラベル＋リンク先＋代表画像
+const teshigotoPool = withPhotos.slice(0, 18).map((r: any) => r.photos.main);
+const teshigotoItems = [
+  { kanji: '煮', name: 'ことこと、煮る', desc: 'おばあちゃんの煮物には時計がいらない。\n蓋の音と湯気の匂いが、頃合いを教えてくれる。', href: `${base}teshigoto/#ni`, cta: 'teshigoto-ni' },
+  { kanji: '焼', name: 'じっくり、焼く', desc: '何度もひっくり返さない。\nじっと待つことが、おいしい焦げ目をつくる。', href: `${base}teshigoto/#yaki`, cta: 'teshigoto-yaki' },
+  { kanji: '炒', name: 'さっと、炒める', desc: '強火で一気に。鍋を振る音が\n台所に響くと、晩ごはんの合図。', href: `${base}teshigoto/#itame`, cta: 'teshigoto-itame' },
+  { kanji: '揚', name: 'からりと、揚げる', desc: '菜箸で泡を見て、音を聞く。\n温度計のない時代から変わらない見極め。', href: `${base}teshigoto/#age`, cta: 'teshigoto-age' },
+  { kanji: '和', name: 'やさしく、和える', desc: '崩さないように、でもしっかり馴染むように。\n指先の加減が、味の決め手。', href: `${base}teshigoto/#ae`, cta: 'teshigoto-ae' },
+  { kanji: '漬', name: 'じっくり、漬ける', desc: '塩をして、重石をして、あとは待つだけ。\n時間がいちばんの調味料。', href: `${base}teshigoto/#tsuke`, cta: 'teshigoto-tsuke' },
+].map((item, i) => ({ ...item, img: teshigotoPool[i % teshigotoPool.length] || '' }));
+
+// シーンで選ぶ 7カード
+const sceneBase = `${base}scene/`;
+const scenePool = withPhotos.slice(0, 14).map((r: any) => r.photos.main);
+const sceneCards = [
+  { slug: 'kotokoto', name: 'ことこと系', quote: '時間が染みてる', examples: '煮物、佃煮、汁物 ── 長く火にかけてる系', num: '#01' },
+  { slug: 'chachatto', name: 'ちゃちゃっと系', quote: '名前ないけど、よく食卓に出るやつ', examples: '冷蔵庫の残りで作る名もなき炒め物・和え物', num: '#02' },
+  { slug: 'hozon', name: '保存・仕込み系', quote: '未来の自分のための料理', examples: '漬物、梅干し、味噌、干しもの', num: '#03' },
+  { slug: 'gochiso', name: 'ごちそうの日系', quote: '人が集まる日の味', examples: '天ぷら、ちらし寿司、お赤飯', num: '#04' },
+  { slug: 'oyatsu', name: 'おやつ系', quote: '買うものじゃなくて、作るもの', examples: '蒸しパン、大学芋、寒天', num: '#05' },
+  { slug: 'omoide', name: '思い出系', quote: '料理じゃなくて、「シーン」で切る', examples: '風邪のとき、帰省の定番、朝ごはんの一品', num: '#06' },
+  { slug: 'nazo', name: '謎の一品系', quote: '「あの甘いやつ」「あの葉っぱのやつ」', examples: '名前がない。家によって違う。レシピが存在しない。', num: '#07', mystery: true },
+].map((item, i) => ({ ...item, img: scenePool[i % scenePool.length] || '' }));
+
+// 機能3カード
+const featureCards = [
+  { name: '今日の食卓', desc: '3つの質問に答えるだけで、\n今の気分にぴったりの\nおばあちゃんの食卓が見つかる。', linkText: '診断してみる →', href: `${base}match/`, cta: 'feature-match', icon: 'match' },
+  { name: 'どこかの食卓へ', desc: 'ボタンひとつで、\n日本のどこかのおばあちゃんの\n食卓にタイムスリップ。', linkText: '飛んでみる →', href: `${base}timemachine/`, cta: 'feature-timemachine', icon: 'timemachine' },
+  { name: 'みんなの食卓', desc: 'あなたのおばあちゃんの\nレシピやエピソードを\n投稿・共有できる掲示板。', linkText: '投稿を見る →', href: `${base}board/`, cta: 'feature-board', icon: 'board' },
+];
 ---
 
 <BaseLayout
@@ -99,7 +136,7 @@ const regionLabels: Record<string, string> = {
         },
         {
           "@type": "ItemList",
-          "name": "届いたばかりの味",
+          "name": "食卓",
           "itemListElement": latest.map((r, i) => ({
             "@type": "ListItem",
             "position": i + 1,
@@ -113,166 +150,253 @@ const regionLabels: Record<string, string> = {
 
   <main id="main" class="home">
 
-    <!-- ヒーローセクション -->
-    <section class="hero" aria-label="キャッチコピーと検索">
-      <div class="hero__bg" aria-hidden="true"></div>
-      <div class="hero__ripple" aria-hidden="true"></div>
-      <div class="hero__ripple" aria-hidden="true"></div>
-      <div class="hero__ripple" aria-hidden="true"></div>
-      <div class="hero__ripple" aria-hidden="true"></div>
-      <div class="hero__content">
-        <h1 class="hero__title">
-          <span class="hero__line" style="--line-i:0">その一口で、</span><br />
-          <span class="hero__line" style="--line-i:1">私たちは過去へ旅をする。</span>
-        </h1>
-        <p class="hero__lead">
-          <span class="hero__line" style="--line-i:2">レシピは単なる作り方じゃない。</span><br />
-          <span class="hero__line" style="--line-i:3">誰かの暮らしと愛情の記録だ。</span><br />
-          <span class="hero__line" style="--line-i:4">使い込まれた鍋の音、</span><br />
-          <span class="hero__line" style="--line-i:5">まな板の傷、台所の匂い。</span><br />
-          <span class="hero__line" style="--line-i:6">これは、日本中の</span><br />
-          <span class="hero__line" style="--line-i:7">「あの日の食卓」を次世代へつなぐ、</span><br />
-          <span class="hero__line" style="--line-i:8">最も温かいタイムマシン。</span>
-        </p>
-        <p class="hero__site-name"><span class="hero__line" style="--line-i:9">── おばあちゃんのレシピ</span></p>
-        <!-- 検索はヘッダーに集約 -->
-      </div>
-    </section>
+    <!-- ヒーロー（pattern-c：巨大装飾＋中央フォトスライダー） -->
+    <section class="home-hero" aria-label="ヒーロー">
+      <div class="home-hero__giant-left" aria-hidden="true">食<br />卓</div>
+      <div class="home-hero__giant-right" aria-hidden="true">お<br />ば<br />あ<br />ち<br />ゃ<br />ん<br />の</div>
 
-    <div class="hero__divider" aria-hidden="true"><div class="hero__divider-line"></div></div>
-
-    <!-- 新着レシピ -->
-    <section class="home__latest" aria-labelledby="latest-heading">
-      <div class="container">
-        <div class="section-header">
-          <h2 id="latest-heading" class="section-title">届いたばかりの味</h2>
-        </div>
-        <div class="recipe-grid recipe-grid--3">
-          {latest.map((recipe) => <RecipeCard recipe={recipe} />)}
-        </div>
-        <div class="section-footer">
-          <a href={`${base}recipes/`} class="btn btn--outline" data-cta="view-all-recipes">すべてのレシピを見る</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- wave -->
-    <div class="wave-divider wave-divider--cream-to-green">
-      <svg viewBox="0 0 1440 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0,20 C240,40 480,0 720,20 C960,40 1200,0 1440,20 L1440,40 L0,40 Z" fill="#F5F3EF"/>
-      </svg>
-    </div>
-
-    <!-- おばあちゃんから探す / レシピから探す -->
-    <section class="home__explore" aria-labelledby="explore-heading">
-      <div class="container">
-        <div class="explore-tabs">
-          <button class="explore-tab explore-tab--active" data-tab="grandma">
-            おばあちゃんから探す
-          </button>
-          <button class="explore-tab" data-tab="recipe">
-            カテゴリーから探す
-          </button>
-        </div>
-
-        <div class="explore-panel" id="panel-grandma">
-          <div class="hashtag-cloud">
-            {grandmaTags.map(({ label, tag }) => (
-              <a href={`${base}recipes/?tag=${encodeURIComponent(tag)}`} class="hashtag-btn" data-cta="hashtag-filter">{label}</a>
+      {sliderRecipes.length > 0 && (
+        <div class="home-hero__photo">
+          <div class="home-hero__slider" id="hero-slider" aria-roledescription="carousel" aria-label="最近届いたレシピ">
+            <div class="home-hero__slides" id="hero-slides">
+              {sliderRecipes.map((s, i) => (
+                <a
+                  href={`${base}recipes/${s.id}/`}
+                  class="home-hero__slide"
+                  data-num={s.tag}
+                  data-title={s.caption}
+                  data-index={i}
+                  data-cta="hero-slider"
+                  data-recipe-id={s.id}
+                  data-recipe-name={s.title}
+                  data-region={s.prefecture}
+                  aria-label={`${s.title}のレシピを見る（${s.prefecture}）`}
+                  role="group"
+                  aria-roledescription="slide"
+                >
+                  <img src={`${base}${s.img}`} alt={s.title} loading={i === 0 ? 'eager' : 'lazy'} width="640" height="854" />
+                </a>
+              ))}
+            </div>
+          </div>
+          <div class="home-hero__dots" role="tablist" aria-label="スライダーナビゲーション">
+            {sliderRecipes.map((_, i) => (
+              <button
+                class={`home-hero__dot${i === 0 ? ' is-active' : ''}`}
+                data-index={i}
+                aria-label={`${i + 1}番目のスライドへ`}
+                aria-selected={i === 0 ? 'true' : 'false'}
+                role="tab"
+              ></button>
             ))}
           </div>
-        </div>
-
-        <div class="explore-panel" id="panel-recipe" style="display:none">
-          <div class="category-grid">
-            {categories.map((c) => (
-              <a href={`${base}recipes/?category=${encodeURIComponent(c.label)}`} class="category-btn" data-cta="category-filter">
-                <img class="category-btn__img" src={c.img} alt={c.label} loading="lazy" />
-                <span class="category-btn__label">{c.label}</span>
-              </a>
-            ))}
+          <div class="home-hero__info" id="hero-info">
+            <span class="home-hero__info-num">{sliderRecipes[0].tag}</span>
+            <p class="home-hero__info-title">{sliderRecipes[0].caption}</p>
           </div>
         </div>
-      </div>
+      )}
+
+      <!-- おばあちゃん言葉（装飾） -->
+      <span class="home-hero__kotoba" style="top:8%;left:2%;font-size:clamp(1.2rem,2.5vw,2rem);transform:rotate(-3deg)" aria-hidden="true">はよ食べ</span>
+      <span class="home-hero__kotoba" style="top:22%;right:18%;font-size:clamp(0.9rem,1.8vw,1.4rem);transform:rotate(2deg)" aria-hidden="true">気持ち程度でええで</span>
+      <span class="home-hero__kotoba" style="bottom:30%;left:1%;font-size:clamp(1rem,2vw,1.6rem);transform:rotate(-1deg)" aria-hidden="true">ひたひたになるまで</span>
+      <span class="home-hero__kotoba" style="bottom:8%;right:3%;font-size:clamp(1.1rem,2.2vw,1.8rem);transform:rotate(3deg)" aria-hidden="true">適当でええんよ</span>
+      <span class="home-hero__kotoba" style="top:55%;right:4%;font-size:clamp(1rem,1.8vw,1.4rem);transform:rotate(-4deg)" aria-hidden="true">目分量でよろし</span>
+      <span class="home-hero__kotoba" style="top:15%;left:25%;font-size:clamp(0.85rem,1.5vw,1.2rem);transform:rotate(3deg)" aria-hidden="true">塩はひとつまみな</span>
+      <span class="home-hero__kotoba" style="bottom:45%;left:12%;font-size:clamp(0.75rem,1.3vw,1rem);transform:rotate(-3deg)" aria-hidden="true">ぐるっと3周な</span>
+      <span class="home-hero__kotoba" style="top:82%;right:15%;font-size:clamp(0.9rem,1.5vw,1.2rem);transform:rotate(1deg)" aria-hidden="true">手のひらくらい</span>
     </section>
 
-    <!-- wave -->
-    <div class="wave-divider wave-divider--green-to-blue">
-      <svg viewBox="0 0 1440 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0,20 C240,0 480,40 720,20 C960,0 1200,40 1440,20 L1440,40 L0,40 Z" fill="#FAFAF8"/>
-      </svg>
-    </div>
-
-    <!-- 地域で探す（マップ風） -->
-    <section class="home__regions-map" aria-labelledby="regions-heading">
-      <div class="container">
-        <div class="section-header">
-          <h2 id="regions-heading" class="section-title">土地の記憶をたどる</h2>
-        </div>
-        <div class="japan-map-container">
-          <div class="japan-map-wrapper" id="japan-map-wrapper">
-            <!-- SVG will be loaded here via fetch -->
-          </div>
-          <div class="japan-map-tooltip" id="map-tooltip" style="display:none"></div>
-        </div>
-        <div class="section-footer">
-          <a href={`${base}regions/`} class="btn btn--outline" data-cta="view-all-regions">地域一覧をすべて見る</a>
-        </div>
+    <!-- 食卓（七八風table-grid） -->
+    <section class="home-section" aria-labelledby="shokutaku-heading">
+      <div class="home-section__header">
+        <span class="home-section__en" id="shokutaku-heading">食卓</span>
+        <span class="home-section__jp">だれかのおばあちゃんの食卓の記憶</span>
       </div>
-    </section>
-
-    <!-- wave -->
-    <div class="wave-divider wave-divider--blue-to-warm">
-      <svg viewBox="0 0 1440 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0,20 C240,40 480,0 720,20 C960,40 1200,0 1440,20 L1440,40 L0,40 Z" fill="#F5F3EF"/>
-      </svg>
-    </div>
-
-    <!-- タイムマシンセクション -->
-    <section class="home__timemachine" aria-labelledby="timemachine-heading">
-      <div class="container" style="text-align:center; padding: 5rem 1rem;">
-        <h2 id="timemachine-heading" style="font-family:var(--font-serif); font-size:clamp(1.5rem,3vw,2rem); font-weight:400; color:var(--color-text-primary); margin-bottom:1.5rem; letter-spacing:0.05em;">どこかの食卓へ</h2>
-        <p style="font-family:var(--font-serif); font-size:0.95rem; color:var(--color-text-muted); line-height:2; margin-bottom:2.5rem;">
-          何が出てくるかはわからない。<br />
-          ランダムに、誰かの記憶の味に出会う。
-        </p>
-        <div class="tm-btn-wrapper">
-          <a href="#" id="timemachine-btn" class="btn btn--outline tm-btn-combined" data-cta="timemachine" style="padding:1rem 3.5rem; font-family:var(--font-sans); font-size:0.8rem; letter-spacing:0.15em;">
-            <span class="tm-clock-icon" aria-hidden="true"></span>
-            タイムマシンに乗る
+      <div class="home-table-grid">
+        {tableCards.map((c) => (
+          <a
+            href={`${base}recipes/${c.id}/`}
+            class="home-table-card"
+            data-cta="table-card"
+            data-recipe-id={c.id}
+            data-recipe-name={c.title}
+            data-region={c.prefecture}
+            aria-label={`${c.title}のレシピを見る（${c.prefecture}）`}
+          >
+            <div class="home-table-card__img-wrap">
+              <img src={`${base}${c.img}`} alt={c.title} class="home-table-card__img" loading="lazy" width="640" height="854" />
+              <span class="home-table-card__kanban">{c.kanban}</span>
+              <span class="home-table-card__num">{c.num}</span>
+            </div>
+            <div class="home-table-card__caption">
+              <span class="home-table-card__tag">{c.tag}</span>
+              <p class="home-table-card__title">{c.caption}</p>
+            </div>
           </a>
-          <span class="tm-gogogo tm-gogogo--1" aria-hidden="true">ゴゴゴゴ…</span>
-          <span class="tm-gogogo tm-gogogo--2" aria-hidden="true">ゴゴゴ…</span>
-          <span class="tm-gogogo tm-gogogo--3" aria-hidden="true">ゴ ゴ ゴ</span>
-        </div>
+        ))}
+      </div>
+      <div class="home-more-wrap">
+        <a href={`${base}recipes/`} class="home-more-btn" data-cta="view-all-recipes">すべての食卓を見る →</a>
       </div>
     </section>
 
-    <!-- サービスの想い -->
-    <section class="home__about" aria-labelledby="about-heading">
-      <div class="container">
-        <div class="about-block">
-          <div class="about-block__deco" aria-hidden="true"><img src={`${base}assets/images/grandma-icon.png`} alt="" class="about-block__deco-img" /></div>
-          <h2 id="about-heading" class="about-block__title">この活動について</h2>
-          <p class="about-block__text">
-            計量カップは使わない。<br />
-            タイマーも使わない。
+    <!-- 手仕事 -->
+    <section class="home-teshigoto" aria-labelledby="teshigoto-heading">
+      <div class="home-teshigoto__header">
+        <span class="home-teshigoto__en" id="teshigoto-heading">手仕事</span>
+      </div>
+      <p class="home-teshigoto__lead">
+        手で覚えた、台所の知恵。<br />
+        六つの台所仕事が、食卓をつくる。
+      </p>
+      <div class="home-teshigoto__grid">
+        {teshigotoItems.map((it) => (
+          <a href={it.href} class="home-teshigoto__item" data-cta={it.cta} aria-label={`${it.name}のレシピを見る`}>
+            <div class="home-teshigoto__kanji">{it.kanji}</div>
+            {it.img && <img src={`${base}${it.img}`} alt="" class="home-teshigoto__img" loading="lazy" width="200" height="200" />}
+            <p class="home-teshigoto__name">{it.name}</p>
+            <p class="home-teshigoto__desc" set:html={it.desc.replace(/\n/g, '<br>')}></p>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- シーンで選ぶ -->
+    <section class="home-scene" aria-labelledby="scene-heading">
+      <div class="home-scene__header">
+        <span class="home-scene__en">食卓の気分</span>
+        <h2 class="home-scene__title" id="scene-heading">食卓の気分で選ぶ</h2>
+      </div>
+      <p class="home-scene__lead">
+        「何を作ろう」じゃなくて、<br />
+        「あの感じのやつ」で。
+      </p>
+
+      <div class="home-scene__row-top">
+        {sceneCards.slice(0, 3).map((c) => (
+          <a
+            href={`${sceneBase}#${c.slug}`}
+            class={`home-scene__card${c.mystery ? ' home-scene__card--mystery' : ''}`}
+            data-cta={`scene-${c.slug}`}
+            aria-label={`${c.name}のレシピを見る`}
+          >
+            <div class="home-scene__card-visual">
+              {c.img && <img src={`${base}${c.img}`} alt="" loading="lazy" width="640" height="800" />}
+              <span class="home-scene__card-num">{c.num}</span>
+              <div class="home-scene__card-overlay">
+                <h3 class="home-scene__card-name">{c.name}</h3>
+                <p class="home-scene__card-quote">{c.quote}</p>
+              </div>
+            </div>
+            <p class="home-scene__card-examples">{c.examples}</p>
+          </a>
+        ))}
+      </div>
+
+      <div class="home-scene__row-bottom">
+        {sceneCards.slice(3).map((c) => (
+          <a
+            href={`${sceneBase}#${c.slug}`}
+            class={`home-scene__card${c.mystery ? ' home-scene__card--mystery' : ''}`}
+            data-cta={`scene-${c.slug}`}
+            aria-label={`${c.name}のレシピを見る`}
+          >
+            <div class="home-scene__card-visual">
+              {c.img && <img src={`${base}${c.img}`} alt="" loading="lazy" width="400" height="400" />}
+              <span class="home-scene__card-num">{c.num}</span>
+              <div class="home-scene__card-overlay">
+                <h3 class="home-scene__card-name">{c.name}</h3>
+                <p class="home-scene__card-quote">{c.quote}</p>
+              </div>
+            </div>
+            <p class="home-scene__card-examples">{c.examples}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- 機能（食卓を楽しむ） -->
+    <section class="home-features" aria-labelledby="features-heading">
+      <div class="home-features__header">
+        <h2 class="home-features__title" id="features-heading">食卓を楽しむ</h2>
+        <span class="home-features__sub">いろんな使い方で、おばあちゃんの味に出会う</span>
+      </div>
+      <div class="home-features__grid">
+        {featureCards.map((f) => (
+          <a href={f.href} class="home-feature-card" data-cta={f.cta} aria-label={f.name}>
+            <span class="home-feature-card__icon" aria-hidden="true">
+              {f.icon === 'match' && (
+                <svg viewBox="0 0 50 50" width="48" height="48" fill="none" stroke="#444" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="25" cy="22" r="12"/>
+                  <path d="M18 34 Q25 38 32 34"/>
+                  <path d="M20 34 L17 46"/>
+                  <path d="M30 34 L33 46"/>
+                  <path d="M22 18 Q25 14 28 18" opacity="0.4"/>
+                  <path d="M20 22 Q25 27 30 22" opacity="0.3"/>
+                </svg>
+              )}
+              {f.icon === 'timemachine' && (
+                <svg viewBox="0 0 50 55" width="48" height="52" fill="none" stroke="#444" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <ellipse cx="25" cy="32" rx="16" ry="13"/>
+                  <path d="M9 28 Q2 24 4 18"/>
+                  <path d="M41 28 Q48 24 46 18"/>
+                  <ellipse cx="25" cy="20" rx="10" ry="3"/>
+                  <path d="M23 17 Q25 8 27 17"/>
+                  <path d="M20 15 Q22 5 24 15" opacity="0.4"/>
+                  <path d="M26 15 Q28 5 30 15" opacity="0.4"/>
+                </svg>
+              )}
+              {f.icon === 'board' && (
+                <svg viewBox="0 0 50 50" width="48" height="48" fill="none" stroke="#444" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="8" y="6" width="34" height="40" rx="2"/>
+                  <line x1="15" y1="16" x2="35" y2="16"/>
+                  <line x1="15" y1="23" x2="35" y2="23"/>
+                  <line x1="15" y1="30" x2="28" y2="30"/>
+                </svg>
+              )}
+            </span>
+            <h3 class="home-feature-card__name">{f.name}</h3>
+            <p class="home-feature-card__desc" set:html={f.desc.replace(/\n/g, '<br>')}></p>
+            <span class="home-feature-card__link">{f.linkText}</span>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- About（ダーク2カラム） -->
+    <section class="home-about" aria-labelledby="about-heading">
+      <span class="home-about__bg-text" aria-hidden="true"></span>
+      <div class="home-about__inner">
+        <div class="home-about__left">
+          <h2 class="home-about__big" id="about-heading">
+            忘れたくない、<br />ごはん。
+          </h2>
+        </div>
+        <div class="home-about__right">
+          <p class="home-about__text">
+            台所に立つ背中を、<br />
+            ただ眺めていた頃がありました。
           </p>
-          <p class="about-block__text">
-            「だいたいこのくらい」と<br />
-            手のひらで量り、<br />
-            「昔からこうやってきた」と<br />
-            火加減を調整する。
+          <p class="home-about__text">
+            「ちょっと味見してごらん」と<br />
+            差し出された小皿のあの味。<br />
+            分量は「このくらい」、<br />
+            火加減は「いい匂いがしてきたら」。
           </p>
-          <p class="about-block__text">
-            その曖昧さの中に、<br />
-            何十年もかけて磨かれた知恵がある。
+          <p class="home-about__text">
+            書き留めておけばよかったと、<br />
+            気づいたのはずいぶん後のことでした。
           </p>
-          <p class="about-block__text">
-            残したいのはレシピじゃない。<br />
-            一緒に食卓を囲んだ、あの時間。
+          <p class="home-about__text">
+            おばあちゃんのレシピは、<br />
+            誰かの台所に確かにあった味を<br />
+            ひとつずつ集めていく場所です。
           </p>
-          <a href={base + 'support/'} class="about-block__btn" data-cta="about">about</a>
+          <div class="home-about__btns">
+            <a href={`${base}about/`} class="home-about__btn home-about__btn--primary" data-cta="about">もっと読む →</a>
+          </div>
         </div>
       </div>
     </section>
@@ -281,152 +405,706 @@ const regionLabels: Record<string, string> = {
 
   <Footer />
 
-  <!-- タブ切り替え・地図読み込みJS -->
-  <script type="application/json" id="recipe-images-data" set:html={JSON.stringify(recipesWithImages)}></script>
-  <script define:vars={{ regionRecipeCount, base, recipeIds }}>
-    // タブ切り替え
-    document.querySelectorAll('.explore-tab').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.explore-tab').forEach((b) => b.classList.remove('explore-tab--active'));
-        btn.classList.add('explore-tab--active');
-        const tab = btn.dataset.tab;
-        document.querySelectorAll('.explore-panel').forEach((p) => {
-          p.style.display = p.id === `panel-${tab}` ? '' : 'none';
+  <!-- ヒーロースライダーJS -->
+  <script>
+    (function() {
+      const slider = document.getElementById('hero-slider');
+      const slidesEl = document.getElementById('hero-slides');
+      const info = document.getElementById('hero-info');
+      if (!slider || !slidesEl) return;
+
+      const slides = slidesEl.querySelectorAll('.home-hero__slide');
+      const dots = document.querySelectorAll('.home-hero__dot');
+      if (slides.length <= 1) return;
+
+      let current = 0;
+      let timerId = null;
+      const INTERVAL = 5000;
+
+      function goTo(i) {
+        current = (i + slides.length) % slides.length;
+        slidesEl.style.transform = `translateX(-${current * 100}%)`;
+        dots.forEach((d, j) => {
+          d.classList.toggle('is-active', j === current);
+          d.setAttribute('aria-selected', j === current ? 'true' : 'false');
+        });
+        const slide = slides[current];
+        const numEl = info?.querySelector('.home-hero__info-num');
+        const titleEl = info?.querySelector('.home-hero__info-title');
+        if (numEl) numEl.textContent = slide.dataset.num || '';
+        if (titleEl) titleEl.textContent = slide.dataset.title || '';
+      }
+
+      function start() {
+        stop();
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        timerId = setInterval(() => goTo(current + 1), INTERVAL);
+      }
+      function stop() {
+        if (timerId) { clearInterval(timerId); timerId = null; }
+      }
+
+      dots.forEach((d) => {
+        d.addEventListener('click', () => {
+          goTo(parseInt(d.dataset.index || '0', 10));
+          start();
         });
       });
-    });
 
-    // 地図SVGの読み込みとヒートマップ
-    const classToRegion = {
-      'hokkaido': 'hokkaido',
-      'tohoku': 'tohoku',
-      'kanto': 'kanto',
-      'ishikawa': 'hokuriku', 'toyama': 'hokuriku', 'fukui': 'hokuriku',
-      'niigata': 'koshinetsu', 'nagano': 'koshinetsu', 'yamanashi': 'koshinetsu',
-      'aichi': 'tokai', 'gifu': 'tokai', 'shizuoka': 'tokai', 'mie': 'tokai',
-      'kinki': 'kinki',
-      'chugoku': 'chugoku',
-      'shikoku': 'shikoku',
-      'kyushu': 'kyushu', 'kyushu-okinawa': 'kyushu',
-    };
-    const regionNames = {
-      hokkaido: '北海道', tohoku: '東北', kanto: '関東', hokuriku: '北陸',
-      koshinetsu: '甲信越', tokai: '東海', kinki: '近畿', chugoku: '中国',
-      shikoku: '四国', kyushu: '九州・沖縄',
-    };
+      slider.addEventListener('mouseenter', stop);
+      slider.addEventListener('mouseleave', start);
 
-    // 春夏秋冬カラーパレット
-    const seasonalPalettes = {
-      spring: ['#F5E6EC', '#E8B4C8', '#D4839E', '#C05A7A', '#A03060'], // 桜
-      summer: ['#E0EEF5', '#A8D4E6', '#6BB5D4', '#3A8FB7', '#1B6691'], // 海
-      autumn: ['#E8DCC8', '#D4B896', '#C49A6C', '#A0703C', '#7D4E1E'], // 紅葉
-      winter: ['#F0F2F5', '#D1D9E0', '#B0BEC5', '#8A9AA5', '#607D8B'], // 雪景色
-    };
-    function getCurrentSeason() {
-      const m = new Date().getMonth() + 1; // 1-12
-      if (m >= 3 && m <= 5) return 'spring';
-      if (m >= 6 && m <= 8) return 'summer';
-      if (m >= 9 && m <= 11) return 'autumn';
-      return 'winter';
-    }
-    function getColorForCount(count) {
-      const palette = seasonalPalettes[getCurrentSeason()];
-      if (count === 0) return palette[0];
-      if (count <= 2) return palette[1];
-      if (count <= 5) return palette[2];
-      if (count <= 10) return palette[3];
-      return palette[4];
-    }
-
-    const mapWrapper = document.getElementById('japan-map-wrapper');
-    const mapTooltip = document.getElementById('map-tooltip');
-    if (mapWrapper) {
-      fetch(base + 'assets/japan-map.svg')
-        .then(res => res.text())
-        .then(svgText => {
-          mapWrapper.innerHTML = svgText;
-          const svgEl = mapWrapper.querySelector('svg');
-          if (!svgEl) return;
-
-          const prefGroups = svgEl.querySelectorAll('.prefecture');
-          for (const g of prefGroups) {
-            const classes = (g.className.baseVal || g.getAttribute('class') || '').split(/\s+/);
-            let regionCode = null;
-            for (const [cls, code] of Object.entries(classToRegion)) {
-              if (classes.includes(cls)) { regionCode = code; break; }
-            }
-            if (!regionCode) continue;
-
-            const count = regionRecipeCount[regionCode] ?? 0;
-            const color = getColorForCount(count);
-
-            g.setAttribute('fill', color);
-            g.setAttribute('stroke', '#fff');
-            g.setAttribute('stroke-width', '0.8');
-            g.querySelectorAll('polygon, path').forEach(s => {
-              s.setAttribute('fill', color);
-              s.setAttribute('stroke', '#fff');
-              s.setAttribute('stroke-width', '0.8');
-            });
-
-            g.addEventListener('mouseenter', () => {
-              const name = regionNames[regionCode] ?? regionCode;
-              mapTooltip.innerHTML = `<strong>${name}</strong>${count}件のレシピ`;
-              mapTooltip.style.display = 'block';
-            });
-            g.addEventListener('mousemove', (e) => {
-              mapTooltip.style.left = (e.clientX + 12) + 'px';
-              mapTooltip.style.top = (e.clientY + 12) + 'px';
-            });
-            g.addEventListener('mouseleave', () => {
-              mapTooltip.style.display = 'none';
-            });
-
-            g.style.cursor = 'pointer';
-            g.addEventListener('click', () => {
-              window.location.href = `/recipes?region=${regionCode}`;
-            });
-          }
-        })
-        .catch(err => console.warn('Japan map SVG の読み込みに失敗しました:', err));
-    }
-
-
-    // タイムマシンボタン: 料理フラッシュ → ランダムレシピへ遷移
-    const recipesWithImgs = JSON.parse(document.getElementById('recipe-images-data')?.textContent || '[]');
-    const tmBtn = document.getElementById('timemachine-btn');
-    if (tmBtn) {
-      tmBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        // 画像ありレシピがあればそこから選ぶ、なければ全レシピから選ぶ
-        const pool = recipesWithImgs.length > 0 ? recipesWithImgs : recipeIds.map(id => ({ id, img: null }));
-        const pick = pool[Math.floor(Math.random() * pool.length)];
-        const randomId = pick.id;
-
-        // 画像パスを決定
-        const imgSrc = pick.img
-          ? base + pick.img
-          : null;
-
-        // オーバーレイを生成
-        const overlay = document.createElement('div');
-        overlay.className = 'tm-overlay';
-        overlay.innerHTML = `
-          <div class="tm-overlay__bg"></div>
-          ${imgSrc ? `<div class="tm-overlay__food" aria-hidden="true"><img src="${imgSrc}" alt="" /></div>` : ''}
-          <div class="tm-overlay__flash"></div>
-        `;
-        document.body.appendChild(overlay);
-        overlay.offsetHeight;
-        overlay.classList.add('is-active');
-
-        // フラッシュが白く覆ったタイミングでページ遷移
-        setTimeout(() => {
-          const flash = overlay.querySelector('.tm-overlay__flash');
-          if (flash) { flash.style.animation = 'none'; flash.style.opacity = '1'; }
-          window.location.href = base + 'recipes/' + randomId + '/';
-        }, 1600);
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) stop(); else start();
       });
-    }
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((e) => e.isIntersecting ? start() : stop());
+        }, { threshold: 0.25 });
+        io.observe(slider);
+      } else {
+        start();
+      }
+    })();
   </script>
 </BaseLayout>
+
+<style>
+  /* Home page (pattern-c pure) */
+  .home {
+    font-family: 'Noto Sans JP', sans-serif;
+    color: #222;
+    background: #f0ece4;
+  }
+
+  /* === Hero === */
+  .home-hero {
+    position: relative;
+    min-height: min(720px, calc(100vh - 60px));
+    padding: 3rem 5% 3rem;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .home-hero__giant-left,
+  .home-hero__giant-right {
+    position: absolute;
+    top: 50%;
+    font-family: 'Shippori Mincho', serif;
+    font-weight: 800;
+    color: #222;
+    line-height: 1.05;
+    letter-spacing: -0.05em;
+    text-align: center;
+    z-index: 3;
+    pointer-events: none;
+  }
+  .home-hero__giant-left {
+    right: calc(50% + 21vw + 10px);
+    transform: translateY(-55%);
+    font-size: clamp(6rem, 14vw, 13rem);
+  }
+  .home-hero__giant-right {
+    left: calc(50% + 21vw + 10px);
+    transform: translateY(-50%);
+    font-size: clamp(3.5rem, 7.5vw, 7rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+
+  .home-hero__photo {
+    position: relative;
+    width: 45vw;
+    max-width: 640px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+  }
+  .home-hero__photo::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 150%; height: 150%;
+    transform: translate(-50%, -50%);
+    background: repeating-conic-gradient(
+      rgba(0,0,0,0.03) 0deg 2deg,
+      transparent 2deg 12deg
+    );
+    z-index: -1;
+    pointer-events: none;
+  }
+  .home-hero__slider {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border: 3px solid #222;
+    box-shadow: 6px 6px 0 #222;
+    background: #fff;
+  }
+  .home-hero__slides {
+    display: flex;
+    transition: transform 0.6s ease;
+  }
+  .home-hero__slide {
+    min-width: 100%;
+    display: block;
+  }
+  .home-hero__slide img {
+    width: 100%;
+    display: block;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+  }
+  .home-hero__dots {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-top: 0.8rem;
+  }
+  .home-hero__dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: #ccc;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.3s;
+  }
+  .home-hero__dot.is-active { background: #222; }
+  .home-hero__info {
+    text-align: right;
+    margin-top: 0.5rem;
+    align-self: flex-end;
+  }
+  .home-hero__info-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: #bbb;
+  }
+  .home-hero__info-title {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-top: 0.2rem;
+    letter-spacing: 0.05em;
+  }
+  .home-hero__kotoba {
+    position: absolute;
+    font-family: 'Shippori Mincho', serif;
+    color: rgba(0,0,0,0.045);
+    font-weight: 700;
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 1;
+    line-height: 1;
+  }
+
+  /* === Section（食卓） === */
+  .home-section {
+    padding: 4rem 5%;
+    position: relative;
+  }
+  .home-section__header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+  .home-section__en {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 900;
+    letter-spacing: 0.02em;
+    line-height: 1.1;
+  }
+  .home-section__jp {
+    display: block;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: #999;
+    letter-spacing: 0.15em;
+    margin-top: 0.5rem;
+  }
+
+  .home-table-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .home-table-card {
+    position: relative;
+    transition: transform 0.4s;
+    color: inherit;
+    text-decoration: none;
+    display: block;
+  }
+  .home-table-card:hover { transform: translateY(-6px); }
+  .home-table-card__img-wrap {
+    position: relative;
+    overflow: visible;
+  }
+  .home-table-card__img {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    display: block;
+    border: 1.5px solid #222;
+  }
+  .home-table-card__kanban {
+    position: absolute;
+    top: -8px;
+    left: -1.2rem;
+    z-index: 3;
+    background: #f5f0e6;
+    border: 2px solid #222;
+    padding: 0.6em 0.5em;
+    writing-mode: vertical-rl;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #222;
+    letter-spacing: 0.18em;
+    line-height: 1;
+    white-space: nowrap;
+    box-shadow: 2px 3px 0 rgba(0,0,0,0.1);
+  }
+  .home-table-card__num {
+    position: absolute;
+    top: -0.8rem;
+    right: -0.5rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: rgba(0,0,0,0.06);
+    line-height: 1;
+    z-index: 0;
+  }
+  .home-table-card__caption {
+    padding: 0.8rem 0 0 2rem;
+  }
+  .home-table-card__tag {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.6rem;
+    color: #bbb;
+    letter-spacing: 0.15em;
+  }
+  .home-table-card__title {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-top: 0.2rem;
+    letter-spacing: 0.05em;
+    line-height: 1.7;
+  }
+
+  /* === More button === */
+  .home-more-wrap { text-align: center; margin-top: 3.5rem; }
+  .home-more-btn {
+    display: inline-block;
+    padding: 0.8rem 3rem;
+    border: 1.5px solid #222;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    color: #222;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+  .home-more-btn:hover { background: #222; color: #f0ece4; }
+
+  /* === 手仕事 === */
+  .home-teshigoto {
+    padding: 5rem 5% 4rem;
+    background: #fff;
+  }
+  .home-teshigoto__header {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  .home-teshigoto__en {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.25em;
+    color: #bbb;
+  }
+  .home-teshigoto__lead {
+    text-align: center;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.95rem;
+    color: #666;
+    line-height: 2.2;
+    margin-bottom: 3rem;
+  }
+  .home-teshigoto__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .home-teshigoto__item {
+    text-align: center;
+    padding: 0 1rem;
+    border-right: 1px solid #e0dcd4;
+    color: inherit;
+    text-decoration: none;
+    display: block;
+  }
+  .home-teshigoto__item:nth-child(3),
+  .home-teshigoto__item:nth-child(6) {
+    border-right: none;
+  }
+  .home-teshigoto__item:nth-child(n+4) {
+    padding-top: 2.5rem;
+    border-top: 1px solid #e0dcd4;
+  }
+  .home-teshigoto__kanji {
+    font-family: 'Shippori Mincho', serif;
+    font-size: clamp(3rem, 6vw, 5rem);
+    font-weight: 800;
+    color: #222;
+    line-height: 1.2;
+    margin-bottom: 0.8rem;
+  }
+  .home-teshigoto__img {
+    width: 80%;
+    max-width: 200px;
+    aspect-ratio: 1;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto 1rem;
+    border: 1px solid #e0dcd4;
+  }
+  .home-teshigoto__name {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+    letter-spacing: 0.05em;
+  }
+  .home-teshigoto__desc {
+    font-size: 0.72rem;
+    color: #888;
+    line-height: 1.9;
+    padding: 0 0.5rem 2rem;
+  }
+
+  /* === シーンで選ぶ === */
+  .home-scene {
+    padding: 6rem 5% 5rem;
+    background: #f0ece4;
+    position: relative;
+  }
+  .home-scene__header {
+    text-align: center;
+    margin-bottom: 0.8rem;
+  }
+  .home-scene__en {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.25em;
+    color: #bbb;
+    display: block;
+  }
+  .home-scene__title {
+    font-family: 'Shippori Mincho', serif;
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    margin-top: 0.5rem;
+  }
+  .home-scene__lead {
+    text-align: center;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.85rem;
+    color: #888;
+    line-height: 2;
+    margin-bottom: 3.5rem;
+  }
+  .home-scene__row-top {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    max-width: 1100px;
+    margin: 0 auto 2.5rem;
+  }
+  .home-scene__card {
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.4s;
+    color: inherit;
+    text-decoration: none;
+    display: block;
+  }
+  .home-scene__card:hover { transform: translateY(-5px); }
+  .home-scene__card-visual {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 4 / 5;
+  }
+  .home-scene__card-visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s;
+  }
+  .home-scene__card:hover .home-scene__card-visual img { transform: scale(1.04); }
+  .home-scene__card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.05) 50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1.5rem;
+  }
+  .home-scene__card-name {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.08em;
+    line-height: 1.4;
+    margin: 0;
+  }
+  .home-scene__card-quote {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.7);
+    margin: 0.4rem 0 0;
+    letter-spacing: 0.03em;
+    line-height: 1.6;
+  }
+  .home-scene__card-num {
+    position: absolute;
+    top: 0.8rem;
+    right: 1rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    color: rgba(255,255,255,0.5);
+    z-index: 2;
+  }
+  .home-scene__card-examples {
+    font-size: 0.68rem;
+    color: #999;
+    line-height: 1.8;
+    margin: 0.8rem 0 0;
+    padding-left: 0.2rem;
+  }
+  .home-scene__row-bottom {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .home-scene__row-bottom .home-scene__card-visual {
+    aspect-ratio: 1 / 1;
+  }
+  .home-scene__row-bottom .home-scene__card-name {
+    font-size: 1.05rem;
+  }
+  .home-scene__row-bottom .home-scene__card-overlay {
+    padding: 1.2rem;
+  }
+  .home-scene__card--mystery .home-scene__card-visual {
+    background: #222;
+  }
+  .home-scene__card--mystery .home-scene__card-visual img {
+    opacity: 0.35;
+    mix-blend-mode: luminosity;
+  }
+  .home-scene__card--mystery .home-scene__card-overlay {
+    background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.2) 60%);
+  }
+  .home-scene__card--mystery .home-scene__card-name {
+    font-style: italic;
+  }
+
+  /* === Features === */
+  .home-features {
+    padding: 5rem 5%;
+    background: #fff;
+  }
+  .home-features__header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  .home-features__title {
+    font-family: 'Shippori Mincho', serif;
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    margin: 0;
+  }
+  .home-features__sub {
+    display: block;
+    font-size: 0.75rem;
+    color: #999;
+    letter-spacing: 0.12em;
+    margin-top: 0.5rem;
+  }
+  .home-features__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  .home-feature-card {
+    text-align: center;
+    padding: 2.5rem 1.5rem;
+    border: 1.5px solid #e0dcd4;
+    transition: all 0.4s;
+    color: inherit;
+    text-decoration: none;
+    display: block;
+  }
+  .home-feature-card:hover {
+    border-color: #222;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+  }
+  .home-feature-card__icon {
+    margin-bottom: 1rem;
+    display: block;
+    line-height: 0;
+  }
+  .home-feature-card__name {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    margin: 0 0 0.6rem;
+  }
+  .home-feature-card__desc {
+    font-size: 0.75rem;
+    color: #888;
+    line-height: 1.9;
+    margin: 0;
+  }
+  .home-feature-card__link {
+    display: inline-block;
+    margin-top: 1.2rem;
+    font-size: 0.7rem;
+    color: #222;
+    border-bottom: 1px solid #222;
+    padding-bottom: 2px;
+    letter-spacing: 0.05em;
+    transition: opacity 0.3s;
+  }
+  .home-feature-card:hover .home-feature-card__link { opacity: 0.5; }
+
+  /* === About (dark 2-column) === */
+  .home-about {
+    background: #222;
+    color: #fff;
+    padding: 8rem 5%;
+    position: relative;
+    overflow: hidden;
+  }
+  .home-about__bg-text {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(6rem, 16vw, 14rem);
+    font-weight: 900;
+    color: rgba(255,255,255,0.03);
+    white-space: nowrap;
+    pointer-events: none;
+  }
+  .home-about__inner {
+    position: relative;
+    z-index: 1;
+    max-width: 1000px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .home-about__left {
+    text-align: right;
+    padding-right: 2rem;
+    border-right: 1px solid rgba(255,255,255,0.1);
+  }
+  .home-about__big {
+    font-family: 'Shippori Mincho', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    margin: 0;
+    color: #fff;
+  }
+  .home-about__right {
+    padding-left: 1rem;
+  }
+  .home-about__text {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.55);
+    line-height: 2.6;
+    margin-bottom: 1.2rem;
+  }
+  .home-about__btns {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+  }
+  .home-about__btn {
+    display: inline-block;
+    padding: 0.7rem 2.5rem;
+    border: 1px solid rgba(255,255,255,0.2);
+    font-size: 0.65rem;
+    color: #777;
+    letter-spacing: 0.15em;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+  .home-about__btn:hover { border-color: #fff; color: #fff; }
+  .home-about__btn--primary {
+    border-color: rgba(255,255,255,0.6);
+    color: #e8e8e8;
+  }
+  .home-about__btn--primary:hover {
+    background: #fff;
+    color: #222;
+    border-color: #fff;
+  }
+
+  /* === Responsive === */
+  @media (max-width: 900px) {
+    .home-table-grid { grid-template-columns: repeat(2, 1fr); gap: 2.5rem 1.5rem; }
+    .home-teshigoto__grid { grid-template-columns: repeat(2, 1fr); }
+    .home-teshigoto__item:nth-child(3) { border-right: 1px solid #e0dcd4; }
+    .home-teshigoto__item:nth-child(2n) { border-right: none; }
+    .home-teshigoto__item:nth-child(n+3) { padding-top: 2.5rem; border-top: 1px solid #e0dcd4; }
+    .home-scene__row-top { grid-template-columns: 1fr; max-width: 400px; }
+    .home-scene__row-bottom { grid-template-columns: 1fr 1fr; }
+    .home-features__grid { grid-template-columns: 1fr; max-width: 400px; }
+  }
+  @media (max-width: 768px) {
+    .home-hero__giant-left { font-size: 5rem; }
+    .home-hero__giant-right { font-size: 4rem; }
+    .home-hero__photo { width: 75vw; }
+    .home-table-grid { grid-template-columns: 1fr; max-width: 400px; }
+    .home-teshigoto__grid { grid-template-columns: 1fr; max-width: 320px; }
+    .home-teshigoto__item { border-right: none !important; padding-top: 2.5rem; border-top: 1px solid #e0dcd4; }
+    .home-teshigoto__item:first-child { padding-top: 0; border-top: none; }
+    .home-about__inner { grid-template-columns: 1fr; gap: 2rem; text-align: center; }
+    .home-about__left { text-align: center; padding-right: 0; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 2rem; }
+    .home-about__right { padding-left: 0; }
+  }
+</style>

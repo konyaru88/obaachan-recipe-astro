@@ -13,23 +13,23 @@ const recipesPath = localePath(lang, `${base}recipes/`);
 const regionsPath = localePath(lang, `${base}regions/`);
 const articlesPath = localePath(lang, `${base}articles/`);
 const contactPath = localePath(lang, `${base}contact/`);
-const supportPath = localePath(lang, `${base}support/`);
 const privacyPath = localePath(lang, `${base}privacy/`);
 ---
 
-<footer class="site-footer">
-  <div class="container site-footer__grid">
-    <div>
-      <a class="site-footer__logo" href={homePath}>
-        <img src={`${base}assets/images/grandma-icon.png`} alt="" class="site-footer__logo-img" aria-hidden="true" />
-        {t(lang, 'site.name')}
+<footer class="pc-footer" role="contentinfo">
+  <div class="pc-footer__inner">
+    <div class="pc-footer__brand">
+      <a class="pc-footer__logo" href={homePath}>
+        <img src={`${base}assets/images/grandma-icon.png`} alt="" class="pc-footer__logo-img" aria-hidden="true" />
+        <span class="pc-footer__logo-text">{t(lang, 'site.name')}</span>
       </a>
-      <p class="site-footer__tagline">{t(lang, 'site.tagline')}</p>
+      <p class="pc-footer__tagline">{t(lang, 'site.tagline')}</p>
+      <p class="pc-footer__brand-en">obaachan collection</p>
     </div>
 
-    <nav aria-label={lang === 'en' ? 'Footer navigation' : 'フッターナビゲーション'}>
-      <p class="site-footer__heading">{t(lang, 'footer.menu')}</p>
-      <ul class="site-footer__links">
+    <nav class="pc-footer__col" aria-label={lang === 'en' ? 'Footer navigation' : 'フッターナビゲーション'}>
+      <p class="pc-footer__heading">{t(lang, 'footer.menu')}</p>
+      <ul class="pc-footer__links">
         <li><a href={homePath}>{t(lang, 'nav.home')}</a></li>
         <li><a href={recipesPath}>{t(lang, 'nav.recipes')}</a></li>
         <li><a href={regionsPath}>{t(lang, 'nav.regions')}</a></li>
@@ -38,23 +38,172 @@ const privacyPath = localePath(lang, `${base}privacy/`);
       </ul>
     </nav>
 
-    <div>
-      <p class="site-footer__heading">{t(lang, 'footer.sns')}</p>
-      <ul class="site-footer__links">
+    <div class="pc-footer__col">
+      <p class="pc-footer__heading">{t(lang, 'footer.sns')}</p>
+      <ul class="pc-footer__links">
         <li><a href="https://www.instagram.com/obaachan_recipe" target="_blank" rel="noopener noreferrer" data-outbound="instagram">Instagram</a></li>
         <li><a href="https://www.threads.net/@obaachan_recipe" target="_blank" rel="noopener noreferrer" data-outbound="threads">Threads</a></li>
         <li><a href="https://note.com/obaachan_recipe" target="_blank" rel="noopener noreferrer" data-outbound="note">note</a></li>
       </ul>
     </div>
 
-    <div>
-      <p class="site-footer__heading">{t(lang, 'footer.support')}</p>
-      <a href={supportPath} class="site-footer__link" data-cta="footer-support">{t(lang, 'footer.support.link')}</a>
-    </div>
   </div>
 
-  <div class="site-footer__bottom container">
-    <p>{t(lang, 'site.copyright')}</p>
-    <a href={privacyPath} class="site-footer__privacy">{t(lang, 'footer.privacy')}</a>
+  <div class="pc-footer__bottom">
+    <p class="pc-footer__copyright">{t(lang, 'site.copyright')}</p>
+    <a href={privacyPath} class="pc-footer__privacy">{t(lang, 'footer.privacy')}</a>
   </div>
 </footer>
+
+<style>
+  .pc-footer {
+    background: #1a1a1a;
+    color: #d8d4cc;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    padding: 3.5rem 1.5rem 1.5rem;
+    margin-top: 4rem;
+  }
+
+  .pc-footer__inner {
+    max-width: 1180px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 1fr;
+    gap: 2.5rem;
+    align-items: start;
+  }
+
+  /* Brand block */
+  .pc-footer__brand { min-width: 0; }
+  .pc-footer__logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    color: #f0ece4;
+    text-decoration: none;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 0.7rem;
+  }
+  .pc-footer__logo-img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    display: block;
+    filter: brightness(0) invert(0.9);
+  }
+  .pc-footer__tagline {
+    margin: 0 0 0.8rem;
+    color: #a8a39a;
+    font-size: 0.76rem;
+    line-height: 1.7;
+    max-width: 22em;
+  }
+  .pc-footer__brand-en {
+    margin: 0;
+    color: #7a7a7a;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.04em;
+  }
+
+  /* Columns */
+  .pc-footer__col { min-width: 0; }
+  .pc-footer__heading {
+    margin: 0 0 0.9rem;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #f0ece4;
+    letter-spacing: 0.12em;
+  }
+  .pc-footer__links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+  .pc-footer__links a {
+    color: #b8b3aa;
+    text-decoration: none;
+    font-size: 0.76rem;
+    transition: color 0.2s ease;
+  }
+  .pc-footer__links a:hover { color: #f0ece4; }
+
+  .pc-footer__cta {
+    display: inline-block;
+    color: #b8b3aa;
+    text-decoration: none;
+    font-size: 0.76rem;
+    border-bottom: 1px solid rgba(216, 212, 204, 0.4);
+    padding-bottom: 2px;
+    transition: color 0.2s ease, border-color 0.2s ease;
+  }
+  .pc-footer__cta:hover {
+    color: #f0ece4;
+    border-bottom-color: #f0ece4;
+  }
+
+  /* Bottom row */
+  .pc-footer__bottom {
+    max-width: 1180px;
+    margin: 2.5rem auto 0;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(216, 212, 204, 0.15);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .pc-footer__copyright {
+    margin: 0;
+    color: #6b6760;
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+  }
+  .pc-footer__privacy {
+    color: #8a857c;
+    text-decoration: none;
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s ease, color 0.2s ease;
+  }
+  .pc-footer__privacy:hover {
+    color: #f0ece4;
+    border-bottom-color: #8a857c;
+  }
+
+  @media (max-width: 900px) {
+    .pc-footer__inner {
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem 1.5rem;
+    }
+    .pc-footer__brand {
+      grid-column: 1 / -1;
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  @media (max-width: 540px) {
+    .pc-footer { padding: 2.5rem 1.25rem 1.25rem; }
+    .pc-footer__inner {
+      grid-template-columns: 1fr;
+      gap: 1.8rem;
+    }
+    .pc-footer__bottom {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.6rem;
+    }
+  }
+</style>

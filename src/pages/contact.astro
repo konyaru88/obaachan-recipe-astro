@@ -24,51 +24,51 @@ const base = import.meta.env.BASE_URL;
 
   <main class="contact-page">
 
-    <div class="contact-page__hero">
-      <div class="contact-page__deco" aria-hidden="true"><img src={`${base}assets/images/grandma-icon.png`} alt="" class="contact-page__deco-img" /></div>
-      <h1 class="contact-page__title">お問い合わせ</h1>
-    </div>
-
-    <div class="contact-page__body container">
-
-      <p class="contact-page__intro">
+    <section class="contact-page__hero" aria-labelledby="contact-title">
+      <span class="contact-page__hero-bg" aria-hidden="true">便</span>
+      <h1 class="contact-page__title" id="contact-title">お問い合わせ</h1>
+      <p class="contact-page__lead">
         「おばあちゃんのレシピ」に関するご質問・ご感想・取材のご依頼など、<br />
         お気軽にお問い合わせください。
       </p>
-      <p class="contact-page__intro contact-page__intro--note">
-        レシピの投稿・活動の応援は<a href={`${base}support/`}>こちら</a>からお願いいたします。
+      <p class="contact-page__lead contact-page__lead--note">
+        レシピの投稿は<a href={`${base}board/`} data-cta="contact-to-board">みんなの食卓</a>からお願いいたします。
       </p>
+    </section>
 
-      <form
-        class="contact-page__form"
-        action="https://formspree.io/f/mzdkkjoo"
-        method="POST"
-      >
-        <div class="contact-page__field">
-          <label for="contact-name" class="contact-page__label">お名前</label>
-          <input
-            type="text"
-            id="contact-name"
-            name="name"
-            class="contact-page__input"
-            placeholder="山田 花子"
-          />
-        </div>
+    <form
+      class="contact-page__form"
+      action="https://formspree.io/f/mzdkkjoo"
+      method="POST"
+    >
+      <div class="contact-page__field">
+        <label for="contact-name" class="contact-page__label">お名前 <span class="contact-page__optional">任意</span></label>
+        <input
+          type="text"
+          id="contact-name"
+          name="name"
+          class="contact-page__input"
+          placeholder="例：さちこの孫"
+          autocomplete="name"
+        />
+      </div>
 
-        <div class="contact-page__field">
-          <label for="contact-email" class="contact-page__label">メールアドレス <span class="contact-page__required">必須</span></label>
-          <input
-            type="email"
-            id="contact-email"
-            name="email"
-            class="contact-page__input"
-            placeholder="example@mail.com"
-            required
-          />
-        </div>
+      <div class="contact-page__field">
+        <label for="contact-email" class="contact-page__label">メールアドレス <span class="contact-page__required">必須</span></label>
+        <input
+          type="email"
+          id="contact-email"
+          name="email"
+          class="contact-page__input"
+          placeholder="example@mail.com"
+          autocomplete="email"
+          required
+        />
+      </div>
 
-        <div class="contact-page__field">
-          <label for="contact-category" class="contact-page__label">お問い合わせ種別</label>
+      <div class="contact-page__field">
+        <label for="contact-category" class="contact-page__label">お問い合わせ種別</label>
+        <div class="contact-page__select-wrap">
           <select id="contact-category" name="category" class="contact-page__select">
             <option value="ご質問">ご質問</option>
             <option value="ご感想・ご意見">ご感想・ご意見</option>
@@ -77,31 +77,307 @@ const base = import.meta.env.BASE_URL;
             <option value="その他">その他</option>
           </select>
         </div>
+      </div>
 
-        <div class="contact-page__field">
-          <label for="contact-message" class="contact-page__label">お問い合わせ内容 <span class="contact-page__required">必須</span></label>
-          <textarea
-            id="contact-message"
-            name="message"
-            class="contact-page__textarea"
-            rows="8"
-            placeholder="お問い合わせ内容をご記入ください"
-            required
-          ></textarea>
-        </div>
+      <div class="contact-page__field">
+        <label for="contact-message" class="contact-page__label">お問い合わせ内容 <span class="contact-page__required">必須</span></label>
+        <textarea
+          id="contact-message"
+          name="message"
+          class="contact-page__textarea"
+          rows="8"
+          placeholder="お気軽にどうぞ。"
+          required
+        ></textarea>
+      </div>
 
-        <div class="contact-page__submit-wrap">
-          <button type="submit" class="contact-page__submit">送信する</button>
-        </div>
-      </form>
+      <div class="contact-page__submit-wrap">
+        <button type="submit" class="contact-page__submit" data-cta="contact-submit">送信する</button>
+      </div>
+    </form>
 
-      <p class="contact-page__note">
-        通常3営業日以内にご返信いたします。<br />
-        お急ぎの場合はSNSのDMもご利用ください。
-      </p>
+    <p class="contact-page__note">
+      通常3営業日以内にご返信いたします。<br />
+      お急ぎの場合はSNSのDMもご利用ください。
+    </p>
 
+    <div class="contact-page__sns">
+      <a href="https://www.instagram.com/obaachan_recipe" target="_blank" rel="noopener noreferrer" data-outbound="instagram" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        <span>Instagram</span>
+      </a>
+      <a href="https://note.com/obaachan_recipe" target="_blank" rel="noopener noreferrer" data-outbound="note" aria-label="note">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.5 3h-15A1.5 1.5 0 003 4.5v15A1.5 1.5 0 004.5 21h15a1.5 1.5 0 001.5-1.5v-15A1.5 1.5 0 0019.5 3zM17 8H7V7h10v1zm0 3H7v-1h10v1zm-3 3H7v-1h7v1z"/></svg>
+        <span>note</span>
+      </a>
     </div>
   </main>
 
   <Footer />
 </BaseLayout>
+
+<style>
+  /* Pattern-c contact page (scoped) */
+  .contact-page {
+    font-family: 'Noto Sans JP', sans-serif;
+    color: #222;
+    background: #f0ece4;
+    padding-bottom: 2rem;
+  }
+
+  /* Hero */
+  .contact-page__hero {
+    position: relative;
+    overflow: hidden;
+    padding: 5rem 5% 2.5rem;
+    text-align: center;
+  }
+  .contact-page__hero-bg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Shippori Mincho', serif;
+    font-size: clamp(8rem, 22vw, 18rem);
+    font-weight: 800;
+    color: rgba(0, 0, 0, 0.04);
+    pointer-events: none;
+    user-select: none;
+    line-height: 1;
+    z-index: 0;
+  }
+  .contact-page__title {
+    position: relative;
+    z-index: 1;
+    margin: 0;
+    font-family: 'Shippori Mincho', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: #222;
+  }
+  .contact-page__lead {
+    position: relative;
+    z-index: 1;
+    max-width: 560px;
+    margin: 0.9rem auto 0;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.88rem;
+    line-height: 2;
+    color: #666;
+  }
+  .contact-page__lead--note {
+    margin-top: 0.4rem;
+    font-size: 0.78rem;
+    color: #888;
+  }
+  .contact-page__lead a {
+    color: #222;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .contact-page__lead a:hover { opacity: 0.7; }
+
+  /* Form */
+  .contact-page__form {
+    max-width: 600px;
+    margin: 1rem auto 2rem;
+    padding: 0 5%;
+  }
+  .contact-page__field {
+    margin-bottom: 1.6rem;
+  }
+  .contact-page__label {
+    display: block;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.55rem;
+    color: #555;
+  }
+  .contact-page__required {
+    display: inline-block;
+    margin-left: 0.35em;
+    padding: 0.1em 0.5em;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0;
+    color: #b63b2a;
+    background: rgba(182, 59, 42, 0.08);
+    border-radius: 2px;
+  }
+  .contact-page__optional {
+    margin-left: 0.35em;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 400;
+    color: #aaa;
+  }
+
+  .contact-page__input,
+  .contact-page__textarea,
+  .contact-page__select {
+    width: 100%;
+    min-height: 2.9rem;
+    padding: 0.8rem 1rem;
+    font-size: 0.9rem;
+    font-family: 'Noto Sans JP', sans-serif;
+    color: #222;
+    background: #faf9f6;
+    border: 1px solid #d0ccc4;
+    border-radius: 0;
+    outline: none;
+    transition: border-color 0.25s ease, background 0.25s ease;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  .contact-page__input::placeholder,
+  .contact-page__textarea::placeholder {
+    color: #a9a49b;
+    opacity: 1;
+  }
+  .contact-page__input:hover,
+  .contact-page__textarea:hover,
+  .contact-page__select:hover {
+    border-color: #8a847a;
+  }
+  .contact-page__input:focus,
+  .contact-page__textarea:focus,
+  .contact-page__select:focus {
+    border-color: #222;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(34, 34, 34, 0.08);
+  }
+  .contact-page__textarea {
+    min-height: 200px;
+    line-height: 1.8;
+    resize: vertical;
+  }
+
+  /* Select with chevron */
+  .contact-page__select-wrap {
+    position: relative;
+  }
+  .contact-page__select-wrap::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 1.1rem;
+    width: 0.55rem;
+    height: 0.55rem;
+    border-right: 1.5px solid #666;
+    border-bottom: 1.5px solid #666;
+    transform: translateY(-70%) rotate(45deg);
+    pointer-events: none;
+  }
+  .contact-page__select {
+    padding-right: 2.5rem;
+    cursor: pointer;
+  }
+
+  /* Submit button */
+  .contact-page__submit-wrap {
+    margin-top: 2rem;
+  }
+  .contact-page__submit {
+    display: block;
+    width: 100%;
+    padding: 1rem;
+    background: #222;
+    color: #f0ece4;
+    border: none;
+    border-radius: 0;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    cursor: pointer;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+  .contact-page__submit:hover {
+    opacity: 0.85;
+  }
+  .contact-page__submit:active {
+    transform: translateY(1px);
+  }
+  .contact-page__submit:focus-visible {
+    outline: 2px solid #222;
+    outline-offset: 3px;
+  }
+
+  /* Note */
+  .contact-page__note {
+    max-width: 600px;
+    margin: 0 auto 1rem;
+    padding: 0 5%;
+    text-align: center;
+    font-size: 0.74rem;
+    line-height: 1.9;
+    letter-spacing: 0.03em;
+    color: #9c9790;
+  }
+
+  /* SNS row */
+  .contact-page__sns {
+    display: flex;
+    justify-content: center;
+    gap: 1.8rem;
+    margin: 0 auto 3rem;
+  }
+  .contact-page__sns a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: #888;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    transition: color 0.25s ease;
+  }
+  .contact-page__sns a:hover { color: #222; }
+  .contact-page__sns svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  /* Responsive */
+  @media (max-width: 540px) {
+    .contact-page__hero {
+      padding: 3rem 5% 2rem;
+    }
+    .contact-page__hero-bg {
+      font-size: clamp(7rem, 40vw, 14rem);
+    }
+    .contact-page__lead {
+      font-size: 0.82rem;
+      line-height: 1.9;
+    }
+    .contact-page__lead br {
+      display: none;
+    }
+    .contact-page__form {
+      margin-top: 0.5rem;
+    }
+    .contact-page__field {
+      margin-bottom: 1.3rem;
+    }
+    .contact-page__input,
+    .contact-page__textarea,
+    .contact-page__select {
+      font-size: 16px; /* prevent iOS auto-zoom */
+    }
+    .contact-page__textarea {
+      min-height: 160px;
+    }
+    .contact-page__submit {
+      font-size: 0.9rem;
+      padding: 0.95rem;
+    }
+    .contact-page__sns {
+      gap: 1.3rem;
+    }
+  }
+</style>

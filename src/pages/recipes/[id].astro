@@ -677,7 +677,7 @@ function difficultyStars(d: number): string {
           const url = window.location.href;
           const title = document.title;
           if (kind === 'x') {
-            const intent = `https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`;
+            const intent = `https://x.com/intent/post?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`;
             window.open(intent, '_blank', 'noopener,noreferrer');
           } else if (kind === 'line') {
             const intent = `https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(url)}`;

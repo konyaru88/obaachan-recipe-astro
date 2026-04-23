@@ -18,7 +18,7 @@ const sliderRecipes = withPhotos.slice(0, 3).map((r: any, idx: number) => {
   const prefecture = r.grandmother?.prefecture || r.region?.prefecture || '';
   const seasonArr = Array.isArray(r.season) ? r.season : [];
   const season = seasonArr[0] ?? '';
-  const grandmaName = r.grandmother?.name || '';
+  const grandmaName = r.grandmother?.name || r.source?.contributor || '';
   const caption = prefecture
     ? `${prefecture}${season ? '・' + season : ''}。${grandmaName ? grandmaName + 'さん' : '誰か'}の食卓から。`
     : `${r.title}`;
@@ -45,7 +45,7 @@ const seasonLabel = (s: string): string => {
 };
 const tableCards = latest.map((r: any, i: number) => {
   const prefecture = r.region?.prefecture || r.grandmother?.prefecture || '';
-  const grandmaName = r.grandmother?.name || '';
+  const grandmaName = r.grandmother?.name || r.source?.contributor || '';
   const seasonArr = Array.isArray(r.season) ? r.season : [];
   const season = seasonLabel(seasonArr[0] || '');
   const num = String(i + 2).padStart(2, '0');
@@ -1097,20 +1097,22 @@ const featureCards = [
   }
   @media (max-width: 768px) {
     .home-hero__giant-left {
-      font-size: 4.4rem;
+      font-size: 5.2rem;
       right: auto;
       left: 1%;
       top: 50%;
       transform: translateY(-50%);
     }
     .home-hero__giant-right {
-      font-size: 3rem;
+      font-size: 3.6rem;
       left: auto;
       right: 1%;
       top: 50%;
       transform: translateY(-50%);
     }
-    .home-hero__photo { width: 52vw; }
+    .home-hero__photo { width: 44vw; }
+    .home-hero__info { align-self: center; width: 100%; text-align: center; }
+    .home-hero__info-title { font-size: 0.72rem; white-space: nowrap; }
     .home-table-grid { grid-template-columns: 1fr; max-width: 400px; }
     .home-table-card__kanban {
       font-size: 0.92rem;

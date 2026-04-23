@@ -129,7 +129,7 @@ const heroQuoteFormatted = heroQuote
   .filter(Boolean)
   .join('<br />');
 const heroQuoteName = (() => {
-  const gName = grandmother.name;
+  const gName = grandmother.name || source.contributor || '';
   if (heroQuoteResult.from === 'grandma') {
     if (gName) return `— ${gName}さんのおばあちゃん（${prefecture}）`;
     return prefecture ? `— ${prefecture}のおばあちゃん` : '';
@@ -518,7 +518,7 @@ function difficultyStars(d: number): string {
             const rIdx = sortedAll.findIndex((x: any) => x.id === r.id);
             const rNum = String(rIdx >= 0 ? rIdx + 1 : 0).padStart(2, '0');
             const rPref = r.grandmother?.prefecture || r.region?.prefecture || '';
-            const rName = r.grandmother?.name;
+            const rName = r.grandmother?.name || r.source?.contributor || '';
             const rSeasonRaw = Array.isArray(r.season) && r.season.length > 0 ? r.season[0] : '';
             const rSeasonLabel = rSeasonRaw.includes('春') ? '春'
               : rSeasonRaw.includes('夏') ? '夏'

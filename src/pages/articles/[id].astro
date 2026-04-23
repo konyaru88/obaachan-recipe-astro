@@ -783,7 +783,11 @@ const relatedArticles = [...sameCategory, ...diffCategory].slice(0, 3);
     }
     .article-detail-page__article :global(.article-recipe-card .recipe-card__thumb) {
       width: 100%;
-      aspect-ratio: 16 / 9;
+      aspect-ratio: 4 / 3;
+    }
+    .article-detail-page__article :global(.article-recipe-card .recipe-card__image) {
+      object-fit: contain;
+      background: #f5f2ec;
     }
     .article-detail-page__article :global(.article-recipe-card .recipe-card__title) {
       font-size: 0.95rem;

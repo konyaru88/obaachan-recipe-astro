@@ -28,7 +28,7 @@ const total = allRecipes.length;
 ---
 
 <BaseLayout
-  title={`おばあちゃんの手料理レシピ一覧（全${total}件）| おばあちゃんのレシピ`}
+  title={`おばあちゃんの手料理食卓一覧（全${total}件）| おばあちゃんのレシピ`}
   description={`煮物、漬物、おやつ──全国のおばあちゃんから届いた${total}件の手料理レシピ。地域・カテゴリで探せます。どれも「あの味」を思い出す、昔ながらの家庭料理。`}
 >
   <Fragment slot="head">
@@ -37,8 +37,8 @@ const total = allRecipes.length;
       "@graph": [
         {
           "@type": "CollectionPage",
-          "name": "レシピ一覧",
-          "description": `全国のおばあちゃんから集めた ${total} 件のレシピ一覧`,
+          "name": "食卓一覧",
+          "description": `全国のおばあちゃんから集めた ${total} 件の食卓一覧`,
           "url": "https://www.obaachan-recipe.com/recipes/",
           "isPartOf": { "@id": "https://www.obaachan-recipe.com/#website" },
           "numberOfItems": total
@@ -47,7 +47,7 @@ const total = allRecipes.length;
           "@type": "BreadcrumbList",
           "itemListElement": [
             { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://www.obaachan-recipe.com/" },
-            { "@type": "ListItem", "position": 2, "name": "レシピ一覧" }
+            { "@type": "ListItem", "position": 2, "name": "食卓一覧" }
           ]
         }
       ]
@@ -60,7 +60,7 @@ const total = allRecipes.length;
     <!-- Hero -->
     <section class="list-page__hero">
       <span class="list-page__hero-bg" aria-hidden="true">食卓</span>
-      <h1 class="list-page__title" id="page-title">レシピ一覧</h1>
+      <h1 class="list-page__title" id="page-title">食卓一覧</h1>
       <p class="list-page__lead">全国のおばあちゃんの台所から届いた、手料理の記録。</p>
     </section>
 
@@ -203,7 +203,7 @@ const total = allRecipes.length;
       if (currentCategory) titleEl.textContent = `「${currentCategory}」のレシピ`;
       else if (currentTag) titleEl.textContent = `「${currentTag}」のレシピ`;
       else if (currentRegion) titleEl.textContent = `${AREA_LABELS[currentRegion] ?? ''}のレシピ`;
-      else titleEl.textContent = 'レシピ一覧';
+      else titleEl.textContent = '食卓一覧';
 
       // 空状態
       grid.style.display = visibleCount > 0 ? '' : 'none';

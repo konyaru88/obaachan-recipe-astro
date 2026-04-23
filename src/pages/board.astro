@@ -5,57 +5,16 @@ import Footer from '../components/Footer.astro';
 
 const base = import.meta.env.BASE_URL;
 
-// サンプル投稿（HTML 初期描画用、SEO用にもサーバーサイドで埋め込み）
-const samplePosts = [
-  {
-    id: 'sample_1', type: 'recipe', nickname: 'よしこの孫', region: '関東', time: '3時間前',
-    title: 'おばあちゃんの肉じゃが', kanban: '肉じゃが',
-    text: 'うちのおばあちゃんの肉じゃがは、牛肉じゃなくて豚バラで作るのが特徴。「牛は硬くなるけん」が口癖でした。',
-    img: 'assets/images/recipes/nikujaga-chiba-001.jpg', likes: 8,
-  },
-  {
-    id: 'sample_2', type: 'quick', nickname: 'さちこの孫', region: '近畿', time: '5時間前',
-    text: 'お彼岸に作ったおはぎ。おばあちゃんのレシピ見ながら初めて挑戦しました。粒あんの硬さがわからなくて3回作り直した…でもなんとかそれっぽくなった！',
-    img: 'assets/images/recipes/ohagi-kyoto-001.jpg', likes: 15,
-  },
-  {
-    id: 'sample_3', type: 'quick', nickname: 'まことの孫', region: '東北', time: '昨日',
-    text: 'おばあちゃんが作ってくれた「なんか甘いやつ」の正体がいまだにわからない。さつまいもと何かを蒸したやつだった気がする…。誰かわかる人いませんか？',
-    likes: 22,
-  },
-  {
-    id: 'sample_4', type: 'recipe', nickname: 'たかしの孫', region: '九州', time: '2日前',
-    title: '実家のがめ煮（福岡流）', kanban: 'がめ煮',
-    text: '正月はいつもこれ。うちのおばあちゃんは砂糖多めが好きだったので、レシピより気持ち多めに入れてます。',
-    img: 'assets/images/recipes/gameni-fukuoka-001.jpg', likes: 31,
-  },
-  {
-    id: 'sample_5', type: 'memory', nickname: 'ゆうきの孫', region: '四国', time: '1日前',
-    title: '「あの甘いやつ」',
-    text: '夏に田舎に行くと必ず出てきた、冷たくて甘いやつ。さつまいもっぽいけどさつまいもじゃない。黄色くて、ちょっとシャリシャリしてた。青い小鉢に入ってた。誰かわかりませんか…？',
-    likes: 42,
-  },
-  {
-    id: 'sample_6', type: 'quick', nickname: 'けいこの孫', region: '九州', time: '3日前',
-    text: '春になると思い出す、ふきの煮物。皮を剥くのが面倒で手伝わされてたけど、今は自分からやりたくなる。不思議なもんだ。',
-    img: 'assets/images/recipes/fuki-nimono-saga-001.jpg', likes: 19,
-  },
-  {
-    id: 'sample_7', type: 'memory', nickname: 'あきこの孫', region: '東北', time: '4日前',
-    title: 'おばあちゃんの味噌汁',
-    text: '同じ味噌を使っても、同じ具材にしても、絶対に同じ味にならない。出汁の取り方なのか、味噌の溶き方なのか。もう聞けない。',
-    likes: 87,
-  },
-];
+// Supabase の公開キー（クライアントに露出してよい publishable key）
+const SUPABASE_URL = import.meta.env.PUBLIC_SUPABASE_URL;
+const SUPABASE_ANON_KEY = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
 
 const regions = ['北海道','東北','関東','北陸','甲信越','東海','近畿','中国','四国','九州'];
-
-const typeLabels: Record<string, string> = { recipe: 'レシピ', quick: 'ひとこと', memory: '再現したい味' };
 ---
 
 <BaseLayout
-  title="みんなの食卓（β）| おばあちゃんのレシピ"
-  description="みんなのおばあちゃんの味・再現したい味・ひとことを、ブラウザにそっと残しておく場所。体験検証用のβ版ボード。"
+  title="みんなの食卓 | おばあちゃんのレシピ"
+  description="みんなのおばあちゃんの味・再現したい味・ひとことを残す場所。投稿は運営がひとつずつ読ませてもらって、順に掲載していきます。"
   hasAlternate={false}
 >
   <Fragment slot="head">
@@ -80,10 +39,12 @@ const typeLabels: Record<string, string> = { recipe: 'レシピ', quick: 'ひと
         今日のひとことを、ここに残しておきませんか。
       </p>
       <p class="board-page__count">
-        現在 <strong id="postCount">{samplePosts.length}</strong> 件の投稿
+        現在 <strong id="postCount">0</strong> 件の投稿
       </p>
       <p class="board-page__note" role="note">
-        β版：この投稿は<strong>お使いのブラウザにのみ</strong>保存されます。共有・他端末での閲覧はできません。
+        あなたの投稿は、その場で「<strong>みんなの食卓</strong>」にならびます。<br />
+        自分の投稿は、あとから編集・削除もできます。<br />
+        みんなの食卓にあわない投稿は、運営でそっと片付けることがあります。
       </p>
     </section>
 
@@ -114,15 +75,6 @@ const typeLabels: Record<string, string> = { recipe: 'レシピ', quick: 'ひと
               <label class="post-form__label" for="qText">ひとこと</label>
               <textarea class="post-form__textarea" placeholder="今日の一皿について、おばあちゃんの口癖、思い出など" id="qText" required></textarea>
             </div>
-            <div class="post-form__group">
-              <label class="post-form__label">写真 <small>任意</small></label>
-              <div class="post-form__file-area">
-                <div class="post-form__file-icon" aria-hidden="true">📷</div>
-                <p class="post-form__file-text">クリックで写真を追加（2MB以下）</p>
-                <input type="file" accept="image/*" id="qFile" />
-              </div>
-              <div class="post-form__preview" id="qPreview"><img id="qPreviewImg" alt="プレビュー" /></div>
-            </div>
             <button type="submit" class="post-form__submit" data-cta="board-post-quick">投稿する</button>
           </form>
 
@@ -142,15 +94,6 @@ const typeLabels: Record<string, string> = { recipe: 'レシピ', quick: 'ひと
                 <option value="">選択してください</option>
                 {regions.map((r) => <option>{r}</option>)}
               </select>
-            </div>
-            <div class="post-form__group">
-              <label class="post-form__label">写真 <small>任意</small></label>
-              <div class="post-form__file-area">
-                <div class="post-form__file-icon" aria-hidden="true">📷</div>
-                <p class="post-form__file-text">クリックで写真を追加（2MB以下）</p>
-                <input type="file" accept="image/*" id="rFile" />
-              </div>
-              <div class="post-form__preview" id="rPreview"><img id="rPreviewImg" alt="プレビュー" /></div>
             </div>
             <div class="post-form__group">
               <label class="post-form__label" for="rIngredients">材料</label>
@@ -196,61 +139,24 @@ const typeLabels: Record<string, string> = { recipe: 'レシピ', quick: 'ひと
               <label class="post-form__label" for="mClue">味の手がかり <small>わかる範囲で</small></label>
               <textarea class="post-form__textarea" placeholder="例：甘かった / 温かかった / 茶色っぽかった / さつまいもっぽい？" id="mClue"></textarea>
             </div>
-            <div class="post-form__group">
-              <label class="post-form__label">写真 <small>もしあれば</small></label>
-              <div class="post-form__file-area">
-                <div class="post-form__file-icon" aria-hidden="true">📷</div>
-                <p class="post-form__file-text">クリックで写真を追加（2MB以下）</p>
-                <input type="file" accept="image/*" id="mFile" />
-              </div>
-              <div class="post-form__preview" id="mPreview"><img id="mPreviewImg" alt="プレビュー" /></div>
-            </div>
             <button type="submit" class="post-form__submit post-form__submit--memory" data-cta="board-post-memory">思い出を投稿する</button>
           </form>
         </div>
+
       </div>
     </div>
 
-    <!-- Post list -->
+    <!-- みんなの食卓（Supabase から動的取得） -->
     <section class="posts-section" aria-labelledby="posts-heading">
       <header class="posts-section__header">
-        <h2 class="posts-section__title" id="posts-heading">みんなの投稿</h2>
+        <h2 class="posts-section__title" id="posts-heading">みんなの食卓</h2>
       </header>
 
-      <div id="postsList">
-        <!-- ユーザー投稿（JS が先頭に挿入） -->
-        <div id="userPosts"></div>
-
-        <!-- サンプル投稿（SSR） -->
-        {samplePosts.map((p) => {
-          const typeClass = p.type;
-          const typeLabel = typeLabels[p.type] ?? '';
-          const hasImg = !!p.img;
-          const classes = [
-            'post-card',
-            hasImg ? 'post-card--has-img' : '',
-            p.type === 'recipe' ? 'post-card--recipe' : ''
-          ].filter(Boolean).join(' ');
-          return (
-            <div class={classes} data-post-id={p.id}>
-              {p.kanban && <span class="post-card__kanban">{p.kanban}</span>}
-              {hasImg && <img src={`${base}${p.img}`} alt="" class="post-card__img" loading="lazy" />}
-              <div class="post-card__body">
-                <span class={`post-card__type post-card__type--${typeClass}`}>{typeLabel}</span>
-                {p.title && <h3 class="post-card__title">{p.title}</h3>}
-                <p class="post-card__text">{p.text}</p>
-                <div class="post-card__meta">
-                  <span class="post-card__nickname">{p.nickname}</span>
-                  {p.region && <span>{p.region}</span>}
-                  <span>{p.time}</span>
-                  <div class="post-card__actions">
-                    <button type="button" class="post-card__action" data-like>❤ <span>{p.likes}</span></button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          );
-        })}
+      <div id="postsList" aria-live="polite">
+        <p class="posts-section__loading" id="postsLoading">読み込み中…</p>
+        <p class="posts-section__empty" id="postsEmpty" hidden>
+          最初の声をお待ちしています。
+        </p>
       </div>
     </section>
 
@@ -260,12 +166,90 @@ const typeLabels: Record<string, string> = { recipe: 'レシピ', quick: 'ひと
 
   <Footer />
 
-  <script is:inline define:vars={{ base, sampleCount: samplePosts.length }}>
+  <script is:inline define:vars={{ base, SUPABASE_URL, SUPABASE_ANON_KEY }}>
     (function() {
-      const STORAGE_KEY = 'obaachan_board_posts';
       const UID_KEY = 'obaachan_board_uid';
+      const LIKED_KEY = 'obaachan_board_liked';
+      const NG_WORDS_URL = base + 'moderation/ng-words.json';
 
-      function getMyId() {
+      // ------------------------------------------------------------
+      // Supabase REST helpers
+      // ------------------------------------------------------------
+      const sbHeaders = () => ({
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      });
+
+      async function sbSelect(query) {
+        const res = await fetch(SUPABASE_URL + '/rest/v1/posts?' + query, {
+          headers: sbHeaders(),
+        });
+        if (!res.ok) throw new Error('fetch failed: ' + res.status);
+        return await res.json();
+      }
+
+      async function sbInsert(row) {
+        const res = await fetch(SUPABASE_URL + '/rest/v1/posts', {
+          method: 'POST',
+          headers: { ...sbHeaders(), 'Prefer': 'return=representation' },
+          body: JSON.stringify(row),
+        });
+        if (!res.ok) {
+          const err = await res.text();
+          throw new Error('insert failed: ' + res.status + ' ' + err);
+        }
+        const rows = await res.json();
+        return rows[0];
+      }
+
+      async function sbRpc(fn, args) {
+        const res = await fetch(SUPABASE_URL + '/rest/v1/rpc/' + fn, {
+          method: 'POST',
+          headers: sbHeaders(),
+          body: JSON.stringify(args || {}),
+        });
+        if (!res.ok) {
+          const err = await res.text();
+          throw new Error('rpc ' + fn + ' failed: ' + res.status + ' ' + err);
+        }
+        try { return await res.json(); } catch { return null; }
+      }
+
+      // ------------------------------------------------------------
+      // NG ワード（クライアント側チェック）
+      // ------------------------------------------------------------
+      let ngData = null;
+      async function loadNgWords() {
+        if (ngData) return ngData;
+        try {
+          const res = await fetch(NG_WORDS_URL);
+          ngData = await res.json();
+        } catch {
+          ngData = { ng_words: [], patterns: [] };
+        }
+        return ngData;
+      }
+      async function checkNg(...texts) {
+        const d = await loadNgWords();
+        const joined = texts.filter(Boolean).join(' ');
+        for (const w of d.ng_words || []) {
+          if (w && joined.includes(w)) return { hit: w, reason: 'ng_word' };
+        }
+        for (const p of d.patterns || []) {
+          try {
+            const re = new RegExp(p.regex);
+            if (re.test(joined)) return { hit: p.reason, reason: p.reason };
+          } catch { /* ignore bad regex */ }
+        }
+        return null;
+      }
+
+      // ------------------------------------------------------------
+      // localStorage helpers
+      // ------------------------------------------------------------
+      function getMyUid() {
         let id = localStorage.getItem(UID_KEY);
         if (!id) {
           id = 'u_' + Math.random().toString(36).slice(2) + Date.now().toString(36);
@@ -273,16 +257,26 @@ const typeLabels: Record<string, string> = { recipe: 'レシピ', quick: 'ひと
         }
         return id;
       }
-      const MY_ID = getMyId();
+      const MY_UID = getMyUid();
 
-      function getPosts() {
-        try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
-        catch { return []; }
+      function loadLiked() {
+        try { return new Set(JSON.parse(localStorage.getItem(LIKED_KEY)) || []); }
+        catch { return new Set(); }
       }
-      function savePosts(posts) {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(posts));
+      function saveLiked(set) {
+        localStorage.setItem(LIKED_KEY, JSON.stringify([...set]));
       }
+      const likedSet = loadLiked();
 
+      // ------------------------------------------------------------
+      // State
+      // ------------------------------------------------------------
+      let postsCache = [];
+      let editingId = null;
+
+      // ------------------------------------------------------------
+      // Utils
+      // ------------------------------------------------------------
       function timeAgo(dateStr) {
         const diff = Date.now() - new Date(dateStr).getTime();
         const m = Math.floor(diff / 60000);
@@ -301,90 +295,6 @@ const typeLabels: Record<string, string> = { recipe: 'レシピ', quick: 'ひと
         return d.innerHTML;
       }
 
-      function renderPostCard(post) {
-        const isRecipe = post.type === 'recipe';
-        const isMemory = post.type === 'memory';
-        const hasImg = !!post.image;
-        const typeLabel = isRecipe ? 'レシピ' : isMemory ? '再現したい味' : 'ひとこと';
-        const typeClass = isRecipe ? 'recipe' : isMemory ? 'memory' : 'quick';
-
-        let title = '', text = '';
-        if (isRecipe) {
-          title = esc(post.recipeName || '');
-          const parts = [];
-          if (post.ingredients) parts.push(post.ingredients);
-          if (post.steps) parts.push(post.steps);
-          if (post.episode) parts.push(post.episode);
-          text = esc(parts.join(' / '));
-        } else if (isMemory) {
-          title = esc(post.memoryName || '');
-          const parts = [];
-          if (post.memory) parts.push(post.memory);
-          if (post.clue) parts.push('手がかり: ' + post.clue);
-          text = esc(parts.join(' '));
-        } else {
-          text = esc(post.text || '');
-        }
-
-        const kanban = isRecipe && post.recipeName
-          ? `<span class="post-card__kanban">${esc(post.recipeName.slice(0, 6))}</span>` : '';
-        const imgHtml = hasImg ? `<img src="${post.image}" alt="" class="post-card__img" />` : '';
-        const classes = [
-          'post-card',
-          hasImg ? 'post-card--has-img' : '',
-          isRecipe ? 'post-card--recipe' : ''
-        ].filter(Boolean).join(' ');
-        const regionHtml = post.region ? `<span>${esc(post.region)}</span>` : '';
-        const manageHtml = post.uid === MY_ID
-          ? `<div class="post-card__manage">
-              <button type="button" class="post-card__manage-btn" data-edit="${post.id}">編集</button>
-              <button type="button" class="post-card__manage-btn post-card__manage-btn--delete" data-delete="${post.id}">削除</button>
-            </div>` : '';
-
-        return `
-          <div class="${classes}" data-post-id="${post.id}">
-            ${kanban}
-            ${imgHtml}
-            <div class="post-card__body">
-              <span class="post-card__type post-card__type--${typeClass}">${typeLabel}</span>
-              ${title ? `<h3 class="post-card__title">${title}</h3>` : ''}
-              <p class="post-card__text">${text}</p>
-              <div class="post-card__meta">
-                <span class="post-card__nickname">${esc(post.nickname)}</span>
-                ${regionHtml}
-                <span>${timeAgo(post.createdAt)}</span>
-                <div class="post-card__actions">
-                  <button type="button" class="post-card__action" data-like>❤ <span>0</span></button>
-                  ${manageHtml}
-                </div>
-              </div>
-            </div>
-          </div>`;
-      }
-
-      function renderPosts() {
-        const posts = getPosts();
-        const userPostsEl = document.getElementById('userPosts');
-        if (!userPostsEl) return;
-        userPostsEl.innerHTML = posts.map(renderPostCard).join('');
-        const countEl = document.getElementById('postCount');
-        if (countEl) countEl.textContent = String(sampleCount + posts.length);
-      }
-
-      function readFileAsDataURL(input) {
-        return new Promise((resolve) => {
-          const file = input.files?.[0];
-          if (!file) return resolve(null);
-          if (file.size > 2 * 1024 * 1024) {
-            showToast('写真は2MB以下にしてください');
-            return resolve(null);
-          }
-          const reader = new FileReader();
-          reader.onload = (e) => resolve(e.target?.result);
-          reader.readAsDataURL(file);
-        });
-      }
-
       function showToast(msg) {
         const t = document.getElementById('toast');
         if (!t) return;
@@ -393,42 +303,202 @@ const typeLabels: Record<string, string> = { recipe: 'レシピ', quick: 'ひと
         setTimeout(() => t.classList.remove('is-visible'), 2500);
       }
 
-      // Tabs
-      document.querySelectorAll('.post-form__tab').forEach((tab) => {
-        tab.addEventListener('click', () => {
-          document.querySelectorAll('.post-form__tab').forEach((t) => {
-            t.classList.remove('is-active');
-            t.setAttribute('aria-selected', 'false');
-          });
-          tab.classList.add('is-active');
-          tab.setAttribute('aria-selected', 'true');
-          const target = tab.dataset.tab;
-          document.querySelectorAll('.post-form__panel').forEach((p) => {
-            p.classList.toggle('is-active', p.dataset.panel === target);
-          });
-        });
-      });
+      // ------------------------------------------------------------
+      // Render
+      // ------------------------------------------------------------
+      function renderPostCard(post) {
+        const isRecipe = post.type === 'recipe';
+        const isMemory = post.type === 'memory';
+        const typeLabel = isRecipe ? 'レシピ' : isMemory ? '再現したい味' : 'ひとこと';
+        const typeClass = isRecipe ? 'recipe' : isMemory ? 'memory' : 'quick';
 
-      // File previews
-      function wirePreview(fileId, previewId, imgId) {
-        const input = document.getElementById(fileId);
-        const preview = document.getElementById(previewId);
-        const img = document.getElementById(imgId);
-        if (!input) return;
-        input.addEventListener('change', () => {
-          const file = input.files?.[0];
-          if (!file) { preview.style.display = 'none'; return; }
-          const reader = new FileReader();
-          reader.onload = (e) => {
-            img.src = e.target?.result || '';
-            preview.style.display = 'block';
-          };
-          reader.readAsDataURL(file);
+        let title = '', bodyText = '';
+        if (isRecipe) {
+          title = esc(post.recipe_name || '');
+          const parts = [];
+          if (post.ingredients) parts.push(post.ingredients);
+          if (post.steps) parts.push(post.steps);
+          if (post.episode) parts.push(post.episode);
+          bodyText = esc(parts.join(' / '));
+        } else if (isMemory) {
+          title = esc(post.memory_name || '');
+          const parts = [];
+          if (post.memory) parts.push(post.memory);
+          if (post.clue) parts.push('手がかり: ' + post.clue);
+          bodyText = esc(parts.join(' '));
+        } else {
+          bodyText = esc(post.text || '');
+        }
+
+        const kanban = isRecipe && post.recipe_name
+          ? '<span class="post-card__kanban">' + esc(post.recipe_name.slice(0, 6)) + '</span>'
+          : '';
+        const classes = [
+          'post-card',
+          isRecipe ? 'post-card--recipe' : '',
+          post.uid === MY_UID ? 'post-card--mine' : '',
+        ].filter(Boolean).join(' ');
+        const regionHtml = post.region
+          ? '<span>' + esc(post.region) + '</span>' : '';
+        const manageHtml = post.uid === MY_UID
+          ? '<div class="post-card__manage">'
+            + '<button type="button" class="post-card__manage-btn" data-edit="' + post.id + '">編集</button>'
+            + '<button type="button" class="post-card__manage-btn post-card__manage-btn--delete" data-delete="' + post.id + '">削除</button>'
+          + '</div>'
+          : '';
+        const mineBadge = post.uid === MY_UID
+          ? '<span class="post-card__mine-badge">あなたの投稿</span>' : '';
+        const liked = likedSet.has(post.id);
+        const likeClass = 'post-card__action' + (liked ? ' is-liked' : '');
+
+        return (
+          '<div class="' + classes + '" data-post-id="' + post.id + '">'
+          + kanban
+          + '<div class="post-card__body">'
+          +   '<span class="post-card__type post-card__type--' + typeClass + '">' + typeLabel + '</span>'
+          +   mineBadge
+          +   (title ? '<h3 class="post-card__title">' + title + '</h3>' : '')
+          +   '<p class="post-card__text">' + bodyText + '</p>'
+          +   '<div class="post-card__meta">'
+          +     '<span class="post-card__nickname">' + esc(post.nickname) + '</span>'
+          +     regionHtml
+          +     '<span>' + timeAgo(post.created_at) + '</span>'
+          +     '<div class="post-card__actions">'
+          +       '<button type="button" class="' + likeClass + '" data-like="' + post.id + '" aria-pressed="' + liked + '">🍙 <span>' + (post.likes_count ?? 0) + '</span></button>'
+          +       manageHtml
+          +     '</div>'
+          +   '</div>'
+          + '</div>'
+          + '</div>'
+        );
+      }
+
+      function render() {
+        const listEl = document.getElementById('postsList');
+        const loadingEl = document.getElementById('postsLoading');
+        const emptyEl = document.getElementById('postsEmpty');
+        const countEl = document.getElementById('postCount');
+        if (!listEl) return;
+
+        if (loadingEl) loadingEl.hidden = true;
+        if (countEl) countEl.textContent = String(postsCache.length);
+
+        if (postsCache.length === 0) {
+          if (emptyEl) emptyEl.hidden = false;
+          listEl.querySelectorAll('.post-card').forEach((n) => n.remove());
+          return;
+        }
+        if (emptyEl) emptyEl.hidden = true;
+
+        listEl.querySelectorAll('.post-card').forEach((n) => n.remove());
+        const html = postsCache.map(renderPostCard).join('');
+        listEl.insertAdjacentHTML('beforeend', html);
+      }
+
+      // ------------------------------------------------------------
+      // Fetch posts
+      // ------------------------------------------------------------
+      async function loadPosts() {
+        try {
+          const rows = await sbSelect('select=*&is_hidden=eq.false&order=created_at.desc&limit=100');
+          postsCache = rows;
+          render();
+        } catch (err) {
+          console.error('[board] loadPosts failed', err);
+          const loadingEl = document.getElementById('postsLoading');
+          if (loadingEl) loadingEl.textContent = '読み込みに失敗しました。時間をおいて再読み込みしてください。';
+        }
+      }
+
+      // ------------------------------------------------------------
+      // Form helpers
+      // ------------------------------------------------------------
+      function switchTab(tabName) {
+        document.querySelectorAll('.post-form__tab').forEach((t) => {
+          const isThis = t.dataset.tab === tabName;
+          t.classList.toggle('is-active', isThis);
+          t.setAttribute('aria-selected', isThis ? 'true' : 'false');
+        });
+        document.querySelectorAll('.post-form__panel').forEach((p) => {
+          p.classList.toggle('is-active', p.dataset.panel === tabName);
         });
       }
-      wirePreview('qFile', 'qPreview', 'qPreviewImg');
-      wirePreview('rFile', 'rPreview', 'rPreviewImg');
-      wirePreview('mFile', 'mPreview', 'mPreviewImg');
+
+      function resetAllForms() {
+        document.querySelectorAll('.post-form__panel').forEach((f) => f.reset && f.reset());
+      }
+
+      function setEditingIndicator(on) {
+        const formRoot = document.getElementById('post-form-root');
+        if (formRoot) formRoot.classList.toggle('is-editing', on);
+      }
+
+      async function submitPost(type, data) {
+        // NG ワード検査（クライアント側）
+        const fields = [data.nickname, data.text, data.recipe_name, data.ingredients, data.steps, data.episode, data.memory_name, data.memory, data.clue];
+        const ng = await checkNg(...fields);
+        if (ng) {
+          if (ng.reason === 'phone_number') showToast('電話番号は投稿できません');
+          else if (ng.reason === 'email') showToast('メールアドレスは投稿できません');
+          else if (ng.reason === 'external_link') showToast('外部URLは投稿できません');
+          else showToast('不適切な表現が含まれている可能性があります');
+          return false;
+        }
+
+        try {
+          if (editingId) {
+            await sbRpc('update_my_post', {
+              p_id: editingId,
+              p_uid: MY_UID,
+              p_nickname: data.nickname,
+              p_region: data.region || null,
+              p_text: data.text || null,
+              p_recipe_name: data.recipe_name || null,
+              p_ingredients: data.ingredients || null,
+              p_steps: data.steps || null,
+              p_episode: data.episode || null,
+              p_memory_name: data.memory_name || null,
+              p_memory: data.memory || null,
+              p_clue: data.clue || null,
+            });
+            editingId = null;
+            setEditingIndicator(false);
+            showToast('編集しました');
+          } else {
+            const row = await sbInsert({
+              type,
+              nickname: data.nickname,
+              region: data.region || null,
+              text: data.text || null,
+              recipe_name: data.recipe_name || null,
+              ingredients: data.ingredients || null,
+              steps: data.steps || null,
+              episode: data.episode || null,
+              memory_name: data.memory_name || null,
+              memory: data.memory || null,
+              clue: data.clue || null,
+              uid: MY_UID,
+            });
+            // Optimistic: 先頭に追加して即反映
+            if (row) postsCache = [row, ...postsCache];
+            showToast('みんなの食卓にならびました');
+          }
+          await loadPosts();
+          return true;
+        } catch (err) {
+          console.error('[board] submit failed', err);
+          showToast('投稿に失敗しました。時間をおいて再送してください');
+          return false;
+        }
+      }
+
+      // ------------------------------------------------------------
+      // Event wiring
+      // ------------------------------------------------------------
+      // Tabs
+      document.querySelectorAll('.post-form__tab').forEach((tab) => {
+        tab.addEventListener('click', () => switchTab(tab.dataset.tab));
+      });
 
       // Form submit: quick
       document.getElementById('panelQuick')?.addEventListener('submit', async (e) => {
@@ -436,109 +506,109 @@ const typeLabels: Record<string, string> = { recipe: 'レシピ', quick: 'ひと
         const nickname = document.getElementById('qNickname').value.trim();
         const text = document.getElementById('qText').value.trim();
         if (!nickname || !text) { showToast('ニックネームとひとことを入力してください'); return; }
-        const image = await readFileAsDataURL(document.getElementById('qFile'));
-        const post = {
-          id: 'post_' + Date.now(),
-          uid: MY_ID, type: 'quick', nickname,
-          region: document.getElementById('qRegion').value, text, image,
-          createdAt: new Date().toISOString(),
-        };
-        const posts = getPosts();
-        posts.unshift(post);
-        savePosts(posts);
-        renderPosts();
-        e.target.reset();
-        const p = document.getElementById('qPreview'); if (p) p.style.display = 'none';
-        showToast('投稿しました！');
+        const ok = await submitPost('quick', {
+          nickname,
+          region: document.getElementById('qRegion').value,
+          text,
+        });
+        if (ok) e.target.reset();
       });
 
       // Form submit: recipe
       document.getElementById('panelRecipe')?.addEventListener('submit', async (e) => {
         e.preventDefault();
         const nickname = document.getElementById('rNickname').value.trim();
-        const recipeName = document.getElementById('rName').value.trim();
-        if (!nickname || !recipeName) { showToast('ニックネームと料理名を入力してください'); return; }
-        const image = await readFileAsDataURL(document.getElementById('rFile'));
-        const post = {
-          id: 'post_' + Date.now(),
-          uid: MY_ID, type: 'recipe', nickname, recipeName,
+        const recipe_name = document.getElementById('rName').value.trim();
+        if (!nickname || !recipe_name) { showToast('ニックネームと料理名を入力してください'); return; }
+        const ok = await submitPost('recipe', {
+          nickname,
+          recipe_name,
           region: document.getElementById('rRegion').value,
           ingredients: document.getElementById('rIngredients').value.trim(),
           steps: document.getElementById('rSteps').value.trim(),
           episode: document.getElementById('rEpisode').value.trim(),
-          image,
-          createdAt: new Date().toISOString(),
-        };
-        const posts = getPosts();
-        posts.unshift(post);
-        savePosts(posts);
-        renderPosts();
-        e.target.reset();
-        const p = document.getElementById('rPreview'); if (p) p.style.display = 'none';
-        showToast('レシピを投稿しました！');
+        });
+        if (ok) e.target.reset();
       });
 
       // Form submit: memory
       document.getElementById('panelMemory')?.addEventListener('submit', async (e) => {
         e.preventDefault();
         const nickname = document.getElementById('mNickname').value.trim();
-        const memoryName = document.getElementById('mName').value.trim();
-        if (!nickname || !memoryName) { showToast('ニックネームと料理名を入力してください'); return; }
-        const image = await readFileAsDataURL(document.getElementById('mFile'));
-        const post = {
-          id: 'post_' + Date.now(),
-          uid: MY_ID, type: 'memory', nickname, memoryName,
+        const memory_name = document.getElementById('mName').value.trim();
+        if (!nickname || !memory_name) { showToast('ニックネームと料理名を入力してください'); return; }
+        const ok = await submitPost('memory', {
+          nickname,
+          memory_name,
           region: document.getElementById('mRegion').value,
           memory: document.getElementById('mMemory').value.trim(),
           clue: document.getElementById('mClue').value.trim(),
-          image,
-          createdAt: new Date().toISOString(),
-        };
-        const posts = getPosts();
-        posts.unshift(post);
-        savePosts(posts);
-        renderPosts();
-        e.target.reset();
-        const p = document.getElementById('mPreview'); if (p) p.style.display = 'none';
-        showToast('思い出を投稿しました！');
+        });
+        if (ok) e.target.reset();
       });
 
       // Delegate like / edit / delete
-      document.getElementById('postsList')?.addEventListener('click', (e) => {
+      document.getElementById('postsList')?.addEventListener('click', async (e) => {
         const target = e.target.closest('button');
         if (!target) return;
-        if (target.hasAttribute('data-like')) {
-          const span = target.querySelector('span');
-          let n = parseInt(span?.textContent || '0', 10);
-          if (target.classList.toggle('is-liked')) {
-            span.textContent = String(n + 1);
+
+        // like toggle
+        const likeId = target.getAttribute('data-like');
+        if (likeId) {
+          const post = postsCache.find((p) => p.id === likeId);
+          if (!post) return;
+          const alreadyLiked = likedSet.has(likeId);
+          // 楽観的更新
+          if (alreadyLiked) {
+            likedSet.delete(likeId);
+            post.likes_count = Math.max(0, (post.likes_count ?? 0) - 1);
           } else {
-            span.textContent = String(Math.max(0, n - 1));
+            likedSet.add(likeId);
+            post.likes_count = (post.likes_count ?? 0) + 1;
+          }
+          saveLiked(likedSet);
+          render();
+          try {
+            await sbRpc(alreadyLiked ? 'unlike_post' : 'like_post', { p_id: likeId });
+          } catch (err) {
+            console.error('[board] like toggle failed', err);
+            // ロールバック
+            if (alreadyLiked) {
+              likedSet.add(likeId);
+              post.likes_count = (post.likes_count ?? 0) + 1;
+            } else {
+              likedSet.delete(likeId);
+              post.likes_count = Math.max(0, (post.likes_count ?? 0) - 1);
+            }
+            saveLiked(likedSet);
+            render();
           }
           return;
         }
+
+        // delete
         const delId = target.getAttribute('data-delete');
         if (delId) {
           if (!confirm('この投稿を削除しますか？')) return;
-          savePosts(getPosts().filter((p) => p.id !== delId));
-          renderPosts();
-          showToast('投稿を削除しました');
+          try {
+            await sbRpc('delete_my_post', { p_id: delId, p_uid: MY_UID });
+            postsCache = postsCache.filter((p) => p.id !== delId);
+            render();
+            showToast('投稿を削除しました');
+          } catch (err) {
+            console.error('[board] delete failed', err);
+            showToast('削除に失敗しました');
+          }
           return;
         }
+
+        // edit
         const editId = target.getAttribute('data-edit');
         if (editId) {
-          const posts = getPosts();
-          const post = posts.find((p) => p.id === editId);
+          const post = postsCache.find((p) => p.id === editId);
           if (!post) return;
-          const tabName = post.type in { quick:1, recipe:1, memory:1 } ? post.type : 'quick';
-          document.querySelectorAll('.post-form__tab').forEach((t) => {
-            const isThis = t.dataset.tab === tabName;
-            t.classList.toggle('is-active', isThis);
-            t.setAttribute('aria-selected', isThis ? 'true' : 'false');
-          });
-          document.querySelectorAll('.post-form__panel').forEach((p) => {
-            p.classList.toggle('is-active', p.dataset.panel === tabName);
-          });
+          const tabName = ['quick','recipe','memory'].includes(post.type) ? post.type : 'quick';
+          switchTab(tabName);
 
           if (tabName === 'quick') {
             document.getElementById('qNickname').value = post.nickname || '';
@@ -546,29 +616,28 @@ const typeLabels: Record<string, string> = { recipe: 'レシピ', quick: 'ひと
             document.getElementById('qText').value = post.text || '';
           } else if (tabName === 'recipe') {
             document.getElementById('rNickname').value = post.nickname || '';
-            document.getElementById('rName').value = post.recipeName || '';
+            document.getElementById('rName').value = post.recipe_name || '';
             document.getElementById('rRegion').value = post.region || '';
             document.getElementById('rIngredients').value = post.ingredients || '';
             document.getElementById('rSteps').value = post.steps || '';
             document.getElementById('rEpisode').value = post.episode || '';
           } else if (tabName === 'memory') {
             document.getElementById('mNickname').value = post.nickname || '';
-            document.getElementById('mName').value = post.memoryName || '';
+            document.getElementById('mName').value = post.memory_name || '';
             document.getElementById('mRegion').value = post.region || '';
             document.getElementById('mMemory').value = post.memory || '';
             document.getElementById('mClue').value = post.clue || '';
           }
-          // Remove original and re-render
-          savePosts(posts.filter((p) => p.id !== editId));
-          renderPosts();
+          editingId = editId;
+          setEditingIndicator(true);
           document.querySelector('.post-form')?.scrollIntoView({ behavior: 'smooth' });
-          showToast('編集中 — 修正して再投稿してください');
+          showToast('編集モード — 修正して送信してください');
           return;
         }
       });
 
-      // Initial render
-      renderPosts();
+      // 初期ロード
+      loadPosts();
     })();
   </script>
 </BaseLayout>
@@ -816,11 +885,25 @@ const typeLabels: Record<string, string> = { recipe: 'レシピ', quick: 'ひと
   .post-form__submit:hover { opacity: 0.85; }
   .post-form__submit--memory { background: #8b6914; }
 
+  .post-form__footnote {
+    margin: 1.4rem 0 0;
+    padding-top: 1.2rem;
+    border-top: 1px solid #e8e4dc;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.78rem;
+    line-height: 1.9;
+    color: #857d70;
+    text-align: center;
+  }
+
   /* Posts */
   .posts-section {
     max-width: 900px;
     margin: 0 auto;
     padding: 0 5% 3rem;
+  }
+  .posts-section--mine {
+    padding-bottom: 2rem;
   }
   .posts-section__header {
     margin-bottom: 1.6rem;
@@ -833,6 +916,65 @@ const typeLabels: Record<string, string> = { recipe: 'レシピ', quick: 'ひと
     font-size: 1.05rem;
     font-weight: 700;
     letter-spacing: 0.06em;
+  }
+  .posts-section__sub {
+    margin: 0.4rem 0 0;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.75rem;
+    color: #857d70;
+    letter-spacing: 0.02em;
+  }
+  .posts-section__empty,
+  .posts-section__loading {
+    margin: 2rem 0;
+    padding: 2.5rem 1rem;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.9rem;
+    color: #857d70;
+    text-align: center;
+    letter-spacing: 0.08em;
+    border: 1px dashed #d9d4ca;
+    background: #fbf9f5;
+  }
+  .posts-section__loading {
+    border: none;
+    background: none;
+  }
+
+  /* 自分の投稿ハイライト */
+  .board-page :global(.post-card--mine) {
+    box-shadow: 0 0 0 2px rgba(201, 168, 76, 0.35);
+  }
+  .board-page :global(.post-card__mine-badge) {
+    display: inline-block;
+    margin-left: 0.5rem;
+    padding: 0.15rem 0.55rem;
+    font-size: 0.62rem;
+    font-family: 'Shippori Mincho', serif;
+    letter-spacing: 0.08em;
+    color: #8b6914;
+    background: rgba(201, 168, 76, 0.14);
+    border: 1px solid rgba(201, 168, 76, 0.4);
+    vertical-align: middle;
+  }
+
+  /* 編集モード */
+  .post-form-root-is-editing-placeholder {}
+  #post-form-root.is-editing {
+    outline: 2px dashed rgba(201, 168, 76, 0.6);
+    outline-offset: 4px;
+  }
+  #post-form-root.is-editing::before {
+    content: '編集中';
+    display: block;
+    margin-bottom: 0.5rem;
+    padding: 0.4rem 0.8rem;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    color: #8b6914;
+    background: rgba(201, 168, 76, 0.12);
+    text-align: center;
   }
 
   /* Post card — :global() so JS-rendered cards also get styles */

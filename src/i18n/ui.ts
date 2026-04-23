@@ -7,7 +7,7 @@ export const ui = {
 
     // Nav
     'nav.home': 'ホーム',
-    'nav.recipes': 'レシピ一覧',
+    'nav.recipes': '食卓一覧',
     'nav.regions': '地域で探す',
     'nav.articles': '読み物',
     'nav.contact': 'お問い合わせ',
@@ -61,7 +61,7 @@ export const ui = {
     'home.about.text.7': '一緒に食卓を囲んだ、あの時間。',
 
     // Recipe list
-    'recipes.title': 'レシピ一覧',
+    'recipes.title': '食卓一覧',
     'recipes.count.suffix': ' 件のレシピが見つかりました',
     'recipes.filter.region': '地方で絞り込む',
     'recipes.filter.tag': 'タグで絞り込む',
@@ -84,7 +84,7 @@ export const ui = {
     'recipe.steps': '👩‍🍳 作り方',
     'recipe.episode': '📖 思い出・エピソード',
     'recipe.source': '情報源：',
-    'recipe.contributor': '投稿者：',
+    'recipe.contributor': '語り部：',
     'recipe.background': '🍽 食文化の背景',
     'recipe.related': '🍽 同じ地域のレシピ',
     'recipe.endangered': '🕯 消えゆくレシピ',
@@ -122,24 +122,14 @@ export const ui = {
 
     // Breadcrumb
     'breadcrumb.home': 'ホーム',
-    'breadcrumb.recipes': 'レシピ一覧',
+    'breadcrumb.recipes': '食卓一覧',
     'breadcrumb.regions': '地域で探す',
     'breadcrumb.articles': '読み物',
 
     // Footer
     'footer.menu': 'MENU',
     'footer.sns': 'SNS',
-    'footer.support': 'SUPPORT',
-    'footer.support.link': 'この活動に参加する',
     'footer.privacy': 'プライバシーポリシー',
-
-    // Support page
-    'support.title': 'おばあちゃんの「あの味」を、一緒に残しませんか',
-    'support.about.title': 'この活動について',
-    'support.use.title': '支援の使い道',
-    'support.plans.title': '今後予定している活動',
-    'support.btn.recipe': 'この味を残す',
-    'support.btn.donate': '活動を支援する',
 
     // Time format
     'time.hour': '時間',
@@ -262,7 +252,7 @@ export const ui = {
     'recipe.steps': '👩‍🍳 Instructions',
     'recipe.episode': '📖 Memories & Stories',
     'recipe.source': 'Source: ',
-    'recipe.contributor': 'Submitted by: ',
+    'recipe.contributor': 'Told by: ',
     'recipe.background': '🍽 Cultural Background',
     'recipe.related': '🍽 More from this region',
     'recipe.endangered': '🕯 Disappearing Recipe',
@@ -307,17 +297,7 @@ export const ui = {
     // Footer
     'footer.menu': 'MENU',
     'footer.sns': 'SNS',
-    'footer.support': 'SUPPORT',
-    'footer.support.link': 'Support this project',
     'footer.privacy': 'Privacy Policy',
-
-    // Support page
-    'support.title': "Help preserve grandma's recipes\nfor the next generation",
-    'support.about.title': 'About This Project',
-    'support.use.title': 'How Your Support Helps',
-    'support.plans.title': 'Upcoming Projects',
-    'support.btn.recipe': 'Submit a recipe',
-    'support.btn.donate': 'Support us',
 
     // Time format
     'time.hour': 'h ',

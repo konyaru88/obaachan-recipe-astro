@@ -34,6 +34,11 @@ const prepTime = recipe.prep_time_minutes;
 const difficulty = recipe.difficulty;
 const isEndangered = meta.is_endangered ?? false;
 const imageUrl = recipe.photos?.main ?? recipe.photos?.thumbnail ?? '';
+// 縦書きkanban用：「おばあちゃんの」「昔ながらの」などの冠詞を外して短く
+const kanbanTitle = recipe.title.replace(/^(おばあちゃんの|昔ながらの)/, '').replace(/\n/g, '').replace(/[ 　|｜].*$/, '');
+// タイトル：h1 用は \n → <br>、SEO/alt/breadcrumb 用は空白に置換
+const titleHtml = recipe.title.replace(/\n/g, '<br>');
+const titleFlat = recipe.title.replace(/\n/g, ' ');
 const areaCode = region.area ?? '';
 const prefecture = grandmother.prefecture ?? region.prefecture ?? '';
 const AREA_LABELS: Record<string, string> = {
@@ -45,6 +50,9 @@ const areaLabel = AREA_LABELS[areaCode] ?? '';
 const seasonArr = Array.isArray(recipe.season) ? recipe.season : [];
 const story = recipe.story ?? '';
 const episode = recipe.episode ?? '';
+// ものがたり：手動で設定されたリード文（recipes.json の episode_lead）。\n は <br> に
+const episodeLeadRaw = (recipe.episode_lead ?? '').trim();
+const episodeLead = episodeLeadRaw.replace(/\n/g, '<br>');
 const culturalBg = recipe.cultural_background ?? '';
 const source = recipe.source ?? { types: [], contributor: '' };
 const grandmaNotes = recipe.grandma_notes ?? [];
@@ -52,21 +60,101 @@ const grandmaNotes = recipe.grandma_notes ?? [];
 const totalTime = getTotalTime(recipe);
 const difficultyLabel = getDifficultyLabel(difficulty);
 
+// pattern-c hero 用：通し番号（作成日順、最新=1）
+const sortedAll = [...allRecipes].sort(
+  (a: any, b: any) => (b.meta?.created_at ?? '').localeCompare(a.meta?.created_at ?? '')
+);
+const recipeIndex = sortedAll.findIndex((r: any) => r.id === recipe.id);
+const recipeNumber = String(recipeIndex >= 0 ? recipeIndex + 1 : 0).padStart(2, '0');
+
+// pattern-c hero 用：リード文（story の先頭3文）
+const leadSource = (story || '').replace(/<[^>]+>/g, '').trim();
+const leadLines = (() => {
+  if (!leadSource) return [] as string[];
+  return leadSource
+    .split('。')
+    .filter(Boolean)
+    .slice(0, 3)
+    .map((s: string) => s + '。');
+})();
+
+// pattern-c hero 用：おばあちゃんの一言（grandma_notes 優先、無ければ episode から要約的に2行抽出）
+const heroQuoteResult = (() => {
+  if (grandmaNotes && grandmaNotes.length > 0) {
+    // grandma_notes はおばあちゃん自身の言葉 → おばあちゃん attribution
+    return { text: grandmaNotes.slice(0, 2).join('\n'), from: 'grandma' as const };
+  }
+  const plainEpisode = (episode || '').replace(/<[^>]+>/g, '').trim();
+  if (!plainEpisode) return { text: '', from: 'none' as const };
+
+  // 台詞「...」を抽出（短いものを優先、30字以内）
+  const dialogs = Array.from(plainEpisode.matchAll(/「([^」]+)」/g))
+    .map((m) => m[1])
+    .filter((s) => s.length <= 30);
+
+  if (dialogs.length >= 2) {
+    return { text: dialogs.slice(0, 2).join('\n'), from: 'episode' as const };
+  }
+
+  // 短い文（60字以内）を2つ選ぶ
+  const sentences = plainEpisode
+    .split('。')
+    .map((s: string) => s.trim())
+    .filter((s: string) => s.length > 0 && s.length <= 60);
+
+  if (dialogs.length === 1 && sentences.length > 0) {
+    const intro = sentences.find((s) => !s.includes(dialogs[0])) || '';
+    return { text: intro ? `${dialogs[0]}\n${intro}。` : dialogs[0], from: 'episode' as const };
+  }
+
+  if (sentences.length > 0) {
+    const pick = sentences.slice(0, 2).map((s) => s + '。');
+    return { text: pick.join('\n'), from: 'episode' as const };
+  }
+
+  // フォールバック：先頭60字で切って "…" を付ける
+  const head = plainEpisode.slice(0, 60);
+  return { text: head + '…', from: 'episode' as const };
+})();
+const heroQuote = heroQuoteResult.text;
+// 各行を「」で囲む（既に囲まれている場合はそのまま）
+const heroQuoteFormatted = heroQuote
+  .split('\n')
+  .map((line) => {
+    const t = line.trim();
+    if (!t) return '';
+    if (t.startsWith('「') && t.endsWith('」')) return t;
+    return `「${t}」`;
+  })
+  .filter(Boolean)
+  .join('<br />');
+const heroQuoteName = (() => {
+  const gName = grandmother.name;
+  if (heroQuoteResult.from === 'grandma') {
+    if (gName) return `— ${gName}さんのおばあちゃん（${prefecture}）`;
+    return prefecture ? `— ${prefecture}のおばあちゃん` : '';
+  }
+  if (heroQuoteResult.from === 'episode') {
+    if (gName) return `— ${gName}さんの食卓から（${prefecture}）`;
+    return prefecture ? `— ${prefecture}のおばあちゃんの食卓から` : '';
+  }
+  return '';
+})();
+
 // 季節絵文字
-const seasonEmojiMap: Record<string, string> = { '春': '🌸', '夏': '🌻', '秋': '🍁', '冬': '⛄', '通年': '🗓' };
-const seasonEmoji = (s: string) => seasonEmojiMap[s] ?? '🗓';
+const seasonEmoji = (_s: string) => '';
 
 // SEO: meta_description があればそちらを優先、なければ自動生成
 const rawEpisode = (episode || story || '').replace(/<[^>]+>/g, '').replace(/\n/g, '');
-const descPrefix = `${recipe.title}（${prefecture}）`;
+const descPrefix = `${titleFlat}（${prefecture}）`;
 const descBody = rawEpisode
   ? `── ${rawEpisode}`.slice(0, 85 - descPrefix.length)
   : `── ${prefecture}のおばあちゃんから届いた手料理`;
 const description = (recipe as any).meta_description || (descPrefix + descBody);
-const pageTitle = (recipe as any).seo_title || `${recipe.title}（${prefecture}）| おばあちゃんのレシピ`;
+const pageTitle = (recipe as any).seo_title || `${titleFlat}（${prefecture}）| おばあちゃんのレシピ`;
 
 // GA4 tracking vars
-const trackRecipeName = recipe.title;
+const trackRecipeName = titleFlat;
 const trackRecipeId = recipe.id;
 const trackRegion = prefecture;
 const trackArea = areaCode;
@@ -90,7 +178,7 @@ const recipeImageUrl = imageUrl ? `${siteUrl}/${imageUrl}` : undefined;
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Recipe',
-  name: recipe.title,
+  name: titleFlat,
   description,
   ...(recipeImageUrl ? { image: [recipeImageUrl] } : {}),
   url: pageUrl,
@@ -119,8 +207,8 @@ const breadcrumbLd = {
   '@type': 'BreadcrumbList',
   itemListElement: [
     { '@type': 'ListItem', position: 1, name: 'ホーム', item: siteUrl },
-    { '@type': 'ListItem', position: 2, name: 'レシピ一覧', item: `${siteUrl}/recipes/` },
-    { '@type': 'ListItem', position: 3, name: recipe.title, item: pageUrl },
+    { '@type': 'ListItem', position: 2, name: '食卓一覧', item: `${siteUrl}/recipes/` },
+    { '@type': 'ListItem', position: 3, name: titleFlat, item: pageUrl },
   ],
 };
 
@@ -198,7 +286,7 @@ function difficultyStars(d: number): string {
       <div class="recipe-detail__breadcrumb-inner">
         <a href={base}>ホーム</a>
         <span aria-hidden="true"> › </span>
-        <a href={`${base}recipes/`}>レシピ一覧</a>
+        <a href={`${base}recipes/`}>食卓一覧</a>
         {areaCode && (
           <>
             <span aria-hidden="true"> › </span>
@@ -206,76 +294,97 @@ function difficultyStars(d: number): string {
           </>
         )}
         <span aria-hidden="true"> › </span>
-        <span aria-current="page">{recipe.title}</span>
+        <span aria-current="page">{titleFlat}</span>
       </div>
     </nav>
 
-    <!-- ヒーロー -->
+    <!-- ヒーロー（pattern-c 準拠） -->
     <section class="recipe-detail__hero">
       <div class="recipe-detail__hero-visual">
+        <span class="recipe-detail__hero-num" aria-hidden="true">#{recipeNumber}</span>
+        <span class="recipe-detail__hero-kanban">{kanbanTitle}</span>
         {imageUrl ? (
-          <div class="recipe-detail__hero-img-wrap">
-            <span class="recipe-detail__hero-kanban">{recipe.title}</span>
-            <img
-              class="recipe-detail__hero-img"
-              src={`${base}${imageUrl}`}
-              alt={recipe.title}
-              width="1200"
-              height="800"
-              style={recipe.photos?.position ? `object-position: ${recipe.photos.position}` : ''}
-            />
-            <span class="recipe-detail__hero-note">※写真はイメージです</span>
-          </div>
+          <img
+            class="recipe-detail__hero-img"
+            src={`${base}${imageUrl}`}
+            alt={titleFlat}
+            width="1200"
+            height="800"
+            style={recipe.photos?.position ? `object-position: ${recipe.photos.position}` : ''}
+          />
         ) : (
-          <div class="recipe-detail__hero-img-wrap recipe-detail__hero-img-wrap--placeholder">
-            <span class="recipe-detail__hero-kanban">{recipe.title}</span>
-            <img
-              class="recipe-detail__hero-img"
-              src={`${base}assets/images/sample-placeholder.png.jpg`}
-              alt="準備中"
-              width="1200"
-              height="800"
-            />
-          </div>
+          <img
+            class="recipe-detail__hero-img"
+            src={`${base}assets/images/sample-placeholder.png.jpg`}
+            alt="準備中"
+            width="1200"
+            height="800"
+          />
         )}
       </div>
 
       <div class="recipe-detail__hero-info">
-        <p class="recipe-detail__hero-region">
-          {prefecture && areaCode && <a href={`${base}region/${areaCode}/`}>{prefecture}</a>}
+        <span class="recipe-detail__hero-region">
+          #{recipeNumber}{prefecture ? ` — ` : ''}
+          {prefecture && areaCode && <a href={`${base}region/${areaCode}/`} class="recipe-detail__hero-region-link">{prefecture}</a>}
           {prefecture && !areaCode && prefecture}
           {seasonArr.length > 0 && (
-            <span class="recipe-detail__hero-season">{seasonEmoji(seasonArr[0])} {seasonArr.join('・')}</span>
+            <span class="recipe-detail__hero-season">{seasonArr.join('・')}</span>
           )}
-          {isEndangered && <span class="recipe-detail__hero-endangered">🕯 消えゆくレシピ</span>}
-        </p>
+          {isEndangered && <span class="recipe-detail__hero-endangered">消えゆくレシピ</span>}
+        </span>
 
-        <h1 class="recipe-detail__title">{recipe.title}</h1>
+        <h1 class="recipe-detail__title" set:html={titleHtml} />
 
         {recipe.category && (
-          <p class="recipe-detail__subtitle">{recipe.category}{prefecture ? ` — ${prefecture}の味` : ''}</p>
+          <span class="recipe-detail__subtitle">{recipe.subtitle ?? `${recipe.category}${prefecture ? ` — ${prefecture}の味` : ''}`}</span>
+        )}
+
+        {leadLines.length > 0 && (
+          <p class="recipe-detail__lead">
+            {leadLines.map((line: string, i: number) => (
+              <Fragment>{line}{i < leadLines.length - 1 && <br />}</Fragment>
+            ))}
+          </p>
         )}
 
         <ul class="recipe-detail__meta">
-          {prepTime > 0 && (
-            <li class="recipe-detail__meta-item">
-              <span class="recipe-detail__meta-label">下準備</span>
-              <span class="recipe-detail__meta-value">{formatTime(prepTime)}</span>
-            </li>
-          )}
           <li class="recipe-detail__meta-item">
             <span class="recipe-detail__meta-label">調理時間</span>
             <span class="recipe-detail__meta-value">{formatTime(cookTime)}</span>
           </li>
           <li class="recipe-detail__meta-item">
-            <span class="recipe-detail__meta-label">人数</span>
+            <span class="recipe-detail__meta-label">分量</span>
             <span class="recipe-detail__meta-value" id="current-servings">{servings}人分</span>
           </li>
-          <li class="recipe-detail__meta-item">
-            <span class="recipe-detail__meta-label">難易度</span>
-            <span class="recipe-detail__meta-value">{difficultyStars(difficulty)}</span>
-          </li>
+          {prefecture && (
+            <li class="recipe-detail__meta-item">
+              <span class="recipe-detail__meta-label">地域</span>
+              <span class="recipe-detail__meta-value">{prefecture}</span>
+            </li>
+          )}
         </ul>
+
+        {heroQuote && (
+          <div class="recipe-detail__quote">
+            <p class="recipe-detail__quote-text" set:html={heroQuoteFormatted} />
+            {heroQuoteName && <span class="recipe-detail__quote-name">{heroQuoteName}</span>}
+          </div>
+        )}
+
+        <div class="recipe-detail__share">
+          <span class="recipe-detail__share-label">共有する</span>
+          <button type="button" class="recipe-detail__share-btn recipe-detail__share-btn--x" data-share="x" data-cta="recipe-share-x" aria-label="Xでシェア" title="Xでシェア">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4l6.5 8L4 20h2l5.5-6.8L16 20h4l-6.8-8.5L20 4h-2l-5.2 6.3L9 4H4z" fill="currentColor"/></svg>
+          </button>
+          <button type="button" class="recipe-detail__share-btn recipe-detail__share-btn--line" data-share="line" data-cta="recipe-share-line" aria-label="LINEでシェア" title="LINEでシェア">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 5.81 2 10.5c0 3.11 2.33 5.81 5.71 7.08l-.71 2.62c-.06.22.18.4.37.28L11 18.2c.33.03.66.05 1 .05 5.52 0 10-3.81 10-8.5S17.52 2 12 2z" fill="currentColor"/></svg>
+          </button>
+          <button type="button" class="recipe-detail__share-btn" data-share="copy" data-cta="recipe-share-copy" aria-label="リンクをコピー" title="リンクをコピー">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+          </button>
+          <span class="recipe-detail__share-toast" id="share-toast" role="status" aria-live="polite">リンクをコピーしました</span>
+        </div>
 
         <div class="recipe-detail__tags">
           {tags.map((t) => (
@@ -289,8 +398,7 @@ function difficultyStars(d: number): string {
     <section class="recipe-detail__ingredients" aria-labelledby="ingredients-heading">
       <div class="recipe-detail__ingredients-inner">
         <div class="recipe-detail__ingredients-head">
-          <h2 class="recipe-detail__section-title" id="ingredients-heading">材料</h2>
-          <p class="recipe-detail__ingredients-en">Ingredients</p>
+          <h2 class="recipe-detail__section-title" id="ingredients-heading" data-chapter="一ノ巻">材料</h2>
           <div class="servings-control">
             <button class="servings-btn" id="servings-minus" aria-label="人数を減らす">−</button>
             <span class="servings-display"><output id="servings-output">{servings}</output>人分</span>
@@ -301,10 +409,10 @@ function difficultyStars(d: number): string {
         <div class="recipe-detail__ingredients-body">
           <div class="measure-toggle">
             <button class="measure-toggle__btn measure-toggle__btn--active" data-mode="grandma">
-              👵 おばあちゃん流
+              おばあちゃん流
             </button>
             <button class="measure-toggle__btn" data-mode="precise">
-              ⚖️ きっちり計量
+              きっちり計量
             </button>
           </div>
           <p class="ingredient__approx-note">※ おばあちゃんのレシピでは「だいたいこのくらい」で作ることも多いため、分量は目安としてご覧ください。</p>
@@ -348,8 +456,7 @@ function difficultyStars(d: number): string {
     <!-- 作り方 -->
     <section class="recipe-detail__steps" aria-labelledby="steps-heading">
       <header class="recipe-detail__steps-head">
-        <h2 class="recipe-detail__section-title" id="steps-heading">作り方</h2>
-        <p class="recipe-detail__steps-en">How to cook</p>
+        <h2 class="recipe-detail__section-title" id="steps-heading" data-chapter="二ノ巻">作り方</h2>
       </header>
       <ol class="step-list">
         {recipe.steps.map((step, i) => (
@@ -370,15 +477,15 @@ function difficultyStars(d: number): string {
       <section class="recipe-detail__episode" aria-labelledby="episode-heading">
         <span class="recipe-detail__episode-bg" aria-hidden="true">{prefecture ? prefecture.replace(/[都府県]$/, '') : '味'}</span>
         <div class="recipe-detail__episode-inner">
-          <p class="recipe-detail__episode-en">Story</p>
-          <h2 class="recipe-detail__episode-title" id="episode-heading">📖 思い出・エピソード</h2>
+          <h2 class="recipe-detail__episode-title" id="episode-heading">ものがたり</h2>
           <div class="episode-block">
+            {episodeLead && <p class="episode-block__lead" set:html={episodeLead} />}
             <p class="episode-block__text" set:html={episode} />
             {source && (
               <div class="episode-block__source">
                 <span class="episode-block__source-label">情報源：</span>
                 {source.types.map((t) => <span class="episode-block__source-tag">{t}</span>)}
-                {source.contributor && <span class="episode-block__contributor">（投稿者：{source.contributor}さん）</span>}
+                {source.contributor && <span class="episode-block__contributor">（語り部：{source.contributor}さん）</span>}
               </div>
             )}
           </div>
@@ -386,11 +493,11 @@ function difficultyStars(d: number): string {
       </section>
     )}
 
-    <!-- 食文化の背景 -->
+    <!-- 食文化こぼれ話 -->
     {hasBackground && (
       <section class="recipe-detail__background" aria-labelledby="background-heading">
         <div class="recipe-detail__background-inner">
-          <h2 class="recipe-detail__section-title" id="background-heading">🍽 食文化の背景</h2>
+          <h2 class="recipe-detail__section-title recipe-detail__background-title" id="background-heading">食文化こぼれ話</h2>
           <div class="background-block">
             {bgHistory && <p class="background-block__text" set:html={bgHistory} />}
             {bgIngredients && <p class="background-block__text"><strong>この地域の特産食材：</strong>{bgIngredients}</p>}
@@ -400,15 +507,44 @@ function difficultyStars(d: number): string {
       </section>
     )}
 
-    <!-- 関連レシピ -->
+    <!-- ほかの食卓から -->
     {related.length > 0 && (
-      <section class="recipe-detail__related" aria-labelledby="related-heading">
-        <header class="recipe-detail__related-head">
-          <h2 class="recipe-detail__section-title" id="related-heading">🍽 {areaLabel ? `${areaLabel}のレシピ` : 'おすすめのレシピ'}</h2>
-          <p class="recipe-detail__related-en">More recipes</p>
+      <section class="recipe-detail__others" aria-labelledby="related-heading">
+        <header class="recipe-detail__others-head">
+          <h2 class="recipe-detail__section-title" id="related-heading">ほかの食卓から</h2>
         </header>
-        <div class="recipe-detail__related-grid">
-          {related.map((r) => <RecipeCard recipe={r} />)}
+        <div class="recipe-detail__others-grid">
+          {related.map((r: any) => {
+            const rIdx = sortedAll.findIndex((x: any) => x.id === r.id);
+            const rNum = String(rIdx >= 0 ? rIdx + 1 : 0).padStart(2, '0');
+            const rPref = r.grandmother?.prefecture || r.region?.prefecture || '';
+            const rName = r.grandmother?.name;
+            const rSeasonRaw = Array.isArray(r.season) && r.season.length > 0 ? r.season[0] : '';
+            const rSeasonLabel = rSeasonRaw.includes('春') ? '春'
+              : rSeasonRaw.includes('夏') ? '夏'
+              : rSeasonRaw.includes('秋') ? '秋'
+              : rSeasonRaw.includes('冬') ? '冬'
+              : 'ある日';
+            const rImg = r.photos?.main || '';
+            const rKanban = r.title.replace(/^(おばあちゃんの|昔ながらの)/, '').replace(/[\s|｜].*$/, '');
+            const nameSuffix = rName ? `${rName}さん` : `${rPref}のおばあちゃん`;
+            const captionParts = [rPref, rSeasonLabel !== 'ある日' ? rSeasonLabel : ''].filter(Boolean).join('・');
+            const caption = `${captionParts}。${nameSuffix}の食卓から。`;
+            return (
+              <a href={`${base}recipes/${r.id}/`} class="other-card" data-recipe-id={r.id}>
+                <div class="other-card__visual">
+                  <span class="other-card__kanban">{rKanban}</span>
+                  {rImg ? (
+                    <img class="other-card__img" src={`${base}${rImg}`} alt={r.title} loading="lazy" />
+                  ) : (
+                    <img class="other-card__img" src={`${base}assets/images/sample-placeholder.png.jpg`} alt="準備中" loading="lazy" />
+                  )}
+                </div>
+                <span class="other-card__num">#{rNum}{rPref ? ` — ${rPref}` : ''}</span>
+                <p class="other-card__caption">{caption}</p>
+              </a>
+            );
+          })}
         </div>
       </section>
     )}
@@ -430,7 +566,7 @@ function difficultyStars(d: number): string {
     {relatedArticles.length > 0 && (
       <section class="recipe-detail__related-articles" aria-labelledby="related-articles-heading">
         <header class="recipe-detail__related-head">
-          <h2 class="recipe-detail__section-title" id="related-articles-heading">📖 関連する読み物</h2>
+          <h2 class="recipe-detail__section-title" id="related-articles-heading">関連する読み物</h2>
           <p class="recipe-detail__related-en">Related articles</p>
         </header>
         <div class="related-articles__grid">
@@ -525,6 +661,44 @@ function difficultyStars(d: number): string {
     });
   </script>
 
+  <!-- Share bar -->
+  <script>
+    (function() {
+      const toast = document.getElementById('share-toast');
+      function showToast(text) {
+        if (!toast) return;
+        toast.textContent = text;
+        toast.classList.add('is-visible');
+        setTimeout(() => toast.classList.remove('is-visible'), 1800);
+      }
+      document.querySelectorAll('.recipe-detail__share-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const kind = btn.getAttribute('data-share');
+          const url = window.location.href;
+          const title = document.title;
+          if (kind === 'x') {
+            const intent = `https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`;
+            window.open(intent, '_blank', 'noopener,noreferrer');
+          } else if (kind === 'line') {
+            const intent = `https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(url)}`;
+            window.open(intent, '_blank', 'noopener,noreferrer');
+          } else if (kind === 'copy') {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              navigator.clipboard.writeText(url).then(() => showToast('リンクをコピーしました'));
+            } else {
+              const ta = document.createElement('textarea');
+              ta.value = url;
+              document.body.appendChild(ta);
+              ta.select();
+              try { document.execCommand('copy'); showToast('リンクをコピーしました'); } catch {}
+              document.body.removeChild(ta);
+            }
+          }
+        });
+      });
+    })();
+  </script>
+
   <!-- GA4: recipe_view (既存ロジックそのまま) -->
   <script define:vars={{ trackRecipeName, trackRecipeId, trackRegion, trackArea, trackCategory }}>
     document.addEventListener('DOMContentLoaded', function() {
@@ -555,10 +729,10 @@ function difficultyStars(d: number): string {
 
   /* Breadcrumb */
   .recipe-detail__breadcrumb {
-    padding: 1rem 5% 0.2rem;
+    padding: 0.4rem 5% 0.2rem;
   }
   .recipe-detail__breadcrumb-inner {
-    max-width: 1200px;
+    max-width: none;
     margin: 0 auto;
     font-size: 0.68rem;
     color: #999;
@@ -572,16 +746,15 @@ function difficultyStars(d: number): string {
   .recipe-detail__breadcrumb a:hover { color: #222; }
   .recipe-detail__breadcrumb span { margin: 0 0.1em; }
 
-  /* Hero: 2-column on desktop */
+  /* Hero: 2-column on desktop (pattern-c trace) */
   .recipe-detail__hero {
+    position: relative;
     max-width: 1200px;
-    max-height: none;
-    height: auto;
     margin: 0 auto;
-    padding: 1.5rem 5% 3.5rem;
+    padding: 0 5% 4rem;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 3.5rem;
+    gap: 4rem;
     align-items: start;
   }
 
@@ -589,78 +762,76 @@ function difficultyStars(d: number): string {
   .recipe-detail__hero-visual {
     position: relative;
   }
-  .recipe-detail__hero-img-wrap {
-    position: relative;
-  }
   .recipe-detail__hero-img {
     width: 100%;
     display: block;
-    aspect-ratio: 4 / 3;
-    object-fit: cover;
     border: 1.5px solid #222;
+  }
+  .recipe-detail__hero-num {
+    position: absolute;
+    top: -1.2rem;
+    right: -1rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 5rem;
+    font-weight: 900;
+    color: rgba(0, 0, 0, 0.05);
+    line-height: 1;
+    z-index: 0;
+    pointer-events: none;
+    user-select: none;
   }
   .recipe-detail__hero-kanban {
     position: absolute;
-    top: 1.2rem;
-    left: -1rem;
+    top: 1.5rem;
+    left: -1.5rem;
     z-index: 3;
     background: #f5f0e6;
     border: 2px solid #222;
     padding: 0.7em 0.55em;
     writing-mode: vertical-rl;
     font-family: 'Shippori Mincho', serif;
-    font-size: 1.05rem;
+    font-size: 1.2rem;
     font-weight: 700;
     color: #222;
     letter-spacing: 0.18em;
     line-height: 1;
     white-space: nowrap;
     box-shadow: 2px 3px 0 rgba(0, 0, 0, 0.1);
-    max-height: 70%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  .recipe-detail__hero-note {
-    display: block;
-    margin-top: 0.5rem;
-    font-size: 0.65rem;
-    color: #aaa;
-    letter-spacing: 0.04em;
-    text-align: right;
   }
 
   /* Hero info */
   .recipe-detail__hero-info {
-    padding-top: 0.5rem;
+    padding-top: 1.2rem;
   }
   .recipe-detail__hero-region {
-    margin: 0 0 0.8rem;
-    font-family: 'Playfair Display', serif;
-    font-size: 0.7rem;
-    letter-spacing: 0.18em;
-    color: #888;
     display: flex;
     flex-wrap: wrap;
     gap: 0.6rem;
     align-items: center;
+    margin: 0 0 0.9rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    color: #bbb;
   }
-  .recipe-detail__hero-region a {
-    color: #888;
+  .recipe-detail__hero-region-link {
+    color: #bbb;
     text-decoration: none;
     border-bottom: 1px solid transparent;
     transition: color 0.2s ease, border-color 0.2s ease;
   }
-  .recipe-detail__hero-region a:hover {
+  .recipe-detail__hero-region-link:hover {
     color: #222;
     border-bottom-color: #222;
   }
   .recipe-detail__hero-season,
   .recipe-detail__hero-endangered {
     font-family: 'Shippori Mincho', serif;
-    font-size: 0.68rem;
+    font-size: 0.66rem;
     padding: 0.2em 0.7em;
-    border: 1px solid #ccc;
+    border: 1px solid #d6d1c7;
     letter-spacing: 0.06em;
+    color: #888;
   }
   .recipe-detail__hero-endangered {
     color: #8a5a1a;
@@ -670,39 +841,47 @@ function difficultyStars(d: number): string {
   .recipe-detail__title {
     margin: 0 0 0.5rem;
     font-family: 'Shippori Mincho', serif;
-    font-size: clamp(2rem, 4vw, 3.4rem);
+    font-size: clamp(2.2rem, 4.5vw, 3.8rem);
     font-weight: 800;
-    line-height: 1.35;
-    letter-spacing: 0.04em;
+    line-height: 1.3;
+    letter-spacing: 0.05em;
     color: #222;
   }
   .recipe-detail__subtitle {
+    display: block;
     margin: 0 0 1.8rem;
     font-family: 'Playfair Display', serif;
     font-style: italic;
     font-size: 0.82rem;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.1em;
     color: #aaa;
+  }
+  .recipe-detail__lead {
+    margin: 0 0 2rem;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.92rem;
+    line-height: 2.4;
+    color: #555;
+    border-left: 2px solid #ccc;
+    padding-left: 1.2rem;
   }
 
   .recipe-detail__meta {
     list-style: none;
-    padding: 1.2rem 0 1.4rem;
-    margin: 0 0 1.5rem;
-    border-top: 1px solid #d8d3c8;
-    border-bottom: 1px solid #d8d3c8;
+    padding: 0;
+    margin: 0 0 1.8rem;
     display: flex;
-    flex-wrap: wrap;
-    gap: 1.4rem 2rem;
+    gap: 2rem;
   }
   .recipe-detail__meta-item {
+    text-align: center;
     display: flex;
     flex-direction: column;
-    gap: 0.2rem;
+    gap: 0.25rem;
   }
   .recipe-detail__meta-label {
     font-size: 0.6rem;
-    color: #999;
+    color: #aaa;
     letter-spacing: 0.1em;
   }
   .recipe-detail__meta-value {
@@ -710,6 +889,87 @@ function difficultyStars(d: number): string {
     font-size: 1rem;
     font-weight: 600;
     color: #222;
+  }
+
+  /* おばあちゃんの一言 */
+  .recipe-detail__quote {
+    background: #fff;
+    padding: 1.5rem 1.8rem;
+    margin: 0 0 2rem;
+  }
+  .recipe-detail__quote-text {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.88rem;
+    line-height: 2.2;
+    color: #555;
+    margin: 0;
+  }
+  .recipe-detail__quote-name {
+    display: block;
+    text-align: right;
+    font-size: 0.72rem;
+    color: #aaa;
+    margin-top: 0.8rem;
+    letter-spacing: 0.05em;
+  }
+
+  /* Share bar */
+  .recipe-detail__share {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin: 0 0 1.8rem;
+    position: relative;
+  }
+  .recipe-detail__share-label {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.7rem;
+    color: #888;
+    letter-spacing: 0.1em;
+    margin-right: 0.4rem;
+  }
+  .recipe-detail__share-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    background: transparent;
+    border: 1px solid #d0ccc4;
+    color: #666;
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+  .recipe-detail__share-btn:hover {
+    background: #222;
+    border-color: #222;
+    color: #f0ece4;
+  }
+  .recipe-detail__share-btn--x:hover { background: #000; border-color: #000; }
+  .recipe-detail__share-btn--line:hover { background: #06c755; border-color: #06c755; }
+  .recipe-detail__share-btn svg {
+    width: 16px;
+    height: 16px;
+  }
+  .recipe-detail__share-toast {
+    position: absolute;
+    left: 0;
+    bottom: -2rem;
+    background: #222;
+    color: #f0ece4;
+    font-size: 0.7rem;
+    padding: 0.4em 0.9em;
+    letter-spacing: 0.05em;
+    opacity: 0;
+    transform: translateY(-4px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+  .recipe-detail__share-toast.is-visible {
+    opacity: 1;
+    transform: translateY(0);
   }
 
   .recipe-detail__tags {
@@ -732,27 +992,64 @@ function difficultyStars(d: number): string {
     border-color: #222;
   }
 
-  /* Section titles (common) */
+  /* Section titles (pattern-c trace: 大きな明朝見出し) */
   .recipe-detail__section-title {
     margin: 0;
     font-family: 'Shippori Mincho', serif;
-    font-size: clamp(1.3rem, 2.6vw, 1.8rem);
+    font-size: clamp(2.5rem, 5vw, 4rem);
     font-weight: 800;
     letter-spacing: 0.08em;
+    line-height: 1;
     color: #222;
   }
+  /* 章番号（一ノ巻等）は pattern-c トレースに合わせて非表示 */
 
-  /* Ingredients section (white bg) */
+  /* 巻物の軸（固定の縦軸・広画面のみ） */
+  .recipe-detail__shafts {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .recipe-detail__shaft {
+    position: fixed;
+    top: 110px;
+    bottom: 40px;
+    width: 10px;
+    background: linear-gradient(90deg, #2a1a0c 0%, #5a3818 50%, #2a1a0c 100%);
+    border-radius: 5px;
+    display: none;
+  }
+  .recipe-detail__shaft::before,
+  .recipe-detail__shaft::after {
+    content: '';
+    position: absolute;
+    left: -7px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 38% 38%, #8b5a30 0%, #5a3818 55%, #2a1a0c 100%);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+  }
+  .recipe-detail__shaft::before { top: -12px; }
+  .recipe-detail__shaft::after { bottom: -12px; }
+  .recipe-detail__shaft--left { left: calc(50% - 830px); }
+  .recipe-detail__shaft--right { right: calc(50% - 830px); }
+  @media (min-width: 1760px) {
+    .recipe-detail__shaft { display: block; }
+  }
+
+  /* Ingredients section (white bg) — pattern-c trace */
   .recipe-detail__ingredients {
     background: #fff;
-    padding: 4rem 5%;
+    padding: 5rem 5%;
   }
   .recipe-detail__ingredients-inner {
     max-width: 1000px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 260px 1fr;
-    gap: 3rem;
+    grid-template-columns: 280px 1fr;
+    gap: 4rem;
     align-items: start;
   }
   .recipe-detail__ingredients-head {
@@ -773,6 +1070,7 @@ function difficultyStars(d: number): string {
     display: inline-flex;
     align-items: center;
     gap: 0.6rem;
+    margin-top: 1rem;
     padding: 0.4rem 0.8rem;
     border: 1px solid #e0dcd4;
     font-size: 0.8rem;
@@ -917,11 +1215,11 @@ function difficultyStars(d: number): string {
     color: #a8a39a;
   }
 
-  /* Steps */
+  /* Steps — pattern-c trace */
   .recipe-detail__steps {
     max-width: 900px;
     margin: 0 auto;
-    padding: 4rem 5%;
+    padding: 5rem 5%;
   }
   .recipe-detail__steps-head {
     text-align: center;
@@ -1022,7 +1320,7 @@ function difficultyStars(d: number): string {
   .recipe-detail__episode-inner {
     position: relative;
     z-index: 1;
-    max-width: 760px;
+    max-width: 800px;
     margin: 0 auto;
   }
   .recipe-detail__episode-en {
@@ -1035,13 +1333,13 @@ function difficultyStars(d: number): string {
     text-align: center;
   }
   .recipe-detail__episode-title {
-    margin: 0 0 2rem;
+    margin: 0 0 2.5rem;
     font-family: 'Shippori Mincho', serif;
-    font-size: clamp(1.2rem, 2.4vw, 1.7rem);
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    color: #f0ece4;
-    text-align: center;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.35em;
+    color: rgba(240, 236, 228, 0.35);
+    text-align: left;
   }
   /* override existing global .episode-block white-box styling */
   .recipe-detail__episode :global(.episode-block) {
@@ -1050,12 +1348,27 @@ function difficultyStars(d: number): string {
     border: none;
     box-shadow: none;
   }
+  .recipe-detail__episode :global(.episode-block__lead) {
+    font-family: 'Shippori Mincho', serif;
+    font-size: clamp(1.3rem, 2.6vw, 1.9rem);
+    line-height: 1.8;
+    font-weight: 500;
+    color: #f0ece4;
+    text-align: center;
+    margin: 0 0 2.5rem;
+    letter-spacing: 0.04em;
+  }
+  .recipe-detail__episode :global(.episode-block__lead a) {
+    color: inherit;
+    border-bottom: 1px solid rgba(240, 236, 228, 0.4);
+  }
   .recipe-detail__episode :global(.episode-block__text) {
     font-family: 'Shippori Mincho', serif;
-    font-size: 0.92rem;
-    line-height: 2.4;
-    color: rgba(240, 236, 228, 0.82);
+    font-size: 0.88rem;
+    line-height: 2.6;
+    color: rgba(240, 236, 228, 0.55);
     margin: 0 0 1.5rem;
+    text-align: center;
   }
   .recipe-detail__episode :global(.episode-block__text strong) {
     color: #f0ece4;
@@ -1091,19 +1404,28 @@ function difficultyStars(d: number): string {
   .recipe-detail__background-inner {
     max-width: 760px;
     margin: 0 auto;
+    padding: 2.5rem 1rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    text-align: center;
+  }
+  .recipe-detail__background-title {
+    margin-bottom: 2rem;
+    font-size: clamp(1.2rem, 2.4vw, 1.6rem);
   }
   .recipe-detail__background :global(.background-block) {
-    margin-top: 1.4rem;
-    padding: 1.6rem 1.8rem;
-    background: #fff;
-    border-left: 3px solid #222;
+    margin-top: 0;
+    padding: 0;
+    background: transparent;
+    border: none;
+    text-align: center;
   }
   .recipe-detail__background :global(.background-block__text) {
     font-family: 'Shippori Mincho', serif;
-    font-size: 0.9rem;
-    line-height: 2.2;
+    font-size: 0.92rem;
+    line-height: 2.4;
     color: #555;
-    margin: 0 0 0.8rem;
+    margin: 0 0 1rem;
   }
   .recipe-detail__background :global(.background-block__text:last-child) {
     margin-bottom: 0;
@@ -1113,10 +1435,93 @@ function difficultyStars(d: number): string {
     font-weight: 700;
   }
 
-  /* Related recipes / similar */
+  /* ほかの食卓から（巻物風カード） — pattern-c trace */
+  .recipe-detail__others {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 5rem 5%;
+  }
+  .recipe-detail__others-head {
+    text-align: center;
+    margin-bottom: 2.8rem;
+  }
+  .recipe-detail__others-en {
+    margin: 0.3rem 0 0;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    color: #aaa;
+  }
+  .recipe-detail__others-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem 2.2rem;
+  }
+  .other-card {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+    transition: transform 0.25s ease;
+  }
+  .other-card:hover {
+    transform: translateY(-3px);
+  }
+  .other-card__visual {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    background: #ece4d4;
+  }
+  .other-card__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+  .other-card:hover .other-card__img {
+    transform: scale(1.04);
+  }
+  .other-card__kanban {
+    position: absolute;
+    top: 0.9rem;
+    left: 0.9rem;
+    z-index: 2;
+    background: #f5f0e6;
+    border: 1.5px solid #222;
+    padding: 0.6em 0.45em;
+    writing-mode: vertical-rl;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #222;
+    letter-spacing: 0.14em;
+    line-height: 1.2;
+    white-space: nowrap;
+    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.08);
+  }
+  .other-card__num {
+    display: block;
+    margin: 1rem 0 0.45rem;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    color: #999;
+  }
+  .other-card__caption {
+    margin: 0;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: #3a3530;
+  }
+
+  /* Related recipes / similar — pattern-c trace */
   .recipe-detail__related,
   .recipe-detail__related-articles {
-    max-width: 1100px;
+    max-width: 1000px;
     margin: 0 auto;
     padding: 3.5rem 5%;
   }
@@ -1229,7 +1634,7 @@ function difficultyStars(d: number): string {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 1.4rem;
-    max-width: 900px;
+    max-width: 1300px;
     margin: 0 auto;
   }
   .recipe-detail__related-articles :global(.related-article-card) {
@@ -1325,9 +1730,23 @@ function difficultyStars(d: number): string {
       grid-template-columns: repeat(2, 1fr);
       gap: 1rem;
     }
+    .recipe-detail__others-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem 1.2rem;
+    }
+    .other-card__caption {
+      font-size: 0.85rem;
+    }
   }
 
   @media (max-width: 640px) {
+    .recipe-detail__others-grid {
+      grid-template-columns: 1fr;
+      gap: 2.2rem;
+    }
+    .other-card__visual {
+      aspect-ratio: 4 / 3;
+    }
     .recipe-detail__hero-kanban {
       font-size: 0.92rem;
       top: 0.8rem;
@@ -1390,6 +1809,11 @@ function difficultyStars(d: number): string {
 
     .recipe-detail__episode {
       padding: 3.5rem 5%;
+    }
+    .recipe-detail__episode :global(.episode-block__lead) {
+      font-size: clamp(1.1rem, 5vw, 1.4rem);
+      line-height: 1.7;
+      margin-bottom: 2rem;
     }
     .recipe-detail__episode :global(.episode-block__text) {
       font-size: 0.88rem;

@@ -7,7 +7,6 @@ import { getAllRecipes } from '../data/recipes';
 const base = import.meta.env.BASE_URL;
 const all = getAllRecipes();
 
-// カテゴリグループ化（/recipes/index.astro と同じマッピング）
 const CATEGORY_GROUPS: Record<string, string[]> = {
   '汁物': ['汁物'],
   '主菜': ['主菜', '煮物', '揚げ物'],
@@ -23,11 +22,18 @@ function pickByTag(tag: string, n: number) {
     .sort((a: any, b: any) => (b.meta?.created_at ?? '').localeCompare(a.meta?.created_at ?? ''))
     .slice(0, n);
 }
-function pickByCategoryGroup(groupLabel: string, n: number) {
-  const cats = CATEGORY_GROUPS[groupLabel] ?? [groupLabel];
+function pickByCategories(cats: string[], n: number) {
   return all
     .filter((r: any) => cats.includes(r.category))
     .sort((a: any, b: any) => (b.meta?.created_at ?? '').localeCompare(a.meta?.created_at ?? ''))
+    .slice(0, n);
+}
+function pickByCategoryGroup(groupLabel: string, n: number) {
+  return pickByCategories(CATEGORY_GROUPS[groupLabel] ?? [groupLabel], n);
+}
+function pickRandom(n: number) {
+  return [...all]
+    .sort(() => Math.random() - 0.5)
     .slice(0, n);
 }
 
@@ -37,64 +43,102 @@ type Scene = {
   quote: string;
   desc: string;
   examples: string;
+  mystery?: boolean;
+  heroImg: string;
   filter: { tag?: string; category?: string };
   recipes: any[];
 };
 
+// ことこと系（煮物メイン）
+const kotokoto = pickByCategories(['煮物', '汁物', '佃煮・常備菜'], 3);
+// ちゃちゃっと系（主菜・副菜の短時間）
+const chachatto = pickByCategories(['主菜', '副菜', 'ご飯もの', '和え物・酢の物'], 3);
+// 保存・仕込み
+const hozon = pickByTag('保存食', 3);
+// ごちそう
+const gochiso = pickByTag('お正月', 3);
+// おやつ
+const oyatsu = pickByCategoryGroup('おやつ', 3);
+// 謎の一品（郷土料理から珍しいもの）
+const nazo = pickByTag('郷土料理', 3);
+// 思い出系（家庭料理）
+const omoide = pickByTag('家庭料理', 3);
+
+function firstImg(recipes: any[]): string {
+  return recipes.find((r: any) => r.photos?.main)?.photos?.main ?? '';
+}
+
 const scenes: Scene[] = [
   {
-    id: 'mainichi',
-    name: '毎日のごはん',
-    quote: '疲れて帰ってきた夜の一皿',
-    desc: '特別じゃない、いつもの日の食卓。\nおばあちゃんが毎日のように作ってきた、\n心と体を整える家庭の一品。',
-    examples: '味噌汁、煮物、常備菜',
-    filter: { tag: '日常のごはん' },
-    recipes: pickByTag('日常のごはん', 3),
+    id: 'kotokoto',
+    name: 'ことこと系',
+    quote: '時間が染みてる',
+    desc: '鍋の前で待つ時間が、味を深くする。\n煮物、佃煮、汁物——長く火にかけてる系のレシピ。\nせっかちな人にこそ、試してほしい。',
+    examples: '煮物、佃煮、汁物 ── 長く火にかけてる系',
+    heroImg: firstImg(kotokoto),
+    filter: { category: '煮物' },
+    recipes: kotokoto.length > 0 ? kotokoto : pickRandom(3),
+  },
+  {
+    id: 'chachatto',
+    name: 'ちゃちゃっと系',
+    quote: '名前ないけど、よく食卓に出るやつ',
+    desc: '冷蔵庫の残りで作る名もなき炒め物。\nレシピなんてない。その日あるもので、なんとかする。\nおばあちゃんの一番すごいところは、たぶんここ。',
+    examples: '冷蔵庫の残りで作る名もなき炒め物・和え物',
+    heroImg: firstImg(chachatto),
+    filter: { category: '主菜' },
+    recipes: chachatto.length > 0 ? chachatto : pickRandom(3),
   },
   {
     id: 'hozon',
-    name: '保存・仕込み',
+    name: '保存・仕込み系',
     quote: '未来の自分のための料理',
-    desc: '漬物、梅干し、佃煮、干しもの。\n今日作って、明日以降の自分を助ける料理。\nおばあちゃんの台所には、常にこういうものがあった。',
+    desc: '漬物、梅干し、味噌、干しもの。\n今日作って、明日以降の自分を助ける料理。\nおばあちゃんの台所には、常にこういうものがあった。',
     examples: '漬物、梅干し、味噌、干しもの',
+    heroImg: firstImg(hozon),
     filter: { tag: '保存食' },
-    recipes: pickByTag('保存食', 3),
+    recipes: hozon.length > 0 ? hozon : pickRandom(3),
   },
   {
     id: 'gochiso',
-    name: 'ごちそうの日',
+    name: 'ごちそうの日系',
     quote: '人が集まる日の味',
     desc: '正月、お盆、誰かの誕生日。\nおばあちゃんが気合を入れて作る日の料理。\n普段とはちょっと違う、特別な食卓。',
-    examples: '煮しめ、お赤飯、ちらし寿司',
+    examples: '天ぷら、ちらし寿司、お赤飯',
+    heroImg: firstImg(gochiso),
     filter: { tag: 'お正月' },
-    recipes: pickByTag('お正月', 3),
+    recipes: gochiso.length > 0 ? gochiso : pickRandom(3),
   },
   {
     id: 'oyatsu',
-    name: 'おやつ',
+    name: 'おやつ系',
     quote: '買うものじゃなくて、作るもの',
     desc: 'おばあちゃんのおやつは、いつも手作りだった。\n素朴で、甘すぎなくて、どこか懐かしい。\n「お菓子」じゃなくて「おやつ」。',
-    examples: 'おはぎ、いももち、寒天',
+    examples: '蒸しパン、大学芋、寒天',
+    heroImg: firstImg(oyatsu),
     filter: { category: 'おやつ' },
-    recipes: pickByCategoryGroup('おやつ', 3),
+    recipes: oyatsu.length > 0 ? oyatsu : pickRandom(3),
   },
   {
-    id: 'kyodo',
-    name: '郷土の一皿',
-    quote: 'その土地だけの、名前のある料理',
-    desc: '同じ日本なのに、県が変われば味もがらっと変わる。\n土地の食材、土地の気候、土地の知恵。\nその場所だけに伝わる一皿を集めました。',
-    examples: 'がめ煮、鯛めし、のっぺ',
-    filter: { tag: '郷土料理' },
-    recipes: pickByTag('郷土料理', 3),
-  },
-  {
-    id: 'katei',
-    name: '家庭の味',
-    quote: '料理じゃなくて、「シーン」で覚えている味',
+    id: 'omoide',
+    name: '思い出系',
+    quote: '料理じゃなくて、「シーン」で切る',
     desc: '風邪のとき、帰省の定番、朝ごはんの一品。\n料理名じゃなくて「あの場面」で思い出す味。\n食べると、あの頃に戻れる。',
-    examples: '肉じゃが、玉子焼き、卵とじ',
+    examples: '風邪のとき、帰省の定番、朝ごはんの一品',
+    heroImg: firstImg(omoide),
     filter: { tag: '家庭料理' },
-    recipes: pickByTag('家庭料理', 3),
+    recipes: omoide.length > 0 ? omoide : pickRandom(3),
+  },
+  {
+    id: 'nazo',
+    name: '謎の一品系',
+    quote: '「あの甘いやつ」「あの葉っぱのやつ」',
+    desc: '名前がない。家によって違う。レシピが存在しない。\nでも確かに食卓にあった、あの一品。\n「あれ何だったんだろう」がずっと頭にある人へ。',
+    examples: '名前がない。家によって違う。レシピが存在しない。',
+    mystery: true,
+    heroImg: firstImg(nazo),
+    filter: { tag: '郷土料理' },
+    recipes: nazo.length > 0 ? nazo : pickRandom(3),
   },
 ];
 
@@ -103,16 +147,11 @@ function sceneHref(s: Scene) {
   if (s.filter.category) return `${base}recipes/?category=${encodeURIComponent(s.filter.category)}`;
   return `${base}recipes/`;
 }
-function filterLabel(s: Scene) {
-  if (s.filter.tag) return `#${s.filter.tag}`;
-  if (s.filter.category) return s.filter.category;
-  return '';
-}
 ---
 
 <BaseLayout
-  title="シーンで探す｜今日の食卓のきっかけに | おばあちゃんのレシピ"
-  description="毎日のごはん、保存・仕込み、ごちそうの日…シーンごとに集めたおばあちゃんの手料理。タップ一つで該当レシピの絞り込みに飛べます。"
+  title="食卓の気分で選ぶ｜今日の食卓のきっかけに | おばあちゃんのレシピ"
+  description="ことこと煮物、ちゃちゃっと一品、保存仕込み、ごちそう、おやつ…気分でおばあちゃんの手料理を探す。"
   hasAlternate={false}
 >
   <Fragment slot="head">
@@ -121,7 +160,7 @@ function filterLabel(s: Scene) {
       "@type": "BreadcrumbList",
       "itemListElement": [
         { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://www.obaachan-recipe.com/" },
-        { "@type": "ListItem", "position": 2, "name": "シーンで探す" }
+        { "@type": "ListItem", "position": 2, "name": "食卓の気分で選ぶ" }
       ]
     })} />
   </Fragment>
@@ -130,72 +169,83 @@ function filterLabel(s: Scene) {
   <main class="scene-page">
     <!-- Hero -->
     <section class="scene-page__hero" aria-labelledby="scene-title">
-      <span class="scene-page__hero-bg" aria-hidden="true">場面</span>
-      <h1 class="scene-page__title" id="scene-title">シーンで探す</h1>
+      <span class="scene-page__hero-bg" aria-hidden="true">気分</span>
+      <h1 class="scene-page__title" id="scene-title">食卓の気分で選ぶ</h1>
       <p class="scene-page__lead">
-        料理名じゃなくて、「あの場面」でレシピを探す。<br />
-        シーンをタップすると、該当するレシピ一覧に飛びます。
+        「何を作ろう」じゃなくて、<br />
+        「あの感じのやつ」で探せたら。
       </p>
     </section>
 
-    <!-- Scene sections -->
     {scenes.map((s, si) => (
-      <section class="scene-section" id={s.id} aria-labelledby={`${s.id}-heading`}>
-        <header class="scene-section__header">
-          <span class="scene-section__num">#{String(si + 1).padStart(2, '0')}</span>
-          <h2 class="scene-section__name" id={`${s.id}-heading`}>{s.name}</h2>
-          <p class="scene-section__quote">{s.quote}</p>
-          <p class="scene-section__desc" set:html={s.desc.replace(/\n/g, '<br />')} />
-          <p class="scene-section__examples">例：{s.examples}</p>
-
-          <a
-            href={sceneHref(s)}
-            class="scene-section__cta"
-            data-cta="scene-select"
-            data-scene-id={s.id}
-            data-scene-filter={s.filter.tag || s.filter.category}
-          >「{s.name}」の一覧を見る →</a>
-        </header>
-
-        {s.recipes.length > 0 ? (
-          <div class="scene-section__recipes">
-            {s.recipes.map((r: any) => {
-              const prefecture = r.region?.prefecture || r.grandmother?.prefecture || '';
-              const grandma = r.grandmother?.name || '';
-              const family = grandma || (prefecture ? prefecture.replace(/[都府県]$/, '') + 'のおばあちゃん' : '誰か');
-              const familyLabel = /おばあちゃん$/.test(family) ? family : family + 'さん';
-              const imgUrl = r.photos?.main ? `${base}${r.photos.main}` : '';
-              return (
-                <a
-                  href={`${base}recipes/${r.id}/`}
-                  class="scene-card"
-                  data-cta="scene-card"
-                  data-recipe-id={r.id}
-                  data-scene-id={s.id}
-                >
-                  <div class="scene-card__img-wrap">
-                    <span class="scene-card__kanban">{r.title}</span>
-                    {imgUrl ? (
-                      <img src={imgUrl} alt={r.title} class="scene-card__img" loading="lazy" width="300" height="400" />
-                    ) : (
-                      <div class="scene-card__img scene-card__img--empty" aria-hidden="true"></div>
-                    )}
-                  </div>
-                  <div class="scene-card__caption">
-                    <span class="scene-card__region">{prefecture}</span>
-                    <p class="scene-card__title">{familyLabel}の食卓から</p>
-                  </div>
-                </a>
-              );
-            })}
+      <>
+        <section
+          class={`scene-section${s.mystery ? ' scene-section--mystery' : ''}`}
+          id={s.id}
+          aria-labelledby={`${s.id}-heading`}
+        >
+          <div class="scene-section__header">
+            <div class="scene-section__visual">
+              {s.heroImg ? (
+                <img src={`${base}${s.heroImg}`} alt="" loading="lazy" width="880" height="495" />
+              ) : (
+                <img src={`${base}assets/images/sample-placeholder.png.jpg`} alt="準備中" class="scene-section__visual-placeholder" loading="lazy" width="880" height="495" />
+              )}
+              <div class="scene-section__visual-overlay">
+                <h2 class="scene-section__name" id={`${s.id}-heading`}>{s.name}</h2>
+                <p class="scene-section__quote">{s.quote}</p>
+              </div>
+            </div>
+            <div class="scene-section__info">
+              <p class="scene-section__desc" set:html={s.desc.replace(/\n/g, '<br />')} />
+              <p class="scene-section__examples">{s.examples}</p>
+              <a
+                href={sceneHref(s)}
+                class="scene-section__cta"
+                data-cta="scene-select"
+                data-scene-id={s.id}
+              >「{s.name}」の一覧を見る →</a>
+            </div>
           </div>
-        ) : (
-          <div class="scene-section__empty">
-            <p>このシーンに該当するレシピがまだ集まっていません。</p>
-            <a href={`${base}recipes/`} class="scene-section__empty-link">レシピ一覧を見る →</a>
-          </div>
-        )}
-      </section>
+
+          {s.recipes.length > 0 && (
+            <div class="scene-recipes">
+              {s.recipes.map((r: any) => {
+                const prefecture = r.region?.prefecture || r.grandmother?.prefecture || '';
+                const grandma = r.grandmother?.name || '';
+                const family = grandma || (prefecture ? prefecture.replace(/[都府県]$/, '') + 'のおばあちゃん' : '誰か');
+                const familyLabel = /おばあちゃん$/.test(family) ? family : family + 'さん';
+                const imgUrl = r.photos?.main ? `${base}${r.photos.main}` : '';
+                return (
+                  <a
+                    href={`${base}recipes/${r.id}/`}
+                    class="scene-card"
+                    data-cta="scene-card"
+                    data-recipe-id={r.id}
+                    data-recipe-name={r.title}
+                    data-region={prefecture}
+                    data-scene-id={s.id}
+                  >
+                    <div class="scene-card__img-wrap">
+                      <span class="scene-card__kanban">{r.title}</span>
+                      {imgUrl ? (
+                        <img src={imgUrl} alt={r.title} class="scene-card__img" loading="lazy" width="400" height="300" />
+                      ) : (
+                        <img src={`${base}assets/images/sample-placeholder.png.jpg`} alt="準備中" class="scene-card__img scene-card__img--empty" loading="lazy" width="400" height="300" />
+                      )}
+                    </div>
+                    <div class="scene-card__caption">
+                      <span class="scene-card__region">{prefecture}</span>
+                      <p class="scene-card__title">{familyLabel}の食卓から</p>
+                    </div>
+                  </a>
+                );
+              })}
+            </div>
+          )}
+        </section>
+        {si < scenes.length - 1 && <div class="scene-divider" aria-hidden="true"></div>}
+      </>
     ))}
   </main>
 
@@ -212,270 +262,219 @@ function filterLabel(s: Scene) {
 
   /* Hero */
   .scene-page__hero {
+    padding: 5rem 5% 3rem;
+    text-align: center;
     position: relative;
     overflow: hidden;
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 3.5rem 5% 2rem;
-    text-align: center;
   }
   .scene-page__hero-bg {
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 50%; left: 50%;
     transform: translate(-50%, -50%);
     font-family: 'Shippori Mincho', serif;
-    font-size: clamp(7rem, 20vw, 15rem);
+    font-size: clamp(8rem, 22vw, 18rem);
     font-weight: 800;
-    color: rgba(0, 0, 0, 0.035);
+    color: rgba(0,0,0,0.025);
     pointer-events: none;
     user-select: none;
-    line-height: 1;
-    z-index: 0;
-    white-space: nowrap;
   }
   .scene-page__title {
-    position: relative;
-    z-index: 1;
-    margin: 0;
     font-family: 'Shippori Mincho', serif;
-    font-size: clamp(1.9rem, 4vw, 2.8rem);
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
     font-weight: 800;
     letter-spacing: 0.08em;
+    position: relative;
+    margin: 0 0 1rem;
   }
   .scene-page__lead {
-    position: relative;
-    z-index: 1;
-    margin: 0.8rem auto 0;
-    max-width: 560px;
     font-family: 'Shippori Mincho', serif;
     font-size: 0.88rem;
+    color: #888;
     line-height: 2;
-    color: #777;
+    position: relative;
+    margin: 0;
   }
 
   /* Scene section */
   .scene-section {
     max-width: 1100px;
     margin: 0 auto;
-    padding: 3rem 5%;
+    padding: 3rem 5% 2rem;
+    scroll-margin-top: 80px;
   }
-  .scene-section + .scene-section {
-    padding-top: 2rem;
-    border-top: 1px dashed #c9c2b4;
-  }
-
   .scene-section__header {
-    max-width: 640px;
-    margin: 0 auto 2rem;
-    text-align: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: end;
+    margin-bottom: 2.5rem;
   }
-  .scene-section__num {
-    display: inline-block;
-    margin-bottom: 0.4rem;
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    font-size: 0.78rem;
-    letter-spacing: 0.2em;
-    color: #aaa;
+  .scene-section__visual {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+    background: #d9d4ca;
+  }
+  .scene-section__visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .scene-section__visual-placeholder {
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(45deg, #d9d4ca, #d9d4ca 8px, #c9c4ba 8px, #c9c4ba 16px);
+  }
+  .scene-section__visual-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.05) 50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1.5rem;
   }
   .scene-section__name {
-    margin: 0 0 0.5rem;
     font-family: 'Shippori Mincho', serif;
-    font-size: clamp(1.5rem, 3vw, 2.1rem);
-    font-weight: 800;
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    font-weight: 700;
+    color: #fff;
     letter-spacing: 0.08em;
-    color: #222;
+    margin: 0;
   }
   .scene-section__quote {
-    margin: 0 0 1.2rem;
     font-family: 'Shippori Mincho', serif;
-    font-size: 0.92rem;
-    color: #888;
-    letter-spacing: 0.04em;
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.7);
+    margin: 0.3rem 0 0;
+  }
+  .scene-section__info {
+    padding-bottom: 1rem;
   }
   .scene-section__desc {
-    margin: 0 0 0.8rem;
     font-family: 'Shippori Mincho', serif;
-    font-size: 0.86rem;
-    line-height: 2;
+    font-size: 0.88rem;
     color: #666;
+    line-height: 2.2;
+    margin: 0 0 1.2rem;
   }
   .scene-section__examples {
-    margin: 0 0 1.4rem;
-    font-size: 0.72rem;
+    font-size: 0.75rem;
     color: #aaa;
-    letter-spacing: 0.08em;
+    line-height: 1.9;
+    margin: 0 0 1rem;
   }
   .scene-section__cta {
     display: inline-block;
-    padding: 0.8rem 1.8rem;
-    min-height: 44px;
-    font-family: 'Shippori Mincho', serif;
-    font-size: 0.84rem;
-    font-weight: 600;
+    font-size: 0.72rem;
     letter-spacing: 0.08em;
     color: #222;
-    background: transparent;
-    border: 1.5px solid #222;
+    border-bottom: 1px solid #222;
+    padding-bottom: 2px;
     text-decoration: none;
-    transition: background 0.25s ease, color 0.25s ease;
+    transition: opacity 0.3s;
   }
-  .scene-section__cta:hover {
-    background: #222;
-    color: #f0ece4;
-  }
-  .scene-section__cta:focus-visible {
-    outline: 2px solid #222;
-    outline-offset: 3px;
-  }
+  .scene-section__cta:hover { opacity: 0.5; }
 
-  .scene-section__recipes {
+  /* Recipe cards */
+  .scene-recipes {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1.8rem;
-    max-width: 900px;
-    margin: 0 auto;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
   }
-
-  /* Scene card */
   .scene-card {
+    transition: transform 0.4s;
     color: inherit;
     text-decoration: none;
-    transition: transform 0.3s ease;
     display: block;
   }
   .scene-card:hover { transform: translateY(-4px); }
-  .scene-card:focus-visible {
-    outline: 2px solid #222;
-    outline-offset: 3px;
-  }
   .scene-card__img-wrap {
     position: relative;
     overflow: visible;
   }
   .scene-card__img {
     width: 100%;
-    aspect-ratio: 3 / 4;
+    aspect-ratio: 4 / 3;
     object-fit: cover;
     display: block;
     border: 1.5px solid #222;
-    background: #f5f2ec;
+    background: #d9d4ca;
   }
   .scene-card__img--empty {
-    background: linear-gradient(135deg, #f5f2ec, #e8e4dc);
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    background: repeating-linear-gradient(45deg, #d9d4ca, #d9d4ca 6px, #c9c4ba 6px, #c9c4ba 12px);
+    border: 1.5px solid #222;
   }
   .scene-card__kanban {
     position: absolute;
     top: -6px;
-    left: -0.6rem;
+    left: -0.8rem;
     z-index: 3;
-    padding: 0.45em 0.38em;
     background: #f5f0e6;
     border: 2px solid #222;
+    padding: 0.4em 0.4em;
     writing-mode: vertical-rl;
     font-family: 'Shippori Mincho', serif;
-    font-size: 0.82rem;
+    font-size: 0.8rem;
     font-weight: 700;
-    letter-spacing: 0.15em;
+    color: #222;
+    letter-spacing: 0.12em;
     line-height: 1;
     white-space: nowrap;
-    box-shadow: 2px 3px 0 rgba(0, 0, 0, 0.1);
-    max-height: 70%;
+    box-shadow: 2px 3px 0 rgba(0,0,0,0.1);
+    max-height: 80%;
     overflow: hidden;
-    text-overflow: ellipsis;
   }
   .scene-card__caption {
     padding: 0.6rem 0 0 1rem;
-    text-align: left;
   }
   .scene-card__region {
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    font-size: 0.62rem;
-    color: #aaa;
-    letter-spacing: 0.12em;
+    font-size: 0.58rem;
+    color: #bbb;
+    letter-spacing: 0.1em;
   }
   .scene-card__title {
-    margin: 0.2rem 0 0;
     font-family: 'Shippori Mincho', serif;
-    font-size: 0.82rem;
+    font-size: 0.78rem;
     font-weight: 600;
+    margin: 0.15rem 0 0;
     letter-spacing: 0.03em;
     line-height: 1.6;
-    color: #222;
   }
 
-  /* Empty */
-  .scene-section__empty {
-    max-width: 520px;
+  /* Divider */
+  .scene-divider {
+    max-width: 1100px;
     margin: 0 auto;
-    padding: 1.5rem;
-    background: #fff;
-    border: 1px solid #e0dcd4;
-    text-align: center;
-  }
-  .scene-section__empty p {
-    margin: 0 0 0.8rem;
-    font-family: 'Shippori Mincho', serif;
-    font-size: 0.88rem;
-    color: #777;
-  }
-  .scene-section__empty-link {
-    color: #222;
-    font-family: 'Shippori Mincho', serif;
-    font-size: 0.82rem;
-    letter-spacing: 0.08em;
-    text-decoration: underline;
-    text-underline-offset: 3px;
+    height: 1px;
+    background: #ddd;
   }
 
-  /* Responsive */
-  @media (max-width: 900px) {
-    .scene-section__recipes {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.2rem;
-      max-width: 600px;
-    }
+  /* Mystery scene variant */
+  .scene-section--mystery .scene-section__visual {
+    background: #222;
+  }
+  .scene-section--mystery .scene-section__visual img {
+    opacity: 0.35;
+    mix-blend-mode: luminosity;
+  }
+  .scene-section--mystery .scene-section__name {
+    font-style: italic;
   }
 
-  @media (max-width: 540px) {
-    .scene-page__hero {
-      padding: 2.5rem 5% 1.5rem;
-    }
-    .scene-section {
-      padding: 2.5rem 5%;
-    }
-    .scene-section__desc {
-      font-size: 0.82rem;
-      line-height: 1.9;
-    }
-    .scene-section__desc br { display: none; }
-    .scene-section__cta {
-      font-size: 0.78rem;
-      padding: 0.85rem 1.4rem;
-      width: 100%;
-      max-width: 280px;
-      text-align: center;
-    }
-    .scene-section__recipes {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1rem;
-    }
-    .scene-card__kanban {
-      font-size: 0.72rem;
-      left: -0.4rem;
-    }
-    .scene-card__title {
-      font-size: 0.76rem;
-    }
-  }
-
-  @media (max-width: 380px) {
-    .scene-section__recipes {
+  @media (max-width: 768px) {
+    .scene-section__header {
       grid-template-columns: 1fr;
-      max-width: 280px;
-      margin: 0 auto;
+      gap: 1.2rem;
+    }
+    .scene-recipes {
+      grid-template-columns: 1fr;
+      max-width: 350px;
+      margin: 0 auto 1.5rem;
     }
   }
 </style>

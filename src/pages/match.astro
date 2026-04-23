@@ -103,7 +103,7 @@ const questions = [
           ) : (
             <p class="match-page__empty" role="status">
               レシピデータがまだ揃っていません。<br />
-              <a href={`${base}recipes/`}>レシピ一覧へ</a>
+              <a href={`${base}recipes/`}>食卓一覧へ</a>
             </p>
           )}
         </section>
@@ -134,7 +134,7 @@ const questions = [
           <div class="match-page__result-cards" id="match-result-cards"></div>
           <div class="match-page__result-fallback" id="match-result-fallback" style="display:none">
             <p>ぴったりの食卓が見つかりませんでした。</p>
-            <a href={`${base}recipes/`} class="match-page__btn match-page__btn--secondary">レシピ一覧を見る →</a>
+            <a href={`${base}recipes/`} class="match-page__btn match-page__btn--secondary">食卓一覧を見る →</a>
           </div>
           <div class="match-page__result-actions">
             <button type="button" class="match-page__btn match-page__btn--secondary" id="match-retry" data-cta="match-retry">もう一度診断する</button>

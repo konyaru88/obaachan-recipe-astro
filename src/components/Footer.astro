@@ -13,7 +13,6 @@ const recipesPath = localePath(lang, `${base}recipes/`);
 const regionsPath = localePath(lang, `${base}regions/`);
 const articlesPath = localePath(lang, `${base}articles/`);
 const contactPath = localePath(lang, `${base}contact/`);
-const supportPath = localePath(lang, `${base}support/`);
 const privacyPath = localePath(lang, `${base}privacy/`);
 ---
 
@@ -25,7 +24,7 @@ const privacyPath = localePath(lang, `${base}privacy/`);
         <span class="pc-footer__logo-text">{t(lang, 'site.name')}</span>
       </a>
       <p class="pc-footer__tagline">{t(lang, 'site.tagline')}</p>
-      <p class="pc-footer__brand-en"><em>OBAACHAN</em> collection</p>
+      <p class="pc-footer__brand-en">obaachan collection</p>
     </div>
 
     <nav class="pc-footer__col" aria-label={lang === 'en' ? 'Footer navigation' : 'フッターナビゲーション'}>
@@ -48,10 +47,6 @@ const privacyPath = localePath(lang, `${base}privacy/`);
       </ul>
     </div>
 
-    <div class="pc-footer__col">
-      <p class="pc-footer__heading">{t(lang, 'footer.support')}</p>
-      <a href={supportPath} class="pc-footer__cta" data-cta="footer-support">{t(lang, 'footer.support.link')}</a>
-    </div>
   </div>
 
   <div class="pc-footer__bottom">
@@ -75,7 +70,7 @@ const privacyPath = localePath(lang, `${base}privacy/`);
     max-width: 1180px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 1.6fr 1fr 1fr 1fr;
+    grid-template-columns: 1.6fr 1fr 1fr;
     gap: 2.5rem;
     align-items: start;
   }
@@ -109,14 +104,12 @@ const privacyPath = localePath(lang, `${base}privacy/`);
   }
   .pc-footer__brand-en {
     margin: 0;
-    color: #5a5651;
-    font-size: 0.7rem;
-    letter-spacing: 0.18em;
-  }
-  .pc-footer__brand-en em {
-    font-style: italic;
+    color: #7a7a7a;
     font-family: 'Playfair Display', serif;
-    color: #c0bcb4;
+    font-style: italic;
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.04em;
   }
 
   /* Columns */

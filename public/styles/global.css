@@ -66,7 +66,7 @@ html {
 
 body {
   background-color: var(--color-bg-base);
-  background-image: url('/assets/images/textures/plaster-noise.png');
+  background-image: url('/assets/images/textures/plaster-noise.webp');
   background-repeat: repeat;
   font-family: var(--font-sans);
   color: var(--color-text-primary);

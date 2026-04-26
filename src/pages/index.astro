@@ -174,7 +174,7 @@ const featureCards = [
                   role="group"
                   aria-roledescription="slide"
                 >
-                  <img src={`${base}${s.img}`} alt={s.title} loading={i === 0 ? 'eager' : 'lazy'} width="640" height="854" />
+                  <img src={`${base}${s.img}`} alt={s.title} loading={i === 0 ? 'eager' : 'lazy'} fetchpriority={i === 0 ? 'high' : 'auto'} width="640" height="854" />
                 </a>
               ))}
             </div>

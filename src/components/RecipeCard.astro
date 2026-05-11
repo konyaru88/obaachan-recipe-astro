@@ -37,6 +37,7 @@ const altPlaceholder = lang === 'en' ? 'Coming soon' : '準備中';
       }
       <div class="recipe-card__badges"></div>
       {prefecture && <span class="recipe-card__region-badge">{prefecture}</span>}
+      {imageUrl && <span class="recipe-card__image-note">{lang === 'en' ? '* Photo is for reference' : '※写真はイメージです'}</span>}
     </div>
     <div class="recipe-card__body">
       <h3 class="recipe-card__title">{displayTitle}</h3>

@@ -274,7 +274,7 @@ function difficultyStars(d: number): string {
 ---
 
 <BaseLayout title={pageTitle} description={description} ogImage={ogImage} ogType="article">
-  <script type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
+  {recipeImageUrl && <script type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />}
   <script type="application/ld+json" slot="head" set:html={JSON.stringify(breadcrumbLd)} />
 
   <Header />
@@ -321,6 +321,7 @@ function difficultyStars(d: number): string {
             height="800"
           />
         )}
+        {imageUrl && <span class="recipe-detail__hero-img-note">※写真はイメージです</span>}
       </div>
 
       <div class="recipe-detail__hero-info">
@@ -539,6 +540,7 @@ function difficultyStars(d: number): string {
                   ) : (
                     <img class="other-card__img" src={`${base}assets/images/sample-placeholder.png.jpg`} alt="準備中" loading="lazy" />
                   )}
+                  {rImg && <span class="other-card__img-note">※写真はイメージです</span>}
                 </div>
                 <span class="other-card__num">#{rNum}{rPref ? ` — ${rPref}` : ''}</span>
                 <p class="other-card__caption">{caption}</p>
@@ -797,6 +799,20 @@ function difficultyStars(d: number): string {
     line-height: 1;
     white-space: nowrap;
     box-shadow: 2px 3px 0 rgba(0, 0, 0, 0.1);
+  }
+  .recipe-detail__hero-img-note {
+    position: absolute;
+    right: 0.5rem;
+    bottom: 0.5rem;
+    z-index: 2;
+    background: rgba(0, 0, 0, 0.28);
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+    padding: 0.2em 0.55em;
+    border-radius: 2px;
+    line-height: 1.4;
+    pointer-events: none;
   }
 
   /* Hero info */
@@ -1500,6 +1516,20 @@ function difficultyStars(d: number): string {
     line-height: 1.2;
     white-space: nowrap;
     box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.08);
+  }
+  .other-card__img-note {
+    position: absolute;
+    right: 0.4rem;
+    bottom: 0.4rem;
+    z-index: 2;
+    background: rgba(0, 0, 0, 0.28);
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 0.6rem;
+    letter-spacing: 0.03em;
+    padding: 1px 6px;
+    border-radius: 2px;
+    line-height: 1.4;
+    pointer-events: none;
   }
   .other-card__num {
     display: block;

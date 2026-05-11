@@ -72,6 +72,7 @@ function buildRecipeCardHtml(recipeId: string): string {
         <div class="recipe-card__thumb${imageUrl ? '' : ' recipe-card__image-placeholder'}">
           ${imgHtml}
           ${prefecture ? `<span class="recipe-card__region-badge">${prefecture}</span>` : ''}
+          ${imageUrl ? `<span class="recipe-card__image-note">* Photo is for reference</span>` : ''}
         </div>
         <div class="recipe-card__body">
           <h3 class="recipe-card__title">${recipe.title}</h3>

@@ -1238,6 +1238,20 @@ input, textarea, select {
   border-radius: 100px;
 }
 
+.recipe-card__image-note {
+  position: absolute;
+  bottom: var(--space-xs);
+  right: var(--space-xs);
+  background: rgba(0,0,0,0.28);
+  color: rgba(255,255,255,0.82);
+  font-size: 0.6rem;
+  letter-spacing: 0.03em;
+  padding: 1px 6px;
+  border-radius: 2px;
+  line-height: 1.4;
+  pointer-events: none;
+}
+
 .recipe-card__tag {
   display: inline-block;
   font-size: 0.7rem;

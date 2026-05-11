@@ -175,6 +175,7 @@ const featureCards = [
                   aria-roledescription="slide"
                 >
                   <img src={`${base}${s.img}`} alt={s.title} loading={i === 0 ? 'eager' : 'lazy'} fetchpriority={i === 0 ? 'high' : 'auto'} width="640" height="854" />
+                  <span class="home-hero__slide-note">※写真はイメージです</span>
                 </a>
               ))}
             </div>
@@ -229,6 +230,7 @@ const featureCards = [
               <img src={`${base}${c.img}`} alt={c.title} class="home-table-card__img" loading="lazy" width="640" height="854" />
               <span class="home-table-card__kanban">{c.kanban}</span>
               <span class="home-table-card__num">{c.num}</span>
+              <span class="home-table-card__note">※写真はイメージです</span>
             </div>
             <div class="home-table-card__caption">
               <span class="home-table-card__tag">{c.tag}</span>
@@ -550,12 +552,27 @@ const featureCards = [
   .home-hero__slide {
     min-width: 100%;
     display: block;
+    position: relative;
   }
   .home-hero__slide img {
     width: 100%;
     display: block;
     aspect-ratio: 3/4;
     object-fit: cover;
+  }
+  .home-hero__slide-note {
+    position: absolute;
+    right: 0.5rem;
+    bottom: 0.5rem;
+    z-index: 2;
+    background: rgba(0, 0, 0, 0.28);
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 0.68rem;
+    letter-spacing: 0.03em;
+    padding: 2px 7px;
+    border-radius: 2px;
+    line-height: 1.4;
+    pointer-events: none;
   }
   .home-hero__dots {
     display: flex;
@@ -654,6 +671,20 @@ const featureCards = [
     object-fit: cover;
     display: block;
     border: 1.5px solid #222;
+  }
+  .home-table-card__note {
+    position: absolute;
+    right: 0.4rem;
+    bottom: 0.4rem;
+    z-index: 2;
+    background: rgba(0, 0, 0, 0.28);
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 0.6rem;
+    letter-spacing: 0.03em;
+    padding: 1px 6px;
+    border-radius: 2px;
+    line-height: 1.4;
+    pointer-events: none;
   }
   .home-table-card__kanban {
     position: absolute;

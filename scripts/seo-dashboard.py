@@ -340,7 +340,18 @@ def main():
 
     daily_ga = ga4_daily(ga, HISTORY_START, yesterday)
     daily_ch = ga4_daily_channels(ga, HISTORY_START, yesterday)
-    daily_sc = sc_daily(sc, HISTORY_START, yesterday)
+
+    # Search Console は補助データ。取得できなくても GA4 だけで続行する
+    sc_status = "OK"
+    try:
+        daily_sc = sc_daily(sc, HISTORY_START, yesterday)
+        query_top = sc_top(sc, snap_start, yesterday, "query")
+        sc_page_top = sc_top(sc, snap_start, yesterday, "page")
+    except Exception as e:
+        sc_status = f"未接続({type(e).__name__})"
+        print(f"[警告] Search Console を取得できませんでした。GA4のみで続行します: {e}")
+        daily_sc, query_top, sc_page_top = {}, [], []
+
     daily_rows, weekly_rows, monthly_rows = build_timeseries(daily_ga, daily_ch, daily_sc)
 
     top_pages = ga4_top_pages(ga, snap_start, yesterday)
@@ -353,8 +364,8 @@ def main():
         [i + 1, p["path"], p["title"], p["pv"], p["users"], p["avg"]]
         for i, p in enumerate(top_pages[:30])
     ]
-    query_rows = [[i + 1] + r for i, r in enumerate(sc_top(sc, snap_start, yesterday, "query"))]
-    sc_page_rows = [[i + 1] + r for i, r in enumerate(sc_top(sc, snap_start, yesterday, "page"))]
+    query_rows = [[i + 1] + r for i, r in enumerate(query_top)]
+    sc_page_rows = [[i + 1] + r for i, r in enumerate(sc_page_top)]
     channel_rows = ga4_channels(ga, snap_start, yesterday)
     event_rows = ga4_events(ga, snap_start, yesterday)
 
@@ -378,6 +389,7 @@ def main():
         ["集計対象開始", HISTORY_START],
         ["集計対象終了", yesterday],
         ["スナップショット期間", f"直近{SNAPSHOT_DAYS}日"],
+        ["Search Console", sc_status],
         ["注記", "Weekly/Monthlyのユーザーは日次合計(延べ)。ユニークではない"],
     ], existing)
 
